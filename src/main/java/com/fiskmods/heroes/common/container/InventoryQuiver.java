@@ -8,24 +8,24 @@ import com.fiskmods.heroes.util.FiskServerUtils;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.ReportedException;
 import net.minecraftforge.common.util.Constants.NBT;
 
 public class InventoryQuiver implements IInventory
 {
-    public final EntityPlayer thePlayer;
+    public final PlayerEntity thePlayer;
     public final ItemStack quiverItem;
     public final int itemSlot;
 
     private ItemStack[] itemstacks = new ItemStack[5];
 
-    private InventoryQuiver(EntityPlayer player, ItemStack itemstack, int slot)
+    private InventoryQuiver(PlayerEntity player, ItemStack itemstack, int slot)
     {
         thePlayer = player;
         quiverItem = itemstack;
@@ -35,21 +35,21 @@ public class InventoryQuiver implements IInventory
 
         if (itemstack != null)
         {
-            if (!itemstack.hasTagCompound())
+            if (!itemstack.hasTag())
             {
-                itemstack.setTagCompound(new NBTTagCompound());
+                itemstack.setTag(new CompoundNBT());
             }
 
-            readFromNBT(itemstack.getTagCompound());
+            readFromNBT(itemstack.getTag());
         }
     }
 
-    public InventoryQuiver(EntityPlayer player, ItemStack itemstack)
+    public InventoryQuiver(PlayerEntity player, ItemStack itemstack)
     {
         this(player, itemstack, -1);
     }
 
-    public InventoryQuiver(EntityPlayer player, int slot)
+    public InventoryQuiver(PlayerEntity player, int slot)
     {
         this(player, null, slot);
     }
@@ -174,7 +174,7 @@ public class InventoryQuiver implements IInventory
                 CrashReport crash = CrashReport.makeCrashReport(throwable, "Adding item to quiver");
                 CrashReportCategory category = crash.makeCategory("Item being added");
                 category.addCrashSection("Item ID", Item.getIdFromItem(itemstack.getItem()));
-                category.addCrashSection("Item data", itemstack.getItemDamage());
+                category.addCrashSection("Item data", itemstack.getDamage());
                 category.addCrashSectionCallable("Item name", () -> itemstack.getDisplayName());
                 throw new ReportedException(crash);
             }
@@ -233,11 +233,11 @@ public class InventoryQuiver implements IInventory
 
         if (itemstacks[slot] == null)
         {
-            itemstacks[slot] = new ItemStack(item, 0, itemstack.getItemDamage());
+            itemstacks[slot] = new ItemStack(item, 0, itemstack.getDamage());
 
-            if (itemstack.hasTagCompound())
+            if (itemstack.hasTag())
             {
-                itemstacks[slot].setTagCompound((NBTTagCompound) itemstack.getTagCompound().copy());
+                itemstacks[slot].setTag((CompoundNBT) itemstack.getTag().copy());
             }
         }
 
@@ -268,7 +268,7 @@ public class InventoryQuiver implements IInventory
     {
         for (int i = 0; i < itemstacks.length; ++i)
         {
-            if (itemstacks[i] != null && itemstacks[i].getItem() == itemstack.getItem() && itemstacks[i].isStackable() && itemstacks[i].stackSize < itemstacks[i].getMaxStackSize() && itemstacks[i].stackSize < getInventoryStackLimit() && (!itemstacks[i].getHasSubtypes() || itemstacks[i].getItemDamage() == itemstack.getItemDamage()) && ItemStack.areItemStackTagsEqual(itemstacks[i], itemstack))
+            if (itemstacks[i] != null && itemstacks[i].getItem() == itemstack.getItem() && itemstacks[i].isStackable() && itemstacks[i].stackSize < itemstacks[i].getMaxStackSize() && itemstacks[i].stackSize < getInventoryStackLimit() && (!itemstacks[i].getHasSubtypes() || itemstacks[i].getDamage() == itemstack.getDamage()) && ItemStack.areItemStackTagsEqual(itemstacks[i], itemstack))
             {
                 return i;
             }
@@ -277,7 +277,7 @@ public class InventoryQuiver implements IInventory
         return -1;
     }
 
-    public void readFromNBT(NBTTagCompound nbt)
+    public void readFromNBT(CompoundNBT nbt)
     {
         NBTTagList nbttaglist = nbt.getTagList("Slots", NBT.TAG_COMPOUND);
         boolean flag = false;
@@ -288,7 +288,7 @@ public class InventoryQuiver implements IInventory
         {
             if (nbt.hasKey("ext" + i, NBT.TAG_COMPOUND))
             {
-                NBTTagCompound tag = nbt.getCompoundTag("ext" + i);
+                CompoundNBT tag = nbt.getCompoundTag("ext" + i);
                 tag.setByte("Slot", (byte) i);
 
                 nbttaglist.appendTag(tag);
@@ -299,7 +299,7 @@ public class InventoryQuiver implements IInventory
 
         for (int i = 0; i < Math.min(nbttaglist.tagCount(), getSizeInventory()); ++i)
         {
-            NBTTagCompound tag = nbttaglist.getCompoundTagAt(i);
+            CompoundNBT tag = nbttaglist.getCompoundTagAt(i);
             itemstacks[tag.getByte("Slot")] = ItemStack.loadItemStackFromNBT(tag);
         }
 
@@ -309,7 +309,7 @@ public class InventoryQuiver implements IInventory
         }
     }
 
-    public NBTTagCompound writeToNBT(NBTTagCompound nbt)
+    public CompoundNBT writeToNBT(CompoundNBT nbt)
     {
         NBTTagList nbttaglist = new NBTTagList();
 
@@ -317,7 +317,7 @@ public class InventoryQuiver implements IInventory
         {
             if (itemstacks[i] != null)
             {
-                NBTTagCompound tag = itemstacks[i].writeToNBT(new NBTTagCompound());
+                CompoundNBT tag = itemstacks[i].writeToNBT(new CompoundNBT());
                 tag.setByte("Slot", (byte) i);
 
                 nbttaglist.appendTag(tag);
@@ -414,14 +414,14 @@ public class InventoryQuiver implements IInventory
     {
         ItemStack quiver = getQuiverItem();
 
-        if (quiver != null && !thePlayer.worldObj.isRemote)
+        if (quiver != null && !thePlayer.world.isRemote)
         {
-            writeToNBT(quiver.getTagCompound());
+            writeToNBT(quiver.getTag());
         }
     }
 
     @Override
-    public boolean isUseableByPlayer(EntityPlayer player)
+    public boolean isUseableByPlayer(PlayerEntity player)
     {
         if (quiverItem == null)
         {

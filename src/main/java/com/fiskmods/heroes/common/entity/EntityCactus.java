@@ -12,7 +12,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.command.IEntitySelector;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackOnCollide;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
@@ -25,10 +25,10 @@ import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.monster.EntityGolem;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.passive.EntityAnimal;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
@@ -45,10 +45,10 @@ public class EntityCactus extends EntityGolem implements IEntitySelector
         tasks.addTask(2, new EntityAIMoveTowardsTarget(this, 0.9, 32));
         tasks.addTask(4, new EntityAIMoveTowardsRestriction(this, 1));
         tasks.addTask(6, new EntityAIWander(this, 0.6));
-        tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 6));
+        tasks.addTask(7, new EntityAIWatchClosest(this, PlayerEntity.class, 6));
         tasks.addTask(8, new EntityAILookIdle(this));
         targetTasks.addTask(2, new EntityAIHurtByTarget(this, false));
-        targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityLivingBase.class, 0, false, true, this));
+        targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, LivingEntity.class, 0, false, true, this));
         setCactusSize(1 + rand.nextInt(3));
     }
 
@@ -71,7 +71,7 @@ public class EntityCactus extends EntityGolem implements IEntitySelector
     @Override
     public boolean isEntityApplicable(Entity entity)
     {
-        if (!(entity instanceof EntityLivingBase))
+        if (!(entity instanceof LivingEntity))
         {
             return false;
         }
@@ -79,11 +79,11 @@ public class EntityCactus extends EntityGolem implements IEntitySelector
         {
             return false;
         }
-        else if (entity instanceof EntityPlayer && ((EntityPlayer) entity).capabilities.isCreativeMode)
+        else if (entity instanceof PlayerEntity && ((PlayerEntity) entity).capabilities.isCreativeMode)
         {
             return false;
         }
-        else if (SHHelper.hasEnabledModifier((EntityLivingBase) entity, Ability.CACTUS_PHYSIOLOGY))
+        else if (SHHelper.hasEnabledModifier((LivingEntity) entity, Ability.CACTUS_PHYSIOLOGY))
         {
             return false;
         }
@@ -106,9 +106,9 @@ public class EntityCactus extends EntityGolem implements IEntitySelector
     @Override
     protected void collideWithEntity(Entity entity)
     {
-        if (entity instanceof EntityLivingBase && isEntityApplicable(entity) && rand.nextInt(20) == 0)
+        if (entity instanceof LivingEntity && isEntityApplicable(entity) && rand.nextInt(20) == 0)
         {
-            setAttackTarget((EntityLivingBase) entity);
+            setAttackTarget((LivingEntity) entity);
         }
 
         super.collideWithEntity(entity);
@@ -149,7 +149,7 @@ public class EntityCactus extends EntityGolem implements IEntitySelector
         super.onLivingUpdate();
         setSize(1, getCactusSize());
 
-        if (!worldObj.isRemote)
+        if (!world.isRemote)
         {
             if (isWet() && getHealth() < getMaxHealth())
             {
@@ -159,7 +159,7 @@ public class EntityCactus extends EntityGolem implements IEntitySelector
                 }
             }
 
-            for (EntityLivingBase entity : (List<EntityLivingBase>) worldObj.selectEntitiesWithinAABB(EntityLivingBase.class, getBoundingBox().expand(0.3, 0.3, 0.3), this))
+            for (LivingEntity entity : (List<LivingEntity>) world.selectEntitiesWithinAABB(LivingEntity.class, getBoundingBox().expand(0.3, 0.3, 0.3), this))
             {
                 entity.attackEntityFrom(ModDamageSources.SPIKE.apply(this), getAttackStrength());
             }
@@ -168,17 +168,17 @@ public class EntityCactus extends EntityGolem implements IEntitySelector
             {
                 if (++idlingTick > Rule.TICKS_CACTUSLIFESPAN.get(this))
                 {
-                    if (!worldObj.isRemote)
+                    if (!world.isRemote)
                     {
                         int x = MathHelper.floor_double(posX);
                         int y = MathHelper.floor_double(posY);
                         int z = MathHelper.floor_double(posZ);
 
-                        if (Blocks.cactus.canBlockStay(worldObj, x, y, z))
+                        if (Blocks.cactus.canBlockStay(world, x, y, z))
                         {
                             for (int i = 0; i < getCactusSize(); ++i)
                             {
-                                worldObj.setBlock(x, y + i, z, Blocks.cactus);
+                                world.setBlock(x, y + i, z, Blocks.cactus);
                             }
 
                             setDead();
@@ -201,17 +201,17 @@ public class EntityCactus extends EntityGolem implements IEntitySelector
             int i = MathHelper.floor_double(posX);
             int j = MathHelper.floor_double(posY - 0.2 - yOffset);
             int k = MathHelper.floor_double(posZ);
-            Block block = worldObj.getBlock(i, j, k);
+            Block block = world.getBlock(i, j, k);
 
             if (block.getMaterial() != Material.air)
             {
-                worldObj.spawnParticle("blockcrack_" + Block.getIdFromBlock(block) + "_" + worldObj.getBlockMetadata(i, j, k), posX + (rand.nextFloat() - 0.5) * width, boundingBox.minY + 0.1, posZ + (rand.nextFloat() - 0.5) * width, 4 * (rand.nextFloat() - 0.5), 0.5, (rand.nextFloat() - 0.5) * 4);
+                world.spawnParticle("blockcrack_" + Block.getIdFromBlock(block) + "_" + world.getBlockMetadata(i, j, k), posX + (rand.nextFloat() - 0.5) * width, boundingBox.minY + 0.1, posZ + (rand.nextFloat() - 0.5) * width, 4 * (rand.nextFloat() - 0.5), 0.5, (rand.nextFloat() - 0.5) * 4);
             }
         }
     }
 
     @Override
-    public void writeEntityToNBT(NBTTagCompound nbttagcompound)
+    public void writeEntityToNBT(CompoundNBT nbttagcompound)
     {
         super.writeEntityToNBT(nbttagcompound);
         nbttagcompound.setInteger("Size", getCactusSize());
@@ -220,7 +220,7 @@ public class EntityCactus extends EntityGolem implements IEntitySelector
     }
 
     @Override
-    public void readEntityFromNBT(NBTTagCompound nbttagcompound)
+    public void readEntityFromNBT(CompoundNBT nbttagcompound)
     {
         super.readEntityFromNBT(nbttagcompound);
         setCactusSize(nbttagcompound.getInteger("Size"));
@@ -270,17 +270,17 @@ public class EntityCactus extends EntityGolem implements IEntitySelector
     {
         int i = getCactusSize();
 
-        if (!worldObj.isRemote && i > 1 && getHealth() <= 0)
+        if (!world.isRemote && i > 1 && getHealth() <= 0)
         {
             for (int j = 0; j < Math.min(i, 3); ++j)
             {
                 float f = j % 2 - 0.5F;
                 float f1 = j / 2 - 0.5F;
-                EntityCactus entity = new EntityCactus(worldObj);
+                EntityCactus entity = new EntityCactus(world);
                 entity.setCactusSize(1);
                 entity.setDonatorSummoned(isDonatorSummoned());
                 entity.setLocationAndAngles(posX + f, posY + 0.5, posZ + f1, rand.nextFloat() * 360, 0);
-                worldObj.spawnEntityInWorld(entity);
+                world.spawnEntityInWorld(entity);
             }
         }
 

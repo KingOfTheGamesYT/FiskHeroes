@@ -12,7 +12,7 @@ import com.fiskmods.heroes.common.item.ItemCapsShield;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderItem;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
@@ -41,11 +41,11 @@ public enum RenderItemCapsShield implements IItemRenderer
     @Override
     public void renderItem(ItemRenderType type, ItemStack item, Object... data)
     {
-        EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+        PlayerEntity player = Minecraft.getInstance().thePlayer;
 
-        if (data.length > 1 && data[1] instanceof EntityPlayer)
+        if (data.length > 1 && data[1] instanceof PlayerEntity)
         {
-            player = (EntityPlayer) data[1];
+            player = (PlayerEntity) data[1];
         }
 
         if (type == ItemRenderType.EQUIPPED_FIRST_PERSON)
@@ -163,7 +163,7 @@ public enum RenderItemCapsShield implements IItemRenderer
 
     public static void render(boolean straps, boolean enchanted, boolean stealth)
     {
-        Minecraft.getMinecraft().getTextureManager().bindTexture(stealth ? TEXTURE_STEALTH : TEXTURE);
+        Minecraft.getInstance().getTextureManager().bindTexture(stealth ? TEXTURE_STEALTH : TEXTURE);
         MODEL.render(straps);
 
         if (enchanted)

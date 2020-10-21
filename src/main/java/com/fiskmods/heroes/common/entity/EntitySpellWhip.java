@@ -11,16 +11,16 @@ import com.fiskmods.heroes.util.SHHelper;
 import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.EntityThrowable;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
 public class EntitySpellWhip extends EntityThrowable implements IEntityAdditionalSpawnData
 {
-    public EntityLivingBase casterEntity;
+    public LivingEntity casterEntity;
     public Entity hookedEntity;
 
     public float stretch, prevStretch;
@@ -32,7 +32,7 @@ public class EntitySpellWhip extends EntityThrowable implements IEntityAdditiona
         ignoreFrustumCheck = true;
     }
 
-    public EntitySpellWhip(World world, EntityLivingBase caster)
+    public EntitySpellWhip(World world, LivingEntity caster)
     {
         super(world, caster);
         ignoreFrustumCheck = true;
@@ -86,13 +86,13 @@ public class EntitySpellWhip extends EntityThrowable implements IEntityAdditiona
             whipPull += 1F / SHConstants.TICKS_WHIP_PULL;
         }
 
-        if (!worldObj.isRemote)
+        if (!world.isRemote)
         {
             if (hookedEntity != null)
             {
                 if (ticksExisted % 20 == 0)
                 {
-                    EntityLivingBase caster = SHHelper.filterDuplicate(casterEntity);
+                    LivingEntity caster = SHHelper.filterDuplicate(casterEntity);
                     double x = hookedEntity.motionX;
                     double y = hookedEntity.motionY;
                     double z = hookedEntity.motionZ;
@@ -145,13 +145,13 @@ public class EntitySpellWhip extends EntityThrowable implements IEntityAdditiona
     }
 
     @Override
-    public void readEntityFromNBT(NBTTagCompound nbt)
+    public void readEntityFromNBT(CompoundNBT nbt)
     {
         super.readEntityFromNBT(nbt);
     }
 
     @Override
-    public void writeEntityToNBT(NBTTagCompound nbt)
+    public void writeEntityToNBT(CompoundNBT nbt)
     {
         super.writeEntityToNBT(nbt);
     }
@@ -183,7 +183,7 @@ public class EntitySpellWhip extends EntityThrowable implements IEntityAdditiona
                         return;
                     }
 
-                    EntityLivingBase caster = SHHelper.filterDuplicate(casterEntity);
+                    LivingEntity caster = SHHelper.filterDuplicate(casterEntity);
                     hookedEntity = mop.entityHit;
                     
                     SHNetworkManager.wrapper.sendToDimension(new MessageSpellWhip(this, hookedEntity), dimension);
@@ -194,7 +194,7 @@ public class EntitySpellWhip extends EntityThrowable implements IEntityAdditiona
             {
                 motionX = motionY = motionZ = 0;
 
-                if (!worldObj.isRemote)
+                if (!world.isRemote)
                 {
                     setDead();
                 }
@@ -214,11 +214,11 @@ public class EntitySpellWhip extends EntityThrowable implements IEntityAdditiona
     @Override
     public void readSpawnData(ByteBuf buf)
     {
-        Entity entity = worldObj.getEntityByID(buf.readInt());
+        Entity entity = world.getEntityByID(buf.readInt());
 
-        if (entity instanceof EntityLivingBase)
+        if (entity instanceof LivingEntity)
         {
-            casterEntity = (EntityLivingBase) entity;
+            casterEntity = (LivingEntity) entity;
         }
     }
 

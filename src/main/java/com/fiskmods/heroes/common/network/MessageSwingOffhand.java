@@ -5,7 +5,7 @@ import com.fiskmods.heroes.util.SHHelper;
 
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 
 public class MessageSwingOffhand extends AbstractMessage<MessageSwingOffhand>
 {
@@ -15,7 +15,7 @@ public class MessageSwingOffhand extends AbstractMessage<MessageSwingOffhand>
     {
     }
 
-    public MessageSwingOffhand(EntityPlayer player)
+    public MessageSwingOffhand(PlayerEntity player)
     {
         id = player.getEntityId();
     }
@@ -35,7 +35,7 @@ public class MessageSwingOffhand extends AbstractMessage<MessageSwingOffhand>
     @Override
     public void receive() throws MessageException
     {
-        EntityPlayer player = getSender(id);
+        PlayerEntity player = getSender(id);
 
         if (!FiskHeroes.proxy.isClientPlayer(player))
         {

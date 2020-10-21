@@ -8,7 +8,7 @@ import com.fiskmods.heroes.util.SHHelper;
 
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 
 public class AbilityShield extends Ability
 {
@@ -21,13 +21,13 @@ public class AbilityShield extends Ability
     }
 
     @Override
-    public void onUpdate(EntityLivingBase entity, Hero hero, Phase phase, boolean enabled)
+    public void onUpdate(LivingEntity entity, Hero hero, Phase phase, boolean enabled)
     {
         if (phase == Phase.END)
         {
-            if (enabled && entity.worldObj.isRemote && FiskHeroes.proxy.isClientPlayer(entity))
+            if (enabled && entity.world.isRemote && FiskHeroes.proxy.isClientPlayer(entity))
             {
-                boolean flag = Minecraft.getMinecraft().gameSettings.keyBindUseItem.getIsKeyPressed();
+                boolean flag = Minecraft.getInstance().gameSettings.keyBindUseItem.isPressed();
 
                 if (!hero.getFuncBoolean(entity, FUNC_TOGGLE, true))
                 {

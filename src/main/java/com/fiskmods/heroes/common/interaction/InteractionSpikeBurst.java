@@ -10,7 +10,7 @@ import com.fiskmods.heroes.common.hero.modifier.Ability;
 
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import cpw.mods.fml.relauncher.Side;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 
 public class InteractionSpikeBurst extends InteractionBase
 {
@@ -20,19 +20,19 @@ public class InteractionSpikeBurst extends InteractionBase
     }
 
     @Override
-    public boolean serverRequirements(EntityPlayer player, InteractionType type, int x, int y, int z)
+    public boolean serverRequirements(PlayerEntity player, InteractionType type, int x, int y, int z)
     {
         return !SHData.AIMING.get(player) && (player.capabilities.isCreativeMode || player.getFoodStats().getFoodLevel() >= 12) && player.getHeldItem() == null && !player.isSneaking();
     }
 
     @Override
-    public boolean clientRequirements(EntityPlayer player, InteractionType type, int x, int y, int z)
+    public boolean clientRequirements(PlayerEntity player, InteractionType type, int x, int y, int z)
     {
         return Cooldown.SPIKE_BURST.available(player);
     }
 
     @Override
-    public void receive(EntityPlayer sender, EntityPlayer clientPlayer, InteractionType type, Side side, int x, int y, int z)
+    public void receive(PlayerEntity sender, PlayerEntity clientPlayer, InteractionType type, Side side, int x, int y, int z)
     {
         if (side.isServer())
         {
@@ -45,7 +45,7 @@ public class InteractionSpikeBurst extends InteractionBase
 
             for (int i = 0; i <= 10; ++i)
             {
-                EntityCactusSpike entity = new EntityCactusSpike(sender.worldObj, sender);
+                EntityCactusSpike entity = new EntityCactusSpike(sender.world, sender);
 
                 if (i > 0)
                 {
@@ -54,11 +54,11 @@ public class InteractionSpikeBurst extends InteractionBase
                     entity.motionZ += (Math.random() - 0.5D) * spread;
                 }
 
-                sender.worldObj.spawnEntityInWorld(entity);
+                sender.world.spawnEntityInWorld(entity);
             }
 
             Random rand = new Random();
-            sender.worldObj.playSoundAtEntity(sender, SHSounds.ITEM_BOW_SHOOT.toString(), 1.0F, 1.0F / (rand.nextFloat() * 0.4F + 1.2F) + 0.75F);
+            sender.world.playSoundAtEntity(sender, SHSounds.ITEM_BOW_SHOOT.toString(), 1.0F, 1.0F / (rand.nextFloat() * 0.4F + 1.2F) + 0.75F);
         }
         else if (sender == clientPlayer)
         {
@@ -68,7 +68,7 @@ public class InteractionSpikeBurst extends InteractionBase
     }
 
     @Override
-    public TargetPoint getTargetPoint(EntityPlayer player, int x, int y, int z)
+    public TargetPoint getTargetPoint(PlayerEntity player, int x, int y, int z)
     {
         return TARGET_NONE;
     }

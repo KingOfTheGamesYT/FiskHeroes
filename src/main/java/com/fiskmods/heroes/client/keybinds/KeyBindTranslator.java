@@ -9,12 +9,12 @@ import com.fiskmods.heroes.util.SHHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.settings.KeyBinding;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 
 @SideOnly(Side.CLIENT)
 public class KeyBindTranslator
 {
-    public static void translate(EntityPlayer player)
+    public static void translate(PlayerEntity player)
     {
         Hero hero = SHHelper.getHero(player);
 

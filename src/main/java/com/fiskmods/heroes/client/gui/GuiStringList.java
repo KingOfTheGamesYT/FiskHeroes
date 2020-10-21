@@ -48,7 +48,7 @@ public class GuiStringList<T> extends GuiScrollingList
 
     public GuiStringList(IGuiStringList parent, List<T> list, int x, int y, int listWidth, int listHeight)
     {
-        this(Minecraft.getMinecraft(), parent, list, listWidth, listHeight, y, y + listHeight, x);
+        this(Minecraft.getInstance(), parent, list, listWidth, listHeight, y, y + listHeight, x);
     }
 
     public GuiStringList setFormat(Function<T, String> text, Function<T, Integer> color)

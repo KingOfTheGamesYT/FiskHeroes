@@ -25,8 +25,8 @@ import com.fiskmods.heroes.util.TextureHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
@@ -51,7 +51,7 @@ public class HeroRenderer
     }
 
     protected final Map<String, String> variables = new HashMap<>();
-    protected final Minecraft mc = Minecraft.getMinecraft();
+    protected final Minecraft mc = Minecraft.getInstance();
 
     public final ModelBipedMultiLayer model;
     public JsonHeroRenderer json;
@@ -78,9 +78,9 @@ public class HeroRenderer
     {
         if (json != null && json.getResourceKeys() != null)
         {
-            if (entity instanceof EntityLivingBase)
+            if (entity instanceof LivingEntity)
             {
-                evaluateVariables((EntityLivingBase) entity, slot);
+                evaluateVariables((LivingEntity) entity, slot);
             }
 
             if (json.texture != null)
@@ -131,12 +131,12 @@ public class HeroRenderer
         }
     }
 
-    public boolean fixHatLayer(EntityPlayer player, int slot)
+    public boolean fixHatLayer(PlayerEntity player, int slot)
     {
         return json != null && json.fixHatLayer != null && json.fixHatLayer.contains(SlotType.values()[slot]);
     }
 
-    public boolean shouldRenderDefaultModel(EntityPlayer player, HeroIteration iter, boolean body)
+    public boolean shouldRenderDefaultModel(PlayerEntity player, HeroIteration iter, boolean body)
     {
         if (json != null && json.effects != null)
         {
@@ -159,7 +159,7 @@ public class HeroRenderer
         return getEffects(entity, SlotType.values()[model.armorSlot], pass).stream().allMatch(t -> t.preRenderBody(model, entity, pass, f, f1, f2, f3, f4, scale));
     }
 
-    public boolean preRenderArm(EntityPlayer player, ItemStack itemstack, HeroIteration iter, int pass)
+    public boolean preRenderArm(PlayerEntity player, ItemStack itemstack, HeroIteration iter, int pass)
     {
         return getEffects(player, SlotType.CHESTPLATE, pass).stream().allMatch(t -> t.preRenderArm(model, player, itemstack, iter, pass));
     }
@@ -169,7 +169,7 @@ public class HeroRenderer
         getEffects(entity, SlotType.values()[model.armorSlot], pass).forEach(t -> t.postRenderBody(model, entity, pass, f, f1, f2, f3, f4, scale));
     }
 
-    public void postRenderArm(EntityPlayer player, ItemStack itemstack, HeroIteration iter, int pass)
+    public void postRenderArm(PlayerEntity player, ItemStack itemstack, HeroIteration iter, int pass)
     {
         getEffects(player, SlotType.CHESTPLATE, pass).forEach(t -> t.postRenderArm(model, player, itemstack, iter, pass));
     }
@@ -221,7 +221,7 @@ public class HeroRenderer
         json.load(manager, mc.getTextureManager());
     }
 
-    public void evaluateVariables(EntityLivingBase entity, int slot)
+    public void evaluateVariables(LivingEntity entity, int slot)
     {
         variables.clear();
 

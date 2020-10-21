@@ -43,15 +43,15 @@ public enum WidgetType
 
                     for (ItemStack itemstack1 : list1)
                     {
-                        if (itemstack.getItemDamage() == OreDictionary.WILDCARD_VALUE)
+                        if (itemstack.getDamage() == OreDictionary.WILDCARD_VALUE)
                         {
-                            if (!addedMetas.contains(itemstack1.getItemDamage()))
+                            if (!addedMetas.contains(itemstack1.getDamage()))
                             {
                                 list.add(itemstack1);
-                                addedMetas.add(itemstack1.getItemDamage());
+                                addedMetas.add(itemstack1.getDamage());
                             }
                         }
-                        else if (itemstack.getItemDamage() == itemstack1.getItemDamage())
+                        else if (itemstack.getDamage() == itemstack1.getDamage())
                         {
                             list.add(itemstack1);
                         }
@@ -59,7 +59,7 @@ public enum WidgetType
                 }
                 else
                 {
-                    itemstack.setItemDamage(Math.max(itemstack.getItemDamage(), 0));
+                    itemstack.setItemDamage(Math.max(itemstack.getDamage(), 0));
                     list.add(itemstack);
                 }
             }
@@ -89,7 +89,7 @@ public enum WidgetType
                     {
                         ItemStack output = recipe.getRecipeOutput();
 
-                        if (output != null && output.getItem() == itemstack.getItem() && (itemstack.getItemDamage() == OreDictionary.WILDCARD_VALUE || output.getItemDamage() == itemstack.getItemDamage()))
+                        if (output != null && output.getItem() == itemstack.getItem() && (itemstack.getDamage() == OreDictionary.WILDCARD_VALUE || output.getDamage() == itemstack.getDamage()))
                         {
                             ItemStack[] stacks = new ItemStack[10];
 
@@ -126,7 +126,7 @@ public enum WidgetType
                     {
                         ItemStack output = recipe.getRecipeOutput();
 
-                        if (output != null && output.getItem() == itemstack.getItem() && (itemstack.getItemDamage() == OreDictionary.WILDCARD_VALUE || output.getItemDamage() == itemstack.getItemDamage()))
+                        if (output != null && output.getItem() == itemstack.getItem() && (itemstack.getDamage() == OreDictionary.WILDCARD_VALUE || output.getDamage() == itemstack.getDamage()))
                         {
                             ItemStack[] stacks = new ItemStack[10];
                             recipe.putStacks(output, stacks);
@@ -162,7 +162,7 @@ public enum WidgetType
         @Override
         public Dimension getSize(Widget widget)
         {
-            return new Dimension(Minecraft.getMinecraft().fontRenderer.getStringWidth((String) widget.type.handleObject(widget, this)), Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT);
+            return new Dimension(Minecraft.getInstance().fontRenderer.getStringWidth((String) widget.type.handleObject(widget, this)), Minecraft.getInstance().fontRenderer.FONT_HEIGHT);
         }
 
         @Override
@@ -197,7 +197,7 @@ public enum WidgetType
         {
             if (type == TEXT)
             {
-                return new Point(Math.round(12 * widget.scale), Math.round(Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT / 2 * (widget.scale - 1)));
+                return new Point(Math.round(12 * widget.scale), Math.round(Minecraft.getInstance().fontRenderer.FONT_HEIGHT / 2 * (widget.scale - 1)));
             }
 
             return OFFSET_ZERO;

@@ -5,7 +5,7 @@ import com.fiskmods.heroes.common.entity.arrow.EntityGrappleArrow;
 import com.fiskmods.heroes.common.entity.arrow.EntityTrickArrow;
 
 import io.netty.buffer.ByteBuf;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.world.World;
 
 public class GrappleArrowData extends DefaultArrowData
@@ -35,13 +35,13 @@ public class GrappleArrowData extends DefaultArrowData
     }
 
     @Override
-    public void readFromNBT(NBTTagCompound nbt)
+    public void readFromNBT(CompoundNBT nbt)
     {
         isCableCut = nbt.getBoolean("IsCableCut");
     }
 
     @Override
-    public void writeToNBT(NBTTagCompound nbt)
+    public void writeToNBT(CompoundNBT nbt)
     {
         nbt.setBoolean("IsCableCut", isCableCut);
     }

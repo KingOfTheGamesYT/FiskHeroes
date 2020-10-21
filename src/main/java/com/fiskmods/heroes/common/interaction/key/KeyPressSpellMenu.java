@@ -11,7 +11,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 
 public class KeyPressSpellMenu extends KeyPressBase
 {
@@ -22,13 +22,13 @@ public class KeyPressSpellMenu extends KeyPressBase
 
     @Override
     @SideOnly(Side.CLIENT)
-    public KeyBinding getKey(EntityPlayer player, Hero hero)
+    public KeyBinding getKey(PlayerEntity player, Hero hero)
     {
         return hero.getKey(player, AbilitySpellcasting.KEY_MENU);
     }
 
     @Override
-    public void receive(EntityPlayer sender, EntityPlayer clientPlayer, InteractionType type, Side side, int x, int y, int z)
+    public void receive(PlayerEntity sender, PlayerEntity clientPlayer, InteractionType type, Side side, int x, int y, int z)
     {
         if (side.isClient())
         {
@@ -37,8 +37,8 @@ public class KeyPressSpellMenu extends KeyPressBase
     }
 
     @SideOnly(Side.CLIENT)
-    private void openMenu(EntityPlayer sender)
+    private void openMenu(PlayerEntity sender)
     {
-        Minecraft.getMinecraft().displayGuiScreen(new GuiSpellMenu(SHHelper.getSpells(sender, SHHelper.getHero(sender))));
+        Minecraft.getInstance().displayGuiScreen(new GuiSpellMenu(SHHelper.getSpells(sender, SHHelper.getHero(sender))));
     }
 }

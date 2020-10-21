@@ -4,7 +4,7 @@ import com.fiskmods.heroes.FiskHeroes;
 import com.fiskmods.heroes.common.config.Rule;
 import com.fiskmods.heroes.common.event.ClientEventHandler;
 
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
@@ -17,7 +17,7 @@ public class EntityShadowDome extends EntityThrowable
         noClip = true;
     }
 
-    public EntityShadowDome(World world, EntityLivingBase entity)
+    public EntityShadowDome(World world, LivingEntity entity)
     {
         super(world, entity);
         noClip = true;
@@ -50,7 +50,7 @@ public class EntityShadowDome extends EntityThrowable
         {
             setDead();
         }
-        else if (worldObj.isRemote)
+        else if (world.isRemote)
         {
             float radius = Rule.RADIUS_SHADOWDOME.get(this);
             double dist = FiskHeroes.proxy.getPlayer().getDistanceToEntity(this);

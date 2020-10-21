@@ -7,15 +7,15 @@ import com.fiskmods.heroes.common.data.effect.StatusEffect;
 import com.fiskmods.heroes.common.entity.EntityBookPlayer;
 import com.fiskmods.heroes.common.entity.EntityDisplayMannequin;
 
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 
 public class JSEntityAccessor implements JSAccessor<JSEntityAccessor>
 {
     public static final JSEntityAccessor NULL = new Null();
 
-    private final EntityLivingBase entity;
+    private final LivingEntity entity;
 
-    private JSEntityAccessor(EntityLivingBase entity)
+    private JSEntityAccessor(LivingEntity entity)
     {
         this.entity = entity;
     }
@@ -26,14 +26,14 @@ public class JSEntityAccessor implements JSAccessor<JSEntityAccessor>
         return getUUID().equals(t.getUUID());
     }
 
-    public static JSEntityAccessor wrap(EntityLivingBase entity)
+    public static JSEntityAccessor wrap(LivingEntity entity)
     {
         return entity != null ? new JSEntityAccessor(entity) : NULL;
     }
 
     public JSWorldAccessor world()
     {
-        return JSWorldAccessor.wrap(entity.worldObj);
+        return JSWorldAccessor.wrap(entity.world);
     }
 
     public JSItemAccessor getEquipmentInSlot(int slot)

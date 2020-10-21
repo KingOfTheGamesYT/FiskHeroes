@@ -34,7 +34,7 @@ public class BehaviorTrickArrowDispense implements IBehaviorDispenseItem
 
     public ItemStack dispenseStack(IBlockSource source, ItemStack itemstack)
     {
-        ArrowType type = ArrowType.getArrowById(itemstack.getItemDamage());
+        ArrowType type = ArrowType.getArrowById(itemstack.getDamage());
         IPosition pos = BlockDispenser.func_149939_a(source);
 
         if (type.canDispense(source, itemstack))
@@ -52,7 +52,7 @@ public class BehaviorTrickArrowDispense implements IBehaviorDispenseItem
 
     protected void playDispenseSound(IBlockSource source, ItemStack itemstack)
     {
-        ArrowType type = ArrowType.getArrowById(itemstack.getItemDamage());
+        ArrowType type = ArrowType.getArrowById(itemstack.getDamage());
 
         if (type.canDispense(source, itemstack))
         {

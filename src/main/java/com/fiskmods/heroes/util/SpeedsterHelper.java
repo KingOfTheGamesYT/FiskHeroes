@@ -19,9 +19,9 @@ import com.fiskmods.heroes.common.item.ItemTachyonDevice;
 import com.fiskmods.heroes.common.item.ModItems;
 import com.fiskmods.heroes.common.tileentity.TileEntityTreadmill;
 
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
@@ -30,12 +30,12 @@ import net.minecraft.world.World;
 
 public class SpeedsterHelper
 {
-    public static int getSuitBaseSpeed(EntityLivingBase entity, Hero hero)
+    public static int getSuitBaseSpeed(LivingEntity entity, Hero hero)
     {
         return MathHelper.floor_double(SHAttributes.BASE_SPEED_LEVELS.get(entity, hero, -1));
     }
 
-    public static List<SpeedBar> getSpeedSettingList(EntityPlayer player)
+    public static List<SpeedBar> getSpeedSettingList(PlayerEntity player)
     {
         List<SpeedBar> list = new ArrayList<>();
         Hero hero = SHHelper.getHero(player);
@@ -102,12 +102,12 @@ public class SpeedsterHelper
         return list;
     }
 
-    public static int getMaxSpeedSetting(EntityPlayer player)
+    public static int getMaxSpeedSetting(PlayerEntity player)
     {
         return getSpeedSettingList(player).size() - 1;
     }
 
-    public static int getMaxSpeedSetting(EntityPlayer player, SpeedBar bar)
+    public static int getMaxSpeedSetting(PlayerEntity player, SpeedBar bar)
     {
         List<SpeedBar> list = getSpeedSettingList(player);
         int size = 0;
@@ -123,7 +123,7 @@ public class SpeedsterHelper
         return size - 1;
     }
 
-    public static int getFilteredMaxSpeedSetting(EntityPlayer player, SpeedBar bar)
+    public static int getFilteredMaxSpeedSetting(PlayerEntity player, SpeedBar bar)
     {
         List<SpeedBar> list = getSpeedSettingList(player);
         int size = 0;
@@ -139,13 +139,13 @@ public class SpeedsterHelper
         return size - 1;
     }
 
-    public static float getPlayerTopSpeed(EntityPlayer player)
+    public static float getPlayerTopSpeed(PlayerEntity player)
     {
         float f = (SHData.SPEED.get(player) + 1) * 50 * Math.min(TemperatureHelper.getCurrentBodyTemperature(player) / TemperatureHelper.DEFAULT_BODY_TEMPERATURE, 1);
         return Math.max(f, 20);
     }
 
-    public static JsonTrail getJsonTrail(EntityLivingBase entity)
+    public static JsonTrail getJsonTrail(LivingEntity entity)
     {
         HeroRenderer renderer = HeroRenderer.get(SHHelper.getHeroIter(entity));
 
@@ -162,32 +162,32 @@ public class SpeedsterHelper
         return SHResourceHandler.getV9Trail();
     }
 
-    public static ITrailAspect getTrailLightning(EntityLivingBase entity)
+    public static ITrailAspect getTrailLightning(LivingEntity entity)
     {
         return getJsonTrail(entity).getTrailLightning();
     }
 
-    public static boolean canPlayerRun(EntityPlayer player)
+    public static boolean canPlayerRun(PlayerEntity player)
     {
         return SHData.SPEEDING.get(player) && hasSuperSpeed(player);
     }
 
-    public static boolean canPlayerRunOnWater(EntityPlayer player)
+    public static boolean canPlayerRunOnWater(PlayerEntity player)
     {
         return canPlayerRun(player) && SHData.SPEED.get(player) >= 3 && !player.isInWater() && player.isSprinting();
     }
 
-    public static boolean canPlayerRunUpWall(EntityPlayer player)
+    public static boolean canPlayerRunUpWall(PlayerEntity player)
     {
         return canPlayerRun(player) && SHData.SPEED.get(player) >= 3 && player.isSprinting();
     }
 
-    public static boolean hasSuperSpeed(EntityLivingBase entity)
+    public static boolean hasSuperSpeed(LivingEntity entity)
     {
         return (isSpeedster(entity) || StatusEffect.has(entity, StatEffect.VELOCITY_9)) && Ability.SUPER_SPEED.isActive(entity);
     }
 
-    public static boolean isSpeedster(EntityLivingBase entity)
+    public static boolean isSpeedster(LivingEntity entity)
     {
         return SHHelper.hasEnabledModifier(entity, Ability.SUPER_SPEED);
     }
@@ -196,7 +196,7 @@ public class SpeedsterHelper
     {
         List<EntityPlayer> players = world.playerEntities;
 
-        for (EntityPlayer player : players)
+        for (PlayerEntity player : players)
         {
             if (!player.isEntityAlive())
             {
@@ -214,9 +214,9 @@ public class SpeedsterHelper
         return true;
     }
 
-    public static TileEntityTreadmill getTreadmill(EntityPlayer player)
+    public static TileEntityTreadmill getTreadmill(PlayerEntity player)
     {
-        for (TileEntity tileentity : (List<TileEntity>) player.worldObj.loadedTileEntityList)
+        for (TileEntity tileentity : (List<TileEntity>) player.world.loadedTileEntityList)
         {
             if (tileentity instanceof TileEntityTreadmill)
             {
@@ -232,14 +232,14 @@ public class SpeedsterHelper
         return null;
     }
 
-    public static boolean isOnTreadmill(EntityPlayer player)
+    public static boolean isOnTreadmill(PlayerEntity player)
     {
         return getTreadmill(player) != null;
     }
 
-    public static byte locateEquippedTachyonDevice(EntityPlayer player)
+    public static byte locateEquippedTachyonDevice(PlayerEntity player)
     {
-        InventoryPlayer inventory = player.inventory;
+        PlayerInventory inventory = player.inventory;
         byte slot = -1;
 
         for (byte b = 0; b < inventory.mainInventory.length; ++b)
@@ -263,7 +263,7 @@ public class SpeedsterHelper
         return slot;
     }
 
-    public static float getTachyonCharge(EntityPlayer player)
+    public static float getTachyonCharge(PlayerEntity player)
     {
         Hero hero = SHHelper.getHero(player);
         float f = 0;
@@ -277,9 +277,9 @@ public class SpeedsterHelper
         {
             ItemStack itemstack = player.getCurrentArmor(i);
 
-            if (itemstack != null && itemstack.hasTagCompound())
+            if (itemstack != null && itemstack.hasTag())
             {
-                f += itemstack.getTagCompound().getInteger("TachyonCharge");
+                f += itemstack.getTag().getInteger("TachyonCharge");
             }
         }
 
@@ -289,12 +289,12 @@ public class SpeedsterHelper
         return f;
     }
 
-    public static ItemStack getEquippedTachyonDevice(EntityPlayer player)
+    public static ItemStack getEquippedTachyonDevice(PlayerEntity player)
     {
         return FiskServerUtils.getStackInSlot(player, SHData.EQUIPPED_TACHYON_DEVICE_SLOT.get(player));
     }
 
-    public static boolean hasTachyonDevice(EntityLivingBase entity)
+    public static boolean hasTachyonDevice(LivingEntity entity)
     {
         return SHData.EQUIPPED_TACHYON_DEVICE_SLOT.get(entity) >= 0 && (entity.getHeldItem() == null || entity.getHeldItem().getItem() != ModItems.tachyonDevice);
     }
@@ -321,7 +321,7 @@ public class SpeedsterHelper
             this(-1);
         }
 
-        public Vec3 getColor(EntityLivingBase entity)
+        public Vec3 getColor(LivingEntity entity)
         {
             return this == SUIT ? getTrailLightning(entity).getVecColor() : color;
         }

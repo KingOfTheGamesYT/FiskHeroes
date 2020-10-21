@@ -9,7 +9,7 @@ import com.fiskmods.heroes.common.data.world.SHMapData;
 import com.google.common.collect.ImmutableSet;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants.NBT;
 
@@ -85,7 +85,7 @@ public enum RuleHandler
         SHMapData.get(world).notifyRuleSetChange(key);
     }
 
-    public void readFromNBT(NBTTagCompound nbt)
+    public void readFromNBT(CompoundNBT nbt)
     {
         ruleSet = new RuleSet();
 
@@ -95,11 +95,11 @@ public enum RuleHandler
         }
     }
 
-    public void writeToNBT(NBTTagCompound nbt)
+    public void writeToNBT(CompoundNBT nbt)
     {
         if (ruleSet != null)
         {
-            nbt.setTag("RuleSet", ruleSet.writeToNBT(new NBTTagCompound()));
+            nbt.setTag("RuleSet", ruleSet.writeToNBT(new CompoundNBT()));
         }
     }
 
@@ -125,6 +125,6 @@ public enum RuleHandler
 
     public static RuleSet getLocal(Entity entity)
     {
-        return entity != null ? getLocal(entity.worldObj, (int) entity.posX, (int) entity.posZ) : getGlobal();
+        return entity != null ? getLocal(entity.world, (int) entity.posX, (int) entity.posZ) : getGlobal();
     }
 }

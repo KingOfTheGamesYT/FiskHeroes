@@ -16,7 +16,7 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 
 public class HeroEffectPrometheusSheath extends HeroEffect
@@ -48,9 +48,9 @@ public class HeroEffectPrometheusSheath extends HeroEffect
                 MODEL.leftSheath1.isHidden = true;
                 MODEL.render(scale);
 
-                if (pass != ENCHANTMENT && entity instanceof EntityLivingBase)
+                if (pass != ENCHANTMENT && entity instanceof LivingEntity)
                 {
-                    EntityLivingBase living = (EntityLivingBase) entity;
+                    LivingEntity living = (LivingEntity) entity;
                     ItemStack stack = living.getHeldItem();
                     int i = SHData.HAS_PROMETHEUS_SWORD.get(living);
 

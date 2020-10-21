@@ -13,9 +13,9 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.EntityThrowable;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
@@ -23,7 +23,7 @@ import net.minecraft.world.World;
 
 public class EntityLaserBolt extends EntityThrowable implements IEntityAdditionalSpawnData
 {
-    private EntityLivingBase thrower;
+    private LivingEntity thrower;
     public boolean scoped;
 
     @SideOnly(Side.CLIENT)
@@ -35,7 +35,7 @@ public class EntityLaserBolt extends EntityThrowable implements IEntityAdditiona
         super(world);
     }
 
-    public EntityLaserBolt(World world, EntityLivingBase entity, Type type, HeroIteration iter, boolean scopeDamage)
+    public EntityLaserBolt(World world, LivingEntity entity, Type type, HeroIteration iter, boolean scopeDamage)
     {
         super(world, entity);
         ignoreFrustumCheck = true;
@@ -114,12 +114,12 @@ public class EntityLaserBolt extends EntityThrowable implements IEntityAdditiona
 
             for (int i = 0; i < 8; ++i)
             {
-                worldObj.spawnParticle("smoke", v.xCoord, v.yCoord, v.zCoord, (Math.random() * 2 - 1) * f, (Math.random() * 2 - 1) * f, (Math.random() * 2 - 1) * f);
+                world.spawnParticle("smoke", v.xCoord, v.yCoord, v.zCoord, (Math.random() * 2 - 1) * f, (Math.random() * 2 - 1) * f, (Math.random() * 2 - 1) * f);
             }
         }
-        else if (!worldObj.isRemote)
+        else if (!world.isRemote)
         {
-            worldObj.createExplosion(getThrower(), posX, posY, posZ, 1.25F, false);
+            world.createExplosion(getThrower(), posX, posY, posZ, 1.25F, false);
         }
 
         setDead();
@@ -170,35 +170,35 @@ public class EntityLaserBolt extends EntityThrowable implements IEntityAdditiona
     }
 
     @Override
-    public EntityLivingBase getThrower()
+    public LivingEntity getThrower()
     {
         return thrower;
     }
 
     @Override
-    public boolean writeToNBTOptional(NBTTagCompound nbttagcompound)
+    public boolean writeToNBTOptional(CompoundNBT nbttagcompound)
     {
         return false;
     }
 
     @Override
-    public void readEntityFromNBT(NBTTagCompound nbt)
+    public void readEntityFromNBT(CompoundNBT nbt)
     {
     }
 
     @Override
-    public void writeEntityToNBT(NBTTagCompound nbt)
+    public void writeEntityToNBT(CompoundNBT nbt)
     {
     }
 
     @Override
     public void readSpawnData(ByteBuf buf)
     {
-        Entity entity = worldObj.getEntityByID(buf.readInt());
+        Entity entity = world.getEntityByID(buf.readInt());
 
-        if (entity instanceof EntityLivingBase)
+        if (entity instanceof LivingEntity)
         {
-            thrower = (EntityLivingBase) entity;
+            thrower = (LivingEntity) entity;
         }
 
         String s = ByteBufUtils.readUTF8String(buf);

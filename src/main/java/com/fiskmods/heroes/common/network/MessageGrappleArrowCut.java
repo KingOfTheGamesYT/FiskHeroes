@@ -9,7 +9,7 @@ import com.fiskmods.heroes.common.entity.arrow.EntityGrappleArrow;
 import com.fiskmods.heroes.common.entity.arrow.EntityTrickArrow;
 
 import io.netty.buffer.ByteBuf;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 
 public class MessageGrappleArrowCut extends AbstractMessage<MessageGrappleArrowCut>
 {
@@ -20,7 +20,7 @@ public class MessageGrappleArrowCut extends AbstractMessage<MessageGrappleArrowC
     {
     }
 
-    public MessageGrappleArrowCut(EntityLivingBase entity, EntityGrappleArrow arrow)
+    public MessageGrappleArrowCut(LivingEntity entity, EntityGrappleArrow arrow)
     {
         id = entity.getEntityId();
         arrowId = arrow.getEntityId();
@@ -43,14 +43,14 @@ public class MessageGrappleArrowCut extends AbstractMessage<MessageGrappleArrowC
     @Override
     public void receive() throws MessageException
     {
-        EntityLivingBase entity = getEntity(EntityLivingBase.class, id);
+        LivingEntity entity = getEntity(LivingEntity.class, id);
         Iterator<IArrowData> iter = DataManager.getArrowsInEntity(entity).iterator();
 
         for (IArrowData data = null; iter.hasNext(); data = iter.next())
         {
             if (data instanceof GrappleArrowData)
             {
-                EntityTrickArrow arrow = data.getEntity(entity.worldObj);
+                EntityTrickArrow arrow = data.getEntity(entity.world);
 
                 if (arrow != null && arrow.getEntityId() == arrowId)
                 {

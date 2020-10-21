@@ -6,7 +6,7 @@ import com.fiskmods.heroes.common.tileentity.TileEntityIceLayer;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -20,7 +20,7 @@ public class ItemIceLayer extends ItemBlock
     }
 
     @Override
-    public boolean onItemUse(ItemStack itemstack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
+    public boolean onItemUse(ItemStack itemstack, PlayerEntity player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
     {
         if (itemstack.stackSize == 0)
         {
@@ -123,7 +123,7 @@ public class ItemIceLayer extends ItemBlock
 
     @Override
     @SideOnly(Side.CLIENT)
-    public boolean func_150936_a(World world, int x, int y, int z, int side, EntityPlayer player, ItemStack itemstack)
+    public boolean func_150936_a(World world, int x, int y, int z, int side, PlayerEntity player, ItemStack itemstack)
     {
         Block block = world.getBlock(x, y, z);
         int metadata = world.getBlockMetadata(x, y, z);

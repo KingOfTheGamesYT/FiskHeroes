@@ -2,9 +2,9 @@ package com.fiskmods.heroes.common.entity.arrow;
 
 import com.fiskmods.heroes.client.sound.SHSounds;
 
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants.NBT;
 
@@ -22,12 +22,12 @@ public class EntityExplPufferfArrow extends EntityPufferfishArrow
         super(world, x, y, z);
     }
 
-    public EntityExplPufferfArrow(World world, EntityLivingBase shooter, float velocity)
+    public EntityExplPufferfArrow(World world, LivingEntity shooter, float velocity)
     {
         super(world, shooter, velocity);
     }
 
-    public EntityExplPufferfArrow(World world, EntityLivingBase shooter, float velocity, boolean horizontal)
+    public EntityExplPufferfArrow(World world, LivingEntity shooter, float velocity, boolean horizontal)
     {
         super(world, shooter, velocity, horizontal);
     }
@@ -40,7 +40,7 @@ public class EntityExplPufferfArrow extends EntityPufferfishArrow
     }
 
     @Override
-    public void inEntityUpdate(EntityLivingBase living)
+    public void inEntityUpdate(LivingEntity living)
     {
         super.inEntityUpdate(living);
         update();
@@ -54,20 +54,20 @@ public class EntityExplPufferfArrow extends EntityPufferfishArrow
         }
         else if (ticksInGround > fuse)
         {
-            if (!worldObj.isRemote)
+            if (!world.isRemote)
             {
-                worldObj.createExplosion(getShooter(), posX, posY, posZ, 1.5F, false);
+                world.createExplosion(getShooter(), posX, posY, posZ, 1.5F, false);
                 setDead();
             }
         }
         else if (ticksInGround > 1)
         {
-            worldObj.spawnParticle("smoke", posX, posY, posZ, 0, 0, 0);
+            world.spawnParticle("smoke", posX, posY, posZ, 0, 0, 0);
         }
     }
 
     @Override
-    public void readEntityFromNBT(NBTTagCompound compound)
+    public void readEntityFromNBT(CompoundNBT compound)
     {
         super.readEntityFromNBT(compound);
 
@@ -78,14 +78,14 @@ public class EntityExplPufferfArrow extends EntityPufferfishArrow
     }
 
     @Override
-    public void writeEntityToNBT(NBTTagCompound compound)
+    public void writeEntityToNBT(CompoundNBT compound)
     {
         super.writeEntityToNBT(compound);
         compound.setShort("Fuse", (short) fuse);
     }
 
     @Override
-    public void onCollideWithPlayer(EntityPlayer player)
+    public void onCollideWithPlayer(PlayerEntity player)
     {
         if (player == getShooter())
         {

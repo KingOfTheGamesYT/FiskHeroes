@@ -1,7 +1,7 @@
 package com.fiskmods.heroes.common.entity.arrow;
 
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
@@ -20,12 +20,12 @@ public class EntityDetonatorArrow extends EntityTrickArrow
         super(world, x, y, z);
     }
 
-    public EntityDetonatorArrow(World world, EntityLivingBase shooter, float velocity)
+    public EntityDetonatorArrow(World world, LivingEntity shooter, float velocity)
     {
         super(world, shooter, velocity);
     }
 
-    public EntityDetonatorArrow(World world, EntityLivingBase shooter, float velocity, boolean horizontal)
+    public EntityDetonatorArrow(World world, LivingEntity shooter, float velocity, boolean horizontal)
     {
         super(world, shooter, velocity, horizontal);
     }
@@ -43,13 +43,13 @@ public class EntityDetonatorArrow extends EntityTrickArrow
                 grappleTimer = Math.min(grappleTimer + 1F / 5, 1);
             }
 
-            if (inTile != null && worldObj.isBlockIndirectlyGettingPowered(xTile, yTile, zTile))
+            if (inTile != null && world.isBlockIndirectlyGettingPowered(xTile, yTile, zTile))
             {
                 setDead();
 
-                if (!worldObj.isRemote)
+                if (!world.isRemote)
                 {
-                    worldObj.createExplosion(this, posX, posY, posZ, 4, true);
+                    world.createExplosion(this, posX, posY, posZ, 4, true);
                 }
             }
         }
@@ -67,7 +67,7 @@ public class EntityDetonatorArrow extends EntityTrickArrow
     }
 
     @Override
-    public void onCollideWithPlayer(EntityPlayer player)
+    public void onCollideWithPlayer(PlayerEntity player)
     {
         if (player == getShooter())
         {

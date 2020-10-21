@@ -16,12 +16,12 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.IEntityOwnable;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.scoreboard.Team;
 import net.minecraft.server.management.PreYggdrasilConverter;
 import net.minecraft.util.AxisAlignedBB;
@@ -31,12 +31,12 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants.NBT;
 
-public class EntitySpellDuplicate extends EntityLivingBase implements IEntityOwnable, IDataHolder, IArmorTrackedEntity, IEntityAdditionalSpawnData
+public class EntitySpellDuplicate extends LivingEntity implements IEntityOwnable, IDataHolder, IArmorTrackedEntity, IEntityAdditionalSpawnData
 {
     private float spreadTimer, prevSpreadTimer;
 
     private Vec3Container rotationCenter;
-    private EntityLivingBase ownerEntity, target;
+    private LivingEntity ownerEntity, target;
 
     public EntitySpellDuplicate(World world)
     {
@@ -44,9 +44,9 @@ public class EntitySpellDuplicate extends EntityLivingBase implements IEntityOwn
         entityCollisionReduction = 1;
     }
 
-    public EntitySpellDuplicate(EntityLivingBase owner, EntityLivingBase target, float offset)
+    public EntitySpellDuplicate(LivingEntity owner, LivingEntity target, float offset)
     {
-        this(owner.worldObj);
+        this(owner.world);
         setOwner(owner.getUniqueID().toString());
         setTarget(target);
 
@@ -118,7 +118,7 @@ public class EntitySpellDuplicate extends EntityLivingBase implements IEntityOwn
             spreadTimer += 10;
         }
 
-        EntityLivingBase owner = getOwner();
+        LivingEntity owner = getOwner();
 
         SHData.onUpdate(this);
         fallDistance = 0;
@@ -180,21 +180,21 @@ public class EntitySpellDuplicate extends EntityLivingBase implements IEntityOwn
     @Override
     public String getCommandSenderName()
     {
-        EntityLivingBase owner = getOwner();
+        LivingEntity owner = getOwner();
         return owner != null ? owner.getCommandSenderName() : super.getCommandSenderName();
     }
 
     @Override
     public AxisAlignedBB getCollisionBox(Entity entity)
     {
-        EntityLivingBase owner = getOwner();
+        LivingEntity owner = getOwner();
         return owner != null ? owner.getCollisionBox(entity) : super.getCollisionBox(entity);
     }
 
     @Override
     public AxisAlignedBB getBoundingBox()
     {
-        EntityLivingBase owner = getOwner();
+        LivingEntity owner = getOwner();
         return owner != null ? owner.getBoundingBox() : super.getBoundingBox();
     }
 
@@ -224,7 +224,7 @@ public class EntitySpellDuplicate extends EntityLivingBase implements IEntityOwn
     @Override
     public <T> T get(SHData<T> data)
     {
-        EntityLivingBase owner = getOwner();
+        LivingEntity owner = getOwner();
 
         if (owner != null)
         {
@@ -269,7 +269,7 @@ public class EntitySpellDuplicate extends EntityLivingBase implements IEntityOwn
         return FiskMath.curve((rot < 0 ? -1 : 1) * FiskServerUtils.interpolate(prevSpreadTimer, spreadTimer, partialTicks) / rot) * rot;
     }
 
-    public void setTarget(EntityLivingBase entity)
+    public void setTarget(LivingEntity entity)
     {
         if (entity == null)
         {
@@ -284,7 +284,7 @@ public class EntitySpellDuplicate extends EntityLivingBase implements IEntityOwn
     }
 
     @Override
-    public void readEntityFromNBT(NBTTagCompound nbt)
+    public void readEntityFromNBT(CompoundNBT nbt)
     {
         super.readEntityFromNBT(nbt);
         setRotationOffset(nbt.getFloat("RotationOffset"));
@@ -309,7 +309,7 @@ public class EntitySpellDuplicate extends EntityLivingBase implements IEntityOwn
     }
 
     @Override
-    public void writeEntityToNBT(NBTTagCompound nbt)
+    public void writeEntityToNBT(CompoundNBT nbt)
     {
         super.writeEntityToNBT(nbt);
         nbt.setFloat("RotationOffset", getRotationOffset());
@@ -325,7 +325,7 @@ public class EntitySpellDuplicate extends EntityLivingBase implements IEntityOwn
     }
 
     @Override
-    public EntityLivingBase getOwner()
+    public LivingEntity getOwner()
     {
         if (ownerEntity != null)
         {
@@ -335,7 +335,7 @@ public class EntitySpellDuplicate extends EntityLivingBase implements IEntityOwn
         try
         {
             UUID uuid = UUID.fromString(func_152113_b());
-            return ownerEntity = uuid == null ? null : worldObj.func_152378_a(uuid);
+            return ownerEntity = uuid == null ? null : world.func_152378_a(uuid);
         }
         catch (IllegalArgumentException e)
         {
@@ -351,7 +351,7 @@ public class EntitySpellDuplicate extends EntityLivingBase implements IEntityOwn
     @Override
     public Team getTeam()
     {
-        EntityLivingBase owner = getOwner();
+        LivingEntity owner = getOwner();
 
         if (owner != null)
         {
@@ -362,9 +362,9 @@ public class EntitySpellDuplicate extends EntityLivingBase implements IEntityOwn
     }
 
     @Override
-    public boolean isOnSameTeam(EntityLivingBase entity)
+    public boolean isOnSameTeam(LivingEntity entity)
     {
-        EntityLivingBase owner = getOwner();
+        LivingEntity owner = getOwner();
 
         if (entity == owner)
         {
@@ -382,14 +382,14 @@ public class EntitySpellDuplicate extends EntityLivingBase implements IEntityOwn
     @Override
     public ItemStack getHeldItem()
     {
-        EntityLivingBase owner = getOwner();
+        LivingEntity owner = getOwner();
         return owner != null ? owner.getHeldItem() : null;
     }
 
     @Override
     public ItemStack getEquipmentInSlot(int slot)
     {
-        EntityLivingBase owner = getOwner();
+        LivingEntity owner = getOwner();
         return owner != null ? owner.getEquipmentInSlot(slot) : null;
     }
 
@@ -401,15 +401,15 @@ public class EntitySpellDuplicate extends EntityLivingBase implements IEntityOwn
     @Override
     public ItemStack[] getLastActiveItems()
     {
-        EntityLivingBase owner = getOwner();
+        LivingEntity owner = getOwner();
         return owner != null ? owner.getLastActiveItems() : new ItemStack[0];
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public boolean isInvisibleToPlayer(EntityPlayer player)
+    public boolean isInvisibleToPlayer(PlayerEntity player)
     {
-        EntityLivingBase owner = getOwner();
+        LivingEntity owner = getOwner();
         return owner != player && (owner != null ? owner.isInvisibleToPlayer(player) : super.isInvisibleToPlayer(player));
     }
 
@@ -417,7 +417,7 @@ public class EntitySpellDuplicate extends EntityLivingBase implements IEntityOwn
     @SideOnly(Side.CLIENT)
     public boolean getAlwaysRenderNameTagForRender()
     {
-        EntityLivingBase owner = getOwner();
+        LivingEntity owner = getOwner();
         return owner != null ? owner.getAlwaysRenderNameTagForRender() : super.getAlwaysRenderNameTagForRender();
     }
 
@@ -425,39 +425,39 @@ public class EntitySpellDuplicate extends EntityLivingBase implements IEntityOwn
     @SideOnly(Side.CLIENT)
     public IIcon getItemIcon(ItemStack stack, int ticksUsing)
     {
-        EntityLivingBase owner = getOwner();
+        LivingEntity owner = getOwner();
         return owner != null ? owner.getItemIcon(stack, ticksUsing) : super.getItemIcon(stack, ticksUsing);
     }
 
     @Override
     public boolean isInvisible()
     {
-        EntityLivingBase owner = getOwner();
+        LivingEntity owner = getOwner();
         return owner != null ? owner.isInvisible() : super.isInvisible();
     }
 
     @Override
     public boolean isPushedByWater()
     {
-        EntityLivingBase owner = getOwner();
+        LivingEntity owner = getOwner();
         return owner != null ? owner.isPushedByWater() : super.isPushedByWater();
     }
 
     @Override
     public float getAIMoveSpeed()
     {
-        EntityLivingBase owner = getOwner();
+        LivingEntity owner = getOwner();
         return owner != null ? owner.getAIMoveSpeed() : super.getAIMoveSpeed();
     }
 
     @Override
     public void readSpawnData(ByteBuf buf)
     {
-        Entity entity = worldObj.getEntityByID(buf.readInt());
+        Entity entity = world.getEntityByID(buf.readInt());
 
-        if (entity instanceof EntityLivingBase)
+        if (entity instanceof LivingEntity)
         {
-            setTarget((EntityLivingBase) entity);
+            setTarget((LivingEntity) entity);
         }
     }
 

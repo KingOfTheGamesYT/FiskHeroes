@@ -17,8 +17,8 @@ import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -74,7 +74,7 @@ public class BlockSubatomicCore extends BlockContainer
     }
 
     @Override
-    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ)
+    public boolean onBlockActivated(World world, int x, int y, int z, PlayerEntity player, int side, float hitX, float hitY, float hitZ)
     {
         CoreType type = CoreType.get(world.getBlockMetadata(x, y, z));
 
@@ -115,9 +115,9 @@ public class BlockSubatomicCore extends BlockContainer
     @Override
     public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity)
     {
-        if (entity instanceof EntityPlayerMP)
+        if (entity instanceof PlayerEntityMP)
         {
-            EntityPlayerMP player = (EntityPlayerMP) entity;
+            PlayerEntityMP player = (EntityPlayerMP) entity;
             CoreType type = CoreType.get(world.getBlockMetadata(x, y, z));
 
             switch (type)
@@ -137,9 +137,9 @@ public class BlockSubatomicCore extends BlockContainer
                 break;
             }
         }
-        else if (entity instanceof EntityLivingBase)
+        else if (entity instanceof LivingEntity)
         {
-            ((EntityLivingBase) entity).attackEntityFrom(ModDamageSources.BLACK_HOLE, Float.MAX_VALUE);
+            ((LivingEntity) entity).attackEntityFrom(ModDamageSources.BLACK_HOLE, Float.MAX_VALUE);
         }
         else
         {

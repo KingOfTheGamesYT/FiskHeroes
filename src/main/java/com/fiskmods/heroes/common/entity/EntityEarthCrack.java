@@ -13,16 +13,16 @@ import cpw.mods.fml.relauncher.SideOnly;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.monster.EntityCreeper;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
 public class EntityEarthCrack extends Entity implements IEntityAdditionalSpawnData
 {
-    public EntityLivingBase caster, target;
+    public LivingEntity caster, target;
 
     public EntityEarthCrack(World world)
     {
@@ -34,7 +34,7 @@ public class EntityEarthCrack extends Entity implements IEntityAdditionalSpawnDa
         setSize(0.1F, 0.1F);
     }
 
-    public EntityEarthCrack(World world, EntityLivingBase caster, EntityLivingBase target)
+    public EntityEarthCrack(World world, LivingEntity caster, LivingEntity target)
     {
         this(world);
         this.caster = caster;
@@ -45,7 +45,7 @@ public class EntityEarthCrack extends Entity implements IEntityAdditionalSpawnDa
         int z = MathHelper.floor_double(target.posZ);
         Block block = null;
 
-        while (y > 0 && ((block = worldObj.getBlock(x, y, z)).isAir(worldObj, x, y, z) || !block.isSideSolid(worldObj, x, y, z, ForgeDirection.UP)))
+        while (y > 0 && ((block = world.getBlock(x, y, z)).isAir(world, x, y, z) || !block.isSideSolid(world, x, y, z, ForgeDirection.UP)))
         {
             --y;
         }
@@ -84,7 +84,7 @@ public class EntityEarthCrack extends Entity implements IEntityAdditionalSpawnDa
 
         if (++ticksExisted > SHConstants.TICKS_EARTHCRACK || target != null && target.isDead)
         {
-            if (target != null && !target.isDead && !worldObj.isRemote)
+            if (target != null && !target.isDead && !world.isRemote)
             {
                 if (target instanceof EntityCreeper)
                 {
@@ -92,7 +92,7 @@ public class EntityEarthCrack extends Entity implements IEntityAdditionalSpawnDa
                 }
                 else
                 {
-                    EntityLivingBase entity = SHHelper.filterDuplicate(caster);
+                    LivingEntity entity = SHHelper.filterDuplicate(caster);
                     
                     target.hurtResistantTime = 0;
                     target.attackEntityFrom(ModDamageSources.EARTH_CRACK.apply(entity), Rule.DMG_SPELL_EARTHSWALLOW.getHero(caster));
@@ -124,18 +124,18 @@ public class EntityEarthCrack extends Entity implements IEntityAdditionalSpawnDa
     }
 
     @Override
-    public boolean writeToNBTOptional(NBTTagCompound nbttagcompound)
+    public boolean writeToNBTOptional(CompoundNBT nbttagcompound)
     {
         return false;
     }
 
     @Override
-    public void readEntityFromNBT(NBTTagCompound nbttagcompound)
+    public void readEntityFromNBT(CompoundNBT nbttagcompound)
     {
     }
 
     @Override
-    public void writeEntityToNBT(NBTTagCompound nbttagcompound)
+    public void writeEntityToNBT(CompoundNBT nbttagcompound)
     {
     }
 
@@ -154,18 +154,18 @@ public class EntityEarthCrack extends Entity implements IEntityAdditionalSpawnDa
     @Override
     public void readSpawnData(ByteBuf buf)
     {
-        Entity entity = worldObj.getEntityByID(buf.readInt());
+        Entity entity = world.getEntityByID(buf.readInt());
 
-        if (entity instanceof EntityLivingBase)
+        if (entity instanceof LivingEntity)
         {
-            caster = (EntityLivingBase) entity;
+            caster = (LivingEntity) entity;
         }
 
-        entity = worldObj.getEntityByID(buf.readInt());
+        entity = world.getEntityByID(buf.readInt());
 
-        if (entity instanceof EntityLivingBase)
+        if (entity instanceof LivingEntity)
         {
-            target = (EntityLivingBase) entity;
+            target = (LivingEntity) entity;
         }
     }
 }

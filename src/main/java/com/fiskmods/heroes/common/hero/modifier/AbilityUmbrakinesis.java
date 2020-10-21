@@ -15,8 +15,8 @@ import com.fiskmods.heroes.util.SHHelper;
 import com.fiskmods.heroes.util.VectorHelper;
 
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Vec3;
 
@@ -31,7 +31,7 @@ public class AbilityUmbrakinesis extends Ability
     }
 
     @Override
-    public void onUpdate(EntityLivingBase entity, Hero hero, Phase phase, boolean enabled)
+    public void onUpdate(LivingEntity entity, Hero hero, Phase phase, boolean enabled)
     {
         if (phase == Phase.END && enabled)
         {
@@ -41,7 +41,7 @@ public class AbilityUmbrakinesis extends Ability
             {
                 entity.extinguish();
 
-                if (entity.worldObj.isRemote && !FiskHeroes.proxy.isClientPlayer(entity))
+                if (entity.world.isRemote && !FiskHeroes.proxy.isClientPlayer(entity))
                 {
                     entity.setInvisible(!SHHelper.canPlayerSeeMartianInvis(FiskHeroes.proxy.getPlayer()));
                 }
@@ -53,7 +53,7 @@ public class AbilityUmbrakinesis extends Ability
 
             boolean flag1 = SHData.LIGHTSOUT.get(entity);
 
-            if (entity.worldObj.isRemote)
+            if (entity.world.isRemote)
             {
                 if (FiskHeroes.proxy.isClientPlayer(entity))
                 {
@@ -91,16 +91,16 @@ public class AbilityUmbrakinesis extends Ability
                 SHData.LIGHTSOUT_TIMER.getPrevData().setWithoutNotify(entity, 0F);
                 SHData.LIGHTSOUT.setWithoutNotify(entity, false);
 
-                if (flag1 && !entity.worldObj.isRemote)
+                if (flag1 && !entity.world.isRemote)
                 {
-                    entity.worldObj.spawnEntityInWorld(new EntityShadowDome(entity.worldObj, entity));
+                    entity.world.spawnEntityInWorld(new EntityShadowDome(entity.world, entity));
                 }
             }
         }
     }
 
     @Override
-    public boolean canTakeDamage(EntityLivingBase entity, EntityLivingBase attacker, Hero hero, DamageSource source, float amount)
+    public boolean canTakeDamage(LivingEntity entity, LivingEntity attacker, Hero hero, DamageSource source, float amount)
     {
         if (SHData.SHADOWFORM.get(entity) && isActive(entity))
         {
@@ -111,25 +111,25 @@ public class AbilityUmbrakinesis extends Ability
     }
 
     @Override
-    public float damageTaken(EntityLivingBase entity, EntityLivingBase attacker, Hero hero, DamageSource source, float amount, float originalAmount)
+    public float damageTaken(LivingEntity entity, LivingEntity attacker, Hero hero, DamageSource source, float amount, float originalAmount)
     {
         return source.isExplosion() && SHData.SHADOWFORM.get(entity) ? amount * 2 : amount;
     }
 
     @Override
-    public float damageDealt(EntityLivingBase entity, EntityLivingBase target, Hero hero, DamageSource source, float amount, float originalAmount)
+    public float damageDealt(LivingEntity entity, LivingEntity target, Hero hero, DamageSource source, float amount, float originalAmount)
     {
         return SHData.SHADOWFORM.get(entity) && FiskServerUtils.isMeleeDamage(source) ? 0 : amount;
     }
 
     @Override
-    public boolean isActive(EntityLivingBase entity)
+    public boolean isActive(LivingEntity entity)
     {
         return !StatusEffect.has(entity, StatEffect.PHASE_SUPPRESSANT);
     }
 
     @Override
-    public boolean renderIcon(EntityPlayer player)
+    public boolean renderIcon(PlayerEntity player)
     {
         return SHData.SHADOWFORM.get(player);
     }

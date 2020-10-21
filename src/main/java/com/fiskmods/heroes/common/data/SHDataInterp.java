@@ -8,7 +8,7 @@ import com.fiskmods.heroes.util.FiskServerUtils;
 
 import cpw.mods.fml.relauncher.Side;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 
 public class SHDataInterp<T> extends SHData<T>
 {
@@ -50,7 +50,7 @@ public class SHDataInterp<T> extends SHData<T>
         return prevData;
     }
 
-    public T getPrev(EntityPlayer player)
+    public T getPrev(PlayerEntity player)
     {
         return prevData.get(player);
     }

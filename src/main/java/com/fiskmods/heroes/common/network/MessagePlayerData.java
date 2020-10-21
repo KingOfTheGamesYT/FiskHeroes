@@ -6,7 +6,7 @@ import com.fiskmods.heroes.util.NBTHelper;
 
 import cpw.mods.fml.relauncher.Side;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 
 public class MessagePlayerData extends AbstractMessage<MessagePlayerData>
 {
@@ -18,7 +18,7 @@ public class MessagePlayerData extends AbstractMessage<MessagePlayerData>
     {
     }
 
-    public MessagePlayerData(EntityPlayer player, SHData data, Object obj)
+    public MessagePlayerData(PlayerEntity player, SHData data, Object obj)
     {
         id = player.getEntityId();
         type = data;
@@ -44,7 +44,7 @@ public class MessagePlayerData extends AbstractMessage<MessagePlayerData>
     @Override
     public void receive() throws MessageException
     {
-        EntityPlayer player = getSender(id);
+        PlayerEntity player = getSender(id);
         Side senderSide = context.side.isClient() ? Side.SERVER : Side.CLIENT;
 
         if (!type.hasPerms(senderSide))

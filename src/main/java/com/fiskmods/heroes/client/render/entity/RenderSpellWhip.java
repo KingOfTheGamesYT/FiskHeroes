@@ -18,7 +18,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Vec3;
@@ -27,7 +27,7 @@ public class RenderSpellWhip extends Render
 {
     public void doRender(EntitySpellWhip entity, double x, double y, double z, float entityYaw, float partialTicks)
     {
-        EntityLivingBase caster = entity.casterEntity;
+        LivingEntity caster = entity.casterEntity;
 
         if (caster != null)
         {
@@ -67,10 +67,10 @@ public class RenderSpellWhip extends Render
                 entityZ = SHRenderHelper.interpolate(entity.posZ, entity.prevPosZ);
             }
 
-            if (renderManager.options.thirdPersonView > 0 || caster != Minecraft.getMinecraft().thePlayer)
+            if (renderManager.options.thirdPersonView > 0 || caster != Minecraft.getInstance().thePlayer)
             {
                 float yaw = (float) Math.toRadians(SHRenderHelper.interpolate(caster.renderYawOffset, caster.prevRenderYawOffset));
-                double offsetY = caster == Minecraft.getMinecraft().thePlayer ? 0 : caster.getEyeHeight();
+                double offsetY = caster == Minecraft.getInstance().thePlayer ? 0 : caster.getEyeHeight();
                 double sin = MathHelper.sin(yaw), cos = MathHelper.cos(yaw);
                 double side = 0.35, front = 0.1;
 

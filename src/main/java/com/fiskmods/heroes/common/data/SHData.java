@@ -36,11 +36,11 @@ import com.google.common.collect.Iterables;
 import cpw.mods.fml.relauncher.Side;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.MathHelper;
 
 public class SHData<T> extends FiskRegistryEntry<SHData<?>>
@@ -77,7 +77,7 @@ public class SHData<T> extends FiskRegistryEntry<SHData<?>>
     protected static final int RESET = RESET_ON_DEATH | RESET_WO_SUIT;
     protected static final int COMMAND_ACCESSIBLE = 0x20;
 
-    public static final SHData<Boolean> SPEEDING = new SHData<>(false, t -> t instanceof EntityLivingBase && SpeedsterHelper.hasSuperSpeed((EntityLivingBase) t)).setExempt(RESET_WO_SUIT);
+    public static final SHData<Boolean> SPEEDING = new SHData<>(false, t -> t instanceof LivingEntity && SpeedsterHelper.hasSuperSpeed((LivingEntity) t)).setExempt(RESET_WO_SUIT);
     public static final SHData<Byte> SPEED = new SHData<>((byte) 10).setExempt(RESET_WO_SUIT);
     public static final SHData<Boolean> SLOW_MOTION = new SHData<>(false, Ability.ACCELERATED_PERCEPTION);
     public static final SHData<Byte> SELECTED_ARROW = new SHData<>((byte) 0).setExempt(RESET);
@@ -131,7 +131,7 @@ public class SHData<T> extends FiskRegistryEntry<SHData<?>>
     public static final SHData<Boolean> SUPERHERO_LANDING = new SHData<>(false).setExempt(SAVE_NBT | SYNC_BYTES | RESET).revokePerms();
     public static final SHData<Boolean> STEELED = new SHData<>(false, Ability.STEEL_TRANSFORMATION.and(t -> t.isEntityAlive()));
     public static final SHData<Float> STEEL_COOLDOWN = new SHData<>(0.0F).setExempt(RESET_WO_SUIT);
-    public static final SHData<Boolean> SHIELD = new SHData<>(false, Ability.RETRACTABLE_SHIELD.and(t -> !(t instanceof EntityLivingBase) || ((EntityLivingBase) t).getHeldItem() == null));
+    public static final SHData<Boolean> SHIELD = new SHData<>(false, Ability.RETRACTABLE_SHIELD.and(t -> !(t instanceof LivingEntity) || ((LivingEntity) t).getHeldItem() == null));
     public static final SHData<Boolean> SHIELD_BLOCKING = new SHData<>(false, SHIELD.isValue(true)).setExempt(SAVE_NBT);
     public static final SHData<Boolean> SHADOWFORM = new SHDataInvisible(false, Ability.UMBRAKINESIS.and(t -> t.isEntityAlive()));
     public static final SHData<Boolean> PREV_SHADOWFORM = new SHData(false).setExempt(RESET | COMMAND_ACCESSIBLE);
@@ -143,7 +143,7 @@ public class SHData<T> extends FiskRegistryEntry<SHData<?>>
     public static final SHData<Boolean> TRANSFORMED = new SHData<>(false, SHPredicates.heroPred(t -> t.getKeyBinding(Ability.KEY_TRANSFORM) > 0).and(t -> t.isEntityAlive()));
     public static final SHData<Float> TRANSFORM_COOLDOWN = new SHData<>(0.0F).setExempt(RESET_WO_SUIT);
     public static final SHData<Integer> PREV_TRANSFORM_MAX = new SHData<>(-1).setExempt(RESET_WO_SUIT);
-    public static final SHData<Boolean> BLADE = new SHData<>(false, Ability.RETRACTABLE_BLADE.and(t -> !(t instanceof EntityLivingBase) || ((EntityLivingBase) t).getHeldItem() == null));
+    public static final SHData<Boolean> BLADE = new SHData<>(false, Ability.RETRACTABLE_BLADE.and(t -> !(t instanceof LivingEntity) || ((LivingEntity) t).getHeldItem() == null));
     public static final SHData<Float> SPELL_FRACTION = new SHData<>(0.0F, Ability.SPELLCASTING).setExempt(SAVE_NBT);
     public static final SHData<Boolean> SPODERMEN = new SHData<>(false).setExempt(RESET).revokePerms(Side.CLIENT);
 
@@ -349,9 +349,9 @@ public class SHData<T> extends FiskRegistryEntry<SHData<?>>
         {
             return setWithoutNotify(entity, value);
         }
-        else if (entity instanceof EntityPlayer)
+        else if (entity instanceof PlayerEntity)
         {
-            return set((EntityPlayer) entity, value);
+            return set((PlayerEntity) entity, value);
         }
 
         return false;
@@ -371,9 +371,9 @@ public class SHData<T> extends FiskRegistryEntry<SHData<?>>
                 ((IDataHolder) entity).set(this, value);
                 onValueChanged(entity, value);
             }
-            else if (entity instanceof EntityPlayer)
+            else if (entity instanceof PlayerEntity)
             {
-                SHPlayerData.getData((EntityPlayer) entity).putData(this, value);
+                SHPlayerData.getData((PlayerEntity) entity).putData(this, value);
                 onValueChanged(entity, value);
             }
 
@@ -394,9 +394,9 @@ public class SHData<T> extends FiskRegistryEntry<SHData<?>>
         {
             return incrWithoutNotify(entity, value);
         }
-        else if (entity instanceof EntityPlayer)
+        else if (entity instanceof PlayerEntity)
         {
-            return incr((EntityPlayer) entity, value);
+            return incr((PlayerEntity) entity, value);
         }
 
         return false;
@@ -442,9 +442,9 @@ public class SHData<T> extends FiskRegistryEntry<SHData<?>>
         {
             return clampWithoutNotify(entity, min, max);
         }
-        else if (entity instanceof EntityPlayer)
+        else if (entity instanceof PlayerEntity)
         {
-            return clamp((EntityPlayer) entity, min, max);
+            return clamp((PlayerEntity) entity, min, max);
         }
 
         return false;
@@ -487,19 +487,19 @@ public class SHData<T> extends FiskRegistryEntry<SHData<?>>
         {
             return ((IDataHolder) entity).get(this);
         }
-        else if (entity instanceof EntityPlayer)
+        else if (entity instanceof PlayerEntity)
         {
-            return SHPlayerData.getData((EntityPlayer) entity).getData(this);
+            return SHPlayerData.getData((PlayerEntity) entity).getData(this);
         }
 
         return getDefault();
     }
 
-    public boolean sync(EntityPlayer player)
+    public boolean sync(PlayerEntity player)
     {
-        if (hasPerms(player.worldObj.isRemote ? Side.CLIENT : Side.SERVER) && legalUpdate(player))
+        if (hasPerms(player.world.isRemote ? Side.CLIENT : Side.SERVER) && legalUpdate(player))
         {
-            if (player.worldObj.isRemote)
+            if (player.world.isRemote)
             {
                 SHNetworkManager.wrapper.sendToServer(new MessagePlayerData(player, this, get(player)));
             }
@@ -514,24 +514,24 @@ public class SHData<T> extends FiskRegistryEntry<SHData<?>>
         return false;
     }
 
-    public boolean set(EntityPlayer player, T value)
+    public boolean set(PlayerEntity player, T value)
     {
         return setWithoutNotify(player, value) && sync(player);
     }
 
-    public boolean incr(EntityPlayer player, T value)
+    public boolean incr(PlayerEntity player, T value)
     {
         return incrWithoutNotify(player, value) && sync(player);
     }
 
-    public boolean clamp(EntityPlayer player, T min, T max)
+    public boolean clamp(PlayerEntity player, T min, T max)
     {
         return clampWithoutNotify(player, min, max) && sync(player);
     }
 
-    public static NBTTagCompound writeToNBT(NBTTagCompound nbt, Map<SHData, Object> data)
+    public static CompoundNBT writeToNBT(CompoundNBT nbt, Map<SHData, Object> data)
     {
-        NBTTagCompound nbttagcompound = new NBTTagCompound();
+        CompoundNBT nbttagcompound = new CompoundNBT();
 
         for (Map.Entry<SHData, Object> e : data.entrySet())
         {
@@ -551,9 +551,9 @@ public class SHData<T> extends FiskRegistryEntry<SHData<?>>
         return nbt;
     }
 
-    public static Map<SHData, Object> readFromNBT(NBTTagCompound nbt, Map<SHData, Object> data)
+    public static Map<SHData, Object> readFromNBT(CompoundNBT nbt, Map<SHData, Object> data)
     {
-        NBTTagCompound nbttagcompound = nbt.getCompoundTag("DataArray");
+        CompoundNBT nbttagcompound = nbt.getCompoundTag("DataArray");
 
         for (SHData type : SHData.REGISTRY)
         {
@@ -642,7 +642,7 @@ public class SHData<T> extends FiskRegistryEntry<SHData<?>>
             data.update(entity);
         }
 
-        if (entity instanceof EntityLivingBase && !SHHelper.isHero((EntityLivingBase) entity))
+        if (entity instanceof LivingEntity && !SHHelper.isHero((LivingEntity) entity))
         {
             for (SHData data : SHData.REGISTRY)
             {
@@ -675,7 +675,7 @@ public class SHData<T> extends FiskRegistryEntry<SHData<?>>
 
     public static boolean isTracking(Entity entity)
     {
-        return entity instanceof EntityPlayer || entity instanceof IDataHolder;
+        return entity instanceof PlayerEntity || entity instanceof IDataHolder;
     }
 
     protected void init(Field field, String name) throws ClassNotFoundException

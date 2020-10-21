@@ -53,7 +53,7 @@ public enum RenderItemGameboii implements IItemRenderer
     @Override
     public void renderItem(ItemRenderType type, ItemStack item, Object... data)
     {
-        Minecraft mc = Minecraft.getMinecraft();
+        Minecraft mc = Minecraft.getInstance();
         float scale = 0.0625F;
 
         if (type == ItemRenderType.EQUIPPED_FIRST_PERSON)

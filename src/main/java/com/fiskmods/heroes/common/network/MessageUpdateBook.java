@@ -4,19 +4,19 @@ import com.fiskmods.heroes.common.item.ItemMetahumanLog;
 
 import cpw.mods.fml.common.network.ByteBufUtils;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 
 public class MessageUpdateBook extends AbstractMessage<MessageUpdateBook>
 {
-    private NBTTagCompound nbt;
+    private CompoundNBT nbt;
 
     public MessageUpdateBook()
     {
     }
 
-    public MessageUpdateBook(NBTTagCompound tag)
+    public MessageUpdateBook(CompoundNBT tag)
     {
         nbt = tag;
     }
@@ -36,12 +36,12 @@ public class MessageUpdateBook extends AbstractMessage<MessageUpdateBook>
     @Override
     public void receive() throws MessageException
     {
-        EntityPlayer player = getPlayer();
+        PlayerEntity player = getPlayer();
         ItemStack heldItem = player.getHeldItem();
 
         if (heldItem != null && heldItem.getItem() instanceof ItemMetahumanLog)
         {
-            heldItem.setTagCompound(nbt);
+            heldItem.setTag(nbt);
         }
     }
 }

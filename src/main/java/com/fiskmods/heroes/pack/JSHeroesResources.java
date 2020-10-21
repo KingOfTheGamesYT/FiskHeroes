@@ -25,7 +25,7 @@ public enum JSHeroesResources
 {
     INSTANCE;
 
-    private static Minecraft mc = Minecraft.getMinecraft();
+    private static Minecraft mc = Minecraft.getInstance();
     private static int lastWorld;
 
     public static boolean doClientSync()

@@ -4,7 +4,7 @@ import com.fiskmods.heroes.common.entity.arrow.EntityTrickArrow;
 import com.fiskmods.heroes.common.entity.arrow.EntityVineArrow;
 
 import net.minecraft.dispenser.IBlockSource;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 
 public class ArrowTypeGrapple<T extends EntityTrickArrow> extends ArrowType<T>
@@ -15,7 +15,7 @@ public class ArrowTypeGrapple<T extends EntityTrickArrow> extends ArrowType<T>
     }
 
     @Override
-    public void onShoot(EntityLivingBase shooter, IBlockSource source, T entity, ItemStack bow, ItemStack arrow, float f)
+    public void onShoot(LivingEntity shooter, IBlockSource source, T entity, ItemStack bow, ItemStack arrow, float f)
     {
         super.onShoot(shooter, source, entity, bow, arrow, f);
 

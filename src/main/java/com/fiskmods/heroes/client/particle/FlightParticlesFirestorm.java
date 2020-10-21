@@ -8,7 +8,7 @@ import com.fiskmods.heroes.common.data.SHData;
 import com.fiskmods.heroes.common.hero.HeroIteration;
 import com.fiskmods.heroes.util.VectorHelper;
 
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Vec3;
 
 public enum FlightParticlesFirestorm implements FlightParticleRenderer
@@ -16,7 +16,7 @@ public enum FlightParticlesFirestorm implements FlightParticleRenderer
     INSTANCE;
 
     @Override
-    public void doParticles(EntityLivingBase entity, HeroIteration iter, HeroRenderer renderer, Random rand, Vec3 pos, double d, double d1, double yaw, float scale, boolean clientPlayer, boolean firstPerson)
+    public void doParticles(LivingEntity entity, HeroIteration iter, HeroRenderer renderer, Random rand, Vec3 pos, double d, double d1, double yaw, float scale, boolean clientPlayer, boolean firstPerson)
     {
         Vec3 offsets = Vec3.createVectorHelper(-0.4, -0.81, 0);
         int particles = 20;

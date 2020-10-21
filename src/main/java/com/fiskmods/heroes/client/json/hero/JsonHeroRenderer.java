@@ -23,7 +23,7 @@ import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.resources.IResource;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
@@ -260,9 +260,9 @@ public class JsonHeroRenderer
     {
         ItemStack stack = null;
 
-        if (entity instanceof EntityLivingBase)
+        if (entity instanceof LivingEntity)
         {
-            stack = ((EntityLivingBase) entity).getEquipmentInSlot(4 - slot);
+            stack = ((LivingEntity) entity).getEquipmentInSlot(4 - slot);
         }
 
         return getResource(entity, stack, key);

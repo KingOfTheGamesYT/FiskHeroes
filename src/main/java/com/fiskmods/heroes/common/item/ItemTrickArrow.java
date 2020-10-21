@@ -9,12 +9,12 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
@@ -32,22 +32,22 @@ public class ItemTrickArrow extends ItemFood implements IItemListEntry
 
     public static ArrowType getType(ItemStack itemstack)
     {
-        return ArrowType.getArrowById(itemstack.getItemDamage());
+        return ArrowType.getArrowById(itemstack.getDamage());
     }
 
     public static ItemStack getItem(ItemStack itemstack)
     {
-        if (itemstack.hasTagCompound())
+        if (itemstack.hasTag())
         {
-            if (itemstack.getTagCompound().hasKey("FireworksItem"))
+            if (itemstack.getTag().hasKey("FireworksItem"))
             {
-                itemstack.getTagCompound().setTag("AttachedItem", itemstack.getTagCompound().getCompoundTag("FireworksItem"));
-                itemstack.getTagCompound().removeTag("FireworksItem");
+                itemstack.getTag().setTag("AttachedItem", itemstack.getTag().getCompoundTag("FireworksItem"));
+                itemstack.getTag().removeTag("FireworksItem");
             }
 
-            if (itemstack.getTagCompound().hasKey("AttachedItem"))
+            if (itemstack.getTag().hasKey("AttachedItem"))
             {
-                return ItemStack.loadItemStackFromNBT(itemstack.getTagCompound().getCompoundTag("AttachedItem"));
+                return ItemStack.loadItemStackFromNBT(itemstack.getTag().getCompoundTag("AttachedItem"));
             }
         }
 
@@ -58,26 +58,26 @@ public class ItemTrickArrow extends ItemFood implements IItemListEntry
     {
         if (itemstack1 == null)
         {
-            if (itemstack.hasTagCompound() && itemstack.getTagCompound().hasKey("AttachedItem"))
+            if (itemstack.hasTag() && itemstack.getTag().hasKey("AttachedItem"))
             {
-                itemstack.getTagCompound().removeTag("AttachedItem");
+                itemstack.getTag().removeTag("AttachedItem");
             }
 
             return;
         }
 
-        if (!itemstack.hasTagCompound())
+        if (!itemstack.hasTag())
         {
-            itemstack.setTagCompound(new NBTTagCompound());
+            itemstack.setTag(new CompoundNBT());
         }
 
-        NBTTagCompound nbttagcompound = new NBTTagCompound();
+        CompoundNBT nbttagcompound = new CompoundNBT();
         itemstack1.writeToNBT(nbttagcompound);
-        itemstack.getTagCompound().setTag("AttachedItem", nbttagcompound);
+        itemstack.getTag().setTag("AttachedItem", nbttagcompound);
     }
 
     @Override
-    public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer player)
+    public ItemStack onItemRightClick(ItemStack itemstack, World world, PlayerEntity player)
     {
         if (getType(itemstack).isEdible(itemstack, player))
         {
@@ -88,7 +88,7 @@ public class ItemTrickArrow extends ItemFood implements IItemListEntry
     }
 
     @Override
-    public ItemStack onEaten(ItemStack itemstack, World world, EntityPlayer player)
+    public ItemStack onEaten(ItemStack itemstack, World world, PlayerEntity player)
     {
         ArrowType type = getType(itemstack);
 
@@ -152,11 +152,11 @@ public class ItemTrickArrow extends ItemFood implements IItemListEntry
     }
 
     @Override
-    public void addInformation(ItemStack itemstack, EntityPlayer player, List list, boolean flag)
+    public void addInformation(ItemStack itemstack, PlayerEntity player, List list, boolean flag)
     {
         getType(itemstack).addInformation(itemstack, player, list, flag);
 
-        if (flag && itemstack.hasTagCompound() && itemstack.getTagCompound().getBoolean(NO_ENTITY))
+        if (flag && itemstack.hasTag() && itemstack.getTag().getBoolean(NO_ENTITY))
         {
             list.add(EnumChatFormatting.DARK_GRAY.toString() + EnumChatFormatting.ITALIC + StatCollector.translateToLocal("tooltip.trickArrow.noEntity"));
         }

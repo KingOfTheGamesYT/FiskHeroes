@@ -10,7 +10,7 @@
 //import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 //import cpw.mods.fml.relauncher.Side;
 //import cpw.mods.fml.relauncher.SideOnly;
-//import net.minecraft.entity.player.EntityPlayer;
+//import net.minecraft.entity.player.PlayerEntity;
 //
 //public class KeyPressCombatMode extends KeyPressBase
 //{
@@ -20,26 +20,26 @@
 //    }
 //
 //    @Override
-//    public boolean serverRequirements(EntityPlayer player, InteractionType type, int x, int y, int z)
+//    public boolean serverRequirements(PlayerEntity player, InteractionType type, int x, int y, int z)
 //    {
 //        return MoveCommonHandler.hasMoveSet(player);
 //    }
 //
 //    @Override
 //    @SideOnly(Side.CLIENT)
-//    public SHKeyBinding getKey(EntityPlayer player, Hero hero)
+//    public SHKeyBinding getKey(PlayerEntity player, Hero hero)
 //    {
 //        return SHKeyBinds.COMBAT_MODE;
 //    }
 //
 //    @Override
-//    public void receive(EntityPlayer sender, EntityPlayer clientPlayer, InteractionType type, Side side, int x, int y, int z)
+//    public void receive(PlayerEntity sender, PlayerEntity clientPlayer, InteractionType type, Side side, int x, int y, int z)
 //    {
 //        SHData.COMBAT_MODE.set(sender, !SHData.COMBAT_MODE.get(sender));
 //    }
 //
 //    @Override
-//    public TargetPoint getTargetPoint(EntityPlayer player, int x, int y, int z)
+//    public TargetPoint getTargetPoint(PlayerEntity player, int x, int y, int z)
 //    {
 //        return TARGET_NONE;
 //    }

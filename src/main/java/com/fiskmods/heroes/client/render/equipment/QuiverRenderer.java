@@ -18,7 +18,7 @@ import com.fiskmods.heroes.util.QuiverHelper;
 import com.fiskmods.heroes.util.QuiverHelper.Quiver;
 
 import net.minecraft.client.model.ModelBiped;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
@@ -27,20 +27,20 @@ public enum QuiverRenderer implements EquipmentRenderer
     INSTANCE;
 
     @Override
-    public boolean test(EntityPlayer player)
+    public boolean test(PlayerEntity player)
     {
         ItemStack stack = player.getHeldItem();
         return QuiverHelper.hasQuiver(player) && (stack == null || stack.getItem() != ModItems.quiver || player instanceof EntityDisplayMannequin);
     }
 
     @Override
-    public float[] getOffset(EntityPlayer player, HeroIteration iter, ModelBiped model, float partialTicks)
+    public float[] getOffset(PlayerEntity player, HeroIteration iter, ModelBiped model, float partialTicks)
     {
         return new float[] {0, -0.02F, 0};
     }
 
     @Override
-    public void render(EntityPlayer player, HeroIteration iter, ModelBiped model, RenderEquipmentEvent event, float partialTicks)
+    public void render(PlayerEntity player, HeroIteration iter, ModelBiped model, RenderEquipmentEvent event, float partialTicks)
     {
         HeroRenderer heroRenderer = HeroRenderer.get(iter);
         Quiver quiver = QuiverHelper.getQuiver(player);

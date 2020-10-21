@@ -16,7 +16,7 @@ import com.fiskmods.heroes.util.VectorHelper;
 
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Vec3;
 
 public enum EffectHeatVision implements Effect
@@ -26,9 +26,9 @@ public enum EffectHeatVision implements Effect
     @Override
     public void doRender(Entry e, Entity anchor, boolean isClientPlayer, boolean isFirstPerson, float partialTicks)
     {
-        if (anchor instanceof EntityLivingBase)
+        if (anchor instanceof LivingEntity)
         {
-            EntityLivingBase entity = (EntityLivingBase) anchor;
+            LivingEntity entity = (LivingEntity) anchor;
             float shooting = SHData.SHOOTING_TIMER.interpolate(entity);
 
             if (shooting > 0)

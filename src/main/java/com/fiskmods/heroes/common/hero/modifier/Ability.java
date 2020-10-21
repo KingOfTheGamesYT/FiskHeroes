@@ -12,8 +12,8 @@ import com.fiskmods.heroes.common.registry.FiskSimpleRegistry;
 import com.fiskmods.heroes.util.SHHelper;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.StatCollector;
 
@@ -111,12 +111,12 @@ public class Ability extends FiskRegistryEntry<Ability> implements HeroModifier,
         return tier;
     }
 
-    public boolean isActive(EntityLivingBase entity)
+    public boolean isActive(LivingEntity entity)
     {
         return true;
     }
 
-    public boolean renderIcon(EntityPlayer player)
+    public boolean renderIcon(PlayerEntity player)
     {
         return false;
     }
@@ -146,7 +146,7 @@ public class Ability extends FiskRegistryEntry<Ability> implements HeroModifier,
     @Override
     public boolean test(Entity input)
     {
-        return input instanceof EntityLivingBase && SHHelper.hasEnabledModifier((EntityLivingBase) input, this);
+        return input instanceof LivingEntity && SHHelper.hasEnabledModifier((LivingEntity) input, this);
     }
 
     @Override

@@ -97,8 +97,8 @@ import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.client.renderer.entity.RendererLivingEntity;
 import net.minecraft.entity.EntityHanging;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
@@ -126,7 +126,7 @@ public enum ClientEventHandler
 {
     INSTANCE;
 
-    private Minecraft mc = Minecraft.getMinecraft();
+    private Minecraft mc = Minecraft.getInstance();
 
     public RenderPlayerHand renderHandInstance;
     private EntityRenderer renderer, prevRenderer;
@@ -210,7 +210,7 @@ public enum ClientEventHandler
     @SubscribeEvent
     public void onPlayerInteract(PlayerInteractEvent event)
     {
-        EntityPlayer player = event.entityPlayer;
+        PlayerEntity player = event.entityPlayer;
         int x = event.x;
         int y = event.y;
         int z = event.z;
@@ -292,9 +292,9 @@ public enum ClientEventHandler
     @SubscribeEvent
     public void onPlayerTick(PlayerTickEvent event)
     {
-        EntityPlayer player = event.player;
+        PlayerEntity player = event.player;
 
-        if (player.worldObj.isRemote)
+        if (player.world.isRemote)
         {
             HeroIteration iter = SHHelper.getHeroIter(player);
             HeroRenderer renderer = HeroRenderer.get(iter);
@@ -372,7 +372,7 @@ public enum ClientEventHandler
                 for (int i = 0; i < list.size(); ++i)
                 {
                     LightningData data = list.get(i);
-                    data.onUpdate(player, player.worldObj);
+                    data.onUpdate(player, player.world);
                 }
 
                 if (player == mc.thePlayer)
@@ -433,7 +433,7 @@ public enum ClientEventHandler
     @SubscribeEvent
     public void onFOVUpdate(FOVUpdateEvent event)
     {
-        EntityPlayer player = event.entity;
+        PlayerEntity player = event.entity;
         ItemStack heldItem = player.getHeldItem();
 
         if (SpeedsterHelper.isOnTreadmill(player))
@@ -441,7 +441,7 @@ public enum ClientEventHandler
             event.newfov += 0.5F;
         }
 
-        if (SHData.GLIDING.get(player) && mc.gameSettings.keyBindForward.getIsKeyPressed() && SHHelper.hasEnabledModifier(player, Ability.GLIDING_FLIGHT))
+        if (SHData.GLIDING.get(player) && mc.gameSettings.keyBindForward.isPressed() && SHHelper.hasEnabledModifier(player, Ability.GLIDING_FLIGHT))
         {
             event.newfov += 0.2F;
         }
@@ -523,7 +523,7 @@ public enum ClientEventHandler
         if (event.phase == Phase.END)
         {
             ClientProxy.guiOverlay.updateTick();
-            EntityPlayer player = mc.thePlayer;
+            PlayerEntity player = mc.thePlayer;
 
             if (player != null)
             {
@@ -607,7 +607,7 @@ public enum ClientEventHandler
         }
         else if (mc.theWorld != null)
         {
-            for (EntityPlayer player : (List<EntityPlayer>) mc.theWorld.playerEntities)
+            for (PlayerEntity player : (List<EntityPlayer>) mc.theWorld.playerEntities)
             {
                 SHRenderHelper.updatePrevMotion(player);
             }
@@ -619,7 +619,7 @@ public enum ClientEventHandler
     {
         AbstractClientPlayer player = (AbstractClientPlayer) event.entityPlayer;
         HeroIteration iter = SHHelper.getHeroIter(player);
-        World world = player.worldObj;
+        World world = player.world;
 
         if (SHData.INVISIBLE.get(player) && SHHelper.getInvisibility(player, mc.thePlayer) <= 0 || SHData.SHADOWFORM_TIMER.get(player) >= 1 && !SHHelper.canPlayerSeeMartianInvis(mc.thePlayer))
         {
@@ -694,7 +694,7 @@ public enum ClientEventHandler
     @SubscribeEvent
     public void onRenderPlayerPost(RenderPlayerEvent.Post event)
     {
-        EntityPlayer player = event.entityPlayer;
+        PlayerEntity player = event.entityPlayer;
 
         for (ModelBiped model : new ModelBiped[] {event.renderer.modelArmorChestplate, event.renderer.modelArmor, event.renderer.modelBipedMain})
         {
@@ -781,7 +781,7 @@ public enum ClientEventHandler
         {
             if (data != null)
             {
-                EntityTrickArrow arrow = data.getEntity(player.worldObj);
+                EntityTrickArrow arrow = data.getEntity(player.world);
 
                 if (arrow != null)
                 {
@@ -940,9 +940,9 @@ public enum ClientEventHandler
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public void onRenderLivingSpecialsPre(RenderLivingEvent.Specials.Pre event)
     {
-        if (event.entity instanceof EntityPlayer)
+        if (event.entity instanceof PlayerEntity)
         {
-            EntityPlayer player = (EntityPlayer) event.entity;
+            PlayerEntity player = (PlayerEntity) event.entity;
             Hero hero = SHHelper.getHero(player);
 
             if (hero != null && hero.hasEnabledModifier(player, Ability.SHAPE_SHIFTING))
@@ -1002,7 +1002,7 @@ public enum ClientEventHandler
     @SubscribeEvent
     public void onRenderBlockOverlay(RenderBlockOverlayEvent event)
     {
-        EntityPlayer player = event.player;
+        PlayerEntity player = event.player;
         Hero hero = SHHelper.getHero(player);
 
         if (hero != null)
@@ -1022,7 +1022,7 @@ public enum ClientEventHandler
         }
     }
 
-    public static void setupPlayerRotation(EntityLivingBase entity)
+    public static void setupPlayerRotation(LivingEntity entity)
     {
         byte b = SHData.FLIGHT_ANIMATION.get(entity);
 

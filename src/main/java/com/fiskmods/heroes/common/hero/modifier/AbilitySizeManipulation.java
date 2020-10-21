@@ -10,8 +10,8 @@ import com.fiskmods.heroes.common.world.ModDimensions;
 import com.fiskmods.heroes.util.FiskServerUtils;
 
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
 
@@ -30,11 +30,11 @@ public class AbilitySizeManipulation extends Ability
     }
 
     @Override
-    public void onUpdate(EntityLivingBase entity, Hero hero, Phase phase, boolean enabled)
+    public void onUpdate(LivingEntity entity, Hero hero, Phase phase, boolean enabled)
     {
-        if (phase == Phase.END && enabled && entity instanceof EntityPlayer)
+        if (phase == Phase.END && enabled && entity instanceof PlayerEntity)
         {
-            EntityPlayer player = (EntityPlayer) entity;
+            PlayerEntity player = (PlayerEntity) entity;
             float scale = SHData.SCALE.get(player);
             float min = hero.getFuncFloat(player, FUNC_MIN_SIZE, 0.5F);
             float max = hero.getFuncFloat(player, FUNC_MAX_SIZE, 1);
@@ -76,7 +76,7 @@ public class AbilitySizeManipulation extends Ability
                         {
                             AxisAlignedBB aabb = player.boundingBox;
                             aabb = AxisAlignedBB.getBoundingBox(aabb.minX, aabb.minY, aabb.minZ, aabb.minX + width, aabb.minY + height, aabb.minZ + width);
-                            flag = player.worldObj.getCollidingBoundingBoxes(player, aabb).isEmpty();
+                            flag = player.world.getCollidingBoundingBoxes(player, aabb).isEmpty();
                         }
 
                         if (flag)
@@ -106,7 +106,7 @@ public class AbilitySizeManipulation extends Ability
                     }
                 }
 
-                if (entity.worldObj.isRemote && FiskHeroes.proxy.isClientPlayer(entity))
+                if (entity.world.isRemote && FiskHeroes.proxy.isClientPlayer(entity))
                 {
                     boolean shrink = hero.isKeyPressed(entity, KEY_SHRINK);
                     boolean grow = hero.isKeyPressed(entity, KEY_GROW);
@@ -127,7 +127,7 @@ public class AbilitySizeManipulation extends Ability
                             AxisAlignedBB aabb = player.boundingBox;
                             aabb = AxisAlignedBB.getBoundingBox(aabb.minX, aabb.minY, aabb.minZ, aabb.minX + width, aabb.minY + height, aabb.minZ + width);
 
-                            if (player.worldObj.getCollidingBoundingBoxes(player, aabb).isEmpty())
+                            if (player.world.getCollidingBoundingBoxes(player, aabb).isEmpty())
                             {
                                 SHData.SHRINKING.set(player, false);
                                 SHData.GROWING.set(player, true);
@@ -147,11 +147,11 @@ public class AbilitySizeManipulation extends Ability
     }
 
     @Override
-    public boolean canTakeDamage(EntityLivingBase entity, EntityLivingBase attacker, Hero hero, DamageSource source, float amount)
+    public boolean canTakeDamage(LivingEntity entity, LivingEntity attacker, Hero hero, DamageSource source, float amount)
     {
-        if (entity instanceof EntityPlayer && SHData.SCALE.get(entity) <= hero.getFuncFloat(entity, FUNC_MIN_SIZE, 0.5F))
+        if (entity instanceof PlayerEntity && SHData.SCALE.get(entity) <= hero.getFuncFloat(entity, FUNC_MIN_SIZE, 0.5F))
         {
-            if (!(attacker instanceof EntityPlayer) && FiskServerUtils.isMeleeDamage(source) && rand.nextInt(3) != 0)
+            if (!(attacker instanceof PlayerEntity) && FiskServerUtils.isMeleeDamage(source) && rand.nextInt(3) != 0)
             {
                 if (entity.hurtResistantTime == 0)
                 {
@@ -166,13 +166,13 @@ public class AbilitySizeManipulation extends Ability
     }
 
     @Override
-    public float damageDealt(EntityLivingBase entity, EntityLivingBase target, Hero hero, DamageSource source, float amount, float originalAmount)
+    public float damageDealt(LivingEntity entity, LivingEntity target, Hero hero, DamageSource source, float amount, float originalAmount)
     {
         amount = super.damageDealt(entity, target, hero, source, amount, originalAmount);
 
-        if (entity instanceof EntityPlayer && FiskServerUtils.isMeleeDamage(source))
+        if (entity instanceof PlayerEntity && FiskServerUtils.isMeleeDamage(source))
         {
-            EntityPlayer player = (EntityPlayer) entity;
+            PlayerEntity player = (PlayerEntity) entity;
             float scale = SHData.SCALE.get(entity);
 
             if (scale < 1)

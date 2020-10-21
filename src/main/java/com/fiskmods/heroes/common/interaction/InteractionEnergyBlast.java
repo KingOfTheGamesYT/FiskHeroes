@@ -11,7 +11,7 @@ import com.fiskmods.heroes.util.VectorHelper;
 
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import cpw.mods.fml.relauncher.Side;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Vec3;
 
 public class InteractionEnergyBlast extends InteractionBase
@@ -22,30 +22,30 @@ public class InteractionEnergyBlast extends InteractionBase
     }
 
     @Override
-    public boolean serverRequirements(EntityPlayer player, InteractionType type, int x, int y, int z)
+    public boolean serverRequirements(PlayerEntity player, InteractionType type, int x, int y, int z)
     {
         return SHData.AIMING.get(player);
     }
 
     @Override
-    public boolean clientRequirements(EntityPlayer player, InteractionType type, int x, int y, int z)
+    public boolean clientRequirements(PlayerEntity player, InteractionType type, int x, int y, int z)
     {
         return Cooldown.ENERGY_BLAST.available(player);
     }
 
     @Override
-    public void receive(EntityPlayer sender, EntityPlayer clientPlayer, InteractionType type, Side side, int x, int y, int z)
+    public void receive(PlayerEntity sender, PlayerEntity clientPlayer, InteractionType type, Side side, int x, int y, int z)
     {
         if (side.isServer())
         {
             double frontOffset = 0.6;
             double sideOffset = -0.3;
             Vec3 src = VectorHelper.getOffsetCoords(sender, sideOffset, -0.3, frontOffset);
-            EntityLaserBolt entity = new EntityLaserBolt(sender.worldObj, sender, Type.SUIT, SHHelper.getHeroIter(sender), false);
+            EntityLaserBolt entity = new EntityLaserBolt(sender.world, sender, Type.SUIT, SHHelper.getHeroIter(sender), false);
             entity.setPosition(src.xCoord, src.yCoord, src.zCoord);
 
-            sender.worldObj.spawnEntityInWorld(entity);
-            sender.worldObj.playSoundAtEntity(sender, SHSounds.ITEM_CHRONOSRIFLE_SHOOT.toString(), 1, 1.0F / (sender.getRNG().nextFloat() * 0.3F + 0.7F));
+            sender.world.spawnEntityInWorld(entity);
+            sender.world.playSoundAtEntity(sender, SHSounds.ITEM_CHRONOSRIFLE_SHOOT.toString(), 1, 1.0F / (sender.getRNG().nextFloat() * 0.3F + 0.7F));
         }
         else if (sender == clientPlayer)
         {
@@ -55,7 +55,7 @@ public class InteractionEnergyBlast extends InteractionBase
     }
 
     @Override
-    public TargetPoint getTargetPoint(EntityPlayer player, int x, int y, int z)
+    public TargetPoint getTargetPoint(PlayerEntity player, int x, int y, int z)
     {
         return TARGET_NONE;
     }

@@ -18,7 +18,7 @@ import com.fiskmods.heroes.util.SHHelper;
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCreature;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.IEntityOwnable;
 import net.minecraft.entity.IRangedAttackMob;
@@ -28,9 +28,9 @@ import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.monster.IMob;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.scoreboard.Team;
 import net.minecraft.server.management.PreYggdrasilConverter;
 import net.minecraft.util.AxisAlignedBB;
@@ -103,13 +103,13 @@ public class EntityIronMan extends EntityCreature implements IEntityOwnable, IDa
             return;
         }
 
-        EntityLivingBase owner = getOwner();
+        LivingEntity owner = getOwner();
         Hero hero = SHHelper.getHero(this);
 
         SHData.onUpdate(this);
         Hero.updateModifiers(this, hero, Phase.START);
 
-        if (!worldObj.isRemote)
+        if (!world.isRemote)
         {
             if (getActivePotionEffects().size() > 0)
             {
@@ -121,9 +121,9 @@ public class EntityIronMan extends EntityCreature implements IEntityOwnable, IDa
                 double dist = 0.25;
                 AxisAlignedBB aabb = boundingBox.expand(dist, dist, dist);
 
-                if (owner instanceof EntityPlayer)
+                if (owner instanceof PlayerEntity)
                 {
-                    EntityPlayer player = (EntityPlayer) owner;
+                    PlayerEntity player = (PlayerEntity) owner;
 
                     if (player.isEntityAlive() && FiskMath.containsAABB(aabb, player.boundingBox))
                     {
@@ -255,7 +255,7 @@ public class EntityIronMan extends EntityCreature implements IEntityOwnable, IDa
     }
 
     @Override
-    protected boolean interact(EntityPlayer player)
+    protected boolean interact(PlayerEntity player)
     {
         if (isOwner(player))
         {
@@ -479,7 +479,7 @@ public class EntityIronMan extends EntityCreature implements IEntityOwnable, IDa
     }
 
     @Override
-    public void readEntityFromNBT(NBTTagCompound nbt)
+    public void readEntityFromNBT(CompoundNBT nbt)
     {
         super.readEntityFromNBT(nbt);
         set(SHData.SUIT_OPEN, nbt.getBoolean("SuitOpen"));
@@ -506,7 +506,7 @@ public class EntityIronMan extends EntityCreature implements IEntityOwnable, IDa
     }
 
     @Override
-    public void writeEntityToNBT(NBTTagCompound nbt)
+    public void writeEntityToNBT(CompoundNBT nbt)
     {
         super.writeEntityToNBT(nbt);
         nbt.setBoolean("SuitOpen", get(SHData.SUIT_OPEN));
@@ -526,12 +526,12 @@ public class EntityIronMan extends EntityCreature implements IEntityOwnable, IDa
     }
 
     @Override
-    public EntityLivingBase getOwner()
+    public LivingEntity getOwner()
     {
         try
         {
             UUID uuid = UUID.fromString(func_152113_b());
-            return uuid == null ? null : worldObj.func_152378_a(uuid);
+            return uuid == null ? null : world.func_152378_a(uuid);
         }
         catch (IllegalArgumentException e)
         {
@@ -539,7 +539,7 @@ public class EntityIronMan extends EntityCreature implements IEntityOwnable, IDa
         }
     }
 
-    public boolean isOwner(EntityLivingBase entity)
+    public boolean isOwner(LivingEntity entity)
     {
         return entity == getOwner();
     }
@@ -547,7 +547,7 @@ public class EntityIronMan extends EntityCreature implements IEntityOwnable, IDa
     @Override
     public Team getTeam()
     {
-        EntityLivingBase owner = getOwner();
+        LivingEntity owner = getOwner();
 
         if (owner != null)
         {
@@ -558,9 +558,9 @@ public class EntityIronMan extends EntityCreature implements IEntityOwnable, IDa
     }
 
     @Override
-    public boolean isOnSameTeam(EntityLivingBase entity)
+    public boolean isOnSameTeam(LivingEntity entity)
     {
-        EntityLivingBase owner = getOwner();
+        LivingEntity owner = getOwner();
 
         if (entity == owner)
         {
@@ -576,7 +576,7 @@ public class EntityIronMan extends EntityCreature implements IEntityOwnable, IDa
     }
 
     @Override
-    public void attackEntityWithRangedAttack(EntityLivingBase target, float f)
+    public void attackEntityWithRangedAttack(LivingEntity target, float f)
     {
         double d0 = target.posX - posX;
         double d1 = target.boundingBox.minY + target.height * 0.75F - (posY + getEyeHeight() - 0.1);
@@ -591,7 +591,7 @@ public class EntityIronMan extends EntityCreature implements IEntityOwnable, IDa
             rotationPitch = f3;
         }
 
-        if (!worldObj.isRemote)
+        if (!world.isRemote)
         {
             InteractionRepulsor.shoot(this);
         }

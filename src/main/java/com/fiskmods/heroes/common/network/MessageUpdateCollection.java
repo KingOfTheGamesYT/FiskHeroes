@@ -7,7 +7,7 @@ import com.fiskmods.heroes.common.arrowtype.ArrowType;
 import com.fiskmods.heroes.common.data.SHPlayerData;
 
 import io.netty.buffer.ByteBuf;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 
 public class MessageUpdateCollection extends AbstractMessage<MessageUpdateCollection>
 {
@@ -17,7 +17,7 @@ public class MessageUpdateCollection extends AbstractMessage<MessageUpdateCollec
     {
     }
 
-    public MessageUpdateCollection(EntityPlayer player)
+    public MessageUpdateCollection(PlayerEntity player)
     {
         arrowCollection = SHPlayerData.getData(player).arrowCollection;
     }

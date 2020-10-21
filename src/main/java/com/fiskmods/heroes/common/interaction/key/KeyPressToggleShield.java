@@ -10,7 +10,7 @@ import com.fiskmods.heroes.util.SHHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.settings.KeyBinding;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 
 public class KeyPressToggleShield extends KeyPressBase
 {
@@ -20,7 +20,7 @@ public class KeyPressToggleShield extends KeyPressBase
     }
 
     @Override
-    public boolean clientRequirements(EntityPlayer player, InteractionType type, int x, int y, int z)
+    public boolean clientRequirements(PlayerEntity player, InteractionType type, int x, int y, int z)
     {
         Hero hero;
         return super.clientRequirements(player, type, x, y, z) && (hero = SHHelper.getHero(player)) != null && hero.getFuncBoolean(player, AbilityShield.FUNC_TOGGLE, true);
@@ -28,13 +28,13 @@ public class KeyPressToggleShield extends KeyPressBase
 
     @Override
     @SideOnly(Side.CLIENT)
-    public KeyBinding getKey(EntityPlayer player, Hero hero)
+    public KeyBinding getKey(PlayerEntity player, Hero hero)
     {
         return hero.getKey(player, AbilityShield.KEY_SHIELD);
     }
 
     @Override
-    public void receive(EntityPlayer sender, EntityPlayer clientPlayer, InteractionType type, Side side, int x, int y, int z)
+    public void receive(PlayerEntity sender, PlayerEntity clientPlayer, InteractionType type, Side side, int x, int y, int z)
     {
         if (side.isClient())
         {

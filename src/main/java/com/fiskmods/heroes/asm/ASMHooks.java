@@ -27,19 +27,23 @@ import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.BlockPane;
 import net.minecraft.block.material.Material;
 import net.minecraft.command.IEntitySelector;
+import net.minecraft.command.arguments.EntitySelector;
+import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCreature;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetHandlerPlayServer;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.StringUtils;
 import net.minecraft.util.Vec3;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants.NBT;
 
@@ -50,23 +54,23 @@ public class ASMHooks
         return Tickrate.MILISECONDS_PER_TICK;
     }
 
-    public static List selectEntitiesWithinAABB(EntityCreature entity, Class clazz, AxisAlignedBB aabb, IEntitySelector entitySelector)
+    public static List selectEntitiesWithinAABB(CreatureEntity entity, Class clazz, AxisAlignedBB aabb, EntitySelector entitySelector)
     {
-        World world = entity.worldObj;
+        World world = entity.world;
         List<Entity> list = world.selectEntitiesWithinAABB(clazz, aabb, entitySelector);
 
         for (int i = 0; i < list.size(); ++i)
         {
             Entity entity1 = list.get(i);
 
-            if (entity1 instanceof EntityPlayer)
+            if (entity1 instanceof PlayerEntity)
             {
-                EntityPlayer player = (EntityPlayer) entity1;
+                PlayerEntity player = (PlayerEntity) entity1;
                 Hero hero = SHHelper.getHero(player);
 
                 if (hero != null && hero.hasEnabledModifier(player, Ability.INVISIBILITY))
                 {
-                    if (SHData.INVISIBLE.get(player) && player.getDistanceToEntity(entity) > 2)
+                    if (SHData.INVISIBLE.get(player) && player.getDistance(entity) > 2)
                     {
                         list.remove(i);
                     }
@@ -93,15 +97,15 @@ public class ASMHooks
         return list;
     }
 
-    public static EntityPlayer getClosestVulnerablePlayer(Entity entity, double x, double y, double z, double radius)
+    public static PlayerEntity getClosestVulnerablePlayer(Entity entity, double x, double y, double z, double radius)
     {
-        World world = entity.worldObj;
+        World world = entity.world;
         double d = -1.0D;
-        EntityPlayer entityplayer = null;
+        PlayerEntity PlayerEntity = null;
 
         for (Object element : world.playerEntities)
         {
-            EntityPlayer player = (EntityPlayer) element;
+            PlayerEntity player = (PlayerEntity) element;
 
             if (!player.capabilities.disableDamage && player.isEntityAlive())
             {
@@ -138,7 +142,7 @@ public class ASMHooks
                 if ((radius < 0.0D || d1 < d2 * d2) && (d == -1.0D || d1 < d))
                 {
                     d = d1;
-                    entityplayer = player;
+                    PlayerEntity = player;
                 }
             }
         }
@@ -146,12 +150,12 @@ public class ASMHooks
         return entityplayer;
     }
 
-    public static float getDrawbackTime(EntityPlayer player)
+    public static float getDrawbackTime(PlayerEntity player)
     {
         return SHAttributes.BOW_DRAWBACK.get(player, 20);
     }
 
-    public static int getBowIconTime(EntityPlayer player, int time)
+    public static int getBowIconTime(PlayerEntity player, int time)
     {
         return (int) (getDrawbackTime(player) * 20F / time);
     }
@@ -192,7 +196,7 @@ public class ASMHooks
         return baseName + "_" + SHData.SCALE.get(entity);
     }
 
-    public static float getArmorVisibilityMultiplier(EntityPlayer player)
+    public static float getArmorVisibilityMultiplier(PlayerEntity player)
     {
         Hero hero = SHHelper.getHero(player);
 
@@ -204,14 +208,14 @@ public class ASMHooks
         return 1.0F;
     }
 
-    public static int getArmSwingAnimationEnd(int result, EntityLivingBase entity)
+    public static int getArmSwingAnimationEnd(int result, LivingEntity entity)
     {
         if (SHData.isTracking(entity))
         {
             result *= getModifiedEntityScale(entity) / getStrengthScale(entity);
         }
 
-        if (entity instanceof EntityPlayer && SpeedsterHelper.canPlayerRun((EntityPlayer) entity))
+        if (entity instanceof PlayerEntity && SpeedsterHelper.canPlayerRun((PlayerEntity) entity))
         {
             result /= 2;
         }
@@ -219,7 +223,7 @@ public class ASMHooks
         return result;
     }
 
-    public static int getHealRate(EntityPlayer player, int rate)
+    public static int getHealRate(PlayerEntity player, int rate)
     {
         Hero hero = SHHelper.getHero(player);
 
@@ -235,9 +239,9 @@ public class ASMHooks
     {
         AxisAlignedBB aabb1 = block.getCollisionBoundingBoxFromPool(world, x, y, z);
 
-        if (aabb1 == null && block == Blocks.water && !(world.getBlock(x, y + 1, z) instanceof BlockLiquid) && entity instanceof EntityPlayer)
+        if (aabb1 == null && block == Blocks.water && !(world.getBlock(x, y + 1, z) instanceof BlockLiquid) && entity instanceof PlayerEntity)
         {
-            EntityPlayer player = (EntityPlayer) entity;
+            PlayerEntity player = (PlayerEntity) entity;
 
             if (SpeedsterHelper.canPlayerRunOnWater(player))
             {
@@ -261,9 +265,9 @@ public class ASMHooks
     {
         boolean flag = false;
 
-        if (entity instanceof EntityPlayer)
+        if (entity instanceof PlayerEntity)
         {
-            EntityPlayer player = (EntityPlayer) entity;
+            PlayerEntity player = (PlayerEntity) entity;
             Hero hero = SHHelper.getHero(player);
 
             if (hero != null && SHData.INTANGIBLE.get(player) && (hero.hasEnabledModifier(player, Ability.INTANGIBILITY) && Ability.INTANGIBILITY.isActive(player) || hero.hasEnabledModifier(player, Ability.ABSOLUTE_INTANGIBILITY) && Ability.ABSOLUTE_INTANGIBILITY.isActive(player)))
@@ -283,7 +287,7 @@ public class ASMHooks
 
         int nextStepDistance = SHReflection.nextStepDistanceField.get(entity);
 
-        entity.worldObj.theProfiler.startSection("move");
+        entity.world.theProfiler.startSection("move");
         entity.ySize *= 0.4F;
         double d3 = entity.posX;
         double d4 = entity.posY;
@@ -292,7 +296,7 @@ public class ASMHooks
         double d7 = offsetY;
         double d8 = offsetZ;
         AxisAlignedBB axisalignedbb = entity.boundingBox.copy();
-        boolean flag1 = entity.onGround && entity.isSneaking() && entity instanceof EntityPlayer;
+        boolean flag1 = entity.onGround && entity.isSneaking() && entity instanceof PlayerEntity;
 
         if (flag1)
         {
@@ -496,8 +500,8 @@ public class ASMHooks
             }
         }
 
-        entity.worldObj.theProfiler.endSection();
-        entity.worldObj.theProfiler.startSection("rest");
+        entity.world.theProfiler.endSection();
+        entity.world.theProfiler.startSection("rest");
         entity.posX = (entity.boundingBox.minX + entity.boundingBox.maxX) / 2.0D;
         entity.posY = entity.boundingBox.minY + entity.yOffset - entity.ySize;
         entity.posZ = (entity.boundingBox.minZ + entity.boundingBox.maxZ) / 2.0D;
@@ -531,12 +535,12 @@ public class ASMHooks
             int j1 = MathHelper.floor_double(entity.posX);
             k = MathHelper.floor_double(entity.posY - 0.20000000298023224D - entity.yOffset);
             int l = MathHelper.floor_double(entity.posZ);
-            Block block = entity.worldObj.getBlock(j1, k, l);
-            int i1 = entity.worldObj.getBlock(j1, k - 1, l).getRenderType();
+            Block block = entity.world.getBlock(j1, k, l);
+            int i1 = entity.world.getBlock(j1, k - 1, l).getRenderType();
 
             if (i1 == 11 || i1 == 32 || i1 == 21)
             {
-                block = entity.worldObj.getBlock(j1, k - 1, l);
+                block = entity.world.getBlock(j1, k - 1, l);
             }
 
             if (block != Blocks.ladder)
@@ -553,13 +557,13 @@ public class ASMHooks
             }
         }
 
-        entity.worldObj.theProfiler.endSection();
+        entity.world.theProfiler.endSection();
         SHReflection.nextStepDistanceField.set(entity, nextStepDistance);
     }
 
     private static List getCollidingBoundingBoxes(Entity entity, AxisAlignedBB aabb)
     {
-        World world = entity.worldObj;
+        World world = entity.world;
         List<AxisAlignedBB> collidingBoundingBoxes = new ArrayList<>();
 
         int i = MathHelper.floor_double(aabb.minX);
@@ -600,13 +604,13 @@ public class ASMHooks
         return collidingBoundingBoxes;
     }
 
-    public static boolean moveEntityWithHeading(EntityLivingBase entity, float strafe, float forward)
+    public static boolean moveEntityWithHeading(LivingEntity entity, float strafe, float forward)
     {
-        if (entity instanceof EntityPlayer)
+        if (entity instanceof PlayerEntity)
         {
-            EntityPlayer player = (EntityPlayer) entity;
+            PlayerEntity player = (PlayerEntity) entity;
 
-            if (player.isClientWorld() && !player.isInWater() && !player.handleLavaMovement() && player.worldObj.provider.dimensionId != ModDimensions.QUANTUM_REALM_ID && SHData.GLIDING.get(player))
+            if (player.isClientWorld() && !player.isInWater() && !player.handleLavaMovement() && player.world.provider.dimensionId != ModDimensions.QUANTUM_REALM_ID && SHData.GLIDING.get(player))
             {
                 Hero hero = SHHelper.getHero(player);
                 boolean flight = hero != null && hero.hasEnabledModifier(entity, Ability.GLIDING_FLIGHT);
@@ -655,7 +659,7 @@ public class ASMHooks
                 player.motionZ *= 0.9900000095367432D;
                 player.moveEntity(player.motionX, player.motionY, player.motionZ);
 
-                if (player.isCollidedHorizontally && !player.worldObj.isRemote)
+                if (player.isCollidedHorizontally && !player.world.isRemote)
                 {
                     double d10 = Math.sqrt(player.motionX * player.motionX + player.motionY * player.motionY + player.motionZ * player.motionZ);
                     double d3 = d8 - d10;
@@ -671,11 +675,11 @@ public class ASMHooks
                 if (flight)
                 {
                     AxisAlignedBB aabb = player.boundingBox.copy().expand(1, 0, 1);
-                    List<EntityLivingBase> list = player.worldObj.selectEntitiesWithinAABB(EntityLivingBase.class, aabb, IEntitySelector.selectAnything);
+                    List<LivingEntity> list = player.world.selectEntitiesWithinAABB(LivingEntity.class, aabb, IEntitySelector.selectAnything);
 
-                    if (!player.worldObj.isRemote)
+                    if (!player.world.isRemote)
                     {
-                        for (EntityLivingBase entity1 : list)
+                        for (LivingEntity entity1 : list)
                         {
                             if (entity1 != player)
                             {
@@ -726,7 +730,7 @@ public class ASMHooks
         return result || SHMapData.get(world).getPower(world, x, y, z) > 0;
     }
 
-    public static void readFromNBT(ItemStack stack, NBTTagCompound nbt)
+    public static void readFromNBT(ItemStack stack, CompoundNBT nbt)
     {
         if (stack.getItem() == null)
         {
@@ -748,25 +752,25 @@ public class ASMHooks
                 stack.func_150996_a(ModItems.heroArmor[p.getValue()]);
                 nbt.setShort("id", (short) Item.getIdFromItem(stack.getItem()));
 
-                if (!stack.hasTagCompound())
+                if (!stack.hasTag())
                 {
-                    stack.setTagCompound(new NBTTagCompound());
+                    stack.setTag(new CompoundNBT());
                 }
 
-                if (!stack.getTagCompound().hasKey(ItemHeroArmor.TAG_HERO, NBT.TAG_STRING))
+                if (!stack.getTag().hasKey(ItemHeroArmor.TAG_HERO, NBT.TAG_STRING))
                 {
-                    stack.getTagCompound().setString(ItemHeroArmor.TAG_HERO, p.getKey());
+                    stack.getTag().setString(ItemHeroArmor.TAG_HERO, p.getKey());
                 }
             }
         }
-        else if (stack.getItem() instanceof ItemHeroArmor && stack.hasTagCompound() && stack.getTagCompound().hasKey(ItemHeroArmor.TAG_HERO, NBT.TAG_STRING))
+        else if (stack.getItem() instanceof ItemHeroArmor && stack.hasTag() && stack.getTag().hasKey(ItemHeroArmor.TAG_HERO, NBT.TAG_STRING))
         {
-            String s = stack.getTagCompound().getString(ItemHeroArmor.TAG_HERO);
+            String s = stack.getTag().getString(ItemHeroArmor.TAG_HERO);
             String s1 = Hero.REGISTRY.getRemap(s);
 
             if (!s.equals(s1) && !StringUtils.isNullOrEmpty(s1))
             {
-                stack.getTagCompound().setString(ItemHeroArmor.TAG_HERO, s1);
+                stack.getTag().setString(ItemHeroArmor.TAG_HERO, s1);
             }
         }
     }

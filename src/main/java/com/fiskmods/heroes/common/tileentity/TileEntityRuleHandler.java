@@ -6,8 +6,8 @@ import com.fiskmods.heroes.common.data.world.SHMapData;
 import com.fiskmods.heroes.common.network.MessageTileTrigger.ITileDataCallback;
 
 import io.netty.buffer.ByteBuf;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.StringUtils;
 import net.minecraftforge.common.util.Constants.NBT;
 
@@ -22,7 +22,7 @@ public class TileEntityRuleHandler extends TileEntitySH implements ITileDataCall
     @Override
     public void updateEntity()
     {
-        if (!worldObj.isRemote && ruleSet != null)
+        if (!world.isRemote && ruleSet != null)
         {
             ruleSet.tick();
         }
@@ -32,14 +32,14 @@ public class TileEntityRuleHandler extends TileEntitySH implements ITileDataCall
     public void invalidate()
     {
         super.invalidate();
-        SHMapData.get(worldObj).addRuleHandler(this);
+        SHMapData.get(world).addRuleHandler(this);
     }
 
     @Override
     public void validate()
     {
         super.validate();
-        SHMapData.get(worldObj).removeRuleHandler(this);
+        SHMapData.get(world).removeRuleHandler(this);
     }
 
     public void notifyRuleSetChange(String key)
@@ -68,7 +68,7 @@ public class TileEntityRuleHandler extends TileEntitySH implements ITileDataCall
     }
 
     @Override
-    public void readCustomNBT(NBTTagCompound nbt)
+    public void readCustomNBT(CompoundNBT nbt)
     {
         chunkRadius = nbt.getByte("ChunkRadius") & 0xFF;
 
@@ -79,7 +79,7 @@ public class TileEntityRuleHandler extends TileEntitySH implements ITileDataCall
     }
 
     @Override
-    public void writeCustomNBT(NBTTagCompound nbt)
+    public void writeCustomNBT(CompoundNBT nbt)
     {
         nbt.setByte("ChunkRadius", (byte) chunkRadius);
 
@@ -90,7 +90,7 @@ public class TileEntityRuleHandler extends TileEntitySH implements ITileDataCall
     }
 
     @Override
-    public void receive(EntityPlayer sender, ByteBuf buf)
+    public void receive(PlayerEntity sender, ByteBuf buf)
     {
         chunkRadius = buf.readByte();
     }

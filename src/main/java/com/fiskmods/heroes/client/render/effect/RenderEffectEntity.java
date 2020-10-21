@@ -18,7 +18,7 @@ public class RenderEffectEntity extends Render
         if (anchor != null)
         {
             boolean isClientPlayer = anchor == FiskHeroes.proxy.getPlayer();
-            boolean isFirstPerson = isClientPlayer && Minecraft.getMinecraft().gameSettings.thirdPersonView == 0;
+            boolean isFirstPerson = isClientPlayer && Minecraft.getInstance().gameSettings.thirdPersonView == 0;
 
             if (anchor.ticksExisted == 0)
             {

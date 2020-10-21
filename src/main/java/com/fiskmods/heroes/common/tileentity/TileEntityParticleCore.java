@@ -19,11 +19,11 @@ import net.minecraft.block.BlockLiquid;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityFallingBlock;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
@@ -47,7 +47,7 @@ public class TileEntityParticleCore extends TileEntityContainer implements ISide
     @Override
     public void updateEntity()
     {
-        List<Entity> list = worldObj.getEntitiesWithinAABB(Entity.class, getEffectiveBounds());
+        List<Entity> list = world.getEntitiesWithinAABB(Entity.class, getEffectiveBounds());
         CoreType type = getType();
 
         prevDraining = draining;
@@ -59,11 +59,11 @@ public class TileEntityParticleCore extends TileEntityContainer implements ISide
             {
                 if (type != CoreType.BLACK && gravity <= -1)
                 {
-                    worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, CoreType.BLACK.ordinal(), 2);
+                    world.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, CoreType.BLACK.ordinal(), 2);
                     setGravity(CoreType.BLACK.gravity);
                     type = getType();
 
-                    worldObj.createExplosion(null, xCoord + 0.5, yCoord + 0.5, zCoord + 0.5, radius, true);
+                    world.createExplosion(null, xCoord + 0.5, yCoord + 0.5, zCoord + 0.5, radius, true);
 
                     for (int i = 0; i < getSizeInventory(); ++i)
                     {
@@ -72,7 +72,7 @@ public class TileEntityParticleCore extends TileEntityContainer implements ISide
 
                     if (lastInteraction != null)
                     {
-                        EntityPlayer player = worldObj.getPlayerEntityByName(lastInteraction);
+                        PlayerEntity player = world.getPlayerEntityByName(lastInteraction);
 
                         if (player != null)
                         {
@@ -82,15 +82,15 @@ public class TileEntityParticleCore extends TileEntityContainer implements ISide
                 }
                 else if (type != CoreType.WHITE && gravity <= 0)
                 {
-                    worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, CoreType.WHITE.ordinal(), 2);
+                    world.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, CoreType.WHITE.ordinal(), 2);
                     type = getType();
 
-                    worldObj.playSound(xCoord + 0.5, yCoord + 0.5, zCoord + 0.5, "random.fizz", 1, 0.8F + (worldObj.rand.nextFloat() - worldObj.rand.nextFloat()) * 0.4F, false);
+                    world.playSound(xCoord + 0.5, yCoord + 0.5, zCoord + 0.5, "random.fizz", 1, 0.8F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.4F, false);
                     double spread = 1.5;
 
                     for (int i = 0; i < 200; ++i)
                     {
-                        SHParticleType.SUBATOMIC_CHARGE.spawn(xCoord + 0.5 + (worldObj.rand.nextDouble() - 0.5) * spread, yCoord + 0.5 + (worldObj.rand.nextDouble() - 0.5) * spread, zCoord + 0.5 + (worldObj.rand.nextDouble() - 0.5) * spread, 0, 0, 0);
+                        SHParticleType.SUBATOMIC_CHARGE.spawn(xCoord + 0.5 + (world.rand.nextDouble() - 0.5) * spread, yCoord + 0.5 + (world.rand.nextDouble() - 0.5) * spread, zCoord + 0.5 + (world.rand.nextDouble() - 0.5) * spread, 0, 0, 0);
                     }
                 }
             }
@@ -109,9 +109,9 @@ public class TileEntityParticleCore extends TileEntityContainer implements ISide
                         {
                             flag = true;
 
-                            if (!worldObj.isRemote)
+                            if (!world.isRemote)
                             {
-                                stack.setItemDamage(stack.getItemDamage() + 1);
+                                stack.setItemDamage(stack.getDamage() + 1);
                                 gravity -= 1F / SHConstants.MAX_SUBATOMIC_RECHARGE;
                             }
                             else
@@ -124,9 +124,9 @@ public class TileEntityParticleCore extends TileEntityContainer implements ISide
 
                                 for (int i = 0; i < MathHelper.ceiling_float_int(Math.abs(gravity) * radius); ++i)
                                 {
-                                    double x1 = x + (worldObj.rand.nextDouble() - 0.5) * spread;
-                                    double y1 = y + (worldObj.rand.nextDouble() - 0.5) * spread;
-                                    double z1 = z + (worldObj.rand.nextDouble() - 0.5) * spread;
+                                    double x1 = x + (world.rand.nextDouble() - 0.5) * spread;
+                                    double y1 = y + (world.rand.nextDouble() - 0.5) * spread;
+                                    double z1 = z + (world.rand.nextDouble() - 0.5) * spread;
                                     Vec3 mot = Vec3.createVectorHelper(x1 - x, y1 - y, z1 - z).normalize();
                                     SHParticleType.SUBATOMIC_CHARGE.spawn(x1, y1, z1, -mot.xCoord * motion, -mot.yCoord * motion, -mot.zCoord * motion);
                                 }
@@ -147,20 +147,20 @@ public class TileEntityParticleCore extends TileEntityContainer implements ISide
 
                     if (flag)
                     {
-                        if (draining == 1 && prevDraining < 1 && worldObj.isRemote)
+                        if (draining == 1 && prevDraining < 1 && world.isRemote)
                         {
                             FiskHeroes.proxy.playSound(null, "absorb", 0, 0, xCoord, yCoord, zCoord);
                         }
-                        else if (draining > 0 && prevDraining == 0 && !worldObj.isRemote)
+                        else if (draining > 0 && prevDraining == 0 && !world.isRemote)
                         {
-                            worldObj.playSoundEffect(xCoord, yCoord, zCoord, SHSounds.ITEM_BATTERY_ON.toString(), 1, 1);
+                            world.playSoundEffect(xCoord, yCoord, zCoord, SHSounds.ITEM_BATTERY_ON.toString(), 1, 1);
                         }
 
                         markBlockForUpdate();
                     }
-//                    else if (prevDraining == 1 && draining < 1 && !worldObj.isRemote)
+//                    else if (prevDraining == 1 && draining < 1 && !world.isRemote)
 //                    {
-//                        worldObj.playSoundEffect(xCoord, yCoord, zCoord, SHSounds.ITEM_BATTERY_OFF.toString(), 1, 1);
+//                        world.playSoundEffect(xCoord, yCoord, zCoord, SHSounds.ITEM_BATTERY_OFF.toString(), 1, 1);
 //                    }
                 }
 
@@ -185,9 +185,9 @@ public class TileEntityParticleCore extends TileEntityContainer implements ISide
 
                                         if (layer <= size + 2)
                                         {
-                                            Block block = worldObj.getBlock(xCoord + i, yCoord + j, zCoord + k);
+                                            Block block = world.getBlock(xCoord + i, yCoord + j, zCoord + k);
 
-                                            if (block == Blocks.air || !(block.getBlockHardness(worldObj, xCoord + i, yCoord + j, zCoord + k) >= 0 || block instanceof BlockLiquid))
+                                            if (block == Blocks.air || !(block.getBlockHardness(world, xCoord + i, yCoord + j, zCoord + k) >= 0 || block instanceof BlockLiquid))
                                             {
                                                 continue;
                                             }
@@ -201,22 +201,22 @@ public class TileEntityParticleCore extends TileEntityContainer implements ISide
                             blocks.sort(Comparator.comparingDouble(t -> Vec3.createVectorHelper(t.posX + 0.5, t.posY + 0.5, t.posZ + 0.5).distanceTo(center)));
                         }
 
-                        if (!worldObj.isRemote && blocks != null && !blocks.isEmpty() && !list.isEmpty())
+                        if (!world.isRemote && blocks != null && !blocks.isEmpty() && !list.isEmpty())
                         {
                             DimensionalCoords coords = blocks.get(0);
                             int j = MathHelper.ceiling_double_int(Math.pow(Vec3.createVectorHelper(coords.posX + 0.5, coords.posY + 0.5, coords.posZ + 0.5).distanceTo(center), 3) * radius / 10);
 
-                            for (int i = 0; i < j && !blocks.isEmpty() && worldObj.loadedEntityList.size() < 1000; ++i)
+                            for (int i = 0; i < j && !blocks.isEmpty() && world.loadedEntityList.size() < 1000; ++i)
                             {
                                 coords = blocks.get(0);
 
-                                EntityFallingBlock entity = new EntityFallingBlock(worldObj, coords.posX + 0.5, coords.posY + 0.5, coords.posZ + 0.5, worldObj.getBlock(coords.posX, coords.posY, coords.posZ), worldObj.getBlockMetadata(coords.posX, coords.posY, coords.posZ));
+                                EntityFallingBlock entity = new EntityFallingBlock(world, coords.posX + 0.5, coords.posY + 0.5, coords.posZ + 0.5, world.getBlock(coords.posX, coords.posY, coords.posZ), world.getBlockMetadata(coords.posX, coords.posY, coords.posZ));
                                 entity.motionY += 0.5F;
                                 entity.field_145812_b = -100;
                                 entity.field_145813_c = false;
 
-                                worldObj.spawnEntityInWorld(entity);
-                                worldObj.setBlock(coords.posX, coords.posY, coords.posZ, Blocks.air);
+                                world.spawnEntityInWorld(entity);
+                                world.setBlock(coords.posX, coords.posY, coords.posZ, Blocks.air);
                                 blocks.remove(coords);
                             }
                         }
@@ -271,7 +271,7 @@ public class TileEntityParticleCore extends TileEntityContainer implements ISide
     }
 
     @Override
-    public void readCustomNBT(NBTTagCompound nbt)
+    public void readCustomNBT(CompoundNBT nbt)
     {
         super.readCustomNBT(nbt);
         radius = nbt.getByte("Range");
@@ -285,7 +285,7 @@ public class TileEntityParticleCore extends TileEntityContainer implements ISide
     }
 
     @Override
-    public void writeCustomNBT(NBTTagCompound nbt)
+    public void writeCustomNBT(CompoundNBT nbt)
     {
         super.writeCustomNBT(nbt);
         nbt.setByte("Range", (byte) radius);
@@ -307,7 +307,7 @@ public class TileEntityParticleCore extends TileEntityContainer implements ISide
     @Override
     public double getMaxRenderDistanceSquared()
     {
-        double dist = Minecraft.getMinecraft().gameSettings.renderDistanceChunks * 16;
+        double dist = Minecraft.getInstance().gameSettings.renderDistanceChunks * 16;
         return dist * dist;
     }
 

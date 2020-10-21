@@ -60,12 +60,12 @@ import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.client.settings.KeyBinding;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
 import net.minecraft.util.EnumChatFormatting;
@@ -98,7 +98,7 @@ public class GuiSuperheroesBook extends GuiScreen
     private boolean rightMouseDown;
     private boolean chestOpen;
 
-    public GuiSuperheroesBook(EntityPlayer player, ItemStack itemstack, Book book)
+    public GuiSuperheroesBook(PlayerEntity player, ItemStack itemstack, Book book)
     {
         bookStack = itemstack;
         this.book = book;
@@ -114,9 +114,9 @@ public class GuiSuperheroesBook extends GuiScreen
         buttonList.add(buttonNextPage = new GuiButtonNextPage(1, x + BOOK_WIDTH - 46, y + 153, true, this));
         buttonList.add(buttonPreviousPage = new GuiButtonNextPage(2, x + 22, y + 153, false, this));
 
-        if (bookStack.hasTagCompound() && !hasInit)
+        if (bookStack.hasTag() && !hasInit)
         {
-            readFromNBT(bookStack.getTagCompound());
+            readFromNBT(bookStack.getTag());
             hasInit = true;
         }
 
@@ -198,17 +198,17 @@ public class GuiSuperheroesBook extends GuiScreen
     {
         if (mc.thePlayer != null)
         {
-            if (!bookStack.hasTagCompound())
+            if (!bookStack.hasTag())
             {
-                bookStack.setTagCompound(new NBTTagCompound());
+                bookStack.setTag(new CompoundNBT());
             }
 
-            writeToNBT(bookStack.getTagCompound());
-            SHNetworkManager.wrapper.sendToServer(new MessageUpdateBook(bookStack.getTagCompound()));
+            writeToNBT(bookStack.getTag());
+            SHNetworkManager.wrapper.sendToServer(new MessageUpdateBook(bookStack.getTag()));
         }
     }
 
-    public void readFromNBT(NBTTagCompound tag)
+    public void readFromNBT(CompoundNBT tag)
     {
         currPage = MathHelper.clamp_int(tag.getInteger("Page"), 0, book.getTotalPagePairs());
 
@@ -242,7 +242,7 @@ public class GuiSuperheroesBook extends GuiScreen
         }
     }
 
-    public void writeToNBT(NBTTagCompound tag)
+    public void writeToNBT(CompoundNBT tag)
     {
         tag.setInteger("Page", currPage);
 
@@ -1316,14 +1316,14 @@ public class GuiSuperheroesBook extends GuiScreen
 
     private class PropertyButton
     {
-        public final BiFunction<EntityLivingBase, Hero, Integer> cooldown;
+        public final BiFunction<LivingEntity, Hero, Integer> cooldown;
         public final SHData<Boolean> dataHook;
         public Consumer<Boolean> onPress;
 
         public final String name;
         public final int iconX, iconY;
 
-        public PropertyButton(String s, int iconIndex, SHData<Boolean> data, BiFunction<EntityLivingBase, Hero, Integer> f)
+        public PropertyButton(String s, int iconIndex, SHData<Boolean> data, BiFunction<LivingEntity, Hero, Integer> f)
         {
             name = s;
             iconX = iconIndex % 5;

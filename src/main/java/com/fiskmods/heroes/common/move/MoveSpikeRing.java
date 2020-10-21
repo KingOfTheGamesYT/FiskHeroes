@@ -5,7 +5,7 @@ import com.fiskmods.heroes.common.entity.EntityCactusSpike;
 import com.fiskmods.heroes.common.hero.Hero;
 import com.google.common.collect.ImmutableMap;
 
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.MovingObjectPosition;
 
 public class MoveSpikeRing extends Move
@@ -29,13 +29,13 @@ public class MoveSpikeRing extends Move
     }
 
     @Override
-    public boolean onActivated(EntityLivingBase entity, Hero hero, MovingObjectPosition mop, MoveActivation activation, ImmutableMap<String, Number> modifiers, float focus)
+    public boolean onActivated(LivingEntity entity, Hero hero, MovingObjectPosition mop, MoveActivation activation, ImmutableMap<String, Number> modifiers, float focus)
     {
         int num = modifiers.getOrDefault(KEY_QUANTITY, 0).intValue();
 
         if (num > 0)
         {
-            if (!entity.worldObj.isRemote)
+            if (!entity.world.isRemote)
             {
                 int spikes = 6 * num;
                 float prevYaw = entity.rotationYaw;
@@ -43,11 +43,11 @@ public class MoveSpikeRing extends Move
                 for (int i = 0; i < spikes; ++i)
                 {
                     entity.rotationYaw = i * (360F / spikes);
-                    entity.worldObj.spawnEntityInWorld(new EntityCactusSpike(entity.worldObj, entity));
+                    entity.world.spawnEntityInWorld(new EntityCactusSpike(entity.world, entity));
                 }
 
                 entity.rotationYaw = prevYaw;
-                entity.worldObj.playSoundAtEntity(entity, SHSounds.ITEM_BOW_SHOOT.toString(), 1.0F, 1.0F / (entity.getRNG().nextFloat() * 0.4F + 1.2F) + 0.75F);
+                entity.world.playSoundAtEntity(entity, SHSounds.ITEM_BOW_SHOOT.toString(), 1.0F, 1.0F / (entity.getRNG().nextFloat() * 0.4F + 1.2F) + 0.75F);
             }
 
             return true;

@@ -23,7 +23,7 @@ import net.minecraft.util.ResourceLocation;
 
 public abstract class Abstract2DGame implements IGameboiiGame, IGameboiiSaveObject, IResourceManagerReloadListener
 {
-    protected final Minecraft mc = Minecraft.getMinecraft();
+    protected final Minecraft mc = Minecraft.getInstance();
 
     protected BufferedImage canvas;
     protected DynamicTexture canvasTexture;

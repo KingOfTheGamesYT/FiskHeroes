@@ -4,7 +4,7 @@ import com.fiskmods.heroes.common.config.Rule;
 import com.fiskmods.heroes.common.damagesource.ModDamageSources;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
@@ -23,7 +23,7 @@ public class EntityThrowingStar extends EntityProjectile
         setSize(0.15F, 0.15F);
     }
 
-    public EntityThrowingStar(World world, EntityLivingBase shooter)
+    public EntityThrowingStar(World world, LivingEntity shooter)
     {
         super(world, shooter);
         setSize(0.15F, 0.15F);

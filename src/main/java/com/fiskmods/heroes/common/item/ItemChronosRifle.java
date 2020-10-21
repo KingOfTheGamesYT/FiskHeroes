@@ -13,10 +13,10 @@ import com.fiskmods.heroes.common.hero.HeroIteration;
 import com.fiskmods.heroes.util.SHHelper;
 import com.fiskmods.heroes.util.VectorHelper;
 
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants.NBT;
@@ -29,13 +29,13 @@ public class ItemChronosRifle extends ItemUntextured implements IReloadWeapon, I
     }
 
     @Override
-    public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
+    public ItemStack onItemRightClick(ItemStack stack, World world, PlayerEntity player)
     {
         HeroIteration iter;
 
         if (SHData.AIMING.get(player) && (iter = SHHelper.getHeroIter(player)) != null && iter.hero.hasPermission(player, Permission.USE_CHRONOS_RIFLE))
         {
-            if (stack.hasTagCompound() && stack.getTagCompound().getCompoundTag("fisktag").getBoolean("Automatic"))
+            if (stack.hasTag() && stack.getTag().getCompoundTag("fisktag").getBoolean("Automatic"))
             {
                 player.setItemInUse(stack, getMaxItemUseDuration(stack));
             }
@@ -49,15 +49,15 @@ public class ItemChronosRifle extends ItemUntextured implements IReloadWeapon, I
     }
 
     @Override
-    public void onUsingTick(ItemStack stack, EntityPlayer player, int count)
+    public void onUsingTick(ItemStack stack, PlayerEntity player, int count)
     {
         int rate = 3;
         float windup = 5;
         count = getMaxItemUseDuration(stack) - count;
 
-        if (stack.hasTagCompound() && stack.getTagCompound().hasKey("fisktag", NBT.TAG_COMPOUND))
+        if (stack.hasTag() && stack.getTag().hasKey("fisktag", NBT.TAG_COMPOUND))
         {
-            NBTTagCompound tag = stack.getTagCompound().getCompoundTag("fisktag");
+            CompoundNBT tag = stack.getTag().getCompoundTag("fisktag");
 
             if (tag.hasKey("AutoRate", NBT.TAG_INT))
             {
@@ -87,13 +87,13 @@ public class ItemChronosRifle extends ItemUntextured implements IReloadWeapon, I
         }
     }
 
-    public void shoot(ItemStack stack, EntityPlayer player, HeroIteration iter)
+    public void shoot(ItemStack stack, PlayerEntity player, HeroIteration iter)
     {
-        if (!player.worldObj.isRemote)
+        if (!player.world.isRemote)
         {
-            if (stack.hasTagCompound() && stack.getTagCompound().hasKey("fisktag", NBT.TAG_COMPOUND))
+            if (stack.hasTag() && stack.getTag().hasKey("fisktag", NBT.TAG_COMPOUND))
             {
-                NBTTagCompound tag = stack.getTagCompound().getCompoundTag("fisktag");
+                CompoundNBT tag = stack.getTag().getCompoundTag("fisktag");
                 Type type = Type.RIFLE;
 
                 if (tag.hasKey("Type", NBT.TAG_STRING))
@@ -139,7 +139,7 @@ public class ItemChronosRifle extends ItemUntextured implements IReloadWeapon, I
             }
             else
             {
-                player.worldObj.spawnEntityInWorld(new EntityLaserBolt(player.worldObj, player, Type.RIFLE, iter, true));
+                player.world.spawnEntityInWorld(new EntityLaserBolt(player.world, player, Type.RIFLE, iter, true));
             }
         }
 
@@ -147,7 +147,7 @@ public class ItemChronosRifle extends ItemUntextured implements IReloadWeapon, I
         SHData.RELOAD_TIMER.setWithoutNotify(player, 1.0F);
     }
 
-    private void shoot(EntityPlayer player, Type type, HeroIteration iter, boolean flag, float mX, float mY, float mZ)
+    private void shoot(PlayerEntity player, Type type, HeroIteration iter, boolean flag, float mX, float mY, float mZ)
     {
         if (flag)
         {
@@ -179,18 +179,18 @@ public class ItemChronosRifle extends ItemUntextured implements IReloadWeapon, I
 
                 if (mop.hitVec != null)
                 {
-                    player.worldObj.spawnEntityInWorld(new EntityRepulsorBlast(player.worldObj, player, VectorHelper.getOffsetCoords(player, -0.25 * (1 - scope), -0.25, 0.9), mop.hitVec));
+                    player.world.spawnEntityInWorld(new EntityRepulsorBlast(player.world, player, VectorHelper.getOffsetCoords(player, -0.25 * (1 - scope), -0.25, 0.9), mop.hitVec));
                 }
             }
         }
         else
         {
-            EntityLaserBolt entity = new EntityLaserBolt(player.worldObj, player, type, iter, true);
+            EntityLaserBolt entity = new EntityLaserBolt(player.world, player, type, iter, true);
             entity.motionX += mX;
             entity.motionY += mY;
             entity.motionZ += mZ;
 
-            player.worldObj.spawnEntityInWorld(entity);
+            player.world.spawnEntityInWorld(entity);
         }
     }
 
@@ -201,19 +201,19 @@ public class ItemChronosRifle extends ItemUntextured implements IReloadWeapon, I
     }
 
     @Override
-    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack)
+    public boolean onEntitySwing(LivingEntity entityLiving, ItemStack stack)
     {
         return true;
     }
 
     @Override
-    public int getReloadTime(ItemStack stack, EntityPlayer player, Hero hero)
+    public int getReloadTime(ItemStack stack, PlayerEntity player, Hero hero)
     {
         int i = Rule.COOLDOWN_CHRONOSRIFLE.get(player, hero);
 
-        if (stack.hasTagCompound() && stack.getTagCompound().hasKey("fisktag", NBT.TAG_COMPOUND))
+        if (stack.hasTag() && stack.getTag().hasKey("fisktag", NBT.TAG_COMPOUND))
         {
-            NBTTagCompound tag = stack.getTagCompound().getCompoundTag("fisktag");
+            CompoundNBT tag = stack.getTag().getCompoundTag("fisktag");
             return tag.hasKey("Cooldown", NBT.TAG_ANY_NUMERIC) ? (int) (tag.getFloat("Cooldown") * i) : i;
         }
 
@@ -223,9 +223,9 @@ public class ItemChronosRifle extends ItemUntextured implements IReloadWeapon, I
     @Override
     public boolean canUseScope(ItemStack stack)
     {
-        if (stack.hasTagCompound() && stack.getTagCompound().hasKey("fisktag", NBT.TAG_COMPOUND))
+        if (stack.hasTag() && stack.getTag().hasKey("fisktag", NBT.TAG_COMPOUND))
         {
-            NBTTagCompound tag = stack.getTagCompound().getCompoundTag("fisktag");
+            CompoundNBT tag = stack.getTag().getCompoundTag("fisktag");
             return !tag.hasKey("Scope", NBT.TAG_ANY_NUMERIC) || tag.getBoolean("Scope");
         }
 

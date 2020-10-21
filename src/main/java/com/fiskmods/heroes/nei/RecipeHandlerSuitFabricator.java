@@ -136,7 +136,7 @@ public class RecipeHandlerSuitFabricator extends TemplateRecipeHandler
                         break;
                     }
 
-                    items[i] = new ItemStack(itemstack.getItem(), Math.min(itemstack.stackSize, 64), itemstack.getItemDamage());
+                    items[i] = new ItemStack(itemstack.getItem(), Math.min(itemstack.stackSize, 64), itemstack.getDamage());
                     itemstack.stackSize -= 64;
                 }
 
@@ -178,7 +178,7 @@ public class RecipeHandlerSuitFabricator extends TemplateRecipeHandler
                     if (!armors.isEmpty())
                     {
                         ItemStack[] items = new ItemStack[6];
-                        ItemStack itemstack = new ItemStack(ingredient.getItem(), 1, ingredient.getItemDamage());
+                        ItemStack itemstack = new ItemStack(ingredient.getItem(), 1, ingredient.getDamage());
                         int cost = FabricatorHelper.getMaterialCost(hero);
 
                         while (FabricatorHelper.getEnergy(itemstack, isCosmic()) < cost)

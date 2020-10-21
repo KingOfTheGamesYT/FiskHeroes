@@ -10,7 +10,7 @@ import com.fiskmods.heroes.util.SHHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.settings.KeyBinding;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 
 public class KeyPressShadowform extends KeyPressBase
 {
@@ -20,7 +20,7 @@ public class KeyPressShadowform extends KeyPressBase
     }
 
     @Override
-    public boolean serverRequirements(EntityPlayer player, InteractionType type, int x, int y, int z)
+    public boolean serverRequirements(PlayerEntity player, InteractionType type, int x, int y, int z)
     {
         float f = SHData.SHADOWFORM_TIMER.get(player);
         return (f == 0 || f == 1) && super.serverRequirements(player, type, x, y, z);
@@ -28,13 +28,13 @@ public class KeyPressShadowform extends KeyPressBase
 
     @Override
     @SideOnly(Side.CLIENT)
-    public KeyBinding getKey(EntityPlayer player, Hero hero)
+    public KeyBinding getKey(PlayerEntity player, Hero hero)
     {
         return hero.getKey(player, AbilityUmbrakinesis.KEY_SHADOWFORM);
     }
 
     @Override
-    public void receive(EntityPlayer sender, EntityPlayer clientPlayer, InteractionType type, Side side, int x, int y, int z)
+    public void receive(PlayerEntity sender, PlayerEntity clientPlayer, InteractionType type, Side side, int x, int y, int z)
     {
         if (side.isClient())
         {

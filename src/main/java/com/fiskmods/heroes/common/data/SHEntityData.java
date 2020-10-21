@@ -13,8 +13,8 @@ import com.fiskmods.heroes.common.entity.arrow.EntityTrickArrow;
 import com.fiskmods.heroes.util.TemperatureHelper;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IExtendedEntityProperties;
@@ -29,9 +29,9 @@ public class SHEntityData implements IExtendedEntityProperties
 
     public float temperature = TemperatureHelper.DEFAULT_BODY_TEMPERATURE;
 
-    private EntityLivingBase living;
+    private LivingEntity living;
 
-    public static SHEntityData getData(EntityLivingBase entity)
+    public static SHEntityData getData(LivingEntity entity)
     {
         return (SHEntityData) entity.getExtendedProperties(IDENTIFIER);
     }
@@ -44,7 +44,7 @@ public class SHEntityData implements IExtendedEntityProperties
         {
             if (data != null)
             {
-                EntityTrickArrow arrow = data.getEntity(living.worldObj);
+                EntityTrickArrow arrow = data.getEntity(living.world);
 
                 if (arrow != null)
                 {
@@ -65,9 +65,9 @@ public class SHEntityData implements IExtendedEntityProperties
     }
 
     @Override
-    public void saveNBTData(NBTTagCompound nbt)
+    public void saveNBTData(CompoundNBT nbt)
     {
-        NBTTagCompound compound = new NBTTagCompound();
+        CompoundNBT compound = new CompoundNBT();
         compound.setFloat("Temperature", temperature);
 
         if (!arrowsInEntity.isEmpty())
@@ -78,7 +78,7 @@ public class SHEntityData implements IExtendedEntityProperties
             {
                 if (data != null)
                 {
-                    NBTTagCompound tag = new NBTTagCompound();
+                    CompoundNBT tag = new CompoundNBT();
                     tag.setShort("id", (short) ArrowType.getIdFromArrow(data.getType()));
 
                     data.writeToNBT(tag);
@@ -105,9 +105,9 @@ public class SHEntityData implements IExtendedEntityProperties
     }
 
     @Override
-    public void loadNBTData(NBTTagCompound nbt)
+    public void loadNBTData(CompoundNBT nbt)
     {
-        NBTTagCompound compound = nbt.getCompoundTag(IDENTIFIER);
+        CompoundNBT compound = nbt.getCompoundTag(IDENTIFIER);
 
         if (compound.hasKey("ArrowsInEntity", NBT.TAG_LIST))
         {
@@ -115,7 +115,7 @@ public class SHEntityData implements IExtendedEntityProperties
 
             for (int i = 0; i < list.tagCount(); ++i)
             {
-                NBTTagCompound tag = list.getCompoundTagAt(i);
+                CompoundNBT tag = list.getCompoundTagAt(i);
                 ArrowType<EntityTrickArrow> type = ArrowType.getArrowById(tag.getShort("id") & 0xFFFF);
 
                 if (type != null)
@@ -155,9 +155,9 @@ public class SHEntityData implements IExtendedEntityProperties
     @Override
     public void init(Entity entity, World world)
     {
-        if (entity instanceof EntityLivingBase)
+        if (entity instanceof LivingEntity)
         {
-            living = (EntityLivingBase) entity;
+            living = (LivingEntity) entity;
         }
     }
 

@@ -29,7 +29,7 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.PlayerTickEvent;
 import cpw.mods.fml.relauncher.Side;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ResourceLocation;
@@ -218,11 +218,11 @@ public enum JSHeroesEngine
     @SubscribeEvent
     public void onEntityJoinWorld(EntityJoinWorldEvent event)
     {
-        if (event.entity instanceof EntityPlayer)
+        if (event.entity instanceof PlayerEntity)
         {
-            EntityPlayer player = (EntityPlayer) event.entity;
+            PlayerEntity player = (PlayerEntity) event.entity;
 
-            if (!player.worldObj.isRemote)
+            if (!player.world.isRemote)
             {
                 if (lastPackData instanceof HeroPackSerializer)
                 {
@@ -252,7 +252,7 @@ public enum JSHeroesEngine
     @SubscribeEvent
     public void onPlayerTick(PlayerTickEvent event)
     {
-        if (event.player.worldObj.isRemote && receivedAll)
+        if (event.player.world.isRemote && receivedAll)
         {
             if (!receivedSlices.isEmpty())
             {

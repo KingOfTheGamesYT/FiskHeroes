@@ -5,7 +5,7 @@ import com.fiskmods.heroes.common.data.SHData;
 import com.fiskmods.heroes.common.hero.Hero;
 
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 
 public class AbilityTeleportation extends Ability
 {
@@ -17,13 +17,13 @@ public class AbilityTeleportation extends Ability
     }
 
     @Override
-    public void onUpdate(EntityLivingBase entity, Hero hero, Phase phase, boolean enabled)
+    public void onUpdate(LivingEntity entity, Hero hero, Phase phase, boolean enabled)
     {
         if (phase == Phase.END && enabled)
         {
             int delay = SHData.TELEPORT_DELAY.get(entity) & 0xFF;
 
-            if (delay > 0 && SHData.TELEPORT_DELAY.setWithoutNotify(entity, (byte) --delay) && delay == 0 && !entity.worldObj.isRemote)
+            if (delay > 0 && SHData.TELEPORT_DELAY.setWithoutNotify(entity, (byte) --delay) && delay == 0 && !entity.world.isRemote)
             {
                 DimensionalCoords coords = SHData.TELEPORT_DEST.get(entity);
 

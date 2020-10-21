@@ -84,7 +84,7 @@ public class Gameboii
     @SideOnly(Side.CLIENT)
     public static void quit()
     {
-        Minecraft.getMinecraft().thePlayer.closeScreen();
+        Minecraft.getInstance().thePlayer.closeScreen();
     }
 
     @SideOnly(Side.CLIENT)
@@ -125,7 +125,7 @@ public class Gameboii
     {
         if (currentCartridge != null)
         {
-            Minecraft mc = Minecraft.getMinecraft();
+            Minecraft mc = Minecraft.getInstance();
             mc.getSoundHandler().playSound(new MovingSoundGameboii(mc.thePlayer, sound, volume, pitch, loop));
         }
     }

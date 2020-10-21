@@ -8,10 +8,10 @@ import java.util.Map;
 import com.fiskmods.heroes.common.BlockStack;
 
 import net.minecraft.block.material.Material;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
@@ -24,7 +24,7 @@ public class ItemDisplayCase extends ItemUntextured
     }
 
     @Override
-    public void addInformation(ItemStack itemstack, EntityPlayer player, List list, boolean flag)
+    public void addInformation(ItemStack itemstack, PlayerEntity player, List list, boolean flag)
     {
         DisplayCase casing = getCasing(itemstack);
 
@@ -53,7 +53,7 @@ public class ItemDisplayCase extends ItemUntextured
         {
             if (isModified(itemstack))
             {
-                NBTTagCompound nbttagcompound = itemstack.getTagCompound().getCompoundTag("Case");
+                CompoundNBT nbttagcompound = itemstack.getTag().getCompoundTag("Case");
                 casing.setTop(BlockStack.fromString(nbttagcompound.getString("Top")));
                 casing.setBottom(BlockStack.fromString(nbttagcompound.getString("Bottom")));
                 casing.setCorners(BlockStack.fromString(nbttagcompound.getString("Corners")));
@@ -75,24 +75,24 @@ public class ItemDisplayCase extends ItemUntextured
 
     public static void setCasing(ItemStack itemstack, DisplayCase casing)
     {
-        if (!itemstack.hasTagCompound())
+        if (!itemstack.hasTag())
         {
-            itemstack.setTagCompound(new NBTTagCompound());
+            itemstack.setTag(new CompoundNBT());
         }
 
-        NBTTagCompound compound = new NBTTagCompound();
+        CompoundNBT compound = new CompoundNBT();
         compound.setString("Top", BlockStack.toStringSafe(casing.top));
         compound.setString("Bottom", BlockStack.toStringSafe(casing.bottom));
         compound.setString("Corners", BlockStack.toStringSafe(casing.corners));
         compound.setString("Front", BlockStack.toStringSafe(casing.front));
         compound.setString("Walls", BlockStack.toStringSafe(casing.walls));
 
-        itemstack.getTagCompound().setTag("Case", compound);
+        itemstack.getTag().setTag("Case", compound);
     }
 
     public static boolean isModified(ItemStack itemstack)
     {
-        return itemstack.hasTagCompound() && itemstack.getTagCompound().hasKey("Case", NBT.TAG_COMPOUND);
+        return itemstack.hasTag() && itemstack.getTag().hasKey("Case", NBT.TAG_COMPOUND);
     }
 
     public static class DisplayCase

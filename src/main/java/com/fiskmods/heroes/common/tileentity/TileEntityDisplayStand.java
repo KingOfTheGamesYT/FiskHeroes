@@ -29,10 +29,10 @@ import com.mojang.authlib.properties.Property;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.AxisAlignedBB;
@@ -55,7 +55,7 @@ public class TileEntityDisplayStand extends TileEntityContainer implements IMult
     public boolean fixHatLayer;
 
     private final GameProfile internalProfile;
-    public EntityPlayer fakePlayer;
+    public PlayerEntity fakePlayer;
 
     public TileEntityDisplayStand()
     {
@@ -73,7 +73,7 @@ public class TileEntityDisplayStand extends TileEntityContainer implements IMult
             markDirty();
         }
 
-        if (worldObj.isRemote)
+        if (world.isRemote)
         {
             if (SHTileHelper.getTileBase(this) == this)
             {
@@ -84,10 +84,10 @@ public class TileEntityDisplayStand extends TileEntityContainer implements IMult
         {
             if (getBlockMetadata() >= 8 && getBlockType() != ModBlocks.displayStandTop)
             {
-                BlockDisplayStand.migrate(worldObj, xCoord, yCoord, zCoord, ModBlocks.displayStandTop);
+                BlockDisplayStand.migrate(world, xCoord, yCoord, zCoord, ModBlocks.displayStandTop);
             }
 
-            fakePlayer = FakePlayerFactory.get((WorldServer) worldObj, internalProfile);
+            fakePlayer = FakePlayerFactory.get((WorldServer) world, internalProfile);
         }
 
         if (fakePlayer != null)
@@ -101,7 +101,7 @@ public class TileEntityDisplayStand extends TileEntityContainer implements IMult
 
             fakePlayer.setCurrentItemOrArmor(0, getStackInSlot(6));
 
-            if (!worldObj.isRemote && SHTileHelper.getTileBase(this) == this)
+            if (!world.isRemote && SHTileHelper.getTileBase(this) == this)
             {
                 ItemStack equipped = getStackInSlot(4);
 
@@ -140,7 +140,7 @@ public class TileEntityDisplayStand extends TileEntityContainer implements IMult
     {
         if (fakePlayer == null)
         {
-            Minecraft mc = Minecraft.getMinecraft();
+            Minecraft mc = Minecraft.getInstance();
 
             if (mc != null && mc.playerController != null && getWorldObj() != null)
             {
@@ -159,7 +159,7 @@ public class TileEntityDisplayStand extends TileEntityContainer implements IMult
 
                 for (int i = 0; i < list.size(); ++i)
                 {
-                    list.get(i).onUpdate(fakePlayer, worldObj);
+                    list.get(i).onUpdate(fakePlayer, world);
                 }
             }
 
@@ -245,7 +245,7 @@ public class TileEntityDisplayStand extends TileEntityContainer implements IMult
     {
         displayProfile = profile;
 
-        if (!worldObj.isRemote)
+        if (!world.isRemote)
         {
             validateUsername();
         }
@@ -280,11 +280,11 @@ public class TileEntityDisplayStand extends TileEntityContainer implements IMult
         return owner;
     }
 
-    public void setOwner(EntityLivingBase entity)
+    public void setOwner(LivingEntity entity)
     {
-        if (entity instanceof EntityPlayer)
+        if (entity instanceof PlayerEntity)
         {
-            GameProfile profile = ((EntityPlayer) entity).getGameProfile();
+            GameProfile profile = ((PlayerEntity) entity).getGameProfile();
 
             if (profile != null && profile.getId() != null)
             {
@@ -297,16 +297,16 @@ public class TileEntityDisplayStand extends TileEntityContainer implements IMult
         }
     }
 
-    public boolean isOwner(EntityLivingBase entity)
+    public boolean isOwner(LivingEntity entity)
     {
         if (owner == null)
         {
             return false;
         }
 
-        if (entity instanceof EntityPlayer)
+        if (entity instanceof PlayerEntity)
         {
-            GameProfile profile = ((EntityPlayer) entity).getGameProfile();
+            GameProfile profile = ((PlayerEntity) entity).getGameProfile();
 
             if (profile != null && profile.getId() != null)
             {
@@ -346,7 +346,7 @@ public class TileEntityDisplayStand extends TileEntityContainer implements IMult
     }
 
     @Override
-    public void readCustomNBT(NBTTagCompound nbt)
+    public void readCustomNBT(CompoundNBT nbt)
     {
         super.readCustomNBT(nbt);
         displayColor = nbt.getByte("Color");
@@ -359,7 +359,7 @@ public class TileEntityDisplayStand extends TileEntityContainer implements IMult
 
         if (nbt.hasKey("Owner", NBT.TAG_COMPOUND))
         {
-            NBTTagCompound compound = nbt.getCompoundTag("Owner");
+            CompoundNBT compound = nbt.getCompoundTag("Owner");
 
             if (compound.hasKey("UUIDMost", NBT.TAG_LONG) && compound.hasKey("UUIDLeast", NBT.TAG_LONG))
             {
@@ -369,7 +369,7 @@ public class TileEntityDisplayStand extends TileEntityContainer implements IMult
     }
 
     @Override
-    public void writeCustomNBT(NBTTagCompound nbt)
+    public void writeCustomNBT(CompoundNBT nbt)
     {
         super.writeCustomNBT(nbt);
         nbt.setByte("Color", (byte) displayColor);
@@ -377,14 +377,14 @@ public class TileEntityDisplayStand extends TileEntityContainer implements IMult
 
         if (displayProfile != null)
         {
-            NBTTagCompound tag = new NBTTagCompound();
+            CompoundNBT tag = new CompoundNBT();
             NBTUtil.func_152460_a(tag, displayProfile);
             nbt.setTag("Username", tag);
         }
 
         if (owner != null)
         {
-            NBTTagCompound compound = new NBTTagCompound();
+            CompoundNBT compound = new CompoundNBT();
             compound.setLong("UUIDMost", owner.getMostSignificantBits());
             compound.setLong("UUIDLeast", owner.getLeastSignificantBits());
             nbt.setTag("Owner", compound);

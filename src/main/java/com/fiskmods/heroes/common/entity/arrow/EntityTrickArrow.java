@@ -18,13 +18,14 @@ import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.monster.EntityEnderman;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.projectile.ArrowEntity;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.play.server.S2BPacketChangeGameState;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
@@ -36,7 +37,7 @@ import net.minecraft.util.ReportedException;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
-public class EntityTrickArrow extends EntityArrow implements IEntityAdditionalSpawnData
+public class EntityTrickArrow extends ArrowEntity implements IEntityAdditionalSpawnData
 {
     protected String shooterName = null;
     private ItemStack arrowItem;
@@ -64,25 +65,25 @@ public class EntityTrickArrow extends EntityArrow implements IEntityAdditionalSp
         init(null, false);
     }
 
-    public EntityTrickArrow(World world, EntityLivingBase shooter, float velocity)
+    public EntityTrickArrow(World world, LivingEntity shooter, float velocity)
     {
         this(world, shooter, velocity, false);
     }
 
-    public EntityTrickArrow(World world, EntityLivingBase shooter, float velocity, boolean horizontalBow)
+    public EntityTrickArrow(World world, LivingEntity shooter, float velocity, boolean horizontalBow)
     {
         super(world);
         init(shooter, horizontalBow);
         shootFrom(shooter, velocity);
     }
 
-    protected void init(EntityLivingBase shooter, boolean horizontalBow)
+    protected void init(LivingEntity shooter, boolean horizontalBow)
     {
         renderDistanceWeight = 10;
         shootingEntity = shooter;
         horizontal = horizontalBow;
 
-        if (shooter instanceof EntityPlayer)
+        if (shooter instanceof PlayerEntity)
         {
             canBePickedUp = 1;
         }
@@ -131,7 +132,7 @@ public class EntityTrickArrow extends EntityArrow implements IEntityAdditionalSp
     {
         if (shootingEntity == null && shooterName != null)
         {
-            shootingEntity = worldObj.getPlayerEntityByName(shooterName);
+            shootingEntity = world.getPlayerEntityByName(shooterName);
         }
 
         return shootingEntity;
@@ -162,7 +163,7 @@ public class EntityTrickArrow extends EntityArrow implements IEntityAdditionalSp
 
     public EntityTrickArrow setArrowId(int id)
     {
-        if (arrowItem != null && arrowItem.getItemDamage() != id)
+        if (arrowItem != null && arrowItem.getDamage() != id)
         {
             arrowItem.setItemDamage(id);
             setArrowItem(arrowItem);
@@ -233,9 +234,9 @@ public class EntityTrickArrow extends EntityArrow implements IEntityAdditionalSp
     }
 
     @Override
-    public void onCollideWithPlayer(EntityPlayer player)
+    public void onCollideWithPlayer(PlayerEntity player)
     {
-        if (!worldObj.isRemote && inGround && arrowShake <= 0)
+        if (!world.isRemote && inGround && arrowShake <= 0)
         {
             boolean flag = canBePickedUp == 1 || canBePickedUp == 2 && player.capabilities.isCreativeMode;
 
@@ -333,7 +334,7 @@ public class EntityTrickArrow extends EntityArrow implements IEntityAdditionalSp
             for (int i = 0; i < 4; ++i)
             {
                 float f3 = 0.25F;
-                worldObj.spawnParticle("bubble", posX - motionX * f3, posY - motionY * f3, posZ - motionZ * f3, motionX, motionY, motionZ);
+                world.spawnParticle("bubble", posX - motionX * f3, posY - motionY * f3, posZ - motionZ * f3, motionX, motionY, motionZ);
             }
 
             motionFactor = 0.8F;
@@ -353,12 +354,12 @@ public class EntityTrickArrow extends EntityArrow implements IEntityAdditionalSp
 
     protected void checkInGround()
     {
-        Block block = worldObj.getBlock(xTile, yTile, zTile);
+        Block block = world.getBlock(xTile, yTile, zTile);
 
         if (block.getMaterial() != Material.air)
         {
-            block.setBlockBoundsBasedOnState(worldObj, xTile, yTile, zTile);
-            AxisAlignedBB axisalignedbb = block.getCollisionBoundingBoxFromPool(worldObj, xTile, yTile, zTile);
+            block.setBlockBoundsBasedOnState(world, xTile, yTile, zTile);
+            AxisAlignedBB axisalignedbb = block.getCollisionBoundingBoxFromPool(world, xTile, yTile, zTile);
 
             if (axisalignedbb != null && axisalignedbb.isVecInside(Vec3.createVectorHelper(posX, posY, posZ)))
             {
@@ -369,8 +370,8 @@ public class EntityTrickArrow extends EntityArrow implements IEntityAdditionalSp
 
     protected void updateInGround()
     {
-        Block block = worldObj.getBlock(xTile, yTile, zTile);
-        int k = worldObj.getBlockMetadata(xTile, yTile, zTile);
+        Block block = world.getBlock(xTile, yTile, zTile);
+        int k = world.getBlockMetadata(xTile, yTile, zTile);
 
         if (block == inTile && k == inData)
         {
@@ -400,14 +401,14 @@ public class EntityTrickArrow extends EntityArrow implements IEntityAdditionalSp
     protected void updateInAir()
     {
         ++ticksInAir;
-        MovingObjectPosition mop = checkForImpact(worldObj, this, getShooter(), 0.3D, ticksInAir >= 5);
+        MovingObjectPosition mop = checkForImpact(world, this, getShooter(), 0.3D, ticksInAir >= 5);
 
         if (mop != null)
         {
             onImpact(mop);
         }
 
-        if (worldObj.isRemote)
+        if (world.isRemote)
         {
             spawnTrailingParticles();
         }
@@ -469,11 +470,11 @@ public class EntityTrickArrow extends EntityArrow implements IEntityAdditionalSp
             mop = new MovingObjectPosition(target);
         }
 
-        if (mop != null && mop.entityHit instanceof EntityPlayer)
+        if (mop != null && mop.entityHit instanceof PlayerEntity)
         {
-            EntityPlayer player = (EntityPlayer) mop.entityHit;
+            PlayerEntity player = (PlayerEntity) mop.entityHit;
 
-            if (player.capabilities.disableDamage || shooter instanceof EntityPlayer && !((EntityPlayer) shooter).canAttackPlayer(player))
+            if (player.capabilities.disableDamage || shooter instanceof PlayerEntity && !((PlayerEntity) shooter).canAttackPlayer(player))
             {
                 mop = null;
             }
@@ -527,7 +528,7 @@ public class EntityTrickArrow extends EntityArrow implements IEntityAdditionalSp
         {
             for (int i = 0; i < 4; ++i)
             {
-                worldObj.spawnParticle(getParticleName(), posX + motionX * i / 4.0D, posY + motionY * i / 4.0D, posZ + motionZ * i / 4.0D, -motionX, -motionY + 0.2D, -motionZ);
+                world.spawnParticle(getParticleName(), posX + motionX * i / 4.0D, posY + motionY * i / 4.0D, posZ + motionZ * i / 4.0D, -motionX, -motionY + 0.2D, -motionZ);
             }
         }
     }
@@ -560,11 +561,11 @@ public class EntityTrickArrow extends EntityArrow implements IEntityAdditionalSp
 
                 if (mop.entityHit.attackEntityFrom(getDamageSource(mop.entityHit), dmg))
                 {
-                    if (mop.entityHit instanceof EntityLivingBase)
+                    if (mop.entityHit instanceof LivingEntity)
                     {
-                        handlePostDamageEffects((EntityLivingBase) mop.entityHit);
+                        handlePostDamageEffects((LivingEntity) mop.entityHit);
 
-                        if (shootingEntity instanceof EntityPlayerMP && mop.entityHit != shootingEntity && mop.entityHit instanceof EntityPlayer)
+                        if (shootingEntity instanceof PlayerEntityMP && mop.entityHit != shootingEntity && mop.entityHit instanceof PlayerEntity)
                         {
                             ((EntityPlayerMP) shootingEntity).playerNetServerHandler.sendPacket(new S2BPacketChangeGameState(6, 0.0F));
                         }
@@ -603,8 +604,8 @@ public class EntityTrickArrow extends EntityArrow implements IEntityAdditionalSp
         xTile = mop.blockX;
         yTile = mop.blockY;
         zTile = mop.blockZ;
-        inTile = worldObj.getBlock(xTile, yTile, zTile);
-        inData = worldObj.getBlockMetadata(xTile, yTile, zTile);
+        inTile = world.getBlock(xTile, yTile, zTile);
+        inData = world.getBlockMetadata(xTile, yTile, zTile);
         motionX = (float) (mop.hitVec.xCoord - posX);
         motionY = (float) (mop.hitVec.yCoord - posY);
         motionZ = (float) (mop.hitVec.zCoord - posZ);
@@ -619,7 +620,7 @@ public class EntityTrickArrow extends EntityArrow implements IEntityAdditionalSp
 
         if (inTile.getMaterial() != Material.air)
         {
-            inTile.onEntityCollidedWithBlock(worldObj, xTile, yTile, zTile, this);
+            inTile.onEntityCollidedWithBlock(world, xTile, yTile, zTile, this);
         }
 
         if (noEntity)
@@ -638,7 +639,7 @@ public class EntityTrickArrow extends EntityArrow implements IEntityAdditionalSp
         int i1 = MathHelper.floor_double(boundingBox.maxY - 0.001D);
         int j1 = MathHelper.floor_double(boundingBox.maxZ - 0.001D);
 
-        if (worldObj.checkChunksExist(i, j, k, l, i1, j1))
+        if (world.checkChunksExist(i, j, k, l, i1, j1))
         {
             for (int k1 = i; k1 <= l; ++k1)
             {
@@ -646,17 +647,17 @@ public class EntityTrickArrow extends EntityArrow implements IEntityAdditionalSp
                 {
                     for (int i2 = k; i2 <= j1; ++i2)
                     {
-                        Block block = worldObj.getBlock(k1, l1, i2);
+                        Block block = world.getBlock(k1, l1, i2);
 
                         try
                         {
-                            block.onEntityCollidedWithBlock(worldObj, k1, l1, i2, this);
+                            block.onEntityCollidedWithBlock(world, k1, l1, i2, this);
                         }
                         catch (Throwable throwable)
                         {
                             CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Colliding entity with block");
                             CrashReportCategory crashreportcategory = crashreport.makeCategory("Block being collided with");
-                            CrashReportCategory.func_147153_a(crashreportcategory, k1, l1, i2, block, worldObj.getBlockMetadata(k1, l1, i2));
+                            CrashReportCategory.func_147153_a(crashreportcategory, k1, l1, i2, block, world.getBlockMetadata(k1, l1, i2));
                             throw new ReportedException(crashreport);
                         }
                     }
@@ -685,9 +686,9 @@ public class EntityTrickArrow extends EntityArrow implements IEntityAdditionalSp
         return dmg;
     }
 
-    protected void handlePostDamageEffects(EntityLivingBase entityHit)
+    protected void handlePostDamageEffects(LivingEntity entityHit)
     {
-        if (!worldObj.isRemote)
+        if (!world.isRemote)
         {
             ArrowType<EntityTrickArrow> type = ArrowType.getArrowById(getArrowId());
 
@@ -710,14 +711,14 @@ public class EntityTrickArrow extends EntityArrow implements IEntityAdditionalSp
             }
         }
 
-        if (shootingEntity instanceof EntityLivingBase)
+        if (shootingEntity instanceof LivingEntity)
         {
             EnchantmentHelper.func_151384_a(entityHit, shootingEntity);
-            EnchantmentHelper.func_151385_b((EntityLivingBase) shootingEntity, entityHit);
+            EnchantmentHelper.func_151385_b((LivingEntity) shootingEntity, entityHit);
         }
     }
 
-    public boolean onCaught(EntityLivingBase entity)
+    public boolean onCaught(LivingEntity entity)
     {
         ItemStack arrowItem = ItemStack.copyItemStack(getArrowItem());
 
@@ -733,7 +734,7 @@ public class EntityTrickArrow extends EntityArrow implements IEntityAdditionalSp
     }
 
     @Override
-    public void writeEntityToNBT(NBTTagCompound compound)
+    public void writeEntityToNBT(CompoundNBT compound)
     {
         compound.setShort("xTile", (short) xTile);
         compound.setShort("yTile", (short) yTile);
@@ -749,7 +750,7 @@ public class EntityTrickArrow extends EntityArrow implements IEntityAdditionalSp
         compound.setDouble("damage", getDamage());
         compound.setString("hero", getHero());
 
-        if ((shooterName == null || shooterName.length() == 0) && shootingEntity instanceof EntityPlayer)
+        if ((shooterName == null || shooterName.length() == 0) && shootingEntity instanceof PlayerEntity)
         {
             shooterName = shootingEntity.getCommandSenderName();
         }
@@ -757,7 +758,7 @@ public class EntityTrickArrow extends EntityArrow implements IEntityAdditionalSp
         compound.setString("shooter", shooterName == null ? "" : shooterName);
         compound.setInteger("arrowId", arrowId);
 
-        NBTTagCompound nbttagcompound = new NBTTagCompound();
+        CompoundNBT nbttagcompound = new CompoundNBT();
 
         if (arrowItem != null)
         {
@@ -768,7 +769,7 @@ public class EntityTrickArrow extends EntityArrow implements IEntityAdditionalSp
     }
 
     @Override
-    public void readEntityFromNBT(NBTTagCompound compound)
+    public void readEntityFromNBT(CompoundNBT compound)
     {
         xTile = compound.getShort("xTile");
         yTile = compound.getShort("yTile");
@@ -810,9 +811,9 @@ public class EntityTrickArrow extends EntityArrow implements IEntityAdditionalSp
     @Override
     public void readSpawnData(ByteBuf buffer)
     {
-        Entity shooter = worldObj.getEntityByID(buffer.readInt());
+        Entity shooter = world.getEntityByID(buffer.readInt());
 
-        if (shooter instanceof EntityLivingBase)
+        if (shooter instanceof LivingEntity)
         {
             shootingEntity = shooter;
         }
@@ -821,7 +822,7 @@ public class EntityTrickArrow extends EntityArrow implements IEntityAdditionalSp
         setArrowId(buffer.readInt());
     }
 
-    public void inEntityUpdate(EntityLivingBase living)
+    public void inEntityUpdate(LivingEntity living)
     {
         ++ticksExisted;
 

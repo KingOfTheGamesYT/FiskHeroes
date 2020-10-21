@@ -44,8 +44,8 @@ import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagString;
@@ -226,7 +226,7 @@ public abstract class Hero implements Comparable<Hero>, Predicate<Entity>, INBTS
     public abstract void translateKeys(Map<String, String> mappings);
 
     @SideOnly(Side.CLIENT)
-    public final KeyBinding getKey(EntityLivingBase entity, String key)
+    public final KeyBinding getKey(LivingEntity entity, String key)
     {
         if (!isKeyBindEnabled(entity, key))
         {
@@ -234,14 +234,14 @@ public abstract class Hero implements Comparable<Hero>, Predicate<Entity>, INBTS
         }
 
         int i = getKeyBinding(key);
-        return i == -1 ? Minecraft.getMinecraft().gameSettings.keyBindAttack : SHKeyBinds.getMapping(i);
+        return i == -1 ? Minecraft.getInstance().gameSettings.keyBindAttack : SHKeyBinds.getMapping(i);
     }
 
     @SideOnly(Side.CLIENT)
-    public final boolean isKeyPressed(EntityLivingBase entity, String key)
+    public final boolean isKeyPressed(LivingEntity entity, String key)
     {
         KeyBinding keybind = getKey(entity, key);
-        return keybind != null && keybind.getIsKeyPressed();
+        return keybind != null && keybind.isPressed();
     }
 
     public String getVersion()
@@ -264,7 +264,7 @@ public abstract class Hero implements Comparable<Hero>, Predicate<Entity>, INBTS
         return StatCollector.translateToLocal(getUnlocalizedName() + ".name").trim().replace("\\u00f1", "\u00f1");
     }
 
-    public void onRemoved(EntityLivingBase entity)
+    public void onRemoved(LivingEntity entity)
     {
         for (HeroModifier modifier : getEnabledModifiers(entity))
         {
@@ -272,7 +272,7 @@ public abstract class Hero implements Comparable<Hero>, Predicate<Entity>, INBTS
         }
     }
 
-    public boolean canTakeDamage(EntityLivingBase entity, EntityLivingBase attacker, DamageSource source, float amount)
+    public boolean canTakeDamage(LivingEntity entity, LivingEntity attacker, DamageSource source, float amount)
     {
         for (HeroModifier modifier : getEnabledModifiers(entity))
         {
@@ -285,7 +285,7 @@ public abstract class Hero implements Comparable<Hero>, Predicate<Entity>, INBTS
         return true;
     }
 
-    public float damageTaken(EntityLivingBase entity, EntityLivingBase attacker, DamageSource source, float amount, float originalAmount)
+    public float damageTaken(LivingEntity entity, LivingEntity attacker, DamageSource source, float amount, float originalAmount)
     {
         for (HeroModifier modifier : getEnabledModifiers(entity))
         {
@@ -295,7 +295,7 @@ public abstract class Hero implements Comparable<Hero>, Predicate<Entity>, INBTS
         return amount;
     }
 
-    public float damageDealt(EntityLivingBase entity, EntityLivingBase target, DamageSource source, float amount, float originalAmount)
+    public float damageDealt(LivingEntity entity, LivingEntity target, DamageSource source, float amount, float originalAmount)
     {
         for (HeroModifier modifier : getEnabledModifiers(entity))
         {
@@ -305,7 +305,7 @@ public abstract class Hero implements Comparable<Hero>, Predicate<Entity>, INBTS
         return amount;
     }
 
-    public float damageReduction(EntityLivingBase entity, DamageSource source, float reduction)
+    public float damageReduction(LivingEntity entity, DamageSource source, float reduction)
     {
         for (HeroModifier modifier : getEnabledModifiers(entity))
         {
@@ -377,7 +377,7 @@ public abstract class Hero implements Comparable<Hero>, Predicate<Entity>, INBTS
         return modifiers;
     }
 
-    public final Set<HeroModifier> getEnabledModifiers(EntityLivingBase entity)
+    public final Set<HeroModifier> getEnabledModifiers(LivingEntity entity)
     {
         return Sets.filter(modifiers, t -> isModifierEnabled(entity, t));
     }
@@ -391,77 +391,77 @@ public abstract class Hero implements Comparable<Hero>, Predicate<Entity>, INBTS
         return getModifiers().contains(modifier);
     }
 
-    public final boolean hasEnabledModifier(EntityLivingBase entity, HeroModifier modifier)
+    public final boolean hasEnabledModifier(LivingEntity entity, HeroModifier modifier)
     {
         return getEnabledModifiers(entity).contains(modifier);
     }
 
-    public void getAttributeModifiers(EntityLivingBase entity, IAttributeContainer attributes)
+    public void getAttributeModifiers(LivingEntity entity, IAttributeContainer attributes)
     {
         attributes.add(SHAttributes.DAMAGE_REDUCTION, getTier().getProtection(entity), 1);
     }
 
-    public boolean hasProperty(EntityLivingBase entity, Property property)
+    public boolean hasProperty(LivingEntity entity, Property property)
     {
         return false;
     }
 
-    public boolean hasPermission(EntityLivingBase entity, String permission)
+    public boolean hasPermission(LivingEntity entity, String permission)
     {
         return false;
     }
 
-    public boolean isModifierEnabled(EntityLivingBase entity, HeroModifier modifier)
+    public boolean isModifierEnabled(LivingEntity entity, HeroModifier modifier)
     {
         return true;
     }
 
-    public boolean isKeyBindEnabled(EntityLivingBase entity, String keyBind)
+    public boolean isKeyBindEnabled(LivingEntity entity, String keyBind)
     {
         return true;
     }
 
-    public void onToggleMask(EntityLivingBase entity, boolean state)
+    public void onToggleMask(LivingEntity entity, boolean state)
     {
     }
 
-//    public <T> T modifyRuleValue(EntityLivingBase entity, Rule<T> rule)
-    public Number modifyRuleValue(EntityLivingBase entity, Rule<? extends Number> rule)
+//    public <T> T modifyRuleValue(LivingEntity entity, Rule<T> rule)
+    public Number modifyRuleValue(LivingEntity entity, Rule<? extends Number> rule)
     {
         return rule.defaultValue;
     }
 
-    public float getDefaultScale(EntityPlayer player)
+    public float getDefaultScale(PlayerEntity player)
     {
         return 1.0F;
     }
 
-    public Object getFuncObject(EntityLivingBase entity, String key)
+    public Object getFuncObject(LivingEntity entity, String key)
     {
         return null;
     }
 
-    public final boolean getFuncBoolean(EntityLivingBase entity, String key, boolean defaultVal)
+    public final boolean getFuncBoolean(LivingEntity entity, String key, boolean defaultVal)
     {
         return getFunc(entity, key, Boolean.class, defaultVal);
     }
 
-    public final float getFuncFloat(EntityLivingBase entity, String key, float defaultVal)
+    public final float getFuncFloat(LivingEntity entity, String key, float defaultVal)
     {
         return getFunc(entity, key, Double.class, (double) defaultVal).floatValue();
     }
 
-    public final int getFuncInt(EntityLivingBase entity, String key, int defaultVal)
+    public final int getFuncInt(LivingEntity entity, String key, int defaultVal)
     {
         return getFunc(entity, key, Integer.class, defaultVal);
     }
 
-    public final String getFuncString(EntityLivingBase entity, String key, String defaultVal)
+    public final String getFuncString(LivingEntity entity, String key, String defaultVal)
     {
         return getFunc(entity, key, String.class, defaultVal);
     }
 
-    private <T> T getFunc(EntityLivingBase entity, String key, Class<T> c, T defaultVal)
+    private <T> T getFunc(LivingEntity entity, String key, Class<T> c, T defaultVal)
     {
         Object obj = getFuncObject(entity, key);
 
@@ -509,7 +509,7 @@ public abstract class Hero implements Comparable<Hero>, Predicate<Entity>, INBTS
         return astring;
     }
 
-    public static void updateModifiers(EntityLivingBase entity, Hero hero, Phase phase)
+    public static void updateModifiers(LivingEntity entity, Hero hero, Phase phase)
     {
         if (hero != null)
         {
@@ -552,7 +552,7 @@ public abstract class Hero implements Comparable<Hero>, Predicate<Entity>, INBTS
     @Override
     public boolean test(Entity input)
     {
-        return input instanceof EntityLivingBase && SHHelper.getHero((EntityLivingBase) input) == this;
+        return input instanceof LivingEntity && SHHelper.getHero((LivingEntity) input) == this;
     }
 
     @Override
@@ -618,12 +618,12 @@ public abstract class Hero implements Comparable<Hero>, Predicate<Entity>, INBTS
         SHIELD(2, 0, SHData.SHIELD, AbilityShield.KEY_SHIELD),
         BLADE(3, 0, SHData.BLADE, AbilityBlade.KEY_BLADE);
 
-        public final BiFunction<EntityLivingBase, Hero, Integer> cooldown;
+        public final BiFunction<LivingEntity, Hero, Integer> cooldown;
         public final SHData<Boolean> dataHook;
         public final String keybind;
         public final int iconIndex;
 
-        Toggle(int iconX, int iconY, SHData<Boolean> data, String key, BiFunction<EntityLivingBase, Hero, Integer> func)
+        Toggle(int iconX, int iconY, SHData<Boolean> data, String key, BiFunction<LivingEntity, Hero, Integer> func)
         {
             iconIndex = iconX + iconY * 5 + 10;
             dataHook = data;

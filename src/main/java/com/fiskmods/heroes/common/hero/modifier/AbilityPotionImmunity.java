@@ -4,7 +4,7 @@ import com.fiskmods.heroes.common.hero.Hero;
 import com.fiskmods.heroes.util.FiskServerUtils;
 
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.potion.Potion;
 
 public class AbilityPotionImmunity extends Ability
@@ -18,7 +18,7 @@ public class AbilityPotionImmunity extends Ability
     }
 
     @Override
-    public void onUpdate(EntityLivingBase entity, Hero hero, Phase phase, boolean enabled)
+    public void onUpdate(LivingEntity entity, Hero hero, Phase phase, boolean enabled)
     {
         if (phase == Phase.START && enabled)
         {

@@ -18,8 +18,8 @@ import com.fiskmods.heroes.util.VectorHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
@@ -37,7 +37,7 @@ public class ItemColdGun extends ItemUntextured
     }
 
     @Override
-    public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
+    public ItemStack onItemRightClick(ItemStack stack, World world, PlayerEntity player)
     {
         if (SHData.AIMING_TIMER.get(player) >= 1 && SHHelper.hasPermission(player, Permission.USE_COLD_GUN))
         {
@@ -48,9 +48,9 @@ public class ItemColdGun extends ItemUntextured
     }
 
     @Override
-    public void onUsingTick(ItemStack itemstack, EntityPlayer player, int count)
+    public void onUsingTick(ItemStack itemstack, PlayerEntity player, int count)
     {
-        World world = player.worldObj;
+        World world = player.world;
         Hero hero;
 
         if (SHData.AIMING_TIMER.get(player) >= 1 && (hero = SHHelper.getHero(player)) != null && hero.hasPermission(player, Permission.USE_COLD_GUN))
@@ -68,15 +68,15 @@ public class ItemColdGun extends ItemUntextured
                     int side = rayTrace.sideHit;
 
                     ForgeDirection dir = ForgeDirection.getOrientation(side);
-                    Block block = player.worldObj.getBlock(x, y, z);
+                    Block block = player.world.getBlock(x, y, z);
 
-                    if (block instanceof BlockLiquid || block != Blocks.vine && block != Blocks.tallgrass && block != Blocks.deadbush && !block.isReplaceable(player.worldObj, x, y, z))
+                    if (block instanceof BlockLiquid || block != Blocks.vine && block != Blocks.tallgrass && block != Blocks.deadbush && !block.isReplaceable(player.world, x, y, z))
                     {
                         x += dir.offsetX;
                         y += dir.offsetY;
                         z += dir.offsetZ;
                     }
-                    else if (block.isReplaceable(player.worldObj, x, y, z) && block != Blocks.vine)
+                    else if (block.isReplaceable(player.world, x, y, z) && block != Blocks.vine)
                     {
                         side = 1;
                     }
@@ -97,7 +97,7 @@ public class ItemColdGun extends ItemUntextured
                             }
                         }
 
-                        if (canPlaceLayer && !player.worldObj.isRemote && player.canPlayerEdit(x, y, z, side, itemstack) && (world.isAirBlock(x, y, z) || world.getBlock(rayTrace.blockX, rayTrace.blockY, rayTrace.blockZ) == ModBlocks.iceLayer && world.getBlockMetadata(rayTrace.blockX, rayTrace.blockY, rayTrace.blockZ) != side))
+                        if (canPlaceLayer && !player.world.isRemote && player.canPlayerEdit(x, y, z, side, itemstack) && (world.isAirBlock(x, y, z) || world.getBlock(rayTrace.blockX, rayTrace.blockY, rayTrace.blockZ) == ModBlocks.iceLayer && world.getBlockMetadata(rayTrace.blockX, rayTrace.blockY, rayTrace.blockZ) != side))
                         {
                             world.setBlock(x, y, z, ModBlocks.iceLayer, side, 3);
                         }
@@ -107,9 +107,9 @@ public class ItemColdGun extends ItemUntextured
                 {
                     rayTrace.entityHit.attackEntityFrom(ModDamageSources.FREEZE.apply(player), Rule.DMG_COLDGUN.get(player, hero));
 
-                    if (rayTrace.entityHit instanceof EntityLivingBase)
+                    if (rayTrace.entityHit instanceof LivingEntity)
                     {
-                        EntityLivingBase entity = (EntityLivingBase) rayTrace.entityHit;
+                        LivingEntity entity = (LivingEntity) rayTrace.entityHit;
 
                         if (TemperatureHelper.getCurrentBodyTemperature(entity) > 0)
                         {
@@ -119,7 +119,7 @@ public class ItemColdGun extends ItemUntextured
                 }
             }
 
-            if (player.worldObj.isRemote)
+            if (player.world.isRemote)
             {
                 double length = rayTrace != null && rayTrace.hitInfo instanceof Double ? (Double) rayTrace.hitInfo : range;
                 Vec3 src = VectorHelper.getOffsetCoords(player, -0.325, -0.2, 0.8);
@@ -146,7 +146,7 @@ public class ItemColdGun extends ItemUntextured
     }
 
     @Override
-    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack)
+    public boolean onEntitySwing(LivingEntity entityLiving, ItemStack stack)
     {
         return true;
     }

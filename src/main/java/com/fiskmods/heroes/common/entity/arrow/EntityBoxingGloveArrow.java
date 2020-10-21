@@ -4,8 +4,8 @@ import com.fiskmods.heroes.common.arrowtype.ArrowTypeManager;
 import com.fiskmods.heroes.util.SHHelper;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.network.play.server.S2BPacketChangeGameState;
 import net.minecraft.util.MathHelper;
@@ -24,12 +24,12 @@ public class EntityBoxingGloveArrow extends EntityTrickArrow
         super(world, x, y, z);
     }
 
-    public EntityBoxingGloveArrow(World world, EntityLivingBase shooter, float velocity)
+    public EntityBoxingGloveArrow(World world, LivingEntity shooter, float velocity)
     {
         super(world, shooter, velocity);
     }
 
-    public EntityBoxingGloveArrow(World world, EntityLivingBase shooter, float velocity, boolean horizontal)
+    public EntityBoxingGloveArrow(World world, LivingEntity shooter, float velocity, boolean horizontal)
     {
         super(world, shooter, velocity, horizontal);
     }
@@ -55,7 +55,7 @@ public class EntityBoxingGloveArrow extends EntityTrickArrow
     }
 
     @Override
-    protected void handlePostDamageEffects(EntityLivingBase entityHit)
+    protected void handlePostDamageEffects(LivingEntity entityHit)
     {
         super.handlePostDamageEffects(entityHit);
 
@@ -99,11 +99,11 @@ public class EntityBoxingGloveArrow extends EntityTrickArrow
 
                     if (mop.entityHit.attackEntityFrom(getDamageSource(mop.entityHit), dmg))
                     {
-                        if (mop.entityHit instanceof EntityLivingBase)
+                        if (mop.entityHit instanceof LivingEntity)
                         {
-                            handlePostDamageEffects((EntityLivingBase) mop.entityHit);
+                            handlePostDamageEffects((LivingEntity) mop.entityHit);
 
-                            if (shootingEntity instanceof EntityPlayerMP && mop.entityHit != shootingEntity && mop.entityHit instanceof EntityPlayer)
+                            if (shootingEntity instanceof PlayerEntityMP && mop.entityHit != shootingEntity && mop.entityHit instanceof PlayerEntity)
                             {
                                 ((EntityPlayerMP) shootingEntity).playerNetServerHandler.sendPacket(new S2BPacketChangeGameState(6, 0.0F));
                             }

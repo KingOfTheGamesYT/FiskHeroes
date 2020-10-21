@@ -14,7 +14,7 @@ import com.fiskmods.heroes.util.TemperatureHelper;
 
 import cpw.mods.fml.common.network.ByteBufUtils;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 
 public abstract class MessageSyncBase<REQ extends MessageSyncBase> extends AbstractMessage<REQ>
 {
@@ -29,7 +29,7 @@ public abstract class MessageSyncBase<REQ extends MessageSyncBase> extends Abstr
     {
     }
 
-    protected MessageSyncBase(EntityPlayer player)
+    protected MessageSyncBase(PlayerEntity player)
     {
         playerData = SHPlayerData.getData(player).data;
         heroCollection = SHPlayerData.getData(player).heroCollection;

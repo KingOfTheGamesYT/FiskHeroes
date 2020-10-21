@@ -2,7 +2,7 @@ package com.fiskmods.heroes.common.tileentity;
 
 import com.fiskmods.heroes.util.SHTileHelper;
 
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
@@ -11,14 +11,14 @@ import net.minecraft.tileentity.TileEntity;
 public abstract class TileEntitySH extends TileEntity
 {
     @Override
-    public final void readFromNBT(NBTTagCompound nbt)
+    public final void readFromNBT(CompoundNBT nbt)
     {
         super.readFromNBT(nbt);
         readCustomNBT(nbt);
     }
 
     @Override
-    public final void writeToNBT(NBTTagCompound nbt)
+    public final void writeToNBT(CompoundNBT nbt)
     {
         super.writeToNBT(nbt);
         writeCustomNBT(nbt);
@@ -26,13 +26,13 @@ public abstract class TileEntitySH extends TileEntity
 
     public void markBlockForUpdate()
     {
-        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+        world.markBlockForUpdate(xCoord, yCoord, zCoord);
     }
 
     @Override
     public Packet getDescriptionPacket()
     {
-        NBTTagCompound tag = new NBTTagCompound();
+        CompoundNBT tag = new CompoundNBT();
         writeCustomNBT(tag);
         return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 1, tag);
     }
@@ -53,20 +53,20 @@ public abstract class TileEntitySH extends TileEntity
         {
             int y = yCoord;
 
-            while (SHTileHelper.getTileBase(worldObj.getTileEntity(xCoord, ++y, zCoord)) == this)
+            while (SHTileHelper.getTileBase(world.getTileEntity(xCoord, ++y, zCoord)) == this)
             {
-                worldObj.markBlockForUpdate(xCoord, y, zCoord);
+                world.markBlockForUpdate(xCoord, y, zCoord);
             }
         }
         else if (tile != null)
         {
-            worldObj.markBlockForUpdate(tile.xCoord, tile.yCoord, tile.zCoord);
+            world.markBlockForUpdate(tile.xCoord, tile.yCoord, tile.zCoord);
         }
 
         markBlockForUpdate();
     }
 
-    protected abstract void writeCustomNBT(NBTTagCompound nbt);
+    protected abstract void writeCustomNBT(CompoundNBT nbt);
 
-    protected abstract void readCustomNBT(NBTTagCompound nbt);
+    protected abstract void readCustomNBT(CompoundNBT nbt);
 }

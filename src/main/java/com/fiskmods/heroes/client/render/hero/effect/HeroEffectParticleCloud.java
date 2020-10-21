@@ -13,7 +13,7 @@ import com.google.gson.stream.JsonToken;
 
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
 
 public class HeroEffectParticleCloud extends HeroEffect
@@ -27,7 +27,7 @@ public class HeroEffectParticleCloud extends HeroEffect
     }
 
     @Override
-    public void onClientTick(EntityPlayer player, HeroIteration iter, Phase phase)
+    public void onClientTick(PlayerEntity player, HeroIteration iter, Phase phase)
     {
         if (phase == Phase.END && particles != null && particles.color != null && conditionals.evaluate(player))
         {
@@ -54,7 +54,7 @@ public class HeroEffectParticleCloud extends HeroEffect
 
             for (int i = 0; i < thickness; ++i)
             {
-                EntitySHCloudSmokeFX particle = new EntitySHCloudSmokeFX(player.worldObj, particles.color, x + (Math.random() * 2 - 1) * spread, y + (Math.random() * 2 - 1) * spread, z + (Math.random() * 2 - 1) * spread, player.motionX * m + (Math.random() * 2 - 1) * m1, player.motionY * m + (Math.random() * 2 - 1) * m1, player.motionZ * m + (Math.random() * 2 - 1) * m1);
+                EntitySHCloudSmokeFX particle = new EntitySHCloudSmokeFX(player.world, particles.color, x + (Math.random() * 2 - 1) * spread, y + (Math.random() * 2 - 1) * spread, z + (Math.random() * 2 - 1) * spread, player.motionX * m + (Math.random() * 2 - 1) * m1, player.motionY * m + (Math.random() * 2 - 1) * m1, player.motionZ * m + (Math.random() * 2 - 1) * m1);
 //                particle.pa
                 SHParticlesClient.spawnParticleClient(particle);
             }

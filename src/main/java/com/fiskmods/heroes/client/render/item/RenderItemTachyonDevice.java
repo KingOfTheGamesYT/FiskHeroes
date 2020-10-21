@@ -85,7 +85,7 @@ public enum RenderItemTachyonDevice implements IItemRenderer
 
     public static void render()
     {
-        Minecraft.getMinecraft().getTextureManager().bindTexture(TEXTURE);
+        Minecraft.getInstance().getTextureManager().bindTexture(TEXTURE);
         MODEL.render();
     }
 }

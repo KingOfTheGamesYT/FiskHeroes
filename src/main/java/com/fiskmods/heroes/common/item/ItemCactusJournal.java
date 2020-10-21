@@ -8,9 +8,9 @@ import com.fiskmods.heroes.FiskHeroes;
 import com.fiskmods.heroes.client.gui.book.CactusParser;
 import com.fiskmods.heroes.common.book.Book;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
@@ -19,14 +19,14 @@ public class ItemCactusJournal extends ItemMetahumanLog
     public static final String TAG_ENTRIES = "Entries";
 
     @Override
-    public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer player)
+    public ItemStack onItemRightClick(ItemStack itemstack, World world, PlayerEntity player)
     {
         player.openGui(FiskHeroes.MODID, 4, world, 2, 0, 0);
         return itemstack;
     }
 
     @Override
-    public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean flag)
+    public void addInformation(ItemStack stack, PlayerEntity player, List list, boolean flag)
     {
         byte[] entries = getEntries(stack);
 
@@ -61,7 +61,7 @@ public class ItemCactusJournal extends ItemMetahumanLog
             }
         }
 
-//        list.add(StatCollector.translateToLocalFormatted(getUnlocalizedName() + ".desc", stack.getItemDamage()));
+//        list.add(StatCollector.translateToLocalFormatted(getUnlocalizedName() + ".desc", stack.getDamage()));
     }
 
     public static Book getBook(ItemStack stack)
@@ -72,18 +72,18 @@ public class ItemCactusJournal extends ItemMetahumanLog
 
     public static ItemStack setEntries(ItemStack stack, byte[] entries)
     {
-        if (!stack.hasTagCompound())
+        if (!stack.hasTag())
         {
-            stack.setTagCompound(new NBTTagCompound());
+            stack.setTag(new CompoundNBT());
         }
 
-        stack.getTagCompound().setByteArray(TAG_ENTRIES, entries);
+        stack.getTag().setByteArray(TAG_ENTRIES, entries);
         return stack;
     }
 
     public static byte[] getEntries(ItemStack stack)
     {
-        return stack.hasTagCompound() ? stack.getTagCompound().getByteArray(TAG_ENTRIES) : new byte[0];
+        return stack.hasTag() ? stack.getTag().getByteArray(TAG_ENTRIES) : new byte[0];
     }
 
     public static boolean hasEntry(ItemStack stack, int entry)

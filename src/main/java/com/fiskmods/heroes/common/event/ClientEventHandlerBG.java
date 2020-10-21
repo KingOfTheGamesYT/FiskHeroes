@@ -8,7 +8,7 @@ import com.fiskmods.heroes.util.SHHelper;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import mods.battlegear2.api.RenderPlayerEventChild.PlayerElementType;
 import mods.battlegear2.api.RenderPlayerEventChild.PreRenderSheathed;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 
 public enum ClientEventHandlerBG
@@ -18,7 +18,7 @@ public enum ClientEventHandlerBG
     @SubscribeEvent
     public void onPreRenderSheathed(PreRenderSheathed event)
     {
-        EntityPlayer player = event.entityPlayer;
+        PlayerEntity player = event.entityPlayer;
         ItemStack itemstack = event.element;
 
         if (itemstack != null)

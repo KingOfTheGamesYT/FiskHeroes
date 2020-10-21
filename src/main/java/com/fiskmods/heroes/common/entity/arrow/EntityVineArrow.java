@@ -10,9 +10,9 @@ import com.fiskmods.heroes.common.network.MessageGrappleArrowCut;
 import com.fiskmods.heroes.common.network.SHNetworkManager;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 
@@ -28,12 +28,12 @@ public class EntityVineArrow extends EntityGrappleArrow
         super(world, x, y, z);
     }
 
-    public EntityVineArrow(World world, EntityLivingBase shooter, float velocity)
+    public EntityVineArrow(World world, LivingEntity shooter, float velocity)
     {
         super(world, shooter, velocity);
     }
 
-    public EntityVineArrow(World world, EntityLivingBase shooter, float velocity, boolean horizontal)
+    public EntityVineArrow(World world, LivingEntity shooter, float velocity, boolean horizontal)
     {
         super(world, shooter, velocity, horizontal);
     }
@@ -46,9 +46,9 @@ public class EntityVineArrow extends EntityGrappleArrow
 
         if (getIsSnake())
         {
-            for (Entity entity : (List<Entity>) worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox))
+            for (Entity entity : (List<Entity>) world.getEntitiesWithinAABBExcludingEntity(this, boundingBox))
             {
-                if (entity instanceof EntityLivingBase)
+                if (entity instanceof LivingEntity)
                 {
                     AxisAlignedBB aabb = entity.boundingBox.copy();
                     aabb.maxY = aabb.minY + height;
@@ -63,7 +63,7 @@ public class EntityVineArrow extends EntityGrappleArrow
     }
 
     @Override
-    public void inEntityUpdate(EntityLivingBase living)
+    public void inEntityUpdate(LivingEntity living)
     {
         if (!getIsSnake())
         {
@@ -89,28 +89,28 @@ public class EntityVineArrow extends EntityGrappleArrow
 
     protected void update()
     {
-        if (!worldObj.isRemote && ticksInGround > 0 && !getIsSnake() && !getIsCableCut() && rand.nextInt(Math.max(100 - ticksInGround, 10)) == 0)
+        if (!world.isRemote && ticksInGround > 0 && !getIsSnake() && !getIsCableCut() && rand.nextInt(Math.max(100 - ticksInGround, 10)) == 0)
         {
             setIsCableCut(true);
-            worldObj.playSoundAtEntity(getShooter(), SHSounds.ENTITY_ARROW_VINE_SNAP.toString(), 1.0F, 0.8F);
+            world.playSoundAtEntity(getShooter(), SHSounds.ENTITY_ARROW_VINE_SNAP.toString(), 1.0F, 0.8F);
         }
     }
 
     @Override
-    public EntityGrapplingHookCable makeCable(EntityLivingBase living, EntityPlayer player)
+    public EntityGrapplingHookCable makeCable(LivingEntity living, PlayerEntity player)
     {
         return super.makeCable(living, player).setColor(0x364D23, 0x293C1B);
     }
 
     @Override
-    public void readEntityFromNBT(NBTTagCompound nbt)
+    public void readEntityFromNBT(CompoundNBT nbt)
     {
         super.readEntityFromNBT(nbt);
         setIsSnake(nbt.getBoolean("Snake"));
     }
 
     @Override
-    public void writeEntityToNBT(NBTTagCompound nbt)
+    public void writeEntityToNBT(CompoundNBT nbt)
     {
         super.writeEntityToNBT(nbt);
         nbt.setBoolean("Snake", getIsSnake());

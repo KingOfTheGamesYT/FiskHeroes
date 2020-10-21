@@ -17,11 +17,11 @@ import com.fiskmods.heroes.util.FiskMath;
 import com.fiskmods.heroes.util.SHHelper;
 import com.fiskmods.heroes.util.SpeedsterHelper;
 
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 
@@ -49,12 +49,12 @@ public class SHAttributes
     public static final ArmorAttribute STEP_HEIGHT = new AttributeStepHeight("stepHeight", true);
     public static final ArmorAttribute SWORD_DAMAGE = new ArmorAttribute("swordDamage", true);
 
-    public static AttributeWrapper getAttribute(EntityLivingBase entity, ArmorAttribute attribute)
+    public static AttributeWrapper getAttribute(LivingEntity entity, ArmorAttribute attribute)
     {
         return getAttribute(entity, SHHelper.getHero(entity), attribute);
     }
 
-    public static AttributeWrapper getAttribute(EntityLivingBase entity, Hero hero, ArmorAttribute attribute)
+    public static AttributeWrapper getAttribute(LivingEntity entity, Hero hero, ArmorAttribute attribute)
     {
         if (hero != null)
         {
@@ -73,12 +73,12 @@ public class SHAttributes
         return null;
     }
 
-    public static float getArmorProtection(EntityLivingBase entity)
+    public static float getArmorProtection(LivingEntity entity)
     {
         return getArmorProtection(entity, SHHelper.getEquipment(entity), Rule.DURABILITY_SCALED_PROT.get(entity));
     }
 
-    public static float getArmorProtection(EntityLivingBase entity, ItemStack[] itemstacks, boolean durabilityScaled)
+    public static float getArmorProtection(LivingEntity entity, ItemStack[] itemstacks, boolean durabilityScaled)
     {
         Hero hero = SHHelper.getHero(itemstacks);
         AttributeWrapper wrapper = getAttribute(entity, hero, DAMAGE_REDUCTION);
@@ -95,7 +95,7 @@ public class SHAttributes
                 {
                     if (itemstack != null)
                     {
-                        durability += (float) (itemstack.getMaxDamage() - itemstack.getItemDamage()) / itemstack.getMaxDamage();
+                        durability += (float) (itemstack.getMaxDamage() - itemstack.getDamage()) / itemstack.getMaxDamage();
                     }
                 }
 
@@ -108,12 +108,12 @@ public class SHAttributes
         return 0;
     }
 
-    public static double getModifier(EntityLivingBase entity, ArmorAttribute attribute, double baseValue)
+    public static double getModifier(LivingEntity entity, ArmorAttribute attribute, double baseValue)
     {
         return getModifier(entity, SHHelper.getHero(entity), attribute, baseValue);
     }
 
-    public static double getModifier(EntityLivingBase entity, Hero hero, ArmorAttribute attribute, double baseValue)
+    public static double getModifier(LivingEntity entity, Hero hero, ArmorAttribute attribute, double baseValue)
     {
         AttributeWrapper wrapper = getAttribute(entity, hero, attribute);
 
@@ -127,17 +127,17 @@ public class SHAttributes
         return baseValue;
     }
 
-    public static float getModifier(EntityLivingBase entity, ArmorAttribute attribute, float baseValue)
+    public static float getModifier(LivingEntity entity, ArmorAttribute attribute, float baseValue)
     {
         return getModifier(entity, SHHelper.getHero(entity), attribute, baseValue);
     }
 
-    public static float getModifier(EntityLivingBase entity, Hero hero, ArmorAttribute attribute, float baseValue)
+    public static float getModifier(LivingEntity entity, Hero hero, ArmorAttribute attribute, float baseValue)
     {
         return (float) getModifier(entity, hero, attribute, (double) baseValue);
     }
 
-    public static void applyModifiers(EntityPlayer player)
+    public static void applyModifiers(PlayerEntity player)
     {
         IAttributeInstance speedAttribute = player.getEntityAttribute(SharedMonsterAttributes.movementSpeed);
         IAttributeInstance healthAttribute = player.getEntityAttribute(SharedMonsterAttributes.maxHealth);

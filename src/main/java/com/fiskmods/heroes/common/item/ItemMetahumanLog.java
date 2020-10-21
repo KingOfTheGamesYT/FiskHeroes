@@ -8,7 +8,7 @@ import com.fiskmods.heroes.common.book.Book;
 import com.fiskmods.heroes.common.book.BookHandler;
 import com.fiskmods.heroes.common.book.json.BookContainer;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -25,7 +25,7 @@ public class ItemMetahumanLog extends Item
     }
 
     @Override
-    public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer player)
+    public ItemStack onItemRightClick(ItemStack itemstack, World world, PlayerEntity player)
     {
         player.openGui(FiskHeroes.MODID, 4, world, 0, 0, 0);
         return itemstack;
@@ -33,9 +33,9 @@ public class ItemMetahumanLog extends Item
 
     public static Book getBook(ItemStack itemstack)
     {
-        if (itemstack.hasTagCompound() && itemstack.getTagCompound().hasKey("Book", NBT.TAG_STRING))
+        if (itemstack.hasTag() && itemstack.getTag().hasKey("Book", NBT.TAG_STRING))
         {
-            String key = itemstack.getTagCompound().getString("Book");
+            String key = itemstack.getTag().getString("Book");
 
             for (Map.Entry<String, BookContainer> e : BookHandler.INSTANCE.books.entrySet())
             {

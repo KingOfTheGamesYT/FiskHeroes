@@ -27,7 +27,7 @@ public class Tickrate
 
     public static void updateClientTickrate(float tickrate)
     {
-        Minecraft mc = Minecraft.getMinecraft();
+        Minecraft mc = Minecraft.getInstance();
 
         try
         {

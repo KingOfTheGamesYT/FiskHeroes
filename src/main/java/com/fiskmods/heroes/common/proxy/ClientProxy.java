@@ -120,8 +120,8 @@ import cpw.mods.fml.relauncher.Side;
 import mods.battlegear2.api.core.BattlegearUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
@@ -131,7 +131,7 @@ import net.minecraftforge.client.MinecraftForgeClient;
 
 public class ClientProxy extends CommonProxy
 {
-    private Minecraft mc = Minecraft.getMinecraft();
+    private Minecraft mc = Minecraft.getInstance();
 
     public static GuiOverlay guiOverlay = new GuiOverlay();
 
@@ -261,7 +261,7 @@ public class ClientProxy extends CommonProxy
     }
 
     @Override
-    public EntityPlayer getPlayer()
+    public PlayerEntity getPlayer()
     {
         return mc.thePlayer;
     }
@@ -346,7 +346,7 @@ public class ClientProxy extends CommonProxy
     }
 
     @Override
-    public void playSound(EntityLivingBase entity, String sound, float volume, float pitch, int... args)
+    public void playSound(LivingEntity entity, String sound, float volume, float pitch, int... args)
     {
         if (entity == null)
         {
@@ -367,7 +367,7 @@ public class ClientProxy extends CommonProxy
         }
         else if ("absorb".equals(sound))
         {
-            TileEntity tile = entity.worldObj.getTileEntity(args[0], args[1], args[2]);
+            TileEntity tile = entity.world.getTileEntity(args[0], args[1], args[2]);
 
             if (tile instanceof TileEntityParticleCore)
             {

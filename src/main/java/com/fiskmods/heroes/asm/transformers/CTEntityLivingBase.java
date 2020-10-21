@@ -15,11 +15,11 @@ import org.objectweb.asm.tree.VarInsnNode;
 
 import com.fiskmods.heroes.asm.SHTranslator;
 
-public class CTEntityLivingBase extends ClassTransformerBase
+public class CTLivingEntity extends ClassTransformerBase
 {
-    public CTEntityLivingBase()
+    public CTLivingEntity()
     {
-        super("net.minecraft.entity.EntityLivingBase");
+        super("net.minecraft.entity.LivingEntity");
     }
 
     @Override

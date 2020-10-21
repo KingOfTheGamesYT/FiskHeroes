@@ -12,10 +12,10 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
@@ -54,16 +54,16 @@ public class ItemQuiver extends Item implements IEquipmentItem
     @Override
     public void onUpdate(ItemStack itemstack, World world, Entity entity, int slot, boolean currentlyHeld)
     {
-        if (entity instanceof EntityPlayer)
+        if (entity instanceof PlayerEntity)
         {
-            EntityPlayer player = (EntityPlayer) entity;
+            PlayerEntity player = (PlayerEntity) entity;
 
-            if (!itemstack.hasTagCompound())
+            if (!itemstack.hasTag())
             {
-                itemstack.setTagCompound(new NBTTagCompound());
+                itemstack.setTag(new CompoundNBT());
             }
 
-            if (itemstack.getItemDamage() == 1 && player.ticksExisted % 8 == 0 && !player.worldObj.isRemote && !(player.openContainer instanceof ContainerQuiver) && !currentlyHeld)
+            if (itemstack.getDamage() == 1 && player.ticksExisted % 8 == 0 && !player.world.isRemote && !(player.openContainer instanceof ContainerQuiver) && !currentlyHeld)
             {
                 InventoryQuiver quiver = new InventoryQuiver(player, slot);
 
@@ -92,11 +92,11 @@ public class ItemQuiver extends Item implements IEquipmentItem
     }
 
     @Override
-    public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer player)
+    public ItemStack onItemRightClick(ItemStack itemstack, World world, PlayerEntity player)
     {
-        if (!itemstack.hasTagCompound())
+        if (!itemstack.hasTag())
         {
-            itemstack.setTagCompound(new NBTTagCompound());
+            itemstack.setTag(new CompoundNBT());
         }
 
         player.openGui(FiskHeroes.MODID, 0, world, player.inventory.currentItem, 0, 0);
@@ -106,7 +106,7 @@ public class ItemQuiver extends Item implements IEquipmentItem
     @Override
     public String getUnlocalizedName(ItemStack itemstack)
     {
-        int i = MathHelper.clamp_int(itemstack.getItemDamage(), 0, NAMES.length);
+        int i = MathHelper.clamp_int(itemstack.getDamage(), 0, NAMES.length);
         return "item." + NAMES[i] + "quiver";
     }
 

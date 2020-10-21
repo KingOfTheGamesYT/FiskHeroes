@@ -66,8 +66,8 @@ import net.minecraft.block.material.Material;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityHanging;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
@@ -165,11 +165,11 @@ public enum CommonEventHandler
     {
         Entity entity = event.entity;
 
-        if (entity instanceof EntityPlayer)
+        if (entity instanceof PlayerEntity)
         {
-            EntityPlayer player = (EntityPlayer) entity;
+            PlayerEntity player = (PlayerEntity) entity;
 
-            if (!entity.worldObj.isRemote)
+            if (!entity.world.isRemote)
             {
                 playersToSync.add(player);
             }
@@ -179,16 +179,16 @@ public enum CommonEventHandler
     @SubscribeEvent
     public void onStartTracking(StartTracking event)
     {
-        EntityPlayer player = event.entityPlayer;
+        PlayerEntity player = event.entityPlayer;
 
-        if (player != null && !player.worldObj.isRemote)
+        if (player != null && !player.world.isRemote)
         {
-            if (event.target instanceof EntityPlayer)
+            if (event.target instanceof PlayerEntity)
             {
-                EntityPlayer beingTracked = (EntityPlayer) event.target;
+                PlayerEntity beingTracked = (PlayerEntity) event.target;
 
-                EntityPlayerMP playerMP = (EntityPlayerMP) player;
-                EntityPlayerMP beingTrackedMP = (EntityPlayerMP) beingTracked;
+                PlayerEntityMP playerMP = (EntityPlayerMP) player;
+                PlayerEntityMP beingTrackedMP = (EntityPlayerMP) beingTracked;
 
                 SHNetworkManager.wrapper.sendTo(new MessageBroadcastState(player), beingTrackedMP);
                 SHNetworkManager.wrapper.sendTo(new MessageBroadcastState(beingTracked), playerMP);
@@ -199,7 +199,7 @@ public enum CommonEventHandler
     @SubscribeEvent
     public void onEntityInteract(EntityInteractEvent event)
     {
-        EntityPlayer player = event.entityPlayer;
+        PlayerEntity player = event.entityPlayer;
         ItemStack itemstack = player.getHeldItem();
 
         if (SHData.SHIELD.get(player) || SHData.SHADOWFORM.get(player) || SHData.INTANGIBLE.get(player) && SHHelper.hasEnabledModifier(player, Ability.ABSOLUTE_INTANGIBILITY) && Ability.ABSOLUTE_INTANGIBILITY.isActive(player))
@@ -220,12 +220,12 @@ public enum CommonEventHandler
     @SubscribeEvent
     public void onEntityConstruct(EntityConstructing event)
     {
-        if (event.entity instanceof EntityLivingBase)
+        if (event.entity instanceof LivingEntity)
         {
             event.entity.registerExtendedProperties(SHEntityData.IDENTIFIER, new SHEntityData());
         }
 
-        if (event.entity instanceof EntityPlayer)
+        if (event.entity instanceof PlayerEntity)
         {
             event.entity.registerExtendedProperties(SHPlayerData.IDENTIFIER, new SHPlayerData());
         }
@@ -241,7 +241,7 @@ public enum CommonEventHandler
     @SubscribeEvent
     public void onPlayerTick(TickEvent.PlayerTickEvent event)
     {
-        EntityPlayer player = event.player;
+        PlayerEntity player = event.player;
         Hero hero = SHHelper.getHero(player);
 
         if (event.phase == TickEvent.Phase.END)
@@ -255,7 +255,7 @@ public enum CommonEventHandler
 
             updateArmSwingProgress(player);
 
-            if (!player.worldObj.isRemote)
+            if (!player.world.isRemote)
             {
                 ItemStack quiver = QuiverHelper.getEquippedQuiver(player);
                 ItemStack tachyonDevice = SpeedsterHelper.getEquippedTachyonDevice(player);
@@ -336,7 +336,7 @@ public enum CommonEventHandler
             SHHelper.incr(SHData.HORIZONTAL_BOW_TIMER, player, SHConstants.TICKS_HORIZONTAL_BOW, SHData.HORIZONTAL_BOW.get(player));
             SHHelper.incr(SHData.HAT_TIP, player, SHConstants.ANIMATION_HAT_TIP, false);
 
-            for (Entity entity : (List<Entity>) player.worldObj.loadedEntityList)
+            for (Entity entity : (List<Entity>) player.world.loadedEntityList)
             {
                 if (entity instanceof EntityGrappleArrow)
                 {
@@ -347,7 +347,7 @@ public enum CommonEventHandler
                         if (heldItem == null || heldItem.getItem() != ModItems.compoundBow || heldItem == null || player.swingProgressInt == 1)
                         {
                             arrow.setIsCableCut(true);
-                            player.worldObj.playSoundAtEntity(player, SHSounds.ENTITY_ARROW_GRAPPLE_DISCONNECT.toString(), 1.0F, 0.8F);
+                            player.world.playSoundAtEntity(player, SHSounds.ENTITY_ARROW_GRAPPLE_DISCONNECT.toString(), 1.0F, 0.8F);
                         }
 
                         if (arrow.inGround && !(arrow instanceof EntityVineArrow && ((EntityVineArrow) arrow).getIsSnake()))
@@ -424,7 +424,7 @@ public enum CommonEventHandler
 
                 if (SHData.SPEEDING.get(player))
                 {
-                    if (!player.worldObj.isRemote)
+                    if (!player.world.isRemote)
                     {
                         if (player.ticksExisted % 40 == 0 && SHData.SPEED.get(player) > SpeedsterHelper.getFilteredMaxSpeedSetting(player, SpeedBar.TACHYON))
                         {
@@ -438,11 +438,11 @@ public enum CommonEventHandler
 
                                     if (itemstack1 != null)
                                     {
-                                        int charge = itemstack1.getTagCompound().getInteger("TachyonCharge");
+                                        int charge = itemstack1.getTag().getInteger("TachyonCharge");
 
                                         if (charge > 0)
                                         {
-                                            itemstack1.getTagCompound().setInteger("TachyonCharge", --charge);
+                                            itemstack1.getTag().setInteger("TachyonCharge", --charge);
                                         }
                                     }
                                 }
@@ -508,7 +508,7 @@ public enum CommonEventHandler
                 AxisAlignedBB aabb = player.boundingBox;
                 aabb = AxisAlignedBB.getBoundingBox(aabb.minX, aabb.minY, aabb.minZ, aabb.minX + width, aabb.minY + height, aabb.minZ + width);
 
-                if (player.worldObj.getCollidingBoundingBoxes(player, aabb).isEmpty())
+                if (player.world.getCollidingBoundingBoxes(player, aabb).isEmpty())
                 {
                     SHData.SCALE.setWithoutNotify(player, scale = defScale);
                 }
@@ -667,9 +667,9 @@ public enum CommonEventHandler
             SHData.PREV_GLIDING.setWithoutNotify(player, SHData.GLIDING.get(player));
             SHData.PREV_SHADOWFORM.setWithoutNotify(player, SHData.SHADOWFORM.get(player));
 
-            if (player instanceof EntityPlayerMP)
+            if (player instanceof PlayerEntityMP)
             {
-                EntityPlayerMP entityplayermp = (EntityPlayerMP) player;
+                PlayerEntityMP entityplayermp = (EntityPlayerMP) player;
 
                 if (SHHelper.shouldOverrideReachDistance(player))
                 {
@@ -678,7 +678,7 @@ public enum CommonEventHandler
                 }
             }
 
-            if (!player.worldObj.isRemote)
+            if (!player.world.isRemote)
             {
                 SHAttributes.applyModifiers(player);
             }
@@ -693,14 +693,14 @@ public enum CommonEventHandler
                     int z = MathHelper.floor_double(player.posZ);
                     float y = MathHelper.floor_double(player.boundingBox.minY);
 
-                    if (player.worldObj.blockExists(x, 0, z))
+                    if (player.world.blockExists(x, 0, z))
                     {
-                        while (player.worldObj.isAirBlock(x, (int) y, z) && y > 0)
+                        while (player.world.isAirBlock(x, (int) y, z) && y > 0)
                         {
                             y -= 1;
                         }
 
-                        Block block = player.worldObj.getBlock(x, (int) y, z);
+                        Block block = player.world.getBlock(x, (int) y, z);
 
                         if (block.getMaterial() != Material.air && block.isCollidable())
                         {
@@ -721,7 +721,7 @@ public enum CommonEventHandler
         }
     }
 
-    private void handleMaskOpen(EntityPlayer player, Hero hero)
+    private void handleMaskOpen(PlayerEntity player, Hero hero)
     {
         byte maskOpenTimer = SHData.MASK_OPEN_TIMER.get(player);
         boolean isMaskOpen = SHData.MASK_OPEN.get(player);
@@ -758,9 +758,9 @@ public enum CommonEventHandler
         {
             if (Rule.ALLOW_SENTRYMODE.get(player) && player.canPlayerEdit(MathHelper.floor_double(player.posX), MathHelper.floor_double(player.posY), MathHelper.floor_double(player.posZ), 0, player.getHeldItem()))
             {
-                if (!player.worldObj.isRemote)
+                if (!player.world.isRemote)
                 {
-                    EntityIronMan entity = new EntityIronMan(player.worldObj);
+                    EntityIronMan entity = new EntityIronMan(player.world);
                     entity.setLocationAndAngles(player.posX, player.posY, player.posZ, player.rotationYaw, player.rotationPitch);
                     entity.renderYawOffset = entity.prevRenderYawOffset = player.renderYawOffset;
                     entity.rotationYawHead = entity.prevRotationYawHead = player.rotationYawHead;
@@ -776,7 +776,7 @@ public enum CommonEventHandler
                         player.setCurrentItemOrArmor(i, null);
                     }
 
-                    player.worldObj.spawnEntityInWorld(entity);
+                    player.world.spawnEntityInWorld(entity);
                     entity.onSpawnWithEgg(null);
                 }
 
@@ -790,7 +790,7 @@ public enum CommonEventHandler
         }
     }
 
-    private Number getHasItem(EntityPlayer player, Item item)
+    private Number getHasItem(PlayerEntity player, Item item)
     {
         for (ItemStack stack : player.inventory.mainInventory)
         {
@@ -813,7 +813,7 @@ public enum CommonEventHandler
     @SubscribeEvent
     public void onPlayerBreakBlock(PlayerEvent.BreakSpeed event)
     {
-        EntityPlayer player = event.entityPlayer;
+        PlayerEntity player = event.entityPlayer;
 
         if (SHHelper.hasLeftClickKey(player, SHHelper.getHero(player)))
         {
@@ -832,7 +832,7 @@ public enum CommonEventHandler
     @SubscribeEvent
     public void onBreakBlock(BlockEvent.BreakEvent event)
     {
-        EntityPlayer player = event.getPlayer();
+        PlayerEntity player = event.getPlayer();
         ItemStack itemstack = player.getHeldItem();
 
         if (player.capabilities.isCreativeMode)
@@ -848,7 +848,7 @@ public enum CommonEventHandler
             double y = event.y + 0.5;
             double z = event.z + 0.5;
 
-            if (player instanceof EntityPlayerMP)
+            if (player instanceof PlayerEntityMP)
             {
                 double dx = x - player.posX;
                 double dy = y - player.boundingBox.minY;
@@ -866,7 +866,7 @@ public enum CommonEventHandler
         }
     }
 
-    protected void onSwitchArmor(EntityLivingBase entity, Hero from, Hero to)
+    protected void onSwitchArmor(LivingEntity entity, Hero from, Hero to)
     {
         if (from != null)
         {
@@ -876,7 +876,7 @@ public enum CommonEventHandler
         SHData.SHOOTING.set(entity, false);
     }
 
-    protected void updateArmSwingProgress(EntityPlayer player)
+    protected void updateArmSwingProgress(PlayerEntity player)
     {
         int i = SHReflection.getArmSwingAnimationEnd(player);
 
@@ -901,14 +901,14 @@ public enum CommonEventHandler
         {
             double radius = 1.5D;
             AxisAlignedBB aabb = player.boundingBox.expand(radius, 0.0D, radius);
-            List<Entity> list = player.worldObj.getEntitiesWithinAABBExcludingEntity(player, aabb);
+            List<Entity> list = player.world.getEntitiesWithinAABBExcludingEntity(player, aabb);
 
             for (Entity entity : list)
             {
-                if (entity instanceof EntityLivingBase && player.canEntityBeSeen(entity))
+                if (entity instanceof LivingEntity && player.canEntityBeSeen(entity))
                 {
                     entity.attackEntityFrom(DamageSource.causePlayerDamage(player), 1.0F);
-                    SHHelper.knockbackWithoutNotify((EntityLivingBase) entity, player, 0.5F);
+                    SHHelper.knockbackWithoutNotify((LivingEntity) entity, player, 0.5F);
                 }
             }
         }
@@ -917,16 +917,16 @@ public enum CommonEventHandler
     @SubscribeEvent
     public void onLivingUpdate(LivingUpdateEvent event)
     {
-        EntityLivingBase entity = event.entityLiving;
+        LivingEntity entity = event.entityLiving;
         SHEntityData data = SHEntityData.getData(entity);
 
         data.onUpdate();
 
-        if (entity instanceof EntityPlayer)
+        if (entity instanceof PlayerEntity)
         {
-            EntityPlayer player = (EntityPlayer) entity;
+            PlayerEntity player = (PlayerEntity) entity;
 
-            if (!player.worldObj.isRemote)
+            if (!player.world.isRemote)
             {
                 if (playersToSync.size() > 0 && playersToSync.contains(player))
                 {
@@ -983,15 +983,15 @@ public enum CommonEventHandler
         {
             entity.fallDistance = 0;
 
-            if (entity instanceof EntityPlayerMP)
+            if (entity instanceof PlayerEntityMP)
             {
-                EntityPlayerMP player = (EntityPlayerMP) entity;
+                PlayerEntityMP player = (EntityPlayerMP) entity;
 
                 if (entity.posY < 0)
                 {
-                    player.playerNetServerHandler.setPlayerLocation(player.posX, entity.worldObj.getHeight(), player.posZ, player.rotationYaw, player.rotationPitch);
+                    player.playerNetServerHandler.setPlayerLocation(player.posX, entity.world.getHeight(), player.posZ, player.rotationYaw, player.rotationPitch);
                 }
-                else if (entity.posY > entity.worldObj.getHeight())
+                else if (entity.posY > entity.world.getHeight())
                 {
                     player.playerNetServerHandler.setPlayerLocation(player.posX, 0, player.posZ, player.rotationYaw, player.rotationPitch);
                 }
@@ -1000,15 +1000,15 @@ public enum CommonEventHandler
             {
                 if (entity.posY < 0)
                 {
-                    entity.posY = entity.worldObj.getHeight();
+                    entity.posY = entity.world.getHeight();
                 }
-                else if (entity.posY > entity.worldObj.getHeight())
+                else if (entity.posY > entity.world.getHeight())
                 {
                     entity.posY = 0;
                 }
             }
 
-            if (!(entity instanceof EntityPlayer && ((EntityPlayer) entity).capabilities.isFlying))
+            if (!(entity instanceof PlayerEntity && ((PlayerEntity) entity).capabilities.isFlying))
             {
                 entity.motionY += 0.075F;
             }
@@ -1022,7 +1022,7 @@ public enum CommonEventHandler
                 flag = hero == null || !hero.hasProperty(entity, Property.BREATHE_SPACE);
             }
 
-            if (flag && !entity.worldObj.isRemote)
+            if (flag && !entity.world.isRemote)
             {
                 entity.attackEntityFrom(ModDamageSources.SUFFOCATE, Rule.DMG_QR_SUFFOCATE.get(entity, hero));
             }
@@ -1057,25 +1057,25 @@ public enum CommonEventHandler
     @SubscribeEvent
     public void onLivingDeath(LivingDeathEvent event)
     {
-        EntityLivingBase entity = event.entityLiving;
-        EntityLivingBase attacker = null;
+        LivingEntity entity = event.entityLiving;
+        LivingEntity attacker = null;
 
-        if (event.source.getEntity() instanceof EntityLivingBase)
+        if (event.source.getEntity() instanceof LivingEntity)
         {
-            attacker = (EntityLivingBase) event.source.getEntity();
+            attacker = (LivingEntity) event.source.getEntity();
         }
 
-        if (attacker instanceof EntityPlayer && ArmorTracker.isTracking(entity) && ArmorTracker.isTracking(attacker))
+        if (attacker instanceof PlayerEntity && ArmorTracker.isTracking(entity) && ArmorTracker.isTracking(attacker))
         {
             if (SHHelper.getHero(entity) == Heroes.deadpool_xmen && SHHelper.getHero(attacker) == Heroes.captain_america)
             {
-                ((EntityPlayer) attacker).triggerAchievement(SHAchievements.KILL_DEADPOOL);
+                ((PlayerEntity) attacker).triggerAchievement(SHAchievements.KILL_DEADPOOL);
             }
         }
 
-        if (entity instanceof EntityPlayer)
+        if (entity instanceof PlayerEntity)
         {
-            EntityPlayer player = (EntityPlayer) event.entity;
+            PlayerEntity player = (PlayerEntity) event.entity;
 
             if (event.source == DamageSource.fall || event.source == ModDamageSources.FLY_INTO_WALL)
             {
@@ -1093,11 +1093,11 @@ public enum CommonEventHandler
     @SubscribeEvent
     public void onLivingAttack(LivingAttackEvent event)
     {
-        EntityLivingBase attacker = null;
+        LivingEntity attacker = null;
 
-        if (event.source.getEntity() instanceof EntityLivingBase)
+        if (event.source.getEntity() instanceof LivingEntity)
         {
-            attacker = (EntityLivingBase) event.source.getEntity();
+            attacker = (LivingEntity) event.source.getEntity();
 
             if (ArmorTracker.isTracking(attacker))
             {
@@ -1124,7 +1124,7 @@ public enum CommonEventHandler
             }
         }
 
-        EntityLivingBase entity = event.entityLiving;
+        LivingEntity entity = event.entityLiving;
 
         if (ArmorTracker.isTracking(entity))
         {
@@ -1159,7 +1159,7 @@ public enum CommonEventHandler
 
                     if (!event.source.isExplosion())
                     {
-                        entity.worldObj.playSoundAtEntity(entity, SHSounds.ITEM_SHIELD_HIT.toString(), 0.6F, 0.8F + 0.1F * rand.nextFloat() - Math.min(event.ammount, 10) / 50);
+                        entity.world.playSoundAtEntity(entity, SHSounds.ITEM_SHIELD_HIT.toString(), 0.6F, 0.8F + 0.1F * rand.nextFloat() - Math.min(event.ammount, 10) / 50);
                     }
                 }
             }
@@ -1171,14 +1171,14 @@ public enum CommonEventHandler
     @SubscribeEvent
     public void onLivingHurt(LivingHurtEvent event)
     {
-        EntityLivingBase attacker = null;
+        LivingEntity attacker = null;
 
-        if (event.source.getEntity() instanceof EntityLivingBase)
+        if (event.source.getEntity() instanceof LivingEntity)
         {
-            attacker = (EntityLivingBase) event.source.getEntity();
+            attacker = (LivingEntity) event.source.getEntity();
         }
 
-        EntityLivingBase entity = event.entityLiving;
+        LivingEntity entity = event.entityLiving;
         Hero hero = null;
 
         float mult = SHHelper.getDamageMult(entity, event.source);
@@ -1202,7 +1202,7 @@ public enum CommonEventHandler
             {
                 int i = 0;
 
-                if (entity instanceof EntityLivingBase)
+                if (entity instanceof LivingEntity)
                 {
                     i += EnchantmentHelper.getKnockbackModifier(attacker, entity);
                 }
@@ -1230,7 +1230,7 @@ public enum CommonEventHandler
                     event.ammount = SHAttributes.PUNCH_DAMAGE.get(attacker, hero1, event.ammount);
                 }
 
-                if (attacker instanceof EntityPlayer && SpeedsterHelper.hasSuperSpeed(attacker))
+                if (attacker instanceof PlayerEntity && SpeedsterHelper.hasSuperSpeed(attacker))
                 {
                     entity.hurtResistantTime = 0;
                 }
@@ -1266,7 +1266,7 @@ public enum CommonEventHandler
     @SubscribeEvent
     public void onLivingJump(LivingJumpEvent event)
     {
-        EntityLivingBase entity = event.entityLiving;
+        LivingEntity entity = event.entityLiving;
 
         if (ArmorTracker.isTracking(entity))
         {
@@ -1287,7 +1287,7 @@ public enum CommonEventHandler
     @SubscribeEvent
     public void onLivingFall(LivingFallEvent event)
     {
-        EntityLivingBase entity = event.entityLiving;
+        LivingEntity entity = event.entityLiving;
 
         if (ArmorTracker.isTracking(entity))
         {
@@ -1307,7 +1307,7 @@ public enum CommonEventHandler
                 event.distance /= scale;
             }
 
-            if (!entity.worldObj.isRemote && event.distance > 0 && entity instanceof EntityPlayer && hero == Heroes.deadpool_xmen)
+            if (!entity.world.isRemote && event.distance > 0 && entity instanceof PlayerEntity && hero == Heroes.deadpool_xmen)
             {
                 SHData.SUPERHERO_LANDING.setWithoutNotify(entity, true);
             }
@@ -1345,7 +1345,7 @@ public enum CommonEventHandler
     @SubscribeEvent
     public void onItemCrafted(ItemCraftedEvent event)
     {
-        EntityPlayer player = event.player;
+        PlayerEntity player = event.player;
         ItemStack stack = event.crafting;
 
         if (stack.getItem() == Item.getItemFromBlock(ModBlocks.suitFabricator))
@@ -1417,9 +1417,9 @@ public enum CommonEventHandler
                 }
             }
         }
-        else if (stack.getItem() == ModItems.trickArrow && player instanceof EntityPlayerMP && !((EntityPlayerMP) player).func_147099_x().hasAchievementUnlocked(SHAchievements.ALL_ARROWS))
+        else if (stack.getItem() == ModItems.trickArrow && player instanceof PlayerEntityMP && !((EntityPlayerMP) player).func_147099_x().hasAchievementUnlocked(SHAchievements.ALL_ARROWS))
         {
-            ArrowType arrow = ArrowType.getArrowById(stack.getItemDamage());
+            ArrowType arrow = ArrowType.getArrowById(stack.getDamage());
 
             if (arrow != null)
             {
@@ -1440,7 +1440,7 @@ public enum CommonEventHandler
     @SubscribeEvent
     public void onServerChat(ServerChatEvent event)
     {
-        EntityPlayer player = event.player;
+        PlayerEntity player = event.player;
 
         if (event.message.equalsIgnoreCase("m'lady") && SHHelper.getHero(player) == Heroes.senor_cactus)
         {

@@ -6,7 +6,7 @@ import com.fiskmods.heroes.common.data.effect.StatEffect;
 import com.fiskmods.heroes.common.data.effect.StatusEffect;
 import com.fiskmods.heroes.util.SHRenderHelper;
 
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Vec3;
 
 public interface ITrailAspect
@@ -20,7 +20,7 @@ public interface ITrailAspect
         }
 
         @Override
-        public Integer getColor(EntityLivingBase entity)
+        public Integer getColor(LivingEntity entity)
         {
             return getColor();
         }
@@ -32,7 +32,7 @@ public interface ITrailAspect
         }
 
         @Override
-        public Vec3 getVecColor(EntityLivingBase entity)
+        public Vec3 getVecColor(LivingEntity entity)
         {
             return getVecColor();
         }
@@ -46,11 +46,11 @@ public interface ITrailAspect
 
     Integer getColor();
 
-    Integer getColor(EntityLivingBase entity);
+    Integer getColor(LivingEntity entity);
 
     Vec3 getVecColor();
 
-    Vec3 getVecColor(EntityLivingBase entity);
+    Vec3 getVecColor(LivingEntity entity);
 
     boolean isLightning();
 
@@ -75,7 +75,7 @@ public interface ITrailAspect
         }
 
         @Override
-        public Integer getColor(EntityLivingBase entity)
+        public Integer getColor(LivingEntity entity)
         {
             if (isLightning())
             {
@@ -112,7 +112,7 @@ public interface ITrailAspect
         }
 
         @Override
-        public Vec3 getVecColor(EntityLivingBase entity)
+        public Vec3 getVecColor(LivingEntity entity)
         {
             if (isLightning())
             {

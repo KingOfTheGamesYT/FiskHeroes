@@ -3,8 +3,8 @@ package com.fiskmods.heroes.common.container;
 import com.fiskmods.heroes.common.item.ItemQuiver;
 import com.fiskmods.heroes.common.item.ModItems;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
@@ -12,9 +12,9 @@ public class ContainerQuiver extends ContainerBasic
 {
     public final InventoryQuiver inventory;
 
-    public ContainerQuiver(InventoryPlayer inventoryPlayer, InventoryQuiver inventoryQuiver)
+    public ContainerQuiver(PlayerInventory playerInventory, InventoryQuiver inventoryQuiver)
     {
-        super(inventoryPlayer.player.worldObj);
+        super(playerInventory.player.world);
         inventory = inventoryQuiver;
 
         for (int i = 0; i < inventoryQuiver.getSizeInventory(); ++i)
@@ -29,35 +29,35 @@ public class ContainerQuiver extends ContainerBasic
             });
         }
 
-        addPlayerInventory(inventoryPlayer, -33);
+        addPlayerInventory(playerInventory, -33);
     }
 
     @Override
-    public Slot makeInventorySlot(InventoryPlayer inventoryPlayer, int index, int x, int y)
+    public Slot makeInventorySlot(PlayerInventory playerInventory, int index, int x, int y)
     {
         if (inventory.quiverItem == null && index == inventory.itemSlot)
         {
-            return new Slot(inventoryPlayer, index, x, y)
+            return new Slot(playerInventory, index, x, y)
             {
                 @Override
-                public boolean canTakeStack(EntityPlayer player)
+                public boolean canTakeStack(PlayerEntity player)
                 {
                     return false;
                 }
             };
         }
 
-        return super.makeInventorySlot(inventoryPlayer, index, x, y);
+        return super.makeInventorySlot(playerInventory, index, x, y);
     }
 
     @Override
-    public boolean canInteractWith(EntityPlayer player)
+    public boolean canInteractWith(PlayerEntity player)
     {
         return inventory.isUseableByPlayer(player);
     }
 
     @Override
-    public ItemStack transferStackInSlot(EntityPlayer player, int slotId)
+    public ItemStack transferStackInSlot(PlayerEntity player, int slotId)
     {
         ItemStack itemstack = null;
         Slot slot = (Slot) inventorySlots.get(slotId);

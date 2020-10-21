@@ -8,8 +8,8 @@ import com.fiskmods.heroes.common.item.ItemCompoundBow;
 import com.fiskmods.heroes.common.item.ModItems;
 
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 
@@ -23,30 +23,30 @@ public class AbilityArchery extends Ability
     }
 
     @Override
-    public void onUpdate(EntityLivingBase entity, Hero hero, Phase phase, boolean enabled)
+    public void onUpdate(LivingEntity entity, Hero hero, Phase phase, boolean enabled)
     {
         if (phase == Phase.END)
         {
-            if (entity.worldObj.isRemote && FiskHeroes.proxy.isClientPlayer(entity) && entity instanceof EntityPlayer)
+            if (entity.world.isRemote && FiskHeroes.proxy.isClientPlayer(entity) && entity instanceof PlayerEntity)
             {
-                SHData.HORIZONTAL_BOW.set(entity, SHData.HORIZONTAL_BOW.get(entity) && ((EntityPlayer) entity).isUsingItem() || hero.isKeyPressed(entity, KEY_HORIZONTAL));
+                SHData.HORIZONTAL_BOW.set(entity, SHData.HORIZONTAL_BOW.get(entity) && ((PlayerEntity) entity).isUsingItem() || hero.isKeyPressed(entity, KEY_HORIZONTAL));
             }
         }
     }
 
     @Override
-    public float damageTaken(EntityLivingBase entity, EntityLivingBase attacker, Hero hero, DamageSource source, float amount, float originalAmount)
+    public float damageTaken(LivingEntity entity, LivingEntity attacker, Hero hero, DamageSource source, float amount, float originalAmount)
     {
         amount = super.damageTaken(entity, attacker, hero, source, amount, originalAmount);
 
-        if (!entity.worldObj.isRemote && DamageType.SHURIKEN.isPresent(source) && SHData.HORIZONTAL_BOW_TIMER.get(entity) > 0)
+        if (!entity.world.isRemote && DamageType.SHURIKEN.isPresent(source) && SHData.HORIZONTAL_BOW_TIMER.get(entity) > 0)
         {
             ItemStack heldItem = entity.getHeldItem();
 
             if (heldItem != null && heldItem.getItem() == ModItems.compoundBow)
             {
                 ItemCompoundBow.setBroken(heldItem, true);
-                entity.worldObj.playSoundAtEntity(entity, "random.break", 0.8F, 0.8F + rand.nextFloat() * 0.4F);
+                entity.world.playSoundAtEntity(entity, "random.break", 0.8F, 0.8F + rand.nextFloat() * 0.4F);
             }
         }
 

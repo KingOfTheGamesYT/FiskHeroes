@@ -3,7 +3,7 @@ package com.fiskmods.heroes.common.entity.arrow;
 import com.fiskmods.heroes.common.data.world.SHMapData;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
@@ -19,12 +19,12 @@ public class EntityPulseArrow extends EntityTrickArrow
         super(world, x, y, z);
     }
 
-    public EntityPulseArrow(World world, EntityLivingBase shooter, float velocity)
+    public EntityPulseArrow(World world, LivingEntity shooter, float velocity)
     {
         super(world, shooter, velocity);
     }
 
-    public EntityPulseArrow(World world, EntityLivingBase shooter, float velocity, boolean horizontal)
+    public EntityPulseArrow(World world, LivingEntity shooter, float velocity, boolean horizontal)
     {
         super(world, shooter, velocity, horizontal);
     }
@@ -41,7 +41,7 @@ public class EntityPulseArrow extends EntityTrickArrow
         if (rand.nextFloat() < 0.5)
         {
             float f = 0.05F;
-            worldObj.spawnParticle(getParticleName(), posX + (rand.nextDouble() * 2 - 1) * f, posY + (rand.nextDouble() * 2 - 1) * f, posZ + (rand.nextDouble() * 2 - 1) * f, 0, 0, 0);
+            world.spawnParticle(getParticleName(), posX + (rand.nextDouble() * 2 - 1) * f, posY + (rand.nextDouble() * 2 - 1) * f, posZ + (rand.nextDouble() * 2 - 1) * f, 0, 0, 0);
         }
     }
 
@@ -55,16 +55,16 @@ public class EntityPulseArrow extends EntityTrickArrow
     {
         super.onImpactBlock(mop);
 
-        if (!worldObj.isRemote)
+        if (!world.isRemote)
         {
-            Block block = worldObj.getBlock(mop.blockX, mop.blockY, mop.blockZ);
+            Block block = world.getBlock(mop.blockX, mop.blockY, mop.blockZ);
 
-//            if (block.shouldCheckWeakPower(worldObj, mop.blockX, mop.blockY, mop.blockZ, mop.sideHit))
+//            if (block.shouldCheckWeakPower(world, mop.blockX, mop.blockY, mop.blockZ, mop.sideHit))
             {
-                SHMapData.get(worldObj).power(worldObj, mop.blockX, mop.blockY, mop.blockZ, mop.sideHit);
+                SHMapData.get(world).power(world, mop.blockX, mop.blockY, mop.blockZ, mop.sideHit);
 
-                worldObj.notifyBlockOfNeighborChange(mop.blockX, mop.blockY, mop.blockZ, block);
-                worldObj.markAndNotifyBlock(mop.blockX, mop.blockY, mop.blockZ, null, block, block, 3);
+                world.notifyBlockOfNeighborChange(mop.blockX, mop.blockY, mop.blockZ, block);
+                world.markAndNotifyBlock(mop.blockX, mop.blockY, mop.blockZ, null, block, block, 3);
             }
         }
     }

@@ -3,7 +3,7 @@ package com.fiskmods.heroes.common.network;
 import com.fiskmods.heroes.common.container.ContainerSuitIterator;
 
 import io.netty.buffer.ByteBuf;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 
 public class MessageSuitIteration extends AbstractMessage<MessageSuitIteration>
 {
@@ -14,7 +14,7 @@ public class MessageSuitIteration extends AbstractMessage<MessageSuitIteration>
     {
     }
 
-    public MessageSuitIteration(EntityPlayer player, int iteration)
+    public MessageSuitIteration(PlayerEntity player, int iteration)
     {
         id = player.getEntityId();
         iterationId = iteration;
@@ -37,7 +37,7 @@ public class MessageSuitIteration extends AbstractMessage<MessageSuitIteration>
     @Override
     public void receive() throws MessageException
     {
-        EntityPlayer player = getPlayer(id);
+        PlayerEntity player = getPlayer(id);
 
         if (player.openContainer instanceof ContainerSuitIterator)
         {

@@ -1,7 +1,7 @@
 package com.fiskmods.heroes.common.container;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
@@ -12,21 +12,21 @@ import net.minecraft.world.World;
 public class ContainerBasic<T extends TileEntity> extends Container
 {
     protected final T tileentity;
-    protected final World worldObj;
+    protected final World world;
 
     public ContainerBasic(T tile)
     {
         tileentity = tile;
-        worldObj = tile != null ? tile.getWorldObj() : null;
+        world = tile != null ? tile.getWorldObj() : null;
     }
 
     public ContainerBasic(World world)
     {
         tileentity = null;
-        worldObj = world;
+        world = world;
     }
 
-    public void addPlayerInventory(InventoryPlayer inventoryPlayer, int yOffset)
+    public void addPlayerInventory(PlayerInventory playerInventory, int yOffset)
     {
         int i;
         int j;
@@ -35,23 +35,23 @@ public class ContainerBasic<T extends TileEntity> extends Container
         {
             for (j = 0; j < 9; ++j)
             {
-                addSlotToContainer(makeInventorySlot(inventoryPlayer, j + i * 9 + 9, 8 + j * 18, 84 + yOffset + i * 18));
+                addSlotToContainer(makeInventorySlot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + yOffset + i * 18));
             }
         }
 
         for (i = 0; i < 9; ++i)
         {
-            addSlotToContainer(makeInventorySlot(inventoryPlayer, i, 8 + i * 18, 142 + yOffset));
+            addSlotToContainer(makeInventorySlot(playerInventory, i, 8 + i * 18, 142 + yOffset));
         }
     }
 
-    public Slot makeInventorySlot(InventoryPlayer inventoryPlayer, int index, int x, int y)
+    public Slot makeInventorySlot(PlayerInventory playerInventory, int index, int x, int y)
     {
-        return new Slot(inventoryPlayer, index, x, y);
+        return new Slot(playerInventory, index, x, y);
     }
 
     @Override
-    public boolean canInteractWith(EntityPlayer player)
+    public boolean canInteractWith(PlayerEntity player)
     {
         if (tileentity != null)
         {
@@ -92,7 +92,7 @@ public class ContainerBasic<T extends TileEntity> extends Container
                 slot = (Slot) inventorySlots.get(id);
                 dstStack = slot.getStack();
 
-                if ((!check || slot.isItemValid(stackToMove)) && dstStack != null && dstStack.getItem() == stackToMove.getItem() && (!stackToMove.getHasSubtypes() || stackToMove.getItemDamage() == dstStack.getItemDamage()) && ItemStack.areItemStackTagsEqual(stackToMove, dstStack))
+                if ((!check || slot.isItemValid(stackToMove)) && dstStack != null && dstStack.getItem() == stackToMove.getItem() && (!stackToMove.getHasSubtypes() || stackToMove.getDamage() == dstStack.getDamage()) && ItemStack.areItemStackTagsEqual(stackToMove, dstStack))
                 {
                     int maxStackSize = Math.min(slot.inventory.getInventoryStackLimit(), Math.min(dstStack.getMaxStackSize(), slot.getSlotStackLimit()));
                     int combinedStackSize = dstStack.stackSize + stackToMove.stackSize;

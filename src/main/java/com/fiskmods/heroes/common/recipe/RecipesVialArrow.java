@@ -27,7 +27,7 @@ public class RecipesVialArrow implements IRecipe
                 {
                     ++arrow;
                 }
-                else if (stack.getItem() == Items.potionitem && !ItemPotion.isSplash(stack.getItemDamage()))
+                else if (stack.getItem() == Items.potionitem && !ItemPotion.isSplash(stack.getDamage()))
                 {
                     ++potion;
                 }
@@ -69,7 +69,7 @@ public class RecipesVialArrow implements IRecipe
             ItemStack stack = ArrowTypeManager.VIAL.makeItem();
             potion = potion.copy();
 
-            potion.setItemDamage(potion.getItemDamage() & ~8192 | 16384);
+            potion.setItemDamage(potion.getDamage() & ~8192 | 16384);
             potion.stackSize = 1;
 
             ItemTrickArrow.setItem(stack, potion);

@@ -11,8 +11,8 @@ import com.fiskmods.heroes.common.network.MessageAddArrowToEntity;
 import com.fiskmods.heroes.common.network.MessagePlayerJoin;
 import com.fiskmods.heroes.common.network.SHNetworkManager;
 
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.MathHelper;
 
@@ -20,7 +20,7 @@ public class DataManager
 {
     public static int serverArrows = ArrowType.REGISTRY.getKeys().size();
 
-    public static double getVelocity(EntityPlayer player)
+    public static double getVelocity(PlayerEntity player)
     {
         if (player.ticksExisted == 0)
         {
@@ -37,12 +37,12 @@ public class DataManager
         return blocksMoved / 50 * 60 * 60;
     }
 
-    public static Set<IArrowData> getArrowsInEntity(EntityLivingBase entity)
+    public static Set<IArrowData> getArrowsInEntity(LivingEntity entity)
     {
         return SHEntityData.getData(entity).arrowsInEntity;
     }
 
-    public static void addArrowToEntity(EntityLivingBase entity, ArrowType<EntityTrickArrow> type, EntityTrickArrow arrow)
+    public static void addArrowToEntity(LivingEntity entity, ArrowType<EntityTrickArrow> type, EntityTrickArrow arrow)
     {
         IArrowData data = type.getDataFactory().apply(type, arrow);
 
@@ -50,13 +50,13 @@ public class DataManager
         {
             getArrowsInEntity(entity).add(data);
 
-            if (!entity.worldObj.isRemote)
+            if (!entity.world.isRemote)
             {
                 SHNetworkManager.wrapper.sendToDimension(new MessageAddArrowToEntity(entity, arrow), arrow.dimension);
             }
         }
 
-//        EntityTrickArrow arrow1 = type.newInstance(worldObj, posX, posY, posZ);
+//        EntityTrickArrow arrow1 = type.newInstance(world, posX, posY, posZ);
 //
 //        if (arrow1 != null)
 //        {
@@ -73,7 +73,7 @@ public class DataManager
 //        }
     }
 
-    public static void addSpeedExperience(EntityPlayer player, int amount)
+    public static void addSpeedExperience(PlayerEntity player, int amount)
     {
         byte speedExperienceLevel = SHData.SPEED_EXPERIENCE_LEVEL.get(player);
         int speedExperienceTotal = SHData.SPEED_EXPERIENCE_TOTAL.get(player);
@@ -101,7 +101,7 @@ public class DataManager
         SHData.SPEED_EXPERIENCE_BAR.set(player, speedExperience);
     }
 
-    public static void addSpeedExperienceLevel(EntityPlayer player, int amount)
+    public static void addSpeedExperienceLevel(PlayerEntity player, int amount)
     {
         byte speedExperienceLevel = SHData.SPEED_EXPERIENCE_LEVEL.get(player);
         int speedExperienceTotal = SHData.SPEED_EXPERIENCE_TOTAL.get(player);
@@ -121,7 +121,7 @@ public class DataManager
             if (amount > 0 && SHData.SPEED_LEVEL_UP_COOLDOWN.get(player) < player.ticksExisted - 20.0F)
             {
                 float f = speedExperienceLevel > 30 ? 1.0F : speedExperienceLevel / 30.0F;
-                player.worldObj.playSoundAtEntity(player, "random.levelup", f * 0.75F, 1.0F);
+                player.world.playSoundAtEntity(player, "random.levelup", f * 0.75F, 1.0F);
                 SHData.SPEED_LEVEL_UP_COOLDOWN.setWithoutNotify(player, player.ticksExisted);
             }
         }
@@ -131,25 +131,25 @@ public class DataManager
         SHData.SPEED_EXPERIENCE_BAR.set(player, speedExperience);
     }
 
-    public static void setHeroCollection(EntityPlayer player, Map<Hero, Byte> map)
+    public static void setHeroCollection(PlayerEntity player, Map<Hero, Byte> map)
     {
         SHPlayerData.getData(player).heroCollection = map;
         SHPlayerData.getData(player).maxTier = 0;
     }
 
-    public static void setArrowCollection(EntityPlayer player, Map<ArrowType, Integer> map)
+    public static void setArrowCollection(PlayerEntity player, Map<ArrowType, Integer> map)
     {
         SHPlayerData.getData(player).arrowCollection = map;
     }
 
-    public static int getArrowsCollected(EntityPlayer player)
+    public static int getArrowsCollected(PlayerEntity player)
     {
         return (int) SHPlayerData.getData(player).arrowCollection.entrySet().stream().filter(e -> e.getValue() >= 32).count();
     }
 
-    public static void updatePlayerWithServerInfo(EntityPlayer player)
+    public static void updatePlayerWithServerInfo(PlayerEntity player)
     {
-        if (!player.worldObj.isRemote)
+        if (!player.world.isRemote)
         {
             SHNetworkManager.wrapper.sendTo(new MessagePlayerJoin(player), (EntityPlayerMP) player);
         }

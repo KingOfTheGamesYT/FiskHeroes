@@ -7,7 +7,7 @@ import com.fiskmods.heroes.util.NBTHelper.INBTSavedObject;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraft.nbt.NBTBase;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChunkCoordinates;
 
@@ -145,7 +145,7 @@ public class DimensionalCoords extends ChunkCoordinates implements INBTSavedObje
     @Override
     public NBTBase writeToNBT()
     {
-        NBTTagCompound nbt = new NBTTagCompound();
+        CompoundNBT nbt = new CompoundNBT();
         nbt.setInteger("x", posX);
         nbt.setInteger("y", posY);
         nbt.setInteger("z", posZ);
@@ -170,9 +170,9 @@ public class DimensionalCoords extends ChunkCoordinates implements INBTSavedObje
             @Override
             public DimensionalCoords readFromNBT(NBTBase tag)
             {
-                if (tag instanceof NBTTagCompound)
+                if (tag instanceof CompoundNBT)
                 {
-                    NBTTagCompound nbt = (NBTTagCompound) tag;
+                    CompoundNBT nbt = (CompoundNBT) tag;
                     return new DimensionalCoords(nbt.getInteger("x"), nbt.getInteger("y"), nbt.getInteger("z"), nbt.getInteger("dim"));
                 }
 

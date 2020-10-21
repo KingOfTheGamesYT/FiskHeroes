@@ -3,7 +3,7 @@ package com.fiskmods.heroes.client.render.effect;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.Entity;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.world.World;
 
 @SideOnly(Side.CLIENT)
@@ -73,7 +73,7 @@ public class EffectEntity extends Entity
     }
 
     @Override
-    public boolean writeToNBTOptional(NBTTagCompound nbttagcompound)
+    public boolean writeToNBTOptional(CompoundNBT nbttagcompound)
     {
         return false;
     }
@@ -84,12 +84,12 @@ public class EffectEntity extends Entity
     }
 
     @Override
-    public void readEntityFromNBT(NBTTagCompound nbttagcompound)
+    public void readEntityFromNBT(CompoundNBT nbttagcompound)
     {
     }
 
     @Override
-    public void writeEntityToNBT(NBTTagCompound nbttagcompound)
+    public void writeEntityToNBT(CompoundNBT nbttagcompound)
     {
     }
 }

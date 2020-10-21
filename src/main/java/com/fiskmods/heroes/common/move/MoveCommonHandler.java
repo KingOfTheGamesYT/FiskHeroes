@@ -17,14 +17,14 @@
 //import net.minecraft.crash.CrashReport;
 //import net.minecraft.crash.CrashReportCategory;
 //import net.minecraft.entity.Entity;
-//import net.minecraft.entity.EntityLivingBase;
-//import net.minecraft.entity.player.EntityPlayer;
-//import net.minecraft.entity.player.InventoryPlayer;
+//import net.minecraft.entity.LivingEntity;
+//import net.minecraft.entity.player.PlayerEntity;
+//import net.minecraft.entity.player.PlayerInventory;
 //import net.minecraft.init.Blocks;
 //import net.minecraft.init.Items;
 //import net.minecraft.item.Item;
 //import net.minecraft.item.ItemStack;
-//import net.minecraft.nbt.NBTTagCompound;
+//import net.minecraft.nbt.CompoundNBT;
 //import net.minecraft.stats.AchievementList;
 //import net.minecraft.util.ReportedException;
 //import net.minecraftforge.event.entity.player.AttackEntityEvent;
@@ -42,7 +42,7 @@
 //    @SubscribeEvent
 //    public void onEntityItemPickup(EntityItemPickupEvent event)
 //    {
-//        EntityPlayer player = event.entityPlayer;
+//        PlayerEntity player = event.entityPlayer;
 //        MoveEntry e = getMove(player);
 //
 //        if (e != null)
@@ -83,7 +83,7 @@
 //
 //                    if (stack.getItem() == Items.diamond && event.item.func_145800_j() != null)
 //                    {
-//                        EntityPlayer thrower = event.item.worldObj.getPlayerEntityByName(event.item.func_145800_j());
+//                        PlayerEntity thrower = event.item.world.getPlayerEntityByName(event.item.func_145800_j());
 //
 //                        if (thrower != null && thrower != player)
 //                        {
@@ -93,7 +93,7 @@
 //
 //                    FMLCommonHandler.instance().firePlayerItemPickupEvent(player, event.item);
 //
-//                    event.item.worldObj.playSoundAtEntity(player, "random.pop", 0.2F, ((player.getRNG().nextFloat() - player.getRNG().nextFloat()) * 0.7F + 1.0F) * 2.0F);
+//                    event.item.world.playSoundAtEntity(player, "random.pop", 0.2F, ((player.getRNG().nextFloat() - player.getRNG().nextFloat()) * 0.7F + 1.0F) * 2.0F);
 //                    player.onItemPickup(event.item, i);
 //
 //                    if (stack.stackSize <= 0)
@@ -105,7 +105,7 @@
 //        }
 //    }
 //
-//    private boolean pickupItem(InventoryPlayer inventory, ItemStack pickup, MoveEntry e)
+//    private boolean pickupItem(PlayerInventory inventory, ItemStack pickup, MoveEntry e)
 //    {
 //        if (pickup != null && pickup.stackSize != 0 && pickup.getItem() != null)
 //        {
@@ -173,7 +173,7 @@
 //                CrashReportCategory category = report.makeCategory("Item being added");
 //
 //                category.addCrashSection("Item ID", Item.getIdFromItem(pickup.getItem()));
-//                category.addCrashSection("Item data", pickup.getItemDamage());
+//                category.addCrashSection("Item data", pickup.getDamage());
 //                category.addCrashSectionCallable("Item name", () -> pickup.getDisplayName());
 //
 //                throw new ReportedException(report);
@@ -185,7 +185,7 @@
 //        }
 //    }
 //
-//    private int storePartialItemStack(InventoryPlayer inventory, ItemStack pickup)
+//    private int storePartialItemStack(PlayerInventory inventory, ItemStack pickup)
 //    {
 //        Item item = pickup.getItem();
 //        int count = pickup.stackSize;
@@ -227,11 +227,11 @@
 //
 //                if (stack == null)
 //                {
-//                    stack = new ItemStack(item, 0, pickup.getItemDamage());
+//                    stack = new ItemStack(item, 0, pickup.getDamage());
 //
-//                    if (pickup.hasTagCompound())
+//                    if (pickup.hasTag())
 //                    {
-//                        stack.setTagCompound((NBTTagCompound) pickup.getTagCompound().copy());
+//                        stack.setTag((CompoundNBT) pickup.getTag().copy());
 //                    }
 //                }
 //
@@ -264,7 +264,7 @@
 //        }
 //    }
 //
-//    private int getFirstEmptyStack(InventoryPlayer inventory, ItemStack pickup)
+//    private int getFirstEmptyStack(PlayerInventory inventory, ItemStack pickup)
 //    {
 //        for (int i = 9; i < inventory.mainInventory.length; ++i)
 //        {
@@ -279,15 +279,15 @@
 //        return -1;
 //    }
 //
-//    private boolean canMergeStacks(InventoryPlayer inventory, ItemStack stack, ItemStack pickup)
+//    private boolean canMergeStacks(PlayerInventory inventory, ItemStack stack, ItemStack pickup)
 //    {
-//        return stack.getItem() == pickup.getItem() && stack.isStackable() && stack.stackSize < stack.getMaxStackSize() && stack.stackSize < inventory.getInventoryStackLimit() && (!stack.getHasSubtypes() || stack.getItemDamage() == pickup.getItemDamage()) && ItemStack.areItemStackTagsEqual(stack, pickup);
+//        return stack.getItem() == pickup.getItem() && stack.isStackable() && stack.stackSize < stack.getMaxStackSize() && stack.stackSize < inventory.getInventoryStackLimit() && (!stack.getHasSubtypes() || stack.getDamage() == pickup.getDamage()) && ItemStack.areItemStackTagsEqual(stack, pickup);
 //    }
 //
 //    @SubscribeEvent
 //    public void onPlayerTick(PlayerTickEvent event)
 //    {
-//        EntityPlayer player = event.player;
+//        PlayerEntity player = event.player;
 //
 //        if (event.phase == TickEvent.Phase.END)
 //        {
@@ -386,7 +386,7 @@
 ////    @SubscribeEvent
 ////    public void onAttackEntity(AttackEntityEvent event)
 ////    {
-////        EntityPlayer player = event.entityPlayer;
+////        PlayerEntity player = event.entityPlayer;
 ////        Hero hero = SHHelper.getHero(player);
 ////        MoveEntry e = getMove(player, hero);
 ////
@@ -402,17 +402,17 @@
 ////        }
 ////    }
 //
-//    public static boolean hasMoveSet(EntityLivingBase entity, Hero hero)
+//    public static boolean hasMoveSet(LivingEntity entity, Hero hero)
 //    {
 //        return hero != null && hero.getMoveSet() != null;
 //    }
 //
-//    public static boolean hasMoveSet(EntityLivingBase entity)
+//    public static boolean hasMoveSet(LivingEntity entity)
 //    {
 //        return hasMoveSet(entity, SHHelper.getHero(entity));
 //    }
 //
-//    public static MoveEntry getMove(EntityLivingBase entity, Hero hero)
+//    public static MoveEntry getMove(LivingEntity entity, Hero hero)
 //    {
 //        if (hasMoveSet(entity, hero) && SHData.COMBAT_MODE.get(entity))
 //        {
@@ -422,27 +422,27 @@
 //        return null;
 //    }
 //
-//    public static MoveEntry getMove(EntityLivingBase entity)
+//    public static MoveEntry getMove(LivingEntity entity)
 //    {
 //        return getMove(entity, SHHelper.getHero(entity));
 //    }
 //
 //    public static boolean isFocusing(Entity entity, Hero hero)
 //    {
-//        return entity.isSneaking() && entity instanceof EntityLivingBase && hasMoveSet((EntityLivingBase) entity, hero);
+//        return entity.isSneaking() && entity instanceof LivingEntity && hasMoveSet((LivingEntity) entity, hero);
 //    }
 //
 //    public static boolean isFocusing(Entity entity)
 //    {
-//        return entity.isSneaking() && SHData.COMBAT_MODE.get(entity) && entity instanceof EntityLivingBase && hasMoveSet((EntityLivingBase) entity);
+//        return entity.isSneaking() && SHData.COMBAT_MODE.get(entity) && entity instanceof LivingEntity && hasMoveSet((LivingEntity) entity);
 //    }
 //
-//    public static float getMaxFocus(EntityPlayer player)
+//    public static float getMaxFocus(PlayerEntity player)
 //    {
 //        return 1.5F;
 //    }
 //
-//    public static float getFocusRate(EntityPlayer player)
+//    public static float getFocusRate(PlayerEntity player)
 //    {
 //        return 1F / 20;
 //    }

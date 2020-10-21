@@ -20,16 +20,16 @@ import com.fiskmods.heroes.gameboii.GameboiiCartridge;
 import cpw.mods.fml.common.network.IGuiHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiIngameMenu;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
 public class SHGuiHandler implements IGuiHandler
 {
     @Override
-    public Object getServerGuiElement(int id, EntityPlayer player, World world, int x, int y, int z)
+    public Object getServerGuiElement(int id, PlayerEntity player, World world, int x, int y, int z)
     {
         TileEntity tileentity = world.getTileEntity(x, y, z);
 
@@ -49,7 +49,7 @@ public class SHGuiHandler implements IGuiHandler
     }
 
     @Override
-    public Object getClientGuiElement(int id, final EntityPlayer player, World world, int x, int y, int z)
+    public Object getClientGuiElement(int id, final PlayerEntity player, World world, int x, int y, int z)
     {
         TileEntity tileentity = world.getTileEntity(x, y, z);
         ItemStack heldItem = player.getHeldItem();
@@ -101,18 +101,18 @@ public class SHGuiHandler implements IGuiHandler
 
                             if (file != null && file.isFile() && file.exists())
                             {
-                                if (!heldItem.hasTagCompound())
+                                if (!heldItem.hasTag())
                                 {
-                                    heldItem.setTagCompound(new NBTTagCompound());
+                                    heldItem.setTag(new CompoundNBT());
                                 }
 
-                                heldItem.getTagCompound().setString("Path", file.getPath());
-                                SHNetworkManager.wrapper.sendToServer(new MessageUpdateBook(heldItem.getTagCompound()));
+                                heldItem.getTag().setString("Path", file.getPath());
+                                SHNetworkManager.wrapper.sendToServer(new MessageUpdateBook(heldItem.getTag()));
                             }
                         }
                     }).start();
 
-                    Minecraft mc = Minecraft.getMinecraft();
+                    Minecraft mc = Minecraft.getInstance();
 
                     if (mc.isSingleplayer() && !mc.getIntegratedServer().getPublic())
                     {

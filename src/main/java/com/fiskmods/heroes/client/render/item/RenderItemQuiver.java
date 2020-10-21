@@ -8,7 +8,7 @@ import com.fiskmods.heroes.util.QuiverHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderItem;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.IItemRenderer;
 
@@ -16,12 +16,12 @@ public enum RenderItemQuiver implements IItemRenderer
 {
     INSTANCE;
 
-    private final Minecraft mc = Minecraft.getMinecraft();
+    private final Minecraft mc = Minecraft.getInstance();
 
     @Override
     public boolean handleRenderType(ItemStack item, ItemRenderType type)
     {
-        EntityPlayer player = mc.thePlayer;
+        PlayerEntity player = mc.thePlayer;
         return type == ItemRenderType.INVENTORY && player.getHeldItem() != null && player.getHeldItem().getItem() == ModItems.compoundBow && item == QuiverHelper.getEquippedQuiver(player);
     }
 

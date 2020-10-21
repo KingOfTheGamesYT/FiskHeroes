@@ -12,7 +12,7 @@ import com.fiskmods.heroes.asm.transformers.CTBlockPressurePlate;
 import com.fiskmods.heroes.asm.transformers.CTBowRenderer;
 import com.fiskmods.heroes.asm.transformers.CTEffectRenderer;
 import com.fiskmods.heroes.asm.transformers.CTEntity;
-import com.fiskmods.heroes.asm.transformers.CTEntityLivingBase;
+import com.fiskmods.heroes.asm.transformers.CTLivingEntity;
 import com.fiskmods.heroes.asm.transformers.CTEntityOtherPlayerMP;
 import com.fiskmods.heroes.asm.transformers.CTEntityPlayer;
 import com.fiskmods.heroes.asm.transformers.CTEntityPlayerSP;
@@ -41,7 +41,7 @@ import cpw.mods.fml.relauncher.IFMLLoadingPlugin.TransformerExclusions;
 @TransformerExclusions("com.fiskmods.heroes.asm")
 public class SHLoadingPlugin implements IFMLLoadingPlugin
 {
-    private static final String[] SERVER_TRANSFORMERS = new String[] {CTBlockButton.class.getName(), CTBlockLiquid.class.getName(), CTBlockPane.class.getName(), CTBlockPressurePlate.class.getName(), CTEntity.class.getName(), CTEntityLivingBase.class.getName(), CTEntityPlayer.class.getName(), CTFoodStats.class.getName(), CTItemBow.class.getName(), CTItemStack.class.getName(), CTMinecraftServer.class.getName(), CTWorld.class.getName(), CTNetHandlerPlayServer.class.getName()};
+    private static final String[] SERVER_TRANSFORMERS = new String[] {CTBlockButton.class.getName(), CTBlockLiquid.class.getName(), CTBlockPane.class.getName(), CTBlockPressurePlate.class.getName(), CTEntity.class.getName(), CTLivingEntity.class.getName(), CTEntityPlayer.class.getName(), CTFoodStats.class.getName(), CTItemBow.class.getName(), CTItemStack.class.getName(), CTMinecraftServer.class.getName(), CTWorld.class.getName(), CTNetHandlerPlayServer.class.getName()};
 
     public static File source;
 

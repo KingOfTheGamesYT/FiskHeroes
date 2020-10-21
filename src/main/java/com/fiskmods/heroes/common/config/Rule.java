@@ -13,7 +13,7 @@ import com.fiskmods.heroes.util.SHHelper;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
@@ -248,7 +248,7 @@ public class Rule<T> extends FiskRegistryEntry<Rule<?>>
         return RuleHandler.getLocal(entity).get(this);
     }
 
-    public T get(EntityLivingBase entity, Hero hero)
+    public T get(LivingEntity entity, Hero hero)
     {
         T obj = get(entity);
         
@@ -267,19 +267,19 @@ public class Rule<T> extends FiskRegistryEntry<Rule<?>>
         return obj;
     }
 
-    public T get(EntityLivingBase entity, HeroIteration iter)
+    public T get(LivingEntity entity, HeroIteration iter)
     {
         return get(entity, iter != null ? iter.hero : null);
     }
 
-    public T getHero(EntityLivingBase entity)
+    public T getHero(LivingEntity entity)
     {
         return get(entity, entity != null ? SHHelper.getHero(entity) : null);
     }
 
     public T get(Entity entity, Hero hero)
     {
-        return entity instanceof EntityLivingBase ? get((EntityLivingBase) entity, hero) : get(entity);
+        return entity instanceof LivingEntity ? get((LivingEntity) entity, hero) : get(entity);
     }
 
     public T get(Entity entity, HeroIteration iter)

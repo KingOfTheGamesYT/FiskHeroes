@@ -10,25 +10,25 @@ import com.fiskmods.heroes.util.SHHelper;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 
 public class KeyPressMaskOpen extends KeyPressBase
 {
     @Override
-    public boolean serverRequirements(EntityPlayer player, InteractionType type, int x, int y, int z)
+    public boolean serverRequirements(PlayerEntity player, InteractionType type, int x, int y, int z)
     {
         return SHData.SUIT_OPEN_TIMER.get(player) == 0 && SHHelper.hasProperty(player, Property.MASK_TOGGLE) && super.serverRequirements(player, type, x, y, z);
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public SHKeyBinding getKey(EntityPlayer player, Hero hero)
+    public SHKeyBinding getKey(PlayerEntity player, Hero hero)
     {
         return SHKeyBinds.OPEN_MASK;
     }
 
     @Override
-    public void receive(EntityPlayer sender, EntityPlayer clientPlayer, InteractionType type, Side side, int x, int y, int z)
+    public void receive(PlayerEntity sender, PlayerEntity clientPlayer, InteractionType type, Side side, int x, int y, int z)
     {
         if (side.isClient())
         {

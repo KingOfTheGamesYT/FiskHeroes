@@ -10,7 +10,7 @@ import com.fiskmods.heroes.common.data.SHEntityData;
 import com.fiskmods.heroes.util.TemperatureHelper;
 
 import io.netty.buffer.ByteBuf;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 
 public class MessageBroadcastState extends MessageSyncBase<MessageBroadcastState>
 {
@@ -20,7 +20,7 @@ public class MessageBroadcastState extends MessageSyncBase<MessageBroadcastState
     {
     }
 
-    public MessageBroadcastState(EntityPlayer player)
+    public MessageBroadcastState(PlayerEntity player)
     {
         super(player);
         id = player.getEntityId();
@@ -43,7 +43,7 @@ public class MessageBroadcastState extends MessageSyncBase<MessageBroadcastState
     @Override
     public void receive() throws MessageException
     {
-        EntityPlayer player = getSender(id);
+        PlayerEntity player = getSender(id);
 
         if (context.side.isClient() && FiskHeroes.proxy.isClientPlayer(player))
         {

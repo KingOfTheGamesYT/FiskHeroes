@@ -11,10 +11,10 @@ import com.fiskmods.heroes.util.SHHelper;
 
 import cpw.mods.fml.common.network.ByteBufUtils;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryBasic;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.AxisAlignedBB;
 
 public class TileEntitySuitFabricator extends TileEntityContainer implements ITileDataCallback
@@ -40,15 +40,15 @@ public class TileEntitySuitFabricator extends TileEntityContainer implements ITi
             output.setInventorySlotContents(slot, flag ? selectedHero.getDefault().createArmor(slot) : null);
         }
 
-        if (worldObj.getTotalWorldTime() % 80L == 0L)
+        if (world.getTotalWorldTime() % 80L == 0L)
         {
             if (energy > 9000)
             {
                 float radius = 6;
                 AxisAlignedBB aabb = AxisAlignedBB.getBoundingBox(xCoord, yCoord, zCoord, xCoord + 1, yCoord + 1, zCoord + 1).expand(radius, radius, radius);
-                List<EntityPlayer> list = worldObj.getEntitiesWithinAABB(EntityPlayer.class, aabb);
+                List<EntityPlayer> list = world.getEntitiesWithinAABB(EntityPlayer.class, aabb);
 
-                for (EntityPlayer player : list)
+                for (PlayerEntity player : list)
                 {
                     player.triggerAchievement(SHAchievements.OVER_9000);
                 }
@@ -74,7 +74,7 @@ public class TileEntitySuitFabricator extends TileEntityContainer implements ITi
     }
 
     @Override
-    public void readCustomNBT(NBTTagCompound nbt)
+    public void readCustomNBT(CompoundNBT nbt)
     {
         super.readCustomNBT(nbt);
         energy = nbt.getInteger("MaterialEnergy");
@@ -86,7 +86,7 @@ public class TileEntitySuitFabricator extends TileEntityContainer implements ITi
     }
 
     @Override
-    public void writeCustomNBT(NBTTagCompound nbt)
+    public void writeCustomNBT(CompoundNBT nbt)
     {
         super.writeCustomNBT(nbt);
         nbt.setInteger("MaterialEnergy", energy);
@@ -98,7 +98,7 @@ public class TileEntitySuitFabricator extends TileEntityContainer implements ITi
     }
 
     @Override
-    public void receive(EntityPlayer sender, ByteBuf buf)
+    public void receive(PlayerEntity sender, ByteBuf buf)
     {
         Hero hero = Hero.REGISTRY.getObject(ByteBufUtils.readUTF8String(buf));
 

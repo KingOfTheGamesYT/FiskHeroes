@@ -17,7 +17,7 @@ import com.fiskmods.heroes.util.VectorHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Vec3;
 
 public enum EffectTrail implements Effect
@@ -29,9 +29,9 @@ public enum EffectTrail implements Effect
     {
         try
         {
-            if (anchor instanceof EntityPlayer)
+            if (anchor instanceof PlayerEntity)
             {
-                EntityPlayer player = (EntityPlayer) anchor;
+                PlayerEntity player = (PlayerEntity) anchor;
                 JsonTrail trail = SpeedsterHelper.getJsonTrail(player);
 
                 if (trail != null)
@@ -179,11 +179,11 @@ public enum EffectTrail implements Effect
     @Override
     public void onUpdate(Entry e, Entity anchor)
     {
-        EntityPlayer player;
+        PlayerEntity player;
 
-        if (anchor instanceof EntityPlayer)
+        if (anchor instanceof PlayerEntity)
         {
-            player = (EntityPlayer) anchor;
+            player = (PlayerEntity) anchor;
         }
         else
         {

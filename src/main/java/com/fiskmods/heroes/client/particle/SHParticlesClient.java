@@ -19,7 +19,7 @@ public class SHParticlesClient
     public static final int LAYER_SH = 4;
 
     @SideOnly(Side.CLIENT)
-    private static Minecraft mc = Minecraft.getMinecraft();
+    private static Minecraft mc = Minecraft.getInstance();
 
     private static final Class[] CONSTRUCTOR = {World.class, double.class, double.class, double.class, double.class, double.class, double.class};
 

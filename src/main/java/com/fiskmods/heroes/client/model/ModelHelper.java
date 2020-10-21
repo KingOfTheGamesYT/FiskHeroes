@@ -30,8 +30,8 @@ import mods.battlegear2.client.utils.BattlegearRenderHelper;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
@@ -47,9 +47,9 @@ public class ModelHelper
             BattlegearRenderHelper.moveOffHandArm(entity, model, f5);
         }
 
-        if (entity instanceof EntityPlayer)
+        if (entity instanceof PlayerEntity)
         {
-            ClientEventHandler.setupPlayerRotation((EntityPlayer) entity);
+            ClientEventHandler.setupPlayerRotation((PlayerEntity) entity);
         }
 
         setRotationAngles(model, f, f1, f2, f3, f4, f5, entity);
@@ -62,9 +62,9 @@ public class ModelHelper
 
     public static void setRotationAngles(ModelBiped model, float f, float f1, float f2, float f3, float f4, float f5, Entity entity1)
     {
-        if (entity1 instanceof EntityPlayer)
+        if (entity1 instanceof PlayerEntity)
         {
-            EntityPlayer player = (EntityPlayer) entity1;
+            PlayerEntity player = (PlayerEntity) entity1;
 
             if (SHClientUtils.isInanimate(player))
             {
@@ -102,13 +102,13 @@ public class ModelHelper
             }
         }
 
-        if (entity1 instanceof EntityLivingBase)
+        if (entity1 instanceof LivingEntity)
         {
-            EntityLivingBase entity = (EntityLivingBase) entity1;
+            LivingEntity entity = (LivingEntity) entity1;
             HeroIteration iter = SHHelper.getHeroIter(entity);
             ItemStack heldItem = entity.getHeldItem();
 
-            if (entity instanceof EntityPlayer)
+            if (entity instanceof PlayerEntity)
             {
                 if (heldItem != null && heldItem.getItem() == ModItems.chronosRifle)
                 {
@@ -210,9 +210,9 @@ public class ModelHelper
                 model.bipedRightArm.rotateAngleZ += 0.3 * t;
             }
 
-            if (heldItem != null && entity instanceof EntityPlayer)
+            if (heldItem != null && entity instanceof PlayerEntity)
             {
-                EntityPlayer player = (EntityPlayer) entity;
+                PlayerEntity player = (PlayerEntity) entity;
 
                 if (player.isUsingItem() && heldItem.getItem() == ModItems.captainAmericasShield)
                 {
@@ -253,7 +253,7 @@ public class ModelHelper
                 }
             }
 
-            if (SHData.TICKS_GLIDING.get(entity) > 4 && entity instanceof EntityPlayer)
+            if (SHData.TICKS_GLIDING.get(entity) > 4 && entity instanceof PlayerEntity)
             {
                 float f6 = SHData.TICKS_GLIDING.get(entity) + ClientEventHandler.renderTick;
                 float f7 = MathHelper.clamp_float(f6 * f6 / 100, 0, 1);
@@ -263,7 +263,7 @@ public class ModelHelper
                 float f11 = entity.getSwingProgress(ClientEventHandler.renderTick);
                 f11 = 1 - (f11 > 0.5F ? 1 - f11 : f11) * 2;
 
-                Vec3 motion = SHRenderHelper.getMotion((EntityPlayer) entity);
+                Vec3 motion = SHRenderHelper.getMotion((PlayerEntity) entity);
 
                 if (motion.yCoord < 0)
                 {
@@ -373,7 +373,7 @@ public class ModelHelper
         }
     }
 
-    public static void rotateCorpse(EntityPlayer player, float partialTicks)
+    public static void rotateCorpse(PlayerEntity player, float partialTicks)
     {
         float f = SHClientUtils.getGlidingProgress(player, partialTicks);
 
@@ -397,9 +397,9 @@ public class ModelHelper
 
     public static float getLimbSwingSpeed(ModelBiped model, float f, float f1, float f2, float f3, float f4, float f5, Entity entity)
     {
-        if (entity instanceof EntityPlayer)
+        if (entity instanceof PlayerEntity)
         {
-            EntityPlayer player = (EntityPlayer) entity;
+            PlayerEntity player = (PlayerEntity) entity;
             Hero hero = SHHelper.getHero(player);
 
             if (SpeedsterHelper.hasSuperSpeed(player) && (SpeedsterHelper.isOnTreadmill(player) || SHData.SPEEDING.get(player)))
@@ -414,9 +414,9 @@ public class ModelHelper
 
     public static float getLimbSwingDegree(ModelBiped model, float f, float f1, float f2, float f3, float f4, float f5, Entity entity)
     {
-        if (entity instanceof EntityPlayer)
+        if (entity instanceof PlayerEntity)
         {
-            EntityPlayer player = (EntityPlayer) entity;
+            PlayerEntity player = (PlayerEntity) entity;
 
             if (SHData.TICKS_GLIDING.get(player) > 4)
             {

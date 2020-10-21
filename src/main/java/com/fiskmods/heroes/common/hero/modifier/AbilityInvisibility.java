@@ -7,8 +7,8 @@ import com.fiskmods.heroes.common.hero.Hero;
 import com.fiskmods.heroes.util.SHHelper;
 
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 
 public class AbilityInvisibility extends Ability
 {
@@ -20,7 +20,7 @@ public class AbilityInvisibility extends Ability
     }
 
     @Override
-    public void onUpdate(EntityLivingBase entity, Hero hero, Phase phase, boolean enabled)
+    public void onUpdate(LivingEntity entity, Hero hero, Phase phase, boolean enabled)
     {
         if (phase == Phase.END && enabled)
         {
@@ -28,7 +28,7 @@ public class AbilityInvisibility extends Ability
 
             if (flag)
             {
-                if (entity.worldObj.isRemote && !FiskHeroes.proxy.isClientPlayer(entity))
+                if (entity.world.isRemote && !FiskHeroes.proxy.isClientPlayer(entity))
                 {
                     entity.setInvisible(!SHHelper.canPlayerSeeMartianInvis(FiskHeroes.proxy.getPlayer()));
                 }
@@ -43,7 +43,7 @@ public class AbilityInvisibility extends Ability
     }
 
     @Override
-    public boolean renderIcon(EntityPlayer player)
+    public boolean renderIcon(PlayerEntity player)
     {
         return SHData.INVISIBLE.get(player);
     }

@@ -4,7 +4,7 @@ import com.fiskmods.heroes.common.block.BlockTreadmill;
 import com.fiskmods.heroes.common.block.ModBlocks;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
@@ -18,7 +18,7 @@ public class ItemTreadmill extends ItemBlock
     }
 
     @Override
-    public boolean onItemUse(ItemStack itemstack, EntityPlayer player, World world, int x, int y, int z, int side, float f, float f1, float f2)
+    public boolean onItemUse(ItemStack itemstack, PlayerEntity player, World world, int x, int y, int z, int side, float f, float f1, float f2)
     {
         if (world.isRemote)
         {

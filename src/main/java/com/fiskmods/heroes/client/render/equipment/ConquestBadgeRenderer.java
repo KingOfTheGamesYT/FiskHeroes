@@ -18,7 +18,7 @@ import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.texture.TextureUtil;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 
@@ -27,13 +27,13 @@ public enum ConquestBadgeRenderer implements EquipmentRenderer
     INSTANCE;
 
     @Override
-    public boolean test(EntityPlayer player)
+    public boolean test(PlayerEntity player)
     {
         return !player.isInvisibleToPlayer(mc.thePlayer) && RewardHelper.hasConquestRanking(player);
     }
 
     @Override
-    public float[] getOffset(EntityPlayer player, HeroIteration iter, ModelBiped model, float partialTicks)
+    public float[] getOffset(PlayerEntity player, HeroIteration iter, ModelBiped model, float partialTicks)
     {
         Hero hero = SHHelper.getHeroFromArmor(player, 2);
         float f = 0;
@@ -54,7 +54,7 @@ public enum ConquestBadgeRenderer implements EquipmentRenderer
     }
 
     @Override
-    public void render(EntityPlayer player, HeroIteration iter, ModelBiped model, RenderEquipmentEvent event, float partialTicks)
+    public void render(PlayerEntity player, HeroIteration iter, ModelBiped model, RenderEquipmentEvent event, float partialTicks)
     {
         mc.getTextureManager().bindTexture(TextureMap.locationItemsTexture);
         TextureUtil.func_152777_a(false, false, 1);

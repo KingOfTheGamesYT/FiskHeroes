@@ -5,9 +5,9 @@ import java.util.List;
 import com.fiskmods.heroes.SHConstants;
 import com.fiskmods.heroes.common.tileentity.TileEntityDisplayStand;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.util.Constants.NBT;
@@ -44,7 +44,7 @@ public class ItemTachyonDevice extends ItemUntextured implements ITachyonCharged
     }
 
     @Override
-    public void addInformation(ItemStack itemstack, EntityPlayer player, List list, boolean b)
+    public void addInformation(ItemStack itemstack, PlayerEntity player, List list, boolean b)
     {
         if (renderTachyonBar(itemstack))
         {
@@ -61,15 +61,15 @@ public class ItemTachyonDevice extends ItemUntextured implements ITachyonCharged
     {
         if (itemstack.getItem() instanceof ITachyonCharged)
         {
-            if (itemstack.getItem() instanceof ItemTachyonDevice && (!itemstack.hasTagCompound() || !itemstack.getTagCompound().hasKey("TachyonCharge", NBT.TAG_INT)))
+            if (itemstack.getItem() instanceof ItemTachyonDevice && (!itemstack.hasTag() || !itemstack.getTag().hasKey("TachyonCharge", NBT.TAG_INT)))
             {
-                setCharge(itemstack, getMaxCharge(itemstack) - itemstack.getItemDamage());
+                setCharge(itemstack, getMaxCharge(itemstack) - itemstack.getDamage());
                 itemstack.setItemDamage(0);
             }
 
-            if (itemstack.hasTagCompound())
+            if (itemstack.hasTag())
             {
-                return itemstack.getTagCompound().getInteger("TachyonCharge");
+                return itemstack.getTag().getInteger("TachyonCharge");
             }
         }
 
@@ -80,13 +80,13 @@ public class ItemTachyonDevice extends ItemUntextured implements ITachyonCharged
     {
         if (itemstack.getItem() instanceof ITachyonCharged)
         {
-            if (!itemstack.hasTagCompound())
+            if (!itemstack.hasTag())
             {
-                itemstack.setTagCompound(new NBTTagCompound());
+                itemstack.setTag(new CompoundNBT());
             }
 
             int i = MathHelper.clamp_int(charge, 0, getMaxCharge(itemstack));
-            itemstack.getTagCompound().setInteger("TachyonCharge", i);
+            itemstack.getTag().setInteger("TachyonCharge", i);
 
             return i == charge;
         }

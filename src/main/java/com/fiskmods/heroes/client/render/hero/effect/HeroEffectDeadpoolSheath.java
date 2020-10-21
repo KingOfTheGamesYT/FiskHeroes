@@ -16,7 +16,7 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 
 public class HeroEffectDeadpoolSheath extends HeroEffect
@@ -47,9 +47,9 @@ public class HeroEffectDeadpoolSheath extends HeroEffect
                 GL11.glTranslatef(0.0F, 0.125F, 0.05F);
                 MODEL.render(scale);
 
-                if (pass != ENCHANTMENT && entity instanceof EntityLivingBase)
+                if (pass != ENCHANTMENT && entity instanceof LivingEntity)
                 {
-                    EntityLivingBase living = (EntityLivingBase) entity;
+                    LivingEntity living = (LivingEntity) entity;
                     ItemStack stack = living.getHeldItem();
                     int i = SHData.HAS_DEADPOOLS_SWORDS.get(living);
 

@@ -8,7 +8,7 @@ import com.fiskmods.heroes.common.entity.gadget.EntitySmokePellet;
 import com.fiskmods.heroes.common.entity.gadget.EntityThrowingStar;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
@@ -22,13 +22,13 @@ public enum EnumEquipment
 
     public static final EnumEquipment[] EQUIPMENT_BATMAN = {BATARANG, FREEZE_GRENADE, SMOKE_PELLET};
 
-    private final BiFunction<World, EntityLivingBase, Entity> constructor;
+    private final BiFunction<World, LivingEntity, Entity> constructor;
 
     public final Type type;
     public final int useCooldown;
     public final int maxUses;
 
-    EnumEquipment(BiFunction<World, EntityLivingBase, Entity> func, float cooldown, int uses)
+    EnumEquipment(BiFunction<World, LivingEntity, Entity> func, float cooldown, int uses)
     {
         type = Type.PROJECTILE;
         constructor = func;
@@ -44,7 +44,7 @@ public enum EnumEquipment
         maxUses = 0;
     }
 
-    public Entity createEntity(World world, EntityLivingBase entity)
+    public Entity createEntity(World world, LivingEntity entity)
     {
         return constructor.apply(world, entity);
     }

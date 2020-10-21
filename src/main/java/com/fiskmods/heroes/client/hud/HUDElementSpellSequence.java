@@ -111,14 +111,14 @@ public class HUDElementSpellSequence extends HUDElement
     {
         if (success)
         {
-            spell.trigger(Minecraft.getMinecraft().thePlayer);
+            spell.trigger(Minecraft.getInstance().thePlayer);
         }
         else
         {
-            Minecraft.getMinecraft().getSoundHandler().playSound(PositionedSoundRecord.func_147674_a(new ResourceLocation("random.fizz"), 0.8F));
+            Minecraft.getInstance().getSoundHandler().playSound(PositionedSoundRecord.func_147674_a(new ResourceLocation("random.fizz"), 0.8F));
         }
 
-        SHData.SPELL_FRACTION.set(Minecraft.getMinecraft().thePlayer, 0F);
+        SHData.SPELL_FRACTION.set(Minecraft.getInstance().thePlayer, 0F);
         sequencer = null;
         keys = null;
     }

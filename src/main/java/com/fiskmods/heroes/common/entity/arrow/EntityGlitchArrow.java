@@ -1,6 +1,6 @@
 package com.fiskmods.heroes.common.entity.arrow;
 
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
@@ -18,18 +18,18 @@ public class EntityGlitchArrow extends EntityTrickArrow
         super(world, x, y, z);
     }
 
-    public EntityGlitchArrow(World world, EntityLivingBase shooter, float velocity)
+    public EntityGlitchArrow(World world, LivingEntity shooter, float velocity)
     {
         super(world, shooter, velocity);
     }
 
-    public EntityGlitchArrow(World world, EntityLivingBase shooter, float velocity, boolean horizontal)
+    public EntityGlitchArrow(World world, LivingEntity shooter, float velocity, boolean horizontal)
     {
         super(world, shooter, velocity, horizontal);
     }
 
     @Override
-    protected void init(EntityLivingBase shooter, boolean horizontalBow)
+    protected void init(LivingEntity shooter, boolean horizontalBow)
     {
         super.init(shooter, horizontalBow);
         noClip = true;

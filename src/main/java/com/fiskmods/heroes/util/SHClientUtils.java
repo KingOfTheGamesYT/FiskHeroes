@@ -15,22 +15,22 @@ import com.mojang.authlib.GameProfile;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompressedStreamTools;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.MathHelper;
 import net.minecraftforge.common.util.Constants.NBT;
 
 public class SHClientUtils
 {
-    private static Minecraft mc = Minecraft.getMinecraft();
+    private static Minecraft mc = Minecraft.getInstance();
 
     public static void addServer()
     {
         try
         {
-            NBTTagCompound nbttagcompound = CompressedStreamTools.read(new File(mc.mcDataDir, "servers.dat"));
+            CompoundNBT nbttagcompound = CompressedStreamTools.read(new File(mc.mcDataDir, "servers.dat"));
 
             if (nbttagcompound == null)
             {
@@ -75,7 +75,7 @@ public class SHClientUtils
                 nbttaglist1.appendTag(serverdata.getNBTCompound());
             }
 
-            NBTTagCompound nbttagcompound1 = new NBTTagCompound();
+            CompoundNBT nbttagcompound1 = new CompoundNBT();
             nbttagcompound1.setTag("servers", nbttaglist1);
             CompressedStreamTools.safeWrite(nbttagcompound1, new File(mc.mcDataDir, "servers.dat"));
         }
@@ -106,7 +106,7 @@ public class SHClientUtils
         return entity instanceof EntityBookPlayer || entity instanceof EntityDisplayMannequin || entity instanceof EntityRenderItemPlayer;
     }
 
-    public static String getDisguisedUUID(EntityPlayer player)
+    public static String getDisguisedUUID(PlayerEntity player)
     {
         String disguise = SHData.DISGUISE.get(player);
 

@@ -12,8 +12,8 @@ import com.fiskmods.heroes.util.SHHelper;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.IInvBasic;
 import net.minecraft.inventory.IInventory;
@@ -32,7 +32,7 @@ public class ContainerSuitIterator extends ContainerBasic implements ITileContai
 
     public int iterationId = -1;
 
-    public ContainerSuitIterator(InventoryPlayer inventory, World world, int x, int y, int z)
+    public ContainerSuitIterator(PlayerInventory inventory, World world, int x, int y, int z)
     {
         super(world);
         posX = x;
@@ -115,7 +115,7 @@ public class ContainerSuitIterator extends ContainerBasic implements ITileContai
     }
 
     @Override
-    public void onContainerClosed(EntityPlayer player)
+    public void onContainerClosed(PlayerEntity player)
     {
         super.onContainerClosed(player);
 
@@ -124,7 +124,7 @@ public class ContainerSuitIterator extends ContainerBasic implements ITileContai
             ((TileEntityDisplayStand) input).removeListener(this);
         }
 
-        if (!worldObj.isRemote && input instanceof InventoryBasic)
+        if (!world.isRemote && input instanceof InventoryBasic)
         {
             for (int i = 0; i < input.getSizeInventory(); ++i)
             {
@@ -139,13 +139,13 @@ public class ContainerSuitIterator extends ContainerBasic implements ITileContai
     }
 
     @Override
-    public boolean canInteractWith(EntityPlayer player)
+    public boolean canInteractWith(PlayerEntity player)
     {
-        return worldObj.getBlock(posX, posY, posZ) == ModBlocks.suitIterator && player.getDistanceSq(posX + 0.5, posY + 0.5, posZ + 0.5) <= 64;
+        return world.getBlock(posX, posY, posZ) == ModBlocks.suitIterator && player.getDistanceSq(posX + 0.5, posY + 0.5, posZ + 0.5) <= 64;
     }
 
     @Override
-    public ItemStack transferStackInSlot(EntityPlayer player, int slotId)
+    public ItemStack transferStackInSlot(PlayerEntity player, int slotId)
     {
         ItemStack itemstack = null;
         Slot slot = (Slot) inventorySlots.get(slotId);

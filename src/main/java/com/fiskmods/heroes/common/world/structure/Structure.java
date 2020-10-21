@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 
 public abstract class Structure
 {
-    protected final World worldObj;
+    protected final World world;
     protected int xCoord;
     protected int yCoord;
     protected int zCoord;
@@ -27,12 +27,12 @@ public abstract class Structure
 
     public Structure(World world)
     {
-        worldObj = world;
+        world = world;
     }
 
     public int getYGen(Random rand, int x, int z)
     {
-        return Math.max(worldObj.getTopSolidOrLiquidBlock(x, z), worldObj.provider.getAverageGroundLevel());
+        return Math.max(world.getTopSolidOrLiquidBlock(x, z), world.provider.getAverageGroundLevel());
     }
 
     public abstract void generate(Random rand);
@@ -83,7 +83,7 @@ public abstract class Structure
     {
         Block block1 = null;
 
-        if (simulate || ((block1 = worldObj.getBlock(x, y, z)) != block || worldObj.getBlockMetadata(x, y, z) != metadata) && block1.getBlockHardness(worldObj, x, y, z) != -1)
+        if (simulate || ((block1 = world.getBlock(x, y, z)) != block || world.getBlockMetadata(x, y, z) != metadata) && block1.getBlockHardness(world, x, y, z) != -1)
         {
             if (simulate)
             {
@@ -108,7 +108,7 @@ public abstract class Structure
 
     public void placeBlock(int x, int y, int z, Block block, int metadata, int flags)
     {
-        worldObj.setBlock(x, y, z, block, metadata, flags);
+        world.setBlock(x, y, z, block, metadata, flags);
     }
 
     protected boolean generateStructureChestContents(Random random, int x, int y, int z, WeightedRandomChestContent[] chestContent, int itemsToGenerate)
@@ -117,10 +117,10 @@ public abstract class Structure
         int j = yCoord + y;
         int k = zCoord + z;
 
-        if (worldObj.getBlock(i, j, k) != Blocks.chest)
+        if (world.getBlock(i, j, k) != Blocks.chest)
         {
-            worldObj.setBlock(i, j, k, Blocks.chest, 0, 2);
-            TileEntityChest tile = (TileEntityChest) worldObj.getTileEntity(i, j, k);
+            world.setBlock(i, j, k, Blocks.chest, 0, 2);
+            TileEntityChest tile = (TileEntityChest) world.getTileEntity(i, j, k);
 
             if (tile != null)
             {
@@ -141,9 +141,9 @@ public abstract class Structure
         int j = yCoord + y;
         int k = zCoord + z;
 
-        if (worldObj.getBlock(i, j, k) == block)
+        if (world.getBlock(i, j, k) == block)
         {
-            IInventory inventory = (IInventory) worldObj.getTileEntity(i, j, k);
+            IInventory inventory = (IInventory) world.getTileEntity(i, j, k);
 
             if (inventory != null)
             {

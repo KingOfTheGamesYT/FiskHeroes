@@ -11,7 +11,7 @@ import com.fiskmods.heroes.util.SHHelper;
 import com.fiskmods.heroes.util.VectorHelper;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
@@ -25,7 +25,7 @@ public class EntityFireBlast extends EntityThrowable
         super(world);
     }
 
-    public EntityFireBlast(World world, EntityLivingBase entity)
+    public EntityFireBlast(World world, LivingEntity entity)
     {
         super(world, entity);
     }
@@ -77,7 +77,7 @@ public class EntityFireBlast extends EntityThrowable
             SHParticleType.SHORT_FLAME.spawn(v.xCoord + (rand.nextFloat() - 0.5F) * spread, v.yCoord + (rand.nextFloat() - 0.5F) * spread, v.zCoord + (rand.nextFloat() - 0.5F) * spread, (rand.nextFloat() - 0.5F) * spread1, (rand.nextFloat() - 0.5F) * spread1, (rand.nextFloat() - 0.5F) * spread1);
         }
 
-        if (!worldObj.isRemote)
+        if (!world.isRemote)
         {
             Hero hero = getThrower() != null ? SHHelper.getHero(getThrower()) : null;
             float dmg = Rule.DMG_FIREBALL.get(getThrower(), hero);
@@ -88,7 +88,7 @@ public class EntityFireBlast extends EntityThrowable
                 SHHelper.ignite(mop.entityHit, SHConstants.IGNITE_FIREBALL);
             }
 
-            for (Entity entity : VectorHelper.getEntitiesNear(Entity.class, worldObj, posX, posY, posZ, radius))
+            for (Entity entity : VectorHelper.getEntitiesNear(Entity.class, world, posX, posY, posZ, radius))
             {
                 if (entity != getThrower() && entity != mop.entityHit)
                 {

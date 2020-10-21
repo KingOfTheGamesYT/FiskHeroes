@@ -13,7 +13,7 @@ import com.fiskmods.heroes.util.SHHelper;
 import com.google.common.collect.Iterables;
 
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 
@@ -27,11 +27,11 @@ public class AbilityEnergyProjection extends Ability
     }
 
     @Override
-    public void onUpdate(EntityLivingBase entity, Hero hero, Phase phase, boolean enabled)
+    public void onUpdate(LivingEntity entity, Hero hero, Phase phase, boolean enabled)
     {
         if (phase == Phase.END && enabled)
         {
-            if (entity.worldObj.isRemote && SHData.SHOOTING_TIMER.get(entity) > 0)
+            if (entity.world.isRemote && SHData.SHOOTING_TIMER.get(entity) > 0)
             {
                 if (!Iterables.any(EffectRenderHandler.get(entity), e -> e.effect == EffectEnergyProjection.INSTANCE))
                 {
@@ -56,16 +56,16 @@ public class AbilityEnergyProjection extends Ability
                         rayTrace.entityHit.attackEntityFrom(ModDamageSources.ENERGY.apply(entity), Rule.DMG_ENERGYPROJ.get(entity, hero));
                         HeatSource.ENERGY_PROJECTION.applyHeat(rayTrace.entityHit);
                     }
-                    else if (!entity.worldObj.isRemote && rayTrace.typeOfHit == MovingObjectType.BLOCK && FiskServerUtils.canEntityEdit(entity, rayTrace, null))
+                    else if (!entity.world.isRemote && rayTrace.typeOfHit == MovingObjectType.BLOCK && FiskServerUtils.canEntityEdit(entity, rayTrace, null))
                     {
-                        SHHelper.melt(entity.worldObj, rayTrace.blockX, rayTrace.blockY, rayTrace.blockZ, Rule.GRIEF_ENERGYPROJ.get(entity.worldObj, rayTrace.blockX, rayTrace.blockZ) ? 7 : 3);
+                        SHHelper.melt(entity.world, rayTrace.blockX, rayTrace.blockY, rayTrace.blockZ, Rule.GRIEF_ENERGYPROJ.get(entity.world, rayTrace.blockX, rayTrace.blockZ) ? 7 : 3);
                     }
                 }
 
                 SHData.HEAT_VISION_LENGTH.setWithoutNotify(entity, rayTrace != null && rayTrace.hitInfo instanceof Double ? (Double) rayTrace.hitInfo : range);
             }
 
-            if (entity.worldObj.isRemote && FiskHeroes.proxy.isClientPlayer(entity))
+            if (entity.world.isRemote && FiskHeroes.proxy.isClientPlayer(entity))
             {
                 SHData.SHOOTING.set(entity, hero.isKeyPressed(entity, KEY_ENERGY_PROJECTION));
             }

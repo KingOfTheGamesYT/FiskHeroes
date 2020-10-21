@@ -6,7 +6,7 @@ import com.fiskmods.heroes.common.tileentity.TileEntityTreadmill;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 
 public class ModelTreadmill extends ModelBase
@@ -458,9 +458,9 @@ public class ModelTreadmill extends ModelBase
         {
             World world = tileentity.getWorldObj();
 
-            if (world.getEntityByID(id) instanceof EntityPlayer)
+            if (world.getEntityByID(id) instanceof PlayerEntity)
             {
-                EntityPlayer player = (EntityPlayer) world.getEntityByID(id);
+                PlayerEntity player = (PlayerEntity) world.getEntityByID(id);
                 speed = ModelHelper.getLimbSwingSpeed(null, SHData.TREADMILL_LIMB_PROGRESS.interpolate(player) / 2, 0, 0, 0, 0, 0, player);
             }
         }

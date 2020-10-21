@@ -11,7 +11,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.JsonToNBT;
 import net.minecraft.nbt.NBTException;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 
 public class ArrowTypeFirework extends ArrowType
 {
@@ -29,10 +29,10 @@ public class ArrowTypeFirework extends ArrowType
 
         try
         {
-            NBTTagCompound nbt = (NBTTagCompound) JsonToNBT.func_150315_a(FIREWORK_TAG);
+            CompoundNBT nbt = (CompoundNBT) JsonToNBT.func_150315_a(FIREWORK_TAG);
             ItemStack firework = new ItemStack(Items.fireworks);
 
-            firework.setTagCompound(nbt);
+            firework.setTag(nbt);
             ItemTrickArrow.setItem(itemstack, firework);
         }
         catch (NBTException e)

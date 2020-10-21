@@ -2,7 +2,7 @@ package com.fiskmods.heroes.client.render;
 
 import com.fiskmods.heroes.client.render.hero.effect.HeroEffectTrail;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
@@ -19,7 +19,7 @@ public class LightningData
         pos = Vec3.createVectorHelper(x, y, z);
     }
 
-    public void onUpdate(EntityPlayer player, World world)
+    public void onUpdate(PlayerEntity player, World world)
     {
         lightning.onUpdate(world);
 

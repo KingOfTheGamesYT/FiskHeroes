@@ -2,15 +2,15 @@ package com.fiskmods.heroes.pack.accessor;
 
 import com.fiskmods.heroes.util.NBTHelper;
 
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 
 public class JSNBTAccessor implements JSAccessor<JSNBTAccessor>
 {
-    public static final JSNBTAccessor EMPTY = new JSNBTAccessor(new NBTTagCompound());
+    public static final JSNBTAccessor EMPTY = new JSNBTAccessor(new CompoundNBT());
 
-    private final NBTTagCompound tag;
+    private final CompoundNBT tag;
 
-    private JSNBTAccessor(NBTTagCompound compound)
+    private JSNBTAccessor(CompoundNBT compound)
     {
         tag = compound;
     }
@@ -21,7 +21,7 @@ public class JSNBTAccessor implements JSAccessor<JSNBTAccessor>
         return tag.equals(t.tag);
     }
 
-    public static JSNBTAccessor wrap(NBTTagCompound compound)
+    public static JSNBTAccessor wrap(CompoundNBT compound)
     {
         return compound != null ? new JSNBTAccessor(compound) : EMPTY;
     }

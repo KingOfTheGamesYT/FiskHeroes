@@ -9,10 +9,10 @@ import java.util.UUID;
 import com.fiskmods.heroes.common.hero.Hero;
 import com.google.common.collect.ImmutableList;
 
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.BaseAttribute;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 
 public class ArmorAttribute extends BaseAttribute
 {
@@ -30,7 +30,7 @@ public class ArmorAttribute extends BaseAttribute
         this(unlocalizedName, 0, additive);
     }
 
-    public void clean(EntityPlayer player, IAttributeInstance instance, List<UUID> validated)
+    public void clean(PlayerEntity player, IAttributeInstance instance, List<UUID> validated)
     {
         Map<AttributePair, UUID> map = getGlobalUUIDs(player);
         Map<AttributePair, UUID> map1 = new HashMap<>(map);
@@ -55,12 +55,12 @@ public class ArmorAttribute extends BaseAttribute
         }
     }
 
-    public void reset(EntityPlayer player, IAttributeInstance instance, UUID uuid)
+    public void reset(PlayerEntity player, IAttributeInstance instance, UUID uuid)
     {
         SHAttributes.removeModifier(instance, uuid);
     }
 
-    public UUID createUUID(EntityPlayer player, AttributePair pair)
+    public UUID createUUID(PlayerEntity player, AttributePair pair)
     {
         Map<AttributePair, UUID> map = getGlobalUUIDs(player);
 
@@ -75,12 +75,12 @@ public class ArmorAttribute extends BaseAttribute
         return uuid;
     }
 
-    public UUID createUUID(EntityPlayer player, double amount, int operation)
+    public UUID createUUID(PlayerEntity player, double amount, int operation)
     {
         return createUUID(player, new AttributePair(amount, operation));
     }
 
-    private Map<AttributePair, UUID> getGlobalUUIDs(EntityPlayer player)
+    private Map<AttributePair, UUID> getGlobalUUIDs(PlayerEntity player)
     {
         UUID uuid = player.getUniqueID();
 
@@ -100,22 +100,22 @@ public class ArmorAttribute extends BaseAttribute
         return isAdditive;
     }
 
-    public double get(EntityLivingBase entity, double baseValue)
+    public double get(LivingEntity entity, double baseValue)
     {
         return SHAttributes.getModifier(entity, this, baseValue);
     }
 
-    public float get(EntityLivingBase entity, float baseValue)
+    public float get(LivingEntity entity, float baseValue)
     {
         return SHAttributes.getModifier(entity, this, baseValue);
     }
 
-    public double get(EntityLivingBase entity, Hero hero, double baseValue)
+    public double get(LivingEntity entity, Hero hero, double baseValue)
     {
         return SHAttributes.getModifier(entity, hero, this, baseValue);
     }
 
-    public float get(EntityLivingBase entity, Hero hero, float baseValue)
+    public float get(LivingEntity entity, Hero hero, float baseValue)
     {
         return SHAttributes.getModifier(entity, hero, this, baseValue);
     }

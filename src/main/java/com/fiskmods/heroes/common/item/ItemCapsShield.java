@@ -18,14 +18,14 @@ import cpw.mods.fml.relauncher.SideOnly;
 import mods.battlegear2.api.IOffhandWield;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
@@ -44,7 +44,7 @@ public class ItemCapsShield extends ItemUntextured implements IPunchWeapon, IBat
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void addInformation(ItemStack itemstack, EntityPlayer player, List list, boolean advanced)
+    public void addInformation(ItemStack itemstack, PlayerEntity player, List list, boolean advanced)
     {
         if (isStealth(itemstack))
         {
@@ -67,7 +67,7 @@ public class ItemCapsShield extends ItemUntextured implements IPunchWeapon, IBat
     }
 
     @Override
-    public boolean isOffhandWieldable(ItemStack itemstack, EntityPlayer player)
+    public boolean isOffhandWieldable(ItemStack itemstack, PlayerEntity player)
     {
         return false;
     }
@@ -91,7 +91,7 @@ public class ItemCapsShield extends ItemUntextured implements IPunchWeapon, IBat
     }
 
     @Override
-    public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer player)
+    public ItemStack onItemRightClick(ItemStack itemstack, World world, PlayerEntity player)
     {
         if (SHHelper.hasPermission(player, Permission.USE_SHIELD))
         {
@@ -102,9 +102,9 @@ public class ItemCapsShield extends ItemUntextured implements IPunchWeapon, IBat
     }
 
     @Override
-    public boolean onEntitySwing(EntityLivingBase entity, ItemStack itemstack)
+    public boolean onEntitySwing(LivingEntity entity, ItemStack itemstack)
     {
-        if (entity.worldObj.isRemote && FiskHeroes.proxy.isClientPlayer(entity))
+        if (entity.world.isRemote && FiskHeroes.proxy.isClientPlayer(entity))
         {
             if (entity.isSneaking() && SHHelper.hasPermission(entity, Permission.THROW_SHIELD) && Cooldown.SHIELD_THROW.available(entity))
             {
@@ -135,14 +135,14 @@ public class ItemCapsShield extends ItemUntextured implements IPunchWeapon, IBat
     }
 
     @Override
-    public boolean hitEntity(ItemStack itemstack, EntityLivingBase entity1, EntityLivingBase entity2)
+    public boolean hitEntity(ItemStack itemstack, LivingEntity entity1, LivingEntity entity2)
     {
         itemstack.damageItem(1, entity2);
         return true;
     }
 
     @Override
-    public boolean onBlockDestroyed(ItemStack itemstack, World world, Block block, int x, int y, int z, EntityLivingBase entity)
+    public boolean onBlockDestroyed(ItemStack itemstack, World world, Block block, int x, int y, int z, LivingEntity entity)
     {
         if (block.getBlockHardness(world, x, y, z) != 0.0D)
         {
@@ -163,17 +163,17 @@ public class ItemCapsShield extends ItemUntextured implements IPunchWeapon, IBat
 
     public static boolean isStealth(ItemStack stack)
     {
-        return stack.hasTagCompound() && stack.getTagCompound().getBoolean(TAG_STEALTH);
+        return stack.hasTag() && stack.getTag().getBoolean(TAG_STEALTH);
     }
 
     public static ItemStack setStealth(ItemStack stack, boolean stealth)
     {
-        if (!stack.hasTagCompound())
+        if (!stack.hasTag())
         {
-            stack.setTagCompound(new NBTTagCompound());
+            stack.setTag(new CompoundNBT());
         }
 
-        stack.getTagCompound().setBoolean(TAG_STEALTH, stealth);
+        stack.getTag().setBoolean(TAG_STEALTH, stealth);
         return stack;
     }
 }

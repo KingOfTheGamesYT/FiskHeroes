@@ -8,8 +8,8 @@ import com.fiskmods.heroes.util.SHHelper;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraft.block.BlockDirectional;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
 
@@ -22,7 +22,7 @@ public class TileEntityTreadmill extends TileEntitySH implements IMultiTile, ITi
     @Override
     public void updateEntity()
     {
-        EntityPlayer player = getPlayer();
+        PlayerEntity player = getPlayer();
         int metadata = getBlockMetadata();
         int direction = BlockDirectional.getDirection(metadata);
 
@@ -49,7 +49,7 @@ public class TileEntityTreadmill extends TileEntitySH implements IMultiTile, ITi
         // animationTimer = MathHelper.clamp_float(animationTimer, 0, 1);
     }
 
-    public void setPlayer(EntityPlayer player)
+    public void setPlayer(PlayerEntity player)
     {
         if (player == null)
         {
@@ -66,11 +66,11 @@ public class TileEntityTreadmill extends TileEntitySH implements IMultiTile, ITi
         }
     }
 
-    public EntityPlayer getPlayer()
+    public PlayerEntity getPlayer()
     {
-        if (playerId >= 0 && worldObj.getEntityByID(playerId) instanceof EntityPlayer)
+        if (playerId >= 0 && world.getEntityByID(playerId) instanceof PlayerEntity)
         {
-            return (EntityPlayer) worldObj.getEntityByID(playerId);
+            return (PlayerEntity) world.getEntityByID(playerId);
         }
 
         return null;
@@ -83,12 +83,12 @@ public class TileEntityTreadmill extends TileEntitySH implements IMultiTile, ITi
     }
 
     @Override
-    protected void writeCustomNBT(NBTTagCompound nbt)
+    protected void writeCustomNBT(CompoundNBT nbt)
     {
     }
 
     @Override
-    protected void readCustomNBT(NBTTagCompound nbt)
+    protected void readCustomNBT(CompoundNBT nbt)
     {
     }
 
@@ -106,7 +106,7 @@ public class TileEntityTreadmill extends TileEntitySH implements IMultiTile, ITi
     }
 
     @Override
-    public void receive(EntityPlayer sender, ByteBuf buf)
+    public void receive(PlayerEntity sender, ByteBuf buf)
     {
         setPlayer(sender);
     }

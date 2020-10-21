@@ -9,17 +9,17 @@ import com.fiskmods.heroes.util.SpeedsterHelper;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
 @SideOnly(Side.CLIENT)
-public class EntitySpeedBlur extends EntityLivingBase
+public class EntitySpeedBlur extends LivingEntity
 {
-    public EntityPlayer anchorEntity;
+    public PlayerEntity anchorEntity;
     public JsonTrail trail;
 
     public float[] lightningFactor;
@@ -36,7 +36,7 @@ public class EntitySpeedBlur extends EntityLivingBase
         init();
     }
 
-    public EntitySpeedBlur(World world, EntityPlayer player)
+    public EntitySpeedBlur(World world, PlayerEntity player)
     {
         super(world);
         anchorEntity = player;
@@ -197,18 +197,18 @@ public class EntitySpeedBlur extends EntityLivingBase
     }
 
     @Override
-    public boolean writeToNBTOptional(NBTTagCompound nbttagcompound)
+    public boolean writeToNBTOptional(CompoundNBT nbttagcompound)
     {
         return false;
     }
 
     @Override
-    public void readEntityFromNBT(NBTTagCompound nbttagcompound)
+    public void readEntityFromNBT(CompoundNBT nbttagcompound)
     {
     }
 
     @Override
-    public void writeEntityToNBT(NBTTagCompound nbttagcompound)
+    public void writeEntityToNBT(CompoundNBT nbttagcompound)
     {
     }
 

@@ -23,15 +23,15 @@ import net.minecraft.client.renderer.entity.RenderBiped;
 import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.client.renderer.tileentity.TileEntitySkullRenderer;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.scoreboard.Score;
 import net.minecraft.scoreboard.ScoreObjective;
@@ -169,7 +169,7 @@ public class RenderDisplayMannequinFull extends RenderPlayer
         modelArmorChestplate.isSneak = modelArmor.isSneak = modelBipedMain.isSneak = entity.isSneaking();
         double d3 = y - entity.yOffset;
 
-        if (entity.isSneaking() && !(entity instanceof EntityPlayerSP))
+        if (entity.isSneaking() && !(entity instanceof PlayerEntitySP))
         {
             d3 -= 0.125D;
         }
@@ -198,7 +198,7 @@ public class RenderDisplayMannequinFull extends RenderPlayer
         return f + f2 * f3;
     }
 
-    public void doRenderSuper(EntityLivingBase entity, double x, double y, double z, float f, float partialTicks)
+    public void doRenderSuper(LivingEntity entity, double x, double y, double z, float f, float partialTicks)
     {
         if (MinecraftForge.EVENT_BUS.post(new RenderLivingEvent.Pre(entity, this, x, y, z)))
         {
@@ -234,9 +234,9 @@ public class RenderDisplayMannequinFull extends RenderPlayer
             float f3 = interpolateRotation(entity.prevRotationYawHead, entity.rotationYawHead, partialTicks);
             float f4;
 
-            if (entity.isRiding() && entity.ridingEntity instanceof EntityLivingBase)
+            if (entity.isRiding() && entity.ridingEntity instanceof LivingEntity)
             {
-                EntityLivingBase entitylivingbase1 = (EntityLivingBase) entity.ridingEntity;
+                LivingEntity entitylivingbase1 = (LivingEntity) entity.ridingEntity;
                 f2 = interpolateRotation(entitylivingbase1.prevRenderYawOffset, entitylivingbase1.renderYawOffset, partialTicks);
                 f4 = MathHelper.wrapAngleTo180_float(f3 - f2);
 
@@ -463,9 +463,9 @@ public class RenderDisplayMannequinFull extends RenderPlayer
                 GL11.glScalef(f1, -f1, -f1);
                 GameProfile gameprofile = null;
 
-                if (itemstack.hasTagCompound())
+                if (itemstack.hasTag())
                 {
-                    NBTTagCompound nbttagcompound = itemstack.getTagCompound();
+                    CompoundNBT nbttagcompound = itemstack.getTag();
 
                     if (nbttagcompound.hasKey("SkullOwner", 10))
                     {
@@ -477,7 +477,7 @@ public class RenderDisplayMannequinFull extends RenderPlayer
                     }
                 }
 
-                TileEntitySkullRenderer.field_147536_b.func_152674_a(-0.5F, 0, -0.5F, 1, 180, itemstack.getItemDamage(), gameprofile);
+                TileEntitySkullRenderer.field_147536_b.func_152674_a(-0.5F, 0, -0.5F, 1, 180, itemstack.getDamage(), gameprofile);
             }
 
             GL11.glPopMatrix();
@@ -638,7 +638,7 @@ public class RenderDisplayMannequinFull extends RenderPlayer
 
             if (itemstack1.getItem().requiresMultipleRenderPasses())
             {
-                for (k = 0; k < itemstack1.getItem().getRenderPasses(itemstack1.getItemDamage()); ++k)
+                for (k = 0; k < itemstack1.getItem().getRenderPasses(itemstack1.getDamage()); ++k)
                 {
                     int i = itemstack1.getItem().getColorFromItemStack(itemstack1, k);
                     f12 = (i >> 16 & 255) / 255;
@@ -705,7 +705,7 @@ public class RenderDisplayMannequinFull extends RenderPlayer
     }
 
     @Override
-    public void renderFirstPersonArm(EntityPlayer player)
+    public void renderFirstPersonArm(PlayerEntity player)
     {
         float f = 1;
         GL11.glColor3f(f, f, f);
@@ -754,7 +754,7 @@ public class RenderDisplayMannequinFull extends RenderPlayer
             {
                 String s = EnumChatFormatting.getTextWithoutFormattingCodes(entity.getCommandSenderName());
 
-                if ((s.equals("Dinnerbone") || s.equals("Grumm")) && (!(entity instanceof EntityPlayer) || !((EntityPlayer) entity).getHideCape()))
+                if ((s.equals("Dinnerbone") || s.equals("Grumm")) && (!(entity instanceof PlayerEntity) || !((PlayerEntity) entity).getHideCape()))
                 {
                     GL11.glTranslatef(0, entity.height + 0.1F, 0);
                     GL11.glRotatef(180, 0, 0, 1);
@@ -764,43 +764,43 @@ public class RenderDisplayMannequinFull extends RenderPlayer
     }
 
     @Override
-    protected void func_96449_a(EntityLivingBase entity, double x, double y, double z, String text, float yOffset, double dist)
+    protected void func_96449_a(LivingEntity entity, double x, double y, double z, String text, float yOffset, double dist)
     {
         renderNametag((EntityDisplayMannequin) entity, x, y, z, text, yOffset, dist);
     }
 
     @Override
-    protected void preRenderCallback(EntityLivingBase entity, float partialTicks)
+    protected void preRenderCallback(LivingEntity entity, float partialTicks)
     {
         preRenderCallback((EntityDisplayMannequin) entity, partialTicks);
     }
 
     @Override
-    protected void func_82408_c(EntityLivingBase entity, int slot, float partialTicks)
+    protected void func_82408_c(LivingEntity entity, int slot, float partialTicks)
     {
         bindArmorOverlayTexture((EntityDisplayMannequin) entity, slot, partialTicks);
     }
 
     @Override
-    protected int shouldRenderPass(EntityLivingBase entity, int slot, float partialTicks)
+    protected int shouldRenderPass(LivingEntity entity, int slot, float partialTicks)
     {
         return shouldRenderPass((EntityDisplayMannequin) entity, slot, partialTicks);
     }
 
     @Override
-    protected void renderEquippedItems(EntityLivingBase entity, float partialTicks)
+    protected void renderEquippedItems(LivingEntity entity, float partialTicks)
     {
         renderEquippedItems((EntityDisplayMannequin) entity, partialTicks);
     }
 
     @Override
-    protected void rotateCorpse(EntityLivingBase entity, float f, float f1, float partialTicks)
+    protected void rotateCorpse(LivingEntity entity, float f, float f1, float partialTicks)
     {
         rotateCorpse((EntityDisplayMannequin) entity, f, f1, partialTicks);
     }
 
     @Override
-    protected void renderLivingAt(EntityLivingBase entity, double x, double y, double z)
+    protected void renderLivingAt(LivingEntity entity, double x, double y, double z)
     {
         renderLivingAt((EntityDisplayMannequin) entity, x, y, z);
     }
@@ -812,7 +812,7 @@ public class RenderDisplayMannequinFull extends RenderPlayer
     }
 
     @Override
-    public void doRender(EntityLivingBase entity, double x, double y, double z, float f, float partialTicks)
+    public void doRender(LivingEntity entity, double x, double y, double z, float f, float partialTicks)
     {
         doRender((EntityDisplayMannequin) entity, x, y, z, f, partialTicks);
     }

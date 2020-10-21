@@ -5,11 +5,11 @@ import com.fiskmods.heroes.common.entity.EntityGrapplingHookCable;
 import com.fiskmods.heroes.common.item.ModItems;
 import com.fiskmods.heroes.util.SHHelper;
 
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.monster.EntityEnderman;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.play.server.S2BPacketChangeGameState;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
@@ -29,18 +29,18 @@ public class EntityGrappleArrow extends EntityTrickArrow
         super(world, x, y, z);
     }
 
-    public EntityGrappleArrow(World world, EntityLivingBase shooter, float velocity)
+    public EntityGrappleArrow(World world, LivingEntity shooter, float velocity)
     {
         super(world, shooter, velocity);
     }
 
-    public EntityGrappleArrow(World world, EntityLivingBase shooter, float velocity, boolean horizontal)
+    public EntityGrappleArrow(World world, LivingEntity shooter, float velocity, boolean horizontal)
     {
         super(world, shooter, velocity, horizontal);
     }
 
     @Override
-    protected void init(EntityLivingBase shooter, boolean horizontalBow)
+    protected void init(LivingEntity shooter, boolean horizontalBow)
     {
         super.init(shooter, horizontalBow);
         ignoreFrustumCheck = true;
@@ -48,7 +48,7 @@ public class EntityGrappleArrow extends EntityTrickArrow
     }
 
     @Override
-    public void onCollideWithPlayer(EntityPlayer player)
+    public void onCollideWithPlayer(PlayerEntity player)
     {
         if (getIsCableCut())
         {
@@ -68,11 +68,11 @@ public class EntityGrappleArrow extends EntityTrickArrow
                 SHHelper.ignite(mop.entityHit, 5);
             }
 
-            if (mop.entityHit instanceof EntityLivingBase && !(mop.entityHit instanceof EntityEnderman))
+            if (mop.entityHit instanceof LivingEntity && !(mop.entityHit instanceof EntityEnderman))
             {
-                handlePostDamageEffects((EntityLivingBase) mop.entityHit);
+                handlePostDamageEffects((LivingEntity) mop.entityHit);
 
-                if (shootingEntity instanceof EntityPlayerMP && mop.entityHit != shootingEntity && mop.entityHit instanceof EntityPlayer)
+                if (shootingEntity instanceof PlayerEntityMP && mop.entityHit != shootingEntity && mop.entityHit instanceof PlayerEntity)
                 {
                     ((EntityPlayerMP) shootingEntity).playerNetServerHandler.sendPacket(new S2BPacketChangeGameState(6, 0.0F));
                 }
@@ -92,9 +92,9 @@ public class EntityGrappleArrow extends EntityTrickArrow
     {
         super.onUpdate();
 
-        // if (getShooter() instanceof EntityPlayer)
+        // if (getShooter() instanceof PlayerEntity)
         // {
-        // EntityPlayer shooter = (EntityPlayer) getShooter();
+        // PlayerEntity shooter = (PlayerEntity) getShooter();
         // double side = 0.3D;
         // double forward = 0.3D;
         // double d = MathHelper.sin(shooter.renderYawOffset * (float) Math.PI / 180);
@@ -139,20 +139,20 @@ public class EntityGrappleArrow extends EntityTrickArrow
     }
 
     @Override
-    public void inEntityUpdate(EntityLivingBase living)
+    public void inEntityUpdate(LivingEntity living)
     {
         super.inEntityUpdate(living);
 
-        if (getShooter() instanceof EntityPlayer)
+        if (getShooter() instanceof PlayerEntity)
         {
-            EntityPlayer player = (EntityPlayer) getShooter();
+            PlayerEntity player = (PlayerEntity) getShooter();
 
             if (!getIsCableCut())
             {
                 if (player.getHeldItem() == null || player.getHeldItem().getItem() != ModItems.compoundBow || player.swingProgressInt == 1)
                 {
                     setIsCableCut(true);
-                    player.worldObj.playSoundAtEntity(player, SHSounds.ENTITY_ARROW_GRAPPLE_DISCONNECT.toString(), 1.0F, 0.8F);
+                    player.world.playSoundAtEntity(player, SHSounds.ENTITY_ARROW_GRAPPLE_DISCONNECT.toString(), 1.0F, 0.8F);
                 }
 
                 if (prevPosX == posX && prevPosY == posY && prevPosZ == posZ)
@@ -171,14 +171,14 @@ public class EntityGrappleArrow extends EntityTrickArrow
                     }
                 }
 
-                worldObj.spawnEntityInWorld(makeCable(living, player));
+                world.spawnEntityInWorld(makeCable(living, player));
             }
         }
     }
 
-    public EntityGrapplingHookCable makeCable(EntityLivingBase living, EntityPlayer player)
+    public EntityGrapplingHookCable makeCable(LivingEntity living, PlayerEntity player)
     {
-        return new EntityGrapplingHookCable(worldObj, living, player);
+        return new EntityGrapplingHookCable(world, living, player);
     }
 
     @Override
@@ -199,7 +199,7 @@ public class EntityGrappleArrow extends EntityTrickArrow
     }
 
     @Override
-    public void readEntityFromNBT(NBTTagCompound nbt)
+    public void readEntityFromNBT(CompoundNBT nbt)
     {
         super.readEntityFromNBT(nbt);
         setIsCableCut(nbt.getBoolean("IsCableCut"));
@@ -207,7 +207,7 @@ public class EntityGrappleArrow extends EntityTrickArrow
     }
 
     @Override
-    public void writeEntityToNBT(NBTTagCompound nbt)
+    public void writeEntityToNBT(CompoundNBT nbt)
     {
         super.writeEntityToNBT(nbt);
         nbt.setBoolean("IsCableCut", getIsCableCut());

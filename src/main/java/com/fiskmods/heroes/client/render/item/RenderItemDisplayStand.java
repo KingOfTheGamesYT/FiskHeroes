@@ -54,10 +54,10 @@ public enum RenderItemDisplayStand implements IItemRenderer
 
         if (data.length > 0 && data[0] instanceof RenderBlocks)
         {
-            ((RenderBlocks) data[0]).renderBlockAsItem(Block.getBlockFromItem(itemstack.getItem()), itemstack.getItemDamage(), 1);
+            ((RenderBlocks) data[0]).renderBlockAsItem(Block.getBlockFromItem(itemstack.getItem()), itemstack.getDamage(), 1);
         }
 
-        tile.setColor(itemstack.getItemDamage());
+        tile.setColor(itemstack.getDamage());
         TileEntityRendererDispatcher.instance.renderTileEntityAt(tile, -0.5F, -0.5F, -0.5F, 0);
     }
 }

@@ -13,18 +13,18 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.MovingSound;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.ResourceLocation;
 
 @SideOnly(Side.CLIENT)
 public class MovingSoundGameboii extends MovingSound
 {
-    public final EntityLivingBase entity;
+    public final LivingEntity entity;
     public final GameboiiSound sound;
 
     private final float defVolume;
 
-    public MovingSoundGameboii(EntityLivingBase entity, GameboiiSound sound, float volume, float pitch, boolean loop)
+    public MovingSoundGameboii(LivingEntity entity, GameboiiSound sound, float volume, float pitch, boolean loop)
     {
         super(new ResourceLocation(sound.sound));
         this.entity = entity;
@@ -43,7 +43,7 @@ public class MovingSoundGameboii extends MovingSound
     @Override
     public void update()
     {
-        Minecraft mc = Minecraft.getMinecraft();
+        Minecraft mc = Minecraft.getInstance();
 
         if (sound == BatfishSounds.TITLE && (Gameboii.getScreen() instanceof ScreenGameOver || Gameboii.getScreen() instanceof ScreenCredits))
         {

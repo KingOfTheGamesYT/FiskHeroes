@@ -25,7 +25,7 @@ public class BlockStack
     {
         if (itemstack != null && itemstack.getItem() instanceof ItemBlock)
         {
-            return new BlockStack(Block.getBlockFromItem(itemstack.getItem()), itemstack.getItemDamage());
+            return new BlockStack(Block.getBlockFromItem(itemstack.getItem()), itemstack.getDamage());
         }
 
         return null;

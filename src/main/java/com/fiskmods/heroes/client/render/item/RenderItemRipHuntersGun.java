@@ -13,7 +13,7 @@ import com.fiskmods.heroes.util.SHHelper;
 import com.fiskmods.heroes.util.SHRenderHelper;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;
@@ -41,11 +41,11 @@ public enum RenderItemRipHuntersGun implements IItemRenderer
     @Override
     public void renderItem(ItemRenderType type, ItemStack item, Object... data)
     {
-        EntityPlayer player = null;
+        PlayerEntity player = null;
 
-        if (data.length > 1 && data[1] instanceof EntityPlayer)
+        if (data.length > 1 && data[1] instanceof PlayerEntity)
         {
-            player = (EntityPlayer) data[1];
+            player = (PlayerEntity) data[1];
         }
 
         if (type == ItemRenderType.EQUIPPED_FIRST_PERSON)
@@ -103,7 +103,7 @@ public enum RenderItemRipHuntersGun implements IItemRenderer
         }
     }
 
-    public static void render(EntityPlayer player)
+    public static void render(PlayerEntity player)
     {
         int color = 0x005EFF;
 
@@ -114,7 +114,7 @@ public enum RenderItemRipHuntersGun implements IItemRenderer
         else
         {
             MODEL.shape50.rotateAngleZ = 0.5235987755982988F;
-            player = Minecraft.getMinecraft().thePlayer;
+            player = Minecraft.getInstance().thePlayer;
         }
 
         HeroIteration iter = SHHelper.getHeroIter(player);
@@ -132,11 +132,11 @@ public enum RenderItemRipHuntersGun implements IItemRenderer
 
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-        Minecraft.getMinecraft().getTextureManager().bindTexture(TEXTURE);
+        Minecraft.getInstance().getTextureManager().bindTexture(TEXTURE);
         MODEL.render();
         GL11.glDisable(GL11.GL_LIGHTING);
         SHRenderHelper.setLighting(SHRenderHelper.FULLBRIGHT);
-        Minecraft.getMinecraft().getTextureManager().bindTexture(TEXTURE_LIGHTS);
+        Minecraft.getInstance().getTextureManager().bindTexture(TEXTURE_LIGHTS);
         SHRenderHelper.setGlColor(SHRenderHelper.getColorFromHex(color));
         MODEL.render();
         GL11.glColor4f(1, 1, 1, 1);

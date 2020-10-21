@@ -9,7 +9,7 @@
 //import net.minecraft.client.gui.GuiScreen;
 //import net.minecraft.client.model.ModelBase;
 //import net.minecraft.entity.Entity;
-//import net.minecraft.entity.player.EntityPlayer;
+//import net.minecraft.entity.player.PlayerEntity;
 //import net.minecraft.util.Vec3;
 //
 //public class ModelFalconWings extends ModelBase
@@ -84,9 +84,9 @@
 //    {
 //        resetAngles();
 //
-//        if (entity instanceof EntityPlayer)
+//        if (entity instanceof PlayerEntity)
 //        {
-//            EntityPlayer player = (EntityPlayer) entity;
+//            PlayerEntity player = (PlayerEntity) entity;
 //            float f = wings * wings * 0.8F;
 //            float f1 = -0.261799F;
 //            float f2 = 1;

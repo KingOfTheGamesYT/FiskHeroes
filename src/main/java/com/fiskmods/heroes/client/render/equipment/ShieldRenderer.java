@@ -10,7 +10,7 @@ import com.fiskmods.heroes.common.item.ModItems;
 import com.fiskmods.heroes.util.SHHelper;
 
 import net.minecraft.client.model.ModelBiped;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 
 public enum ShieldRenderer implements EquipmentRenderer
@@ -18,20 +18,20 @@ public enum ShieldRenderer implements EquipmentRenderer
     INSTANCE;
 
     @Override
-    public boolean test(EntityPlayer player)
+    public boolean test(PlayerEntity player)
     {
         ItemStack stack = player.getHeldItem();
         return SHData.HAS_CPT_AMERICAS_SHIELD.get(player) > 0 && (stack == null || stack.getItem() != ModItems.captainAmericasShield || player instanceof EntityDisplayMannequin);
     }
 
     @Override
-    public float[] getOffset(EntityPlayer player, HeroIteration iter, ModelBiped model, float partialTicks)
+    public float[] getOffset(PlayerEntity player, HeroIteration iter, ModelBiped model, float partialTicks)
     {
         return new float[] {0, -0.15F - (SHHelper.getHeroFromArmor(player, 2) != null ? 0.025F : player.getCurrentArmor(2) != null ? 0.05F : 0), -0.375F};
     }
 
     @Override
-    public void render(EntityPlayer player, HeroIteration iter, ModelBiped model, RenderEquipmentEvent event, float partialTicks)
+    public void render(PlayerEntity player, HeroIteration iter, ModelBiped model, RenderEquipmentEvent event, float partialTicks)
     {
         model.bipedBody.postRender(0.0625F);
         GL11.glRotatef(-90, 1, 0, 0);

@@ -12,7 +12,7 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 
 public class HeroEffectOverlay extends HeroEffect
@@ -35,7 +35,7 @@ public class HeroEffectOverlay extends HeroEffect
     }
 
     @Override
-    public void postRenderArm(ModelBipedMultiLayer model, EntityPlayer player, ItemStack itemstack, HeroIteration iter, int pass)
+    public void postRenderArm(ModelBipedMultiLayer model, PlayerEntity player, ItemStack itemstack, HeroIteration iter, int pass)
     {
         render(model, player, itemstack, pass, 0.0625F, () -> model.renderArm(player, itemstack, iter, pass, 0.0625F));
     }

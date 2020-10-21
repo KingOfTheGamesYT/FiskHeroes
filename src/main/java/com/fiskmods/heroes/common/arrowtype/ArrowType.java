@@ -27,8 +27,8 @@ import net.minecraft.dispenser.IBlockSource;
 import net.minecraft.dispenser.IPosition;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -159,11 +159,11 @@ public class ArrowType<T extends EntityTrickArrow> extends FiskRegistryEntry<Arr
         return null;
     }
 
-    public T newInstance(World world, EntityLivingBase shooter, float speed, boolean horizontal)
+    public T newInstance(World world, LivingEntity shooter, float speed, boolean horizontal)
     {
         try
         {
-            return entity.getConstructor(World.class, EntityLivingBase.class, float.class, boolean.class).newInstance(world, shooter, speed, horizontal);
+            return entity.getConstructor(World.class, LivingEntity.class, float.class, boolean.class).newInstance(world, shooter, speed, horizontal);
         }
         catch (Exception e)
         {
@@ -173,7 +173,7 @@ public class ArrowType<T extends EntityTrickArrow> extends FiskRegistryEntry<Arr
         return null;
     }
 
-    public T shoot(World world, EntityLivingBase shooter, IBlockSource source, ItemStack bow, ItemStack arrow, float f)
+    public T shoot(World world, LivingEntity shooter, IBlockSource source, ItemStack bow, ItemStack arrow, float f)
     {
         if (!world.isRemote)
         {
@@ -209,7 +209,7 @@ public class ArrowType<T extends EntityTrickArrow> extends FiskRegistryEntry<Arr
         return null;
     }
 
-    public void onShoot(EntityLivingBase shooter, IBlockSource source, T entity, ItemStack bow, ItemStack arrow, float f)
+    public void onShoot(LivingEntity shooter, IBlockSource source, T entity, ItemStack bow, ItemStack arrow, float f)
     {
         entity.setArrowItem(arrow);
         entity.setArrowId(getIdFromArrow(this));
@@ -221,7 +221,7 @@ public class ArrowType<T extends EntityTrickArrow> extends FiskRegistryEntry<Arr
             entity.setHero(iter != null ? iter.getName() : null);
             entity.setDamage(SHAttributes.ARROW_DAMAGE.get(shooter, entity.getDamage() * Rule.DMGMULT_ARROW.get(shooter, iter)));
 
-            if (shooter instanceof EntityPlayer && ((EntityPlayer) shooter).capabilities.isCreativeMode)
+            if (shooter instanceof PlayerEntity && ((PlayerEntity) shooter).capabilities.isCreativeMode)
             {
                 entity.canBePickedUp = 2;
             }
@@ -232,7 +232,7 @@ public class ArrowType<T extends EntityTrickArrow> extends FiskRegistryEntry<Arr
             entity.canBePickedUp = 1;
         }
 
-        if (arrow.hasTagCompound() && arrow.getTagCompound().getBoolean(ItemTrickArrow.NO_ENTITY))
+        if (arrow.hasTag() && arrow.getTag().getBoolean(ItemTrickArrow.NO_ENTITY))
         {
             entity.setNoEntity();
         }
@@ -260,14 +260,14 @@ public class ArrowType<T extends EntityTrickArrow> extends FiskRegistryEntry<Arr
             entity.setFire(100);
         }
 
-        entity.worldObj.spawnEntityInWorld(entity);
+        entity.world.spawnEntityInWorld(entity);
     }
 
-    public T getDummyEntity(EntityLivingBase shooter)
+    public T getDummyEntity(LivingEntity shooter)
     {
         if (dummyEntity == null)
         {
-            dummyEntity = newInstance(shooter.worldObj, 0, 0, 0);
+            dummyEntity = newInstance(shooter.world, 0, 0, 0);
             dummyEntity.setArrowId(getIdFromArrow(this));
             dummyEntity.setArrowItem(makeItem());
         }
@@ -275,7 +275,7 @@ public class ArrowType<T extends EntityTrickArrow> extends FiskRegistryEntry<Arr
         HeroIteration iter = SHHelper.getHeroIter(shooter);
         dummyEntity.setHero(iter != null ? iter.getName() : null);
         dummyEntity.ticksExisted = shooter.ticksExisted;
-        dummyEntity.worldObj = shooter.worldObj;
+        dummyEntity.world = shooter.world;
 
         return dummyEntity;
     }
@@ -292,7 +292,7 @@ public class ArrowType<T extends EntityTrickArrow> extends FiskRegistryEntry<Arr
 
     public boolean matches(ItemStack stack)
     {
-        return stack.getItem() == ModItems.trickArrow && stack.getItemDamage() == getIdFromArrow(this);
+        return stack.getItem() == ModItems.trickArrow && stack.getDamage() == getIdFromArrow(this);
     }
 
     public boolean canDispense(IBlockSource blockSource, ItemStack itemstack)
@@ -310,12 +310,12 @@ public class ArrowType<T extends EntityTrickArrow> extends FiskRegistryEntry<Arr
         return getDomain() + ":arrows/" + getRegistryName().getResourcePath() + "_arrow";
     }
 
-    public ItemStack[] onEaten(ItemStack itemstack, World world, EntityPlayer player)
+    public ItemStack[] onEaten(ItemStack itemstack, World world, PlayerEntity player)
     {
         return new ItemStack[0];
     }
 
-    public boolean isEdible(ItemStack itemstack, EntityPlayer player)
+    public boolean isEdible(ItemStack itemstack, PlayerEntity player)
     {
         return false;
     }
@@ -341,7 +341,7 @@ public class ArrowType<T extends EntityTrickArrow> extends FiskRegistryEntry<Arr
     }
 
     @SideOnly(Side.CLIENT)
-    public void addInformation(ItemStack itemstack, EntityPlayer player, List list, boolean flag)
+    public void addInformation(ItemStack itemstack, PlayerEntity player, List list, boolean flag)
     {
         ItemStack itemstack1 = ItemTrickArrow.getItem(itemstack);
 

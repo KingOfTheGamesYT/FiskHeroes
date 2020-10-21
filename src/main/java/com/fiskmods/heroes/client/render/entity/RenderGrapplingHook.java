@@ -15,7 +15,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Vec3;
@@ -32,9 +32,9 @@ public class RenderGrapplingHook extends Render
         Tessellator tessellator = Tessellator.instance;
         RenderManager renderManager = RenderManager.instance;
 
-        if (entity.getShooter() instanceof EntityPlayer)
+        if (entity.getShooter() instanceof PlayerEntity)
         {
-            EntityPlayer shooter = (EntityPlayer) entity.getShooter();
+            PlayerEntity shooter = (PlayerEntity) entity.getShooter();
 
             float f9 = shooter.getSwingProgress(partialTicks);
             float f10 = MathHelper.sin(MathHelper.sqrt_float(f9) * (float) Math.PI);
@@ -50,12 +50,12 @@ public class RenderGrapplingHook extends Render
             double playerPosY = SHRenderHelper.interpolate(shooter.posY, shooter.prevPosY) + vec3.yCoord;
             double playerPosZ = SHRenderHelper.interpolate(shooter.posZ, shooter.prevPosZ) + vec3.zCoord;
 
-            if (renderManager.options.thirdPersonView > 0 || shooter != Minecraft.getMinecraft().thePlayer)
+            if (renderManager.options.thirdPersonView > 0 || shooter != Minecraft.getInstance().thePlayer)
             {
                 float renderYawOffset = SHRenderHelper.interpolate(shooter.renderYawOffset, shooter.prevRenderYawOffset) * (float) Math.PI / 180.0F;
                 double side = 0.4D;
                 double forward = 0.3D;
-                double yOffset = (shooter == Minecraft.getMinecraft().thePlayer ? 0.0D : (double) shooter.getEyeHeight()) - 0.3D;
+                double yOffset = (shooter == Minecraft.getInstance().thePlayer ? 0.0D : (double) shooter.getEyeHeight()) - 0.3D;
                 double d = MathHelper.sin(renderYawOffset);
                 double d1 = MathHelper.cos(renderYawOffset);
 

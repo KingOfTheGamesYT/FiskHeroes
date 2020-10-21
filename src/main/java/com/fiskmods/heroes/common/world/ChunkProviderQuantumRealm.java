@@ -17,12 +17,12 @@ import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 
 public class ChunkProviderQuantumRealm implements IChunkProvider
 {
-    private World worldObj;
+    private World world;
     private Random random;
 
     public ChunkProviderQuantumRealm(World world, long seed)
     {
-        worldObj = world;
+        world = world;
         random = new Random(seed);
     }
 
@@ -35,18 +35,18 @@ public class ChunkProviderQuantumRealm implements IChunkProvider
     @Override
     public Chunk provideChunk(int chunkX, int chunkZ)
     {
-        Chunk chunk = new Chunk(worldObj, chunkX, chunkZ);
+        Chunk chunk = new Chunk(world, chunkX, chunkZ);
         chunk.generateSkylightMap();
 
         return chunk;
 
         // random.setSeed(chunkX * 341873128712L + chunkZ * 132897987541L);
-        // BiomeGenBase[] biomes = worldObj.getWorldChunkManager().loadBlockGeneratorData(null, chunkX * 16, chunkZ * 16, 16, 16); // Forge Move up to allow for passing to replaceBiomeBlocks
+        // BiomeGenBase[] biomes = world.getWorldChunkManager().loadBlockGeneratorData(null, chunkX * 16, chunkZ * 16, 16, 16); // Forge Move up to allow for passing to replaceBiomeBlocks
         // Block[] blocks = new Block[32768];
         // byte[] meta = new byte[blocks.length];
         //
         // replaceBiomeBlocks(chunkX, chunkZ, blocks, meta, biomes);
-        // Chunk chunk = new Chunk(worldObj, blocks, meta, chunkX, chunkZ);
+        // Chunk chunk = new Chunk(world, blocks, meta, chunkX, chunkZ);
         // byte[] abyte = chunk.getBiomeArray();
         //
         // for (int k = 0; k < abyte.length; ++k)
@@ -64,7 +64,7 @@ public class ChunkProviderQuantumRealm implements IChunkProvider
     //
     // public void replaceBiomeBlocks(int chunkX, int chunkZ, Block[] blocks, byte[] meta, BiomeGenBase[] biomes)
     // {
-    // ChunkProviderEvent.ReplaceBiomeBlocks event = new ChunkProviderEvent.ReplaceBiomeBlocks(this, chunkX, chunkZ, blocks, meta, biomes, worldObj);
+    // ChunkProviderEvent.ReplaceBiomeBlocks event = new ChunkProviderEvent.ReplaceBiomeBlocks(this, chunkX, chunkZ, blocks, meta, biomes, world);
     // MinecraftForge.EVENT_BUS.post(event);
     //
     // if (event.getResult() == Result.DENY)
@@ -121,14 +121,14 @@ public class ChunkProviderQuantumRealm implements IChunkProvider
     public void populate(IChunkProvider provider, int chunkX, int chunkZ)
     {
         BlockFalling.fallInstantly = true;
-        MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Pre(provider, worldObj, worldObj.rand, chunkX, chunkZ, false));
+        MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Pre(provider, world, world.rand, chunkX, chunkZ, false));
 
         int x = chunkX * 16;
         int z = chunkZ * 16;
-        BiomeGenBase biome = worldObj.getBiomeGenForCoords(x + 16, z + 16);
-        biome.decorate(worldObj, worldObj.rand, x, z);
+        BiomeGenBase biome = world.getBiomeGenForCoords(x + 16, z + 16);
+        biome.decorate(world, world.rand, x, z);
 
-        MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Post(provider, worldObj, worldObj.rand, chunkX, chunkZ, false));
+        MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Post(provider, world, world.rand, chunkX, chunkZ, false));
         BlockFalling.fallInstantly = false;
     }
 

@@ -113,7 +113,7 @@ public class HUDElementQuiver extends HUDElement
             {
                 highlight = 0;
             }
-            else if (hightlightStack != null && itemstack.getItem() == hightlightStack.getItem() && ItemStack.areItemStackTagsEqual(itemstack, hightlightStack) && (itemstack.isItemStackDamageable() || itemstack.getItemDamage() == hightlightStack.getItemDamage()))
+            else if (hightlightStack != null && itemstack.getItem() == hightlightStack.getItem() && ItemStack.areItemStackTagsEqual(itemstack, hightlightStack) && (itemstack.isItemStackDamageable() || itemstack.getDamage() == hightlightStack.getDamage()))
             {
                 if (highlight > 0)
                 {

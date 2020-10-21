@@ -12,7 +12,7 @@ import com.fiskmods.heroes.util.SHHelper;
 import com.fiskmods.heroes.util.VectorHelper;
 
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.MovingObjectPosition.MovingObjectType;
@@ -26,7 +26,7 @@ public class AbilityPyrokinesis extends Ability
     }
 
     @Override
-    public void onUpdate(EntityLivingBase entity, Hero hero, Phase phase, boolean enabled)
+    public void onUpdate(LivingEntity entity, Hero hero, Phase phase, boolean enabled)
     {
         if (phase == Phase.END && enabled && SHData.AIMING.get(entity))
         {
@@ -49,21 +49,21 @@ public class AbilityPyrokinesis extends Ability
                     {
                         SHHelper.ignite(rayTrace.entityHit, SHConstants.IGNITE_FLAME_BLAST);
 
-                        if (rayTrace.entityHit instanceof EntityLivingBase)
+                        if (rayTrace.entityHit instanceof LivingEntity)
                         {
-                            ((EntityLivingBase) rayTrace.entityHit).knockBack(rayTrace.entityHit, 0, d0 * 50, d1 * 50);
+                            ((LivingEntity) rayTrace.entityHit).knockBack(rayTrace.entityHit, 0, d0 * 50, d1 * 50);
                         }
                     }
 
                     HeatSource.FLAME_BLAST.applyHeat(rayTrace.entityHit);
                 }
-                else if (!entity.worldObj.isRemote && rayTrace.typeOfHit == MovingObjectType.BLOCK && FiskServerUtils.canEntityEdit(entity, rayTrace, null))
+                else if (!entity.world.isRemote && rayTrace.typeOfHit == MovingObjectType.BLOCK && FiskServerUtils.canEntityEdit(entity, rayTrace, null))
                 {
-                    SHHelper.melt(entity.worldObj, rayTrace.blockX, rayTrace.blockY, rayTrace.blockZ, Rule.GRIEF_FLAMEBLAST.get(entity.worldObj, rayTrace.blockX, rayTrace.blockZ) ? 7 : 3);
+                    SHHelper.melt(entity.world, rayTrace.blockX, rayTrace.blockY, rayTrace.blockZ, Rule.GRIEF_FLAMEBLAST.get(entity.world, rayTrace.blockX, rayTrace.blockZ) ? 7 : 3);
                 }
             }
 
-            if (entity.worldObj.isRemote)
+            if (entity.world.isRemote)
             {
                 double length = rayTrace != null && rayTrace.hitInfo instanceof Double ? (Double) rayTrace.hitInfo : range;
                 float aiming = SHData.AIMING_TIMER.get(entity);
@@ -84,7 +84,7 @@ public class AbilityPyrokinesis extends Ability
     }
 
     @Override
-    public float damageDealt(EntityLivingBase entity, EntityLivingBase target, Hero hero, DamageSource source, float amount, float originalAmount)
+    public float damageDealt(LivingEntity entity, LivingEntity target, Hero hero, DamageSource source, float amount, float originalAmount)
     {
         if (FiskServerUtils.isMeleeDamage(source))
         {

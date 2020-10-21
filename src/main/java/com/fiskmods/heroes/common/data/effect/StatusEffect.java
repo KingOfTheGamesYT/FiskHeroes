@@ -11,9 +11,9 @@ import com.fiskmods.heroes.common.network.SHNetworkManager;
 import com.google.common.primitives.Doubles;
 
 import io.netty.buffer.ByteBuf;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.MathHelper;
 
 public class StatusEffect implements Comparable<StatusEffect>
@@ -50,7 +50,7 @@ public class StatusEffect implements Comparable<StatusEffect>
         buf.writeByte(amplifier);
     }
 
-    public static StatusEffect readFromNBT(NBTTagCompound tag)
+    public static StatusEffect readFromNBT(CompoundNBT tag)
     {
         StatEffect effect = StatEffect.getEffectFromName(tag.getString("Id"));
 
@@ -62,9 +62,9 @@ public class StatusEffect implements Comparable<StatusEffect>
         return null;
     }
 
-    public NBTTagCompound writeToNBT()
+    public CompoundNBT writeToNBT()
     {
-        NBTTagCompound nbt = new NBTTagCompound();
+        CompoundNBT nbt = new CompoundNBT();
         nbt.setString("Id", effect.delegate.name());
         nbt.setShort("Duration", (short) duration);
         nbt.setByte("Amplifier", (byte) amplifier);
@@ -77,9 +77,9 @@ public class StatusEffect implements Comparable<StatusEffect>
         return duration >= Short.MAX_VALUE;
     }
 
-    public static void add(EntityLivingBase entity, StatEffect effect, int duration, int amplifier)
+    public static void add(LivingEntity entity, StatEffect effect, int duration, int amplifier)
     {
-        if (!entity.worldObj.isRemote)
+        if (!entity.world.isRemote)
         {
             List<StatusEffect> list = get(entity);
             duration = MathHelper.clamp_int(duration, 0, Short.MAX_VALUE);
@@ -104,7 +104,7 @@ public class StatusEffect implements Comparable<StatusEffect>
                 }
             }
 
-            if (entity instanceof EntityPlayer)
+            if (entity instanceof PlayerEntity)
             {
                 boolean flag = true;
 
@@ -119,7 +119,7 @@ public class StatusEffect implements Comparable<StatusEffect>
 
                 if (flag)
                 {
-                    ((EntityPlayer) entity).triggerAchievement(SHAchievements.ALL_DEBUFFS);
+                    ((PlayerEntity) entity).triggerAchievement(SHAchievements.ALL_DEBUFFS);
                 }
             }
 
@@ -130,12 +130,12 @@ public class StatusEffect implements Comparable<StatusEffect>
         }
     }
 
-    public static List<StatusEffect> get(EntityLivingBase entity)
+    public static List<StatusEffect> get(LivingEntity entity)
     {
         return SHEntityData.getData(entity).activeEffects;
     }
 
-    public static StatusEffect get(EntityLivingBase entity, StatEffect effect)
+    public static StatusEffect get(LivingEntity entity, StatEffect effect)
     {
         for (StatusEffect status : get(entity))
         {
@@ -148,14 +148,14 @@ public class StatusEffect implements Comparable<StatusEffect>
         return null;
     }
 
-    public static boolean has(EntityLivingBase entity, StatEffect effect)
+    public static boolean has(LivingEntity entity, StatEffect effect)
     {
         return get(entity, effect) != null;
     }
 
-    public static void clear(EntityLivingBase entity)
+    public static void clear(LivingEntity entity)
     {
-        if (!entity.worldObj.isRemote)
+        if (!entity.world.isRemote)
         {
             List<StatusEffect> list = get(entity);
 
@@ -167,9 +167,9 @@ public class StatusEffect implements Comparable<StatusEffect>
         }
     }
 
-    public static void clear(EntityLivingBase entity, StatEffect effect)
+    public static void clear(LivingEntity entity, StatEffect effect)
     {
-        if (!entity.worldObj.isRemote && has(entity, effect))
+        if (!entity.world.isRemote && has(entity, effect))
         {
             List<StatusEffect> list = get(entity);
             Iterator<StatusEffect> iter = list.iterator();

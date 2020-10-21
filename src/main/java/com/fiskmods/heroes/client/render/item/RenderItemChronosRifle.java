@@ -10,9 +10,9 @@ import com.fiskmods.heroes.util.FiskMath;
 import com.fiskmods.heroes.util.SHRenderHelper;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;
 import net.minecraftforge.common.util.Constants.NBT;
@@ -40,11 +40,11 @@ public enum RenderItemChronosRifle implements IItemRenderer
     @Override
     public void renderItem(ItemRenderType type, ItemStack stack, Object... data)
     {
-        EntityLivingBase entity = null;
+        LivingEntity entity = null;
 
-        if (data.length > 1 && data[1] instanceof EntityLivingBase)
+        if (data.length > 1 && data[1] instanceof LivingEntity)
         {
-            entity = (EntityLivingBase) data[1];
+            entity = (LivingEntity) data[1];
         }
 
         if (type == ItemRenderType.EQUIPPED_FIRST_PERSON)
@@ -113,9 +113,9 @@ public enum RenderItemChronosRifle implements IItemRenderer
     {
         ResourceLocation texture = TEXTURE;
 
-        if (stack.hasTagCompound() && stack.getTagCompound().hasKey("fisktag", NBT.TAG_COMPOUND))
+        if (stack.hasTag() && stack.getTag().hasKey("fisktag", NBT.TAG_COMPOUND))
         {
-            NBTTagCompound tag = stack.getTagCompound().getCompoundTag("fisktag");
+            CompoundNBT tag = stack.getTag().getCompoundTag("fisktag");
             MODEL.shape25.isHidden = tag.hasKey("Scope", NBT.TAG_ANY_NUMERIC) && !tag.getBoolean("Scope");
 
             if (tag.hasKey("Texture", NBT.TAG_STRING))
@@ -126,11 +126,11 @@ public enum RenderItemChronosRifle implements IItemRenderer
 
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-        Minecraft.getMinecraft().getTextureManager().bindTexture(texture);
+        Minecraft.getInstance().getTextureManager().bindTexture(texture);
         MODEL.render();
         GL11.glDisable(GL11.GL_LIGHTING);
         SHRenderHelper.setLighting(SHRenderHelper.FULLBRIGHT);
-        Minecraft.getMinecraft().getTextureManager().bindTexture(TEXTURE_LIGHTS);
+        Minecraft.getInstance().getTextureManager().bindTexture(TEXTURE_LIGHTS);
         MODEL.render();
         SHRenderHelper.resetLighting();
         GL11.glEnable(GL11.GL_LIGHTING);

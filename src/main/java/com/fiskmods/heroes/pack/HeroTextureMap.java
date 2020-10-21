@@ -33,6 +33,6 @@ public class HeroTextureMap extends TextureMap
     public static void register()
     {
         JSHeroesEngine.LOGGER.info("Loading Hero Items Texture");
-        Minecraft.getMinecraft().getTextureManager().loadTextureMap(LOCATION, new HeroTextureMap());
+        Minecraft.getInstance().getTextureManager().loadTextureMap(LOCATION, new HeroTextureMap());
     }
 }

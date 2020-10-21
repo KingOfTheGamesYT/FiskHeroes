@@ -6,7 +6,7 @@ import com.fiskmods.heroes.SHConstants;
 import com.fiskmods.heroes.common.book.widget.IItemListEntry;
 
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
@@ -20,7 +20,7 @@ public class ItemSubatomicBattery extends Item implements IItemListEntry
     }
 
     @Override
-    public void addInformation(ItemStack itemstack, EntityPlayer player, List list, boolean b)
+    public void addInformation(ItemStack itemstack, PlayerEntity player, List list, boolean b)
     {
         list.add(StatCollector.translateToLocalFormatted("tooltip.subatomicCharge", MathHelper.floor_float(getCharge(itemstack) * 100)));
     }
@@ -34,7 +34,7 @@ public class ItemSubatomicBattery extends Item implements IItemListEntry
 
     public static float getCharge(ItemStack itemstack)
     {
-        return (float) itemstack.getItemDamage() / SHConstants.MAX_SUBATOMIC_CHARGE;
+        return (float) itemstack.getDamage() / SHConstants.MAX_SUBATOMIC_CHARGE;
     }
 
     @Override

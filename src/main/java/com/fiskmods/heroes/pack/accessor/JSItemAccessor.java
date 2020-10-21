@@ -47,7 +47,7 @@ public class JSItemAccessor implements JSAccessor<JSItemAccessor>
 
     public int damage()
     {
-        return stack.getItemDamage();
+        return stack.getDamage();
     }
 
     public int maxDamage()
@@ -62,7 +62,7 @@ public class JSItemAccessor implements JSAccessor<JSItemAccessor>
 
     public JSNBTAccessor nbt()
     {
-        return JSNBTAccessor.wrap(stack.getTagCompound());
+        return JSNBTAccessor.wrap(stack.getTag());
     }
 
     @Override

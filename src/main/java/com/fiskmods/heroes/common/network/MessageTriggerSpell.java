@@ -7,7 +7,7 @@ import com.fiskmods.heroes.common.spell.Spell;
 
 import cpw.mods.fml.common.network.ByteBufUtils;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 
 public class MessageTriggerSpell extends AbstractMessage<MessageTriggerSpell>
 {
@@ -18,7 +18,7 @@ public class MessageTriggerSpell extends AbstractMessage<MessageTriggerSpell>
     {
     }
 
-    public MessageTriggerSpell(EntityPlayer player, Spell spellObj)
+    public MessageTriggerSpell(PlayerEntity player, Spell spellObj)
     {
         id = player.getEntityId();
         spell = spellObj;
@@ -41,7 +41,7 @@ public class MessageTriggerSpell extends AbstractMessage<MessageTriggerSpell>
     @Override
     public void receive() throws MessageException
     {
-        EntityPlayer caster = getSender(id);
+        PlayerEntity caster = getSender(id);
 
         if (spell != null && (context.side.isClient() || spell.spellCooldown.available(caster)) && spell.canTrigger(caster))
         {
@@ -51,7 +51,7 @@ public class MessageTriggerSpell extends AbstractMessage<MessageTriggerSpell>
 
                 if (spell.canDuplicatesUse)
                 {
-                    for (Object obj : new ArrayList<>(caster.worldObj.loadedEntityList))
+                    for (Object obj : new ArrayList<>(caster.world.loadedEntityList))
                     {
                         if (obj instanceof EntitySpellDuplicate)
                         {

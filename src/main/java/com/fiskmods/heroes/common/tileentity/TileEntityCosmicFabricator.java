@@ -5,7 +5,7 @@ import com.fiskmods.heroes.util.FabricatorHelper;
 
 import cpw.mods.fml.common.network.ByteBufUtils;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 
 public class TileEntityCosmicFabricator extends TileEntitySuitFabricator
 {
@@ -16,7 +16,7 @@ public class TileEntityCosmicFabricator extends TileEntitySuitFabricator
     }
 
     @Override
-    public void receive(EntityPlayer sender, ByteBuf buf)
+    public void receive(PlayerEntity sender, ByteBuf buf)
     {
         Hero hero = Hero.REGISTRY.getObject(ByteBufUtils.readUTF8String(buf));
 

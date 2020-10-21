@@ -21,13 +21,13 @@ import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.ModContainer;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.potion.Potion;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
@@ -141,7 +141,7 @@ public class FiskServerUtils
         return null;
     }
 
-    public static ItemStack getStackInSlot(EntityPlayer player, int slot)
+    public static ItemStack getStackInSlot(PlayerEntity player, int slot)
     {
         if (slot >= 0 && slot < player.inventory.getSizeInventory())
         {
@@ -151,7 +151,7 @@ public class FiskServerUtils
         return null;
     }
 
-    public static boolean cure(EntityLivingBase entity, Potion potion)
+    public static boolean cure(LivingEntity entity, Potion potion)
     {
         if (entity.isPotionActive(potion))
         {
@@ -164,13 +164,13 @@ public class FiskServerUtils
 
     public static boolean canEntityEdit(Entity entity, int x, int y, int z, int side, ItemStack heldItem)
     {
-        if (entity instanceof EntityPlayer)
+        if (entity instanceof PlayerEntity)
         {
-            return ((EntityPlayer) entity).canPlayerEdit(x, y, z, side, heldItem);
+            return ((PlayerEntity) entity).canPlayerEdit(x, y, z, side, heldItem);
         }
-        else if (entity instanceof EntityLivingBase)
+        else if (entity instanceof LivingEntity)
         {
-            return entity.worldObj.getGameRules().getGameRuleBooleanValue("mobGriefing");
+            return entity.world.getGameRules().getGameRuleBooleanValue("mobGriefing");
         }
 
         return false;
@@ -191,7 +191,7 @@ public class FiskServerUtils
         return source.isProjectile() && !DamageType.INDIRECT.isPresent(source);
     }
 
-    public static boolean isEntityLookingAt(EntityLivingBase observer, Entity entity, double accuracy)
+    public static boolean isEntityLookingAt(LivingEntity observer, Entity entity, double accuracy)
     {
         Vec3 vec3 = observer.getLookVec().normalize();
         Vec3 vec31 = Vec3.createVectorHelper(entity.posX - observer.posX, entity.boundingBox.minY + entity.height / 2.0F - (observer.posY + observer.getEyeHeight()), entity.posZ - observer.posZ);
@@ -201,7 +201,7 @@ public class FiskServerUtils
         return d1 > 1 - accuracy / d0;
     }
 
-    public static boolean isEntityLookingAt(EntityLivingBase observer, Entity entity)
+    public static boolean isEntityLookingAt(LivingEntity observer, Entity entity)
     {
         return isEntityLookingAt(observer, entity, 0.5) && observer.canEntityBeSeen(entity);
     }
@@ -283,11 +283,11 @@ public class FiskServerUtils
                         }
 
                         itemstack.stackSize -= j;
-                        EntityItem entityitem = new EntityItem(world, x + f, y + f1, z + f2, new ItemStack(itemstack.getItem(), j, itemstack.getItemDamage()));
+                        EntityItem entityitem = new EntityItem(world, x + f, y + f1, z + f2, new ItemStack(itemstack.getItem(), j, itemstack.getDamage()));
 
-                        if (itemstack.hasTagCompound())
+                        if (itemstack.hasTag())
                         {
-                            entityitem.getEntityItem().setTagCompound((NBTTagCompound) itemstack.getTagCompound().copy());
+                            entityitem.getEntityItem().setTag((CompoundNBT) itemstack.getTag().copy());
                         }
 
                         float f3 = 0.05F;

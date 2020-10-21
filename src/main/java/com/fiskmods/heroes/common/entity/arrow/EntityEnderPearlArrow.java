@@ -1,6 +1,6 @@
 package com.fiskmods.heroes.common.entity.arrow;
 
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MovingObjectPosition;
@@ -22,12 +22,12 @@ public class EntityEnderPearlArrow extends EntityTrickArrow
         super(world, x, y, z);
     }
 
-    public EntityEnderPearlArrow(World world, EntityLivingBase shooter, float velocity)
+    public EntityEnderPearlArrow(World world, LivingEntity shooter, float velocity)
     {
         super(world, shooter, velocity);
     }
 
-    public EntityEnderPearlArrow(World world, EntityLivingBase shooter, float velocity, boolean horizontal)
+    public EntityEnderPearlArrow(World world, LivingEntity shooter, float velocity, boolean horizontal)
     {
         super(world, shooter, velocity, horizontal);
     }
@@ -45,7 +45,7 @@ public class EntityEnderPearlArrow extends EntityTrickArrow
 
         for (int i = 0; i < 5; ++i)
         {
-            worldObj.spawnParticle(getParticleName(), posX, posY, posZ, (rand.nextDouble() * 2 - 1) * f, (rand.nextDouble() * 2 - 1) * f, (rand.nextDouble() * 2 - 1) * f);
+            world.spawnParticle(getParticleName(), posX, posY, posZ, (rand.nextDouble() * 2 - 1) * f, (rand.nextDouble() * 2 - 1) * f, (rand.nextDouble() * 2 - 1) * f);
         }
     }
 
@@ -54,20 +54,20 @@ public class EntityEnderPearlArrow extends EntityTrickArrow
     {
         if (getArrowId() > 0)
         {
-            if (worldObj.isRemote)
+            if (world.isRemote)
             {
                 for (int i = 0; i < 32; ++i)
                 {
-                    worldObj.spawnParticle("portal", posX, posY + rand.nextDouble() * 2, posZ, rand.nextGaussian(), 0, rand.nextGaussian());
+                    world.spawnParticle("portal", posX, posY + rand.nextDouble() * 2, posZ, rand.nextGaussian(), 0, rand.nextGaussian());
                 }
             }
             else
             {
-                if (getShooter() instanceof EntityPlayerMP)
+                if (getShooter() instanceof PlayerEntityMP)
                 {
-                    EntityPlayerMP player = (EntityPlayerMP) getShooter();
+                    PlayerEntityMP player = (EntityPlayerMP) getShooter();
 
-                    if (player.playerNetServerHandler.func_147362_b().isChannelOpen() && player.worldObj == worldObj)
+                    if (player.playerNetServerHandler.func_147362_b().isChannelOpen() && player.world == world)
                     {
                         double x = posX;
                         double y = posY;

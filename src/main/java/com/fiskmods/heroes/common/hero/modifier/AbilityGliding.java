@@ -9,8 +9,8 @@ import com.fiskmods.heroes.util.SHHelper;
 
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
 import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 
 public class AbilityGliding extends Ability
 {
@@ -20,15 +20,15 @@ public class AbilityGliding extends Ability
     }
 
     @Override
-    public void onUpdate(EntityLivingBase entity, Hero hero, Phase phase, boolean enabled)
+    public void onUpdate(LivingEntity entity, Hero hero, Phase phase, boolean enabled)
     {
         if (phase == Phase.END && enabled)
         {
             boolean flag = shouldDisable(entity);
 
-            if (entity.worldObj.isRemote && FiskHeroes.proxy.isClientPlayer(entity) && entity instanceof EntityPlayerSP)
+            if (entity.world.isRemote && FiskHeroes.proxy.isClientPlayer(entity) && entity instanceof PlayerEntitySP)
             {
-                EntityPlayerSP player = (EntityPlayerSP) entity;
+                PlayerEntitySP player = (EntityPlayerSP) entity;
 
                 if (flag)
                 {
@@ -51,11 +51,11 @@ public class AbilityGliding extends Ability
         }
     }
 
-    public boolean shouldDisable(EntityLivingBase entity)
+    public boolean shouldDisable(LivingEntity entity)
     {
-        if (entity instanceof EntityPlayer)
+        if (entity instanceof PlayerEntity)
         {
-            EntityPlayer player = (EntityPlayer) entity;
+            PlayerEntity player = (PlayerEntity) entity;
 
             if (player.capabilities.isFlying)
             {
@@ -63,6 +63,6 @@ public class AbilityGliding extends Ability
             }
         }
 
-        return entity.onGround || entity.isCollided || entity.worldObj.provider.dimensionId == ModDimensions.QUANTUM_REALM_ID || entity.isInWater() || entity.isRiding();
+        return entity.onGround || entity.isCollided || entity.world.provider.dimensionId == ModDimensions.QUANTUM_REALM_ID || entity.isInWater() || entity.isRiding();
     }
 }

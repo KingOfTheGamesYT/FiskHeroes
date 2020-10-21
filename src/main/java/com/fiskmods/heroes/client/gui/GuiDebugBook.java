@@ -11,7 +11,7 @@ import com.fiskmods.heroes.common.book.Page;
 import com.fiskmods.heroes.common.book.json.BookContainer;
 import com.google.gson.JsonParseException;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.MathHelper;
@@ -22,14 +22,14 @@ public class GuiDebugBook extends GuiSuperheroesBook
     private final File bookFile;
     private Map<File, Long> lastEdited = new HashMap<>();
 
-    public GuiDebugBook(EntityPlayer player, ItemStack itemstack)
+    public GuiDebugBook(PlayerEntity player, ItemStack itemstack)
     {
         super(player, itemstack, new Book(null).addPage(new Page("\\n\\n\\n\\n\\n       #c#lInvalid book")));
         String path = "";
 
-        if (itemstack.hasTagCompound() && itemstack.getTagCompound().hasKey("Path", NBT.TAG_STRING))
+        if (itemstack.hasTag() && itemstack.getTag().hasKey("Path", NBT.TAG_STRING))
         {
-            path = itemstack.getTagCompound().getString("Path");
+            path = itemstack.getTag().getString("Path");
         }
 
         bookFile = new File(path);

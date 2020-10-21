@@ -9,15 +9,15 @@ import com.fiskmods.heroes.common.tileentity.TileEntityDisplayStand;
 import com.fiskmods.heroes.util.SHHelper;
 import com.google.common.base.Predicate;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
 public class ContainerDisplayStand extends ContainerBasic<TileEntityDisplayStand>
 {
-    public ContainerDisplayStand(InventoryPlayer inventoryPlayer, TileEntityDisplayStand tile)
+    public ContainerDisplayStand(PlayerInventory playerInventory, TileEntityDisplayStand tile)
     {
         super(tile);
 
@@ -28,17 +28,17 @@ public class ContainerDisplayStand extends ContainerBasic<TileEntityDisplayStand
 
         for (int i = 0; i < 4; ++i)
         {
-            addSlotToContainer(new SlotArmor(inventoryPlayer, i, inventoryPlayer.getSizeInventory() - 1 - i, 152, 8 + i * 18, inventoryPlayer.player));
+            addSlotToContainer(new SlotArmor(playerInventory, i, playerInventory.getSizeInventory() - 1 - i, 152, 8 + i * 18, playerInventory.player));
         }
 
         addSlotToContainer(new SlotSpecial(tile, 4, 46, 8, t -> t.getItem() instanceof IEquipmentItem && ((IEquipmentItem) t.getItem()).canEquip(t, tile)));
         addSlotToContainer(new SlotSpecial(tile, TileEntityDisplayStand.SLOT_CASING, 8, 8, t -> t.getItem() == ModItems.displayCase));
         addSlotToContainer(new Slot(tile, 6, 46, 26));
-        addPlayerInventory(inventoryPlayer, 0);
+        addPlayerInventory(playerInventory, 0);
     }
 
     @Override
-    public ItemStack transferStackInSlot(EntityPlayer player, int slotId)
+    public ItemStack transferStackInSlot(PlayerEntity player, int slotId)
     {
         ItemStack stack = null;
         Slot slot = (Slot) inventorySlots.get(slotId);
@@ -86,7 +86,7 @@ public class ContainerDisplayStand extends ContainerBasic<TileEntityDisplayStand
 
                     for (ItemStack equipment : equipmentStacks)
                     {
-                        if (itemstack1.getItem() == equipment.getItem() && (equipment.isItemStackDamageable() || itemstack1.getItemDamage() == equipment.getItemDamage()))
+                        if (itemstack1.getItem() == equipment.getItem() && (equipment.isItemStackDamageable() || itemstack1.getDamage() == equipment.getDamage()))
                         {
                             if (mergeItemStack(itemstack1, HAND, HAND + 1, false))
                             {

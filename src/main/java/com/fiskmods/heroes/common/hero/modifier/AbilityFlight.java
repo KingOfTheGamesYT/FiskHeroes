@@ -14,7 +14,7 @@ import cpw.mods.fml.common.gameevent.TickEvent.Phase;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.MathHelper;
 
 public class AbilityFlight extends Ability
@@ -25,23 +25,23 @@ public class AbilityFlight extends Ability
     }
 
     @Override
-    public void onUpdate(EntityLivingBase entity, Hero hero, Phase phase, boolean enabled)
+    public void onUpdate(LivingEntity entity, Hero hero, Phase phase, boolean enabled)
     {
         if (enabled)
         {
             if (phase == Phase.END)
             {
-                if (entity.worldObj.isRemote)
+                if (entity.world.isRemote)
                 {
                     onClientUpdate(entity, hero);
                 }
 
                 entity.fallDistance = 0;
             }
-            else if (this == Ability.PROPELLED_FLIGHT && applyMotion(entity) && entity.worldObj.isRemote)
+            else if (this == Ability.PROPELLED_FLIGHT && applyMotion(entity) && entity.world.isRemote)
             {
                 boolean clientPlayer = FiskHeroes.proxy.isClientPlayer(entity);
-                boolean firstPerson = clientPlayer && Minecraft.getMinecraft().gameSettings.thirdPersonView == 0;
+                boolean firstPerson = clientPlayer && Minecraft.getInstance().gameSettings.thirdPersonView == 0;
                 float scale = SHData.SCALE.get(entity);
 
                 if (!clientPlayer || !firstPerson || scale >= 1)
@@ -64,15 +64,15 @@ public class AbilityFlight extends Ability
     }
 
     @SideOnly(Side.CLIENT)
-    private void onClientUpdate(EntityLivingBase entity, Hero hero)
+    private void onClientUpdate(LivingEntity entity, Hero hero)
     {
         if (FiskHeroes.proxy.isClientPlayer(entity))
         {
-            Minecraft mc = Minecraft.getMinecraft();
+            Minecraft mc = Minecraft.getInstance();
 
             if (this == Ability.PROPELLED_FLIGHT)
             {
-                SHData.JETPACKING.set(entity, mc.gameSettings.keyBindJump.getIsKeyPressed() && !mc.thePlayer.capabilities.isFlying);
+                SHData.JETPACKING.set(entity, mc.gameSettings.keyBindJump.isPressed() && !mc.thePlayer.capabilities.isFlying);
             }
             else if (!mc.thePlayer.capabilities.isFlying && !mc.thePlayer.onGround)
             {
@@ -129,12 +129,12 @@ public class AbilityFlight extends Ability
                 mc.thePlayer.moveFlying(mc.thePlayer.moveStrafing, mc.thePlayer.moveForward, 0.075F * f);
                 f = 1 + (f - 1) / 3;
 
-                if (mc.gameSettings.keyBindJump.getIsKeyPressed())
+                if (mc.gameSettings.keyBindJump.isPressed())
                 {
                     mc.thePlayer.motionY += (mc.thePlayer.dimension == ModDimensions.QUANTUM_REALM_ID ? 0.1F : hovering ? 0.2F : 0.125F) * f;
                 }
 
-                if (mc.gameSettings.keyBindSneak.getIsKeyPressed())
+                if (mc.gameSettings.keyBindSneak.isPressed())
                 {
                     mc.thePlayer.motionY -= (mc.thePlayer.dimension == ModDimensions.QUANTUM_REALM_ID ? 0.1F : hovering ? 0.125F : 0.075F) * f;
                 }
@@ -142,7 +142,7 @@ public class AbilityFlight extends Ability
         }
     }
 
-    public boolean applyMotion(EntityLivingBase entity)
+    public boolean applyMotion(LivingEntity entity)
     {
         boolean flying = SHData.JETPACKING.get(entity);
         boolean hovering = SHData.HOVERING.get(entity);

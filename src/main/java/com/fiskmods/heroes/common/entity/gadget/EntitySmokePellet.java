@@ -4,7 +4,7 @@ import com.fiskmods.heroes.util.SHHelper;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
@@ -17,7 +17,7 @@ public class EntitySmokePellet extends EntityThrowable
         noClip = false;
     }
 
-    public EntitySmokePellet(World world, EntityLivingBase entity)
+    public EntitySmokePellet(World world, LivingEntity entity)
     {
         super(world, entity);
         noClip = false;
@@ -38,9 +38,9 @@ public class EntitySmokePellet extends EntityThrowable
     @Override
     protected void onImpact(MovingObjectPosition mop)
     {
-        if (!worldObj.isRemote)
+        if (!world.isRemote)
         {
-            worldObj.setEntityState(this, (byte) 17);
+            world.setEntityState(this, (byte) 17);
             setDead();
         }
     }
@@ -49,9 +49,9 @@ public class EntitySmokePellet extends EntityThrowable
     @SideOnly(Side.CLIENT)
     public void handleHealthUpdate(byte b)
     {
-        if (b == 17 && worldObj.isRemote)
+        if (b == 17 && world.isRemote)
         {
-            SHHelper.doSmokeExplosion(worldObj, posX, posY, posZ);
+            SHHelper.doSmokeExplosion(world, posX, posY, posZ);
         }
 
         super.handleHealthUpdate(b);

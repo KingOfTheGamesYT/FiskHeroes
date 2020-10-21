@@ -12,11 +12,11 @@ import com.fiskmods.heroes.util.VectorHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
@@ -41,12 +41,12 @@ public class EntityFireworkArrow extends EntityTrickArrow
         super(world, x, y, z);
     }
 
-    public EntityFireworkArrow(World world, EntityLivingBase shooter, float velocity)
+    public EntityFireworkArrow(World world, LivingEntity shooter, float velocity)
     {
         super(world, shooter, velocity);
     }
 
-    public EntityFireworkArrow(World world, EntityLivingBase shooter, float velocity, boolean horizontal)
+    public EntityFireworkArrow(World world, LivingEntity shooter, float velocity, boolean horizontal)
     {
         super(world, shooter, velocity, horizontal);
     }
@@ -71,7 +71,7 @@ public class EntityFireworkArrow extends EntityTrickArrow
 
         if (flag)
         {
-            NBTTagCompound firework = getFireworksTag();
+            CompoundNBT firework = getFireworksTag();
             List<Integer> types = new ArrayList<>();
             boolean flicker = false;
             boolean trail = false;
@@ -87,7 +87,7 @@ public class EntityFireworkArrow extends EntityTrickArrow
 
                     for (int i = 0; i < explosions.tagCount(); ++i)
                     {
-                        NBTTagCompound tag = explosions.getCompoundTagAt(i);
+                        CompoundNBT tag = explosions.getCompoundTagAt(i);
                         flicker |= tag.getBoolean("Flicker");
                         trail |= tag.getBoolean("Trail");
                         types.add((int) tag.getByte("Type"));
@@ -155,7 +155,7 @@ public class EntityFireworkArrow extends EntityTrickArrow
     }
 
     @Override
-    public boolean onCaught(EntityLivingBase entity)
+    public boolean onCaught(LivingEntity entity)
     {
         trigger(entity);
         return true;
@@ -165,13 +165,13 @@ public class EntityFireworkArrow extends EntityTrickArrow
     @SideOnly(Side.CLIENT)
     public void handleHealthUpdate(byte b)
     {
-        if (b == 17 && worldObj.isRemote && getArrowItem() != null)
+        if (b == 17 && world.isRemote && getArrowItem() != null)
         {
-            NBTTagCompound firework = getFireworksTag();
+            CompoundNBT firework = getFireworksTag();
 
             if (firework != null)
             {
-                worldObj.makeFireworks(posX, posY, posZ, motionX, motionY, motionZ, firework);
+                world.makeFireworks(posX, posY, posZ, motionX, motionY, motionZ, firework);
             }
         }
 
@@ -180,24 +180,24 @@ public class EntityFireworkArrow extends EntityTrickArrow
 
     public void trigger(Entity entityHit)
     {
-        if (!worldObj.isRemote)
+        if (!world.isRemote)
         {
-            worldObj.setEntityState(this, (byte) 17);
+            world.setEntityState(this, (byte) 17);
             setDead();
         }
 
         if (radius > 0)
         {
             AxisAlignedBB aabb = boundingBox.expand(radius, radius, radius).contract(width / 2, height / 2, width / 2);
-            List<EntityLivingBase> list = worldObj.getEntitiesWithinAABB(EntityLivingBase.class, aabb);
-            EntityLivingBase shooter = null;
+            List<LivingEntity> list = world.getEntitiesWithinAABB(LivingEntity.class, aabb);
+            LivingEntity shooter = null;
 
-            if (getShooter() instanceof EntityLivingBase)
+            if (getShooter() instanceof LivingEntity)
             {
-                shooter = (EntityLivingBase) getShooter();
+                shooter = (LivingEntity) getShooter();
             }
 
-            for (EntityLivingBase entity : list)
+            for (LivingEntity entity : list)
             {
                 if (entity instanceof EntityCreeper)
                 {
@@ -212,27 +212,27 @@ public class EntityFireworkArrow extends EntityTrickArrow
         }
     }
 
-    public NBTTagCompound getFireworksTag()
+    public CompoundNBT getFireworksTag()
     {
-        NBTTagCompound nbttagcompound = null;
+        CompoundNBT nbttagcompound = null;
         ItemStack itemstack = ItemTrickArrow.getItem(getArrowItem());
 
         if (itemstack == null)
         {
             itemstack = new ItemStack(Items.fireworks);
-            itemstack.setTagCompound(new NBTTagCompound());
+            itemstack.setTag(new CompoundNBT());
         }
 
-        if (itemstack != null && itemstack.hasTagCompound())
+        if (itemstack != null && itemstack.hasTag())
         {
-            nbttagcompound = itemstack.getTagCompound().getCompoundTag("Fireworks");
+            nbttagcompound = itemstack.getTag().getCompoundTag("Fireworks");
         }
 
         return nbttagcompound;
     }
 
     @Override
-    public void writeEntityToNBT(NBTTagCompound compound)
+    public void writeEntityToNBT(CompoundNBT compound)
     {
         super.writeEntityToNBT(compound);
         compound.setInteger("Life", fireworkAge);
@@ -242,7 +242,7 @@ public class EntityFireworkArrow extends EntityTrickArrow
     }
 
     @Override
-    public void readEntityFromNBT(NBTTagCompound compound)
+    public void readEntityFromNBT(CompoundNBT compound)
     {
         super.readEntityFromNBT(compound);
         fireworkAge = compound.hasKey("Life", NBT.TAG_INT) ? compound.getInteger("Life") : fireworkAge;

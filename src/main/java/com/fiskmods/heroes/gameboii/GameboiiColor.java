@@ -21,6 +21,6 @@ public enum GameboiiColor
 
     public static GameboiiColor get(ItemStack stack)
     {
-        return get(stack.getItemDamage());
+        return get(stack.getDamage());
     }
 }

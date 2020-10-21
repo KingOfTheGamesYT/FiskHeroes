@@ -2,7 +2,7 @@ package com.fiskmods.heroes.client.json.trail;
 
 import com.fiskmods.heroes.util.SHRenderHelper;
 
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Vec3;
 
 public class JsonTrailLightning extends JsonConstantContainer implements ITrailAspect
@@ -32,7 +32,7 @@ public class JsonTrailLightning extends JsonConstantContainer implements ITrailA
     }
 
     @Override
-    public Integer getColor(EntityLivingBase entity)
+    public Integer getColor(LivingEntity entity)
     {
         return getColor();
     }
@@ -49,7 +49,7 @@ public class JsonTrailLightning extends JsonConstantContainer implements ITrailA
     }
 
     @Override
-    public Vec3 getVecColor(EntityLivingBase entity)
+    public Vec3 getVecColor(LivingEntity entity)
     {
         return getVecColor();
     }

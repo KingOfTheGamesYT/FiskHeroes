@@ -30,7 +30,7 @@ public enum TickrateHandler
     @SideOnly(Side.CLIENT)
     public void onClientTick(ClientTickEvent event)
     {
-        Minecraft mc = Minecraft.getMinecraft();
+        Minecraft mc = Minecraft.getInstance();
 
         if (mc.isGamePaused())
         {

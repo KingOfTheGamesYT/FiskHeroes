@@ -24,8 +24,8 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumAction;
@@ -275,7 +275,7 @@ public class SHRenderHooks extends SHRenderHelper
 
                 if (heldItem.getItem().requiresMultipleRenderPasses())
                 {
-                    for (int i = 1; i < heldItem.getItem().getRenderPasses(heldItem.getItemDamage()); i++)
+                    for (int i = 1; i < heldItem.getItem().getRenderPasses(heldItem.getDamage()); i++)
                     {
                         applyColorFromItemStack(heldItem, i);
                         itemRenderer.renderItem(player, heldItem, i, SHEnumHelper.EQUIPPED_FIRST_PERSON_OFFHAND);
@@ -290,7 +290,7 @@ public class SHRenderHooks extends SHRenderHelper
         }
     }
 
-    public static void renderItemIn3rdPerson(EntityPlayer player, ModelBiped model, float partialTicks)
+    public static void renderItemIn3rdPerson(PlayerEntity player, ModelBiped model, float partialTicks)
     {
         ItemStack itemstack = player.getHeldItem();
 
@@ -369,11 +369,11 @@ public class SHRenderHooks extends SHRenderHelper
         }
     }
 
-    public static void renderItemAllPasses(EntityLivingBase entity, ItemStack itemstack, ItemRenderType type)
+    public static void renderItemAllPasses(LivingEntity entity, ItemStack itemstack, ItemRenderType type)
     {
         if (itemstack.getItem().requiresMultipleRenderPasses())
         {
-            for (int i = 0; i < itemstack.getItem().getRenderPasses(itemstack.getItemDamage()); ++i)
+            for (int i = 0; i < itemstack.getItem().getRenderPasses(itemstack.getDamage()); ++i)
             {
                 applyColorFromItemStack(itemstack, i);
                 RenderManager.instance.itemRenderer.renderItem(entity, itemstack, i, ItemRenderType.EQUIPPED);
@@ -462,7 +462,7 @@ public class SHRenderHooks extends SHRenderHelper
         }
     }
 
-    public static float getSwingProgress(EntityLivingBase entity, float partialTicks)
+    public static float getSwingProgress(LivingEntity entity, float partialTicks)
     {
         float f = SHData.SWING_PROGRESS.get(entity) - SHData.SWING_PROGRESS.getPrev(entity);
         return SHData.SWING_PROGRESS.getPrev(entity) + (f < 0 ? ++f : f) * partialTicks;

@@ -29,7 +29,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.JsonToNBT;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTException;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.MathHelper;
@@ -64,8 +64,8 @@ public class CommandSuit extends CommandBase
         }
         else
         {
-            EntityPlayerMP player = args.length >= 2 ? getPlayer(sender, args[1]) : getCommandSenderAsPlayer(sender);
-            NBTTagCompound compound = new NBTTagCompound();
+            PlayerEntityMP player = args.length >= 2 ? getPlayer(sender, args[1]) : getCommandSenderAsPlayer(sender);
+            CompoundNBT compound = new CompoundNBT();
             String tagString = "{}";
 
             if (args[0].startsWith("{"))
@@ -76,13 +76,13 @@ public class CommandSuit extends CommandBase
                 {
                     NBTBase nbtbase = JsonToNBT.func_150315_a(tagString);
 
-                    if (!(nbtbase instanceof NBTTagCompound))
+                    if (!(nbtbase instanceof CompoundNBT))
                     {
                         func_152373_a(sender, this, "commands.suit.tagError", "Not a valid tag");
                         return;
                     }
 
-                    compound = (NBTTagCompound) nbtbase;
+                    compound = (CompoundNBT) nbtbase;
 
                     if (!compound.hasKey("Id") && !compound.hasKey("Random", NBT.TAG_COMPOUND))
                     {
@@ -122,7 +122,7 @@ public class CommandSuit extends CommandBase
 
                 for (int i = 0; i < list.tagCount(); ++i)
                 {
-                    NBTTagCompound tag = list.getCompoundTagAt(i);
+                    CompoundNBT tag = list.getCompoundTagAt(i);
 
                     if (tag.hasKey("Id"))
                     {
@@ -138,7 +138,7 @@ public class CommandSuit extends CommandBase
 
             if (compound.hasKey("Random", NBT.TAG_COMPOUND))
             {
-                NBTTagCompound randTag = compound.getCompoundTag("Random");
+                CompoundNBT randTag = compound.getCompoundTag("Random");
                 Iterator<Hero> iter = Hero.REGISTRY.getValues().stream().filter(HeroSelector.selector(randTag).and(t -> !t.isHidden())).iterator();
 
                 if (!iter.hasNext())
@@ -179,7 +179,7 @@ public class CommandSuit extends CommandBase
                 iter = Iterables.get(c, rand.nextInt(c.size()));
             }
 
-            NBTTagCompound tag = compound.getCompoundTag("NBT");
+            CompoundNBT tag = compound.getCompoundTag("NBT");
             boolean equip = compound.getBoolean("Equip");
             boolean force = compound.getBoolean("Force");
             float durability = 1;
@@ -200,7 +200,7 @@ public class CommandSuit extends CommandBase
                         itemstack.setItemDamage(Math.round((1 - durability) * itemstack.getMaxDamage()));
                     }
 
-                    itemstack.setTagCompound(NBTHelper.merge(itemstack.getTagCompound(), tag));
+                    itemstack.setTag(NBTHelper.merge(itemstack.getTag(), tag));
                 }
 
                 if (equip && (itemstack != null || force))

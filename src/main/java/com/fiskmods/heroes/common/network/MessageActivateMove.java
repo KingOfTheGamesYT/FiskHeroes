@@ -11,7 +11,7 @@
 //import fiskfille.core.network.AbstractMessage;
 //import io.netty.buffer.ByteBuf;
 //import net.minecraft.entity.Entity;
-//import net.minecraft.entity.EntityLivingBase;
+//import net.minecraft.entity.LivingEntity;
 //import net.minecraft.util.MovingObjectPosition;
 //import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 //import net.minecraft.util.Vec3;
@@ -28,7 +28,7 @@
 //    {
 //    }
 //
-//    public MessageActivateMove(EntityLivingBase entity, MovingObjectPosition mop, MoveActivation moveActivation)
+//    public MessageActivateMove(LivingEntity entity, MovingObjectPosition mop, MoveActivation moveActivation)
 //    {
 //        id = entity.getEntityId();
 //        activation = moveActivation;
@@ -111,7 +111,7 @@
 //    @Override
 //    public void receive() throws MessageException
 //    {
-//        EntityLivingBase entity = getEntity(EntityLivingBase.class, id);
+//        LivingEntity entity = getEntity(LivingEntity.class, id);
 //
 //        if (context.side.isClient() && entity == getPlayer())
 //        {

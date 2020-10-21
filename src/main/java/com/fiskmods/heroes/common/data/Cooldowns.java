@@ -15,9 +15,9 @@ import com.fiskmods.heroes.util.SHHelper;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.nbt.NBTBase;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.util.Constants.NBT;
 
@@ -65,7 +65,7 @@ public class Cooldowns implements INBTSavedObject<Cooldowns>
 
         for (Map.Entry<Cooldown, Integer> e : values.entrySet())
         {
-            NBTTagCompound tag = new NBTTagCompound();
+            CompoundNBT tag = new CompoundNBT();
             tag.setString("K", e.getKey().name());
             tag.setInteger("V", e.getValue());
             nbttaglist.appendTag(tag);
@@ -103,7 +103,7 @@ public class Cooldowns implements INBTSavedObject<Cooldowns>
 
                         for (int i = 0; i < nbttaglist.tagCount(); ++i)
                         {
-                            NBTTagCompound nbt = nbttaglist.getCompoundTagAt(i);
+                            CompoundNBT nbt = nbttaglist.getCompoundTagAt(i);
                             Cooldown key = Cooldown.find(nbt.getString("K"));
 
                             if (key != null)
@@ -158,9 +158,9 @@ public class Cooldowns implements INBTSavedObject<Cooldowns>
         SPELL_EARTHSWALLOW(Rule.COOLDOWN_SPELL_EARTHSWALLOW),
         SPELL_WHIP(Rule.COOLDOWN_SPELL_WHIP);
 
-        private final BiFunction<EntityLivingBase, Hero, Integer> maxValue;
+        private final BiFunction<LivingEntity, Hero, Integer> maxValue;
 
-        private Cooldown(BiFunction<EntityLivingBase, Hero, Integer> func)
+        private Cooldown(BiFunction<LivingEntity, Hero, Integer> func)
         {
             maxValue = func;
         }
@@ -183,47 +183,47 @@ public class Cooldowns implements INBTSavedObject<Cooldowns>
             return null;
         }
 
-        public int get(EntityLivingBase entity)
+        public int get(LivingEntity entity)
         {
             return getInstance(entity).values.getOrDefault(this, 0);
         }
 
-        public int getMax(EntityLivingBase entity, Hero hero)
+        public int getMax(LivingEntity entity, Hero hero)
         {
             return maxValue.apply(entity, hero);
         }
 
-        public boolean available(EntityLivingBase entity)
+        public boolean available(LivingEntity entity)
         {
             return get(entity) == 0;
         }
 
-        public void set(EntityLivingBase entity, Hero hero)
+        public void set(LivingEntity entity, Hero hero)
         {
             getInstance(entity).values.put(this, getMax(entity, hero));
         }
 
-        public void set(EntityLivingBase entity)
+        public void set(LivingEntity entity)
         {
             set(entity, SHHelper.getHero(entity));
         }
 
-        public double getProgress(EntityLivingBase entity, Hero hero, double max)
+        public double getProgress(LivingEntity entity, Hero hero, double max)
         {
             return max * get(entity) / getMax(entity, hero);
         }
 
-        public double getProgress(EntityLivingBase entity, double max)
+        public double getProgress(LivingEntity entity, double max)
         {
             return getProgress(entity, SHHelper.getHero(entity), max);
         }
 
-        public float getProgress(EntityLivingBase entity, Hero hero, float max)
+        public float getProgress(LivingEntity entity, Hero hero, float max)
         {
             return max * get(entity) / getMax(entity, hero);
         }
 
-        public float getProgress(EntityLivingBase entity, float max)
+        public float getProgress(LivingEntity entity, float max)
         {
             return getProgress(entity, SHHelper.getHero(entity), max);
         }

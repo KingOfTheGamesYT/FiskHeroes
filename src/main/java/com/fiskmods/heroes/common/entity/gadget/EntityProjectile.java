@@ -7,11 +7,11 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityHanging;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.play.server.S2BPacketChangeGameState;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
@@ -29,7 +29,7 @@ public class EntityProjectile extends EntityTrickArrow
         super(world, x, y, z);
     }
 
-    public EntityProjectile(World world, EntityLivingBase shooter)
+    public EntityProjectile(World world, LivingEntity shooter)
     {
         super(world, shooter, 1);
     }
@@ -86,7 +86,7 @@ public class EntityProjectile extends EntityTrickArrow
     }
 
     @Override
-    protected void handlePostDamageEffects(EntityLivingBase entityHit)
+    protected void handlePostDamageEffects(LivingEntity entityHit)
     {
         int k = getKnockbackStrength();
 
@@ -101,10 +101,10 @@ public class EntityProjectile extends EntityTrickArrow
             }
         }
 
-        if (shootingEntity instanceof EntityLivingBase)
+        if (shootingEntity instanceof LivingEntity)
         {
             EnchantmentHelper.func_151384_a(entityHit, shootingEntity);
-            EnchantmentHelper.func_151385_b((EntityLivingBase) shootingEntity, entityHit);
+            EnchantmentHelper.func_151385_b((LivingEntity) shootingEntity, entityHit);
         }
     }
 
@@ -125,11 +125,11 @@ public class EntityProjectile extends EntityTrickArrow
 
                 if (mop.entityHit.attackEntityFrom(getDamageSource(mop.entityHit), dmg))
                 {
-                    if (mop.entityHit instanceof EntityLivingBase)
+                    if (mop.entityHit instanceof LivingEntity)
                     {
-                        handlePostDamageEffects((EntityLivingBase) mop.entityHit);
+                        handlePostDamageEffects((LivingEntity) mop.entityHit);
 
-                        if (shootingEntity instanceof EntityPlayerMP && mop.entityHit != shootingEntity && mop.entityHit instanceof EntityPlayer)
+                        if (shootingEntity instanceof PlayerEntityMP && mop.entityHit != shootingEntity && mop.entityHit instanceof PlayerEntity)
                         {
                             ((EntityPlayerMP) shootingEntity).playerNetServerHandler.sendPacket(new S2BPacketChangeGameState(6, 0.0F));
                         }
@@ -161,8 +161,8 @@ public class EntityProjectile extends EntityTrickArrow
         xTile = mop.blockX;
         yTile = mop.blockY;
         zTile = mop.blockZ;
-        inTile = worldObj.getBlock(xTile, yTile, zTile);
-        inData = worldObj.getBlockMetadata(xTile, yTile, zTile);
+        inTile = world.getBlock(xTile, yTile, zTile);
+        inData = world.getBlockMetadata(xTile, yTile, zTile);
         motionX = (float) (mop.hitVec.xCoord - posX);
         motionY = (float) (mop.hitVec.yCoord - posY);
         motionZ = (float) (mop.hitVec.zCoord - posZ);
@@ -177,17 +177,17 @@ public class EntityProjectile extends EntityTrickArrow
 
         if (inTile.getMaterial() != Material.air)
         {
-            inTile.onEntityCollidedWithBlock(worldObj, xTile, yTile, zTile, this);
+            inTile.onEntityCollidedWithBlock(world, xTile, yTile, zTile, this);
         }
     }
 
     @Override
-    public void onCollideWithPlayer(EntityPlayer player)
+    public void onCollideWithPlayer(PlayerEntity player)
     {
     }
 
     @Override
-    public void writeEntityToNBT(NBTTagCompound compound)
+    public void writeEntityToNBT(CompoundNBT compound)
     {
         compound.setShort("xTile", (short) xTile);
         compound.setShort("yTile", (short) yTile);
@@ -199,7 +199,7 @@ public class EntityProjectile extends EntityTrickArrow
         compound.setByte("inGround", (byte) (inGround ? 1 : 0));
         compound.setDouble("damage", getDamage());
 
-        if ((shooterName == null || shooterName.length() == 0) && shootingEntity instanceof EntityPlayer)
+        if ((shooterName == null || shooterName.length() == 0) && shootingEntity instanceof PlayerEntity)
         {
             shooterName = shootingEntity.getCommandSenderName();
         }
@@ -208,7 +208,7 @@ public class EntityProjectile extends EntityTrickArrow
     }
 
     @Override
-    public void readEntityFromNBT(NBTTagCompound compound)
+    public void readEntityFromNBT(CompoundNBT compound)
     {
         xTile = compound.getShort("xTile");
         yTile = compound.getShort("yTile");

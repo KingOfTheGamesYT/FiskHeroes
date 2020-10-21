@@ -9,10 +9,10 @@ import com.google.common.collect.Multimap;
 import net.minecraft.block.Block;
 import net.minecraft.command.IEntitySelector;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
@@ -32,20 +32,20 @@ public class ItemBoStaff extends ItemUntextured implements IPunchWeapon
     }
 
     @Override
-    public boolean hitEntity(ItemStack itemstack, EntityLivingBase target, EntityLivingBase attacker)
+    public boolean hitEntity(ItemStack itemstack, LivingEntity target, LivingEntity attacker)
     {
         float width = attacker.width * 2;
         Vec3 vec3 = VectorHelper.getOffsetCoords(attacker, 0, 0, -0.2F);
         AxisAlignedBB aabb = AxisAlignedBB.getBoundingBox(-width, 0, -width, width, attacker.height, width).offset(vec3.xCoord, attacker.boundingBox.minY, vec3.zCoord);
-        List<EntityLivingBase> list = attacker.worldObj.selectEntitiesWithinAABB(EntityLivingBase.class, aabb, IEntitySelector.selectAnything);
+        List<LivingEntity> list = attacker.world.selectEntitiesWithinAABB(LivingEntity.class, aabb, IEntitySelector.selectAnything);
 
-        for (EntityLivingBase entity : list)
+        for (LivingEntity entity : list)
         {
             if (entity != attacker)
             {
                 ItemStack stack = attacker.getHeldItem();
 
-                if (attacker instanceof EntityPlayer && stack != null && stack.getItem().onLeftClickEntity(stack, (EntityPlayer) attacker, entity))
+                if (attacker instanceof PlayerEntity && stack != null && stack.getItem().onLeftClickEntity(stack, (PlayerEntity) attacker, entity))
                 {
                     continue;
                 }
@@ -83,7 +83,7 @@ public class ItemBoStaff extends ItemUntextured implements IPunchWeapon
                                 entity.setFire(1);
                             }
 
-                            boolean success = entity.attackEntityFrom(attacker instanceof EntityPlayer ? DamageSource.causePlayerDamage((EntityPlayer) attacker) : DamageSource.causeMobDamage(attacker), attackDamage);
+                            boolean success = entity.attackEntityFrom(attacker instanceof PlayerEntity ? DamageSource.causePlayerDamage((PlayerEntity) attacker) : DamageSource.causeMobDamage(attacker), attackDamage);
 
                             if (success)
                             {
@@ -121,9 +121,9 @@ public class ItemBoStaff extends ItemUntextured implements IPunchWeapon
                                     attacker.setSprinting(false);
                                 }
 
-                                if (attacker instanceof EntityPlayer)
+                                if (attacker instanceof PlayerEntity)
                                 {
-                                    EntityPlayer player = (EntityPlayer) attacker;
+                                    PlayerEntity player = (PlayerEntity) attacker;
 
                                     if (crit)
                                     {
@@ -187,7 +187,7 @@ public class ItemBoStaff extends ItemUntextured implements IPunchWeapon
     }
 
     @Override
-    public boolean onBlockDestroyed(ItemStack itemstack, World world, Block block, int x, int y, int z, EntityLivingBase entity)
+    public boolean onBlockDestroyed(ItemStack itemstack, World world, Block block, int x, int y, int z, LivingEntity entity)
     {
         if (block.getBlockHardness(world, x, y, z) != 0.0D)
         {

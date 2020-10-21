@@ -15,7 +15,7 @@ import com.fiskmods.heroes.util.NBTHelper;
 import cpw.mods.fml.common.FMLCommonHandler;
 import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTBase;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 
 public class RuleSet
 {
@@ -74,7 +74,7 @@ public class RuleSet
         return (T) backingMap.get(rule);
     }
 
-    public NBTTagCompound writeToNBT(NBTTagCompound compound)
+    public CompoundNBT writeToNBT(CompoundNBT compound)
     {
         for (Map.Entry<Rule, Object> e : backingMap.entrySet())
         {
@@ -84,7 +84,7 @@ public class RuleSet
         return compound;
     }
 
-    public RuleSet readFromNBT(NBTTagCompound compound)
+    public RuleSet readFromNBT(CompoundNBT compound)
     {
         for (Map.Entry<Rule, Object> e : backingMap.entrySet())
         {
@@ -102,7 +102,7 @@ public class RuleSet
 
     public void save(File file) throws IOException
     {
-        CompressedStreamTools.writeCompressed(writeToNBT(new NBTTagCompound()), new FileOutputStream(file));
+        CompressedStreamTools.writeCompressed(writeToNBT(new CompoundNBT()), new FileOutputStream(file));
     }
 
     public boolean load(File file)

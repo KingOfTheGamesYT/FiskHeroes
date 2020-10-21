@@ -19,7 +19,7 @@ import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTBase.NBTPrimitive;
 import net.minecraft.nbt.NBTException;
 import net.minecraft.nbt.NBTTagByte;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTTagDouble;
 import net.minecraft.nbt.NBTTagFloat;
 import net.minecraft.nbt.NBTTagInt;
@@ -40,21 +40,21 @@ public class NBTHelper
 
     public static <T extends NBTBase> T merge(T source, T merging)
     {
-        if (source == null || source == merging || source instanceof NBTTagCompound && ((NBTTagCompound) source).hasNoTags())
+        if (source == null || source == merging || source instanceof CompoundNBT && ((CompoundNBT) source).hasNoTags())
         {
             return merging;
         }
 
-        if (source instanceof NBTTagCompound && merging instanceof NBTTagCompound)
+        if (source instanceof CompoundNBT && merging instanceof CompoundNBT)
         {
-            NBTTagCompound compound = (NBTTagCompound) merging;
-            NBTTagCompound merged = (NBTTagCompound) source.copy();
+            CompoundNBT compound = (CompoundNBT) merging;
+            CompoundNBT merged = (CompoundNBT) source.copy();
 
             Set<String> keys = compound.func_150296_c();
 
             for (String key : keys)
             {
-                merged.setTag(key, merge(((NBTTagCompound) source).getTag(key), compound.getTag(key)));
+                merged.setTag(key, merge(((CompoundNBT) source).getTag(key), compound.getTag(key)));
             }
 
             return (T) merged;
@@ -125,7 +125,7 @@ public class NBTHelper
         }
         else if (obj instanceof ItemStack)
         {
-            return ((ItemStack) obj).writeToNBT(new NBTTagCompound());
+            return ((ItemStack) obj).writeToNBT(new CompoundNBT());
         }
 
         return null;
@@ -168,9 +168,9 @@ public class NBTHelper
 
             return (T) list;
         }
-        else if (tag instanceof NBTTagCompound)
+        else if (tag instanceof CompoundNBT)
         {
-            NBTTagCompound nbt = (NBTTagCompound) tag;
+            CompoundNBT nbt = (CompoundNBT) tag;
 
             if (typeClass.getType() == ItemStack.class)
             {
@@ -396,7 +396,7 @@ public class NBTHelper
         return null;
     }
 
-    public static <T extends FiskRegistryEntry<T>> List<T> readNBTList(NBTTagCompound compound, String name, FiskSimpleRegistry<T> registry)
+    public static <T extends FiskRegistryEntry<T>> List<T> readNBTList(CompoundNBT compound, String name, FiskSimpleRegistry<T> registry)
     {
         List<T> list = null;
 
@@ -419,22 +419,22 @@ public class NBTHelper
         return list;
     }
 
-    public static NBTTagCompound fromJson(String s)
+    public static CompoundNBT fromJson(String s)
     {
         try
         {
             NBTBase tag = JsonToNBT.func_150315_a(s);
 
-            if (tag instanceof NBTTagCompound)
+            if (tag instanceof CompoundNBT)
             {
-                return (NBTTagCompound) tag;
+                return (CompoundNBT) tag;
             }
         }
         catch (NBTException e)
         {
         }
 
-        return new NBTTagCompound();
+        return new CompoundNBT();
     }
 
     public static <T extends INBTSavedObject<T>> void registerAdapter(Class<? extends T> c, INBTSaveAdapter<T> adapter)

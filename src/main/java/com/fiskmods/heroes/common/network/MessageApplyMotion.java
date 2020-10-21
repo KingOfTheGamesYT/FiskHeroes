@@ -1,7 +1,7 @@
 package com.fiskmods.heroes.common.network;
 
 import io.netty.buffer.ByteBuf;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 
 public class MessageApplyMotion extends AbstractMessage<MessageApplyMotion>
 {
@@ -37,7 +37,7 @@ public class MessageApplyMotion extends AbstractMessage<MessageApplyMotion>
     @Override
     public void receive() throws MessageException
     {
-        EntityLivingBase entity = getPlayer();
+        LivingEntity entity = getPlayer();
         entity.motionX += motionX;
         entity.motionY += motionY;
         entity.motionZ += motionZ;

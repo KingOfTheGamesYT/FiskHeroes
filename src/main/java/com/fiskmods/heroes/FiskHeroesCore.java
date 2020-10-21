@@ -23,7 +23,7 @@ import cpw.mods.fml.common.versioning.ArtifactVersion;
 import cpw.mods.fml.common.versioning.VersionParser;
 import cpw.mods.fml.common.versioning.VersionRange;
 import net.minecraft.nbt.NBTBase;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.world.storage.SaveHandler;
 import net.minecraft.world.storage.WorldInfo;
 
@@ -95,9 +95,9 @@ public class FiskHeroesCore extends DummyModContainer implements WorldAccessCont
     }
 
     @Override
-    public NBTTagCompound getDataForWriting(SaveHandler handler, WorldInfo info)
+    public CompoundNBT getDataForWriting(SaveHandler handler, WorldInfo info)
     {
-        NBTTagCompound tag = new NBTTagCompound();
+        CompoundNBT tag = new CompoundNBT();
         LegacyHeroManager.INSTANCE.writeToNBT(tag);
         RuleHandler.INSTANCE.writeToNBT(tag);
 
@@ -105,7 +105,7 @@ public class FiskHeroesCore extends DummyModContainer implements WorldAccessCont
     }
 
     @Override
-    public void readData(SaveHandler handler, WorldInfo info, Map<String, NBTBase> propertyMap, NBTTagCompound tag)
+    public void readData(SaveHandler handler, WorldInfo info, Map<String, NBTBase> propertyMap, CompoundNBT tag)
     {
         LegacyHeroManager.INSTANCE.readFromNBT(tag);
         RuleHandler.INSTANCE.readFromNBT(tag);

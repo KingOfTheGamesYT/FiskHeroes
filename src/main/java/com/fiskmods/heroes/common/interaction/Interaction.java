@@ -5,7 +5,7 @@ import java.util.Map;
 
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import cpw.mods.fml.relauncher.Side;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 
 public abstract class Interaction
 {
@@ -27,11 +27,11 @@ public abstract class Interaction
 
     private String key;
 
-    public abstract boolean listen(EntityPlayer sender, EntityPlayer clientPlayer, InteractionType type, Side side, int x, int y, int z);
+    public abstract boolean listen(PlayerEntity sender, PlayerEntity clientPlayer, InteractionType type, Side side, int x, int y, int z);
 
-    public abstract void receive(EntityPlayer sender, EntityPlayer clientPlayer, InteractionType type, Side side, int x, int y, int z);
+    public abstract void receive(PlayerEntity sender, PlayerEntity clientPlayer, InteractionType type, Side side, int x, int y, int z);
 
-    public boolean tryListen(EntityPlayer sender, EntityPlayer clientPlayer, InteractionType type, Side side, int x, int y, int z)
+    public boolean tryListen(PlayerEntity sender, PlayerEntity clientPlayer, InteractionType type, Side side, int x, int y, int z)
     {
         if (listen(sender, clientPlayer, type, side, x, y, z))
         {
@@ -47,7 +47,7 @@ public abstract class Interaction
         return true;
     }
 
-    public TargetPoint getTargetPoint(EntityPlayer player, int x, int y, int z)
+    public TargetPoint getTargetPoint(PlayerEntity player, int x, int y, int z)
     {
         return new TargetPoint(player.dimension, x, y, z, 32);
     }

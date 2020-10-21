@@ -17,7 +17,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.enchantment.EnchantmentProtection;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityHanging;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.AxisAlignedBB;
@@ -36,7 +36,7 @@ public class EntityFreezeGrenade extends EntityThrowable
         noClip = false;
     }
 
-    public EntityFreezeGrenade(World world, EntityLivingBase entity)
+    public EntityFreezeGrenade(World world, LivingEntity entity)
     {
         super(world, entity);
         noClip = false;
@@ -96,9 +96,9 @@ public class EntityFreezeGrenade extends EntityThrowable
                                 int j1 = MathHelper.floor_double(d5);
                                 int k1 = MathHelper.floor_double(d6);
                                 int l1 = MathHelper.floor_double(d7);
-                                Block block = worldObj.getBlock(j1, k1, l1);
+                                Block block = world.getBlock(j1, k1, l1);
 
-                                if (block.getMaterial() != Material.air && !block.isReplaceable(worldObj, j1, k1, l1) && block.isOpaqueCube() && block != ModBlocks.iceLayer)
+                                if (block.getMaterial() != Material.air && !block.isReplaceable(world, j1, k1, l1) && block.isOpaqueCube() && block != ModBlocks.iceLayer)
                                 {
                                     f1 = 0;
                                 }
@@ -125,7 +125,7 @@ public class EntityFreezeGrenade extends EntityThrowable
             int i2 = MathHelper.floor_double(posY + explosionSize + 1.0D);
             int l = MathHelper.floor_double(posZ - explosionSize - 1.0D);
             int j2 = MathHelper.floor_double(posZ + explosionSize + 1.0D);
-            List list = worldObj.getEntitiesWithinAABBExcludingEntity(getThrower(), AxisAlignedBB.getBoundingBox(x, z, l, y, i2, j2));
+            List list = world.getEntitiesWithinAABBExcludingEntity(getThrower(), AxisAlignedBB.getBoundingBox(x, z, l, y, i2, j2));
             Vec3 vec3 = Vec3.createVectorHelper(posX, posY, posZ);
 
             for (ChunkPosition pos : affectedBlockPositions)
@@ -159,7 +159,7 @@ public class EntityFreezeGrenade extends EntityThrowable
                         d5 /= d9;
                         d6 /= d9;
                         d7 /= d9;
-                        double d10 = worldObj.getBlockDensity(vec3, entity.boundingBox);
+                        double d10 = world.getBlockDensity(vec3, entity.boundingBox);
                         double d11 = (1.0D - d4) * d10;
 
                         if (!(entity instanceof EntityHanging))
@@ -167,10 +167,10 @@ public class EntityFreezeGrenade extends EntityThrowable
                             entity.attackEntityFrom(ModDamageSources.FREEZE.apply(getThrower()), (int) ((d11 * d11 + d11) / 2.0D * 8.0D * explosionSize + 1.0D));
                         }
 
-                        if (entity instanceof EntityLivingBase)
+                        if (entity instanceof LivingEntity)
                         {
                             float f1 = Math.round((d11 * d11 + d11) / 2.0D * 8.0D * explosionSize + 1.0D);
-                            TemperatureHelper.setTemperature((EntityLivingBase) entity, TemperatureHelper.getTemperature((EntityLivingBase) entity) - f1);
+                            TemperatureHelper.setTemperature((LivingEntity) entity, TemperatureHelper.getTemperature((LivingEntity) entity) - f1);
                         }
 
                         double d8 = EnchantmentProtection.func_92092_a(entity, d11);
@@ -188,7 +188,7 @@ public class EntityFreezeGrenade extends EntityThrowable
             Block block;
             Iterator iterator = affectedBlockPositions.iterator();
 
-            if (worldObj.isRemote)
+            if (world.isRemote)
             {
                 while (iterator.hasNext())
                 {
@@ -196,7 +196,7 @@ public class EntityFreezeGrenade extends EntityThrowable
                     x = pos.chunkPosX;
                     y = pos.chunkPosY;
                     z = pos.chunkPosZ;
-                    block = worldObj.getBlock(x, y, z);
+                    block = world.getBlock(x, y, z);
 
                     double d0 = x + rand.nextFloat();
                     double d1 = y + rand.nextFloat();
@@ -252,14 +252,14 @@ public class EntityFreezeGrenade extends EntityThrowable
             ++x1;
         }
 
-        if (!worldObj.isRemote)
+        if (!world.isRemote)
         {
-            Block block = worldObj.getBlock(x, y, z);
-            Block block1 = worldObj.getBlock(x1, y1, z1);
+            Block block = world.getBlock(x, y, z);
+            Block block1 = world.getBlock(x1, y1, z1);
 
             boolean canPlaceLayer = true;
             AxisAlignedBB aabb = AxisAlignedBB.getBoundingBox(x1, y1, z1, x1 + 1, y1 + 1, z1 + 1);
-            List<Entity> list = worldObj.getEntitiesWithinAABBExcludingEntity(null, aabb);
+            List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(null, aabb);
 
             for (Entity entity : list)
             {
@@ -274,21 +274,21 @@ public class EntityFreezeGrenade extends EntityThrowable
             {
                 if (block1 == Blocks.water || block1 == Blocks.flowing_water)
                 {
-                    worldObj.setBlock(x1, y1, z1, ModBlocks.frostedIce);
+                    world.setBlock(x1, y1, z1, ModBlocks.frostedIce);
                 }
                 else if (block1 == ModBlocks.iceLayer)
                 {
-                    TileEntityIceLayer tile = (TileEntityIceLayer) worldObj.getTileEntity(x1, y1, z1);
+                    TileEntityIceLayer tile = (TileEntityIceLayer) world.getTileEntity(x1, y1, z1);
 
                     if (tile != null)
                     {
                         tile.setThickness(MathHelper.clamp_int(tile.thickness + rand.nextInt(8), 1, 64));
                     }
                 }
-                else if (!worldObj.isAirBlock(x, y, z) && !block1.getMaterial().isLiquid() && block != ModBlocks.iceLayer && block1.isReplaceable(worldObj, x1, y1, z1) && block.getMaterial().blocksMovement())
+                else if (!world.isAirBlock(x, y, z) && !block1.getMaterial().isLiquid() && block != ModBlocks.iceLayer && block1.isReplaceable(world, x1, y1, z1) && block.getMaterial().blocksMovement())
                 {
-                    worldObj.setBlock(x1, y1, z1, ModBlocks.iceLayer, metadata, 2);
-                    TileEntityIceLayer tile = (TileEntityIceLayer) worldObj.getTileEntity(x1, y1, z1);
+                    world.setBlock(x1, y1, z1, ModBlocks.iceLayer, metadata, 2);
+                    TileEntityIceLayer tile = (TileEntityIceLayer) world.getTileEntity(x1, y1, z1);
 
                     if (tile != null)
                     {

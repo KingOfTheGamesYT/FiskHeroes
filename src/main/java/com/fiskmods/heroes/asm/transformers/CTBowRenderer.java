@@ -11,7 +11,7 @@ public class CTBowRenderer extends ClassTransformerMethodProcess
 {
     public CTBowRenderer()
     {
-        super("mods.battlegear2.client.renderer.BowRenderer", "renderEquippedBow", "renderEquippedBow", "(Ladd;Lsv;Z)V", "(Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/EntityLivingBase;Z)V");
+        super("mods.battlegear2.client.renderer.BowRenderer", "renderEquippedBow", "renderEquippedBow", "(Ladd;Lsv;Z)V", "(Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/LivingEntity;Z)V");
     }
 
     @Override

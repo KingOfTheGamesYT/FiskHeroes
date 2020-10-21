@@ -14,8 +14,8 @@ import com.fiskmods.heroes.util.NBTHelper.INBTSavedObject;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTBase.NBTPrimitive;
@@ -23,9 +23,9 @@ import net.minecraft.nbt.NBTTagLong;
 
 public class QuiverHelper
 {
-    public static byte locateEquippedQuiver(EntityPlayer player)
+    public static byte locateEquippedQuiver(PlayerEntity player)
     {
-        InventoryPlayer inventory = player.inventory;
+        PlayerInventory inventory = player.inventory;
         byte slot = -1;
 
         for (byte b = 0; b < inventory.mainInventory.length; ++b)
@@ -61,17 +61,17 @@ public class QuiverHelper
         return getQuiver(entity) != null;
     }
 
-    public static ItemStack getEquippedQuiver(EntityPlayer player)
+    public static ItemStack getEquippedQuiver(PlayerEntity player)
     {
         return FiskServerUtils.getStackInSlot(player, SHData.EQUIPPED_QUIVER_SLOT.get(player));
     }
 
-    public static InventoryQuiver getQuiverInventory(EntityPlayer player)
+    public static InventoryQuiver getQuiverInventory(PlayerEntity player)
     {
         return new InventoryQuiver(player, getEquippedQuiver(player));
     }
 
-    public static ItemStack getArrowToFire(EntityPlayer player)
+    public static ItemStack getArrowToFire(PlayerEntity player)
     {
         InventoryQuiver inventory = getQuiverInventory(player);
 
@@ -90,7 +90,7 @@ public class QuiverHelper
         return null;
     }
 
-    public static ArrowType getArrowTypeToFire(EntityPlayer player)
+    public static ArrowType getArrowTypeToFire(PlayerEntity player)
     {
         Quiver quiver = getQuiver(player);
         return quiver != null ? quiver.getType(quiver.getActiveSlot(player)) : null;
@@ -108,7 +108,7 @@ public class QuiverHelper
             setBinaryCode(code);
         }
 
-        public Quiver(EntityPlayer player, ItemStack quiver)
+        public Quiver(PlayerEntity player, ItemStack quiver)
         {
             InventoryQuiver inventory = new InventoryQuiver(player, quiver);
 
@@ -122,7 +122,7 @@ public class QuiverHelper
                 }
             }
 
-            setMetadata(quiver.getItemDamage());
+            setMetadata(quiver.getDamage());
             setEnchanted(quiver.isItemEnchanted());
         }
 

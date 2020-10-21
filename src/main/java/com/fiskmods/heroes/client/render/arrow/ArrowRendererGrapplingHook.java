@@ -10,7 +10,7 @@ import com.fiskmods.heroes.util.VectorHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
@@ -47,9 +47,9 @@ public class ArrowRendererGrapplingHook extends ArrowRenderer
         Tessellator tessellator = Tessellator.instance;
         RenderManager renderManager = RenderManager.instance;
 
-        if (arrow.getShooter() instanceof EntityPlayer)
+        if (arrow.getShooter() instanceof PlayerEntity)
         {
-            EntityPlayer shooter = (EntityPlayer) arrow.getShooter();
+            PlayerEntity shooter = (PlayerEntity) arrow.getShooter();
 
             if (arrow instanceof EntityGrappleArrow && !((EntityGrappleArrow) arrow).getIsCableCut())
             {
@@ -69,12 +69,12 @@ public class ArrowRendererGrapplingHook extends ArrowRenderer
                 double playerPosY = SHRenderHelper.interpolate(shooter.posY, shooter.prevPosY) + vec3.yCoord;
                 double playerPosZ = SHRenderHelper.interpolate(shooter.posZ, shooter.prevPosZ) + vec3.zCoord;
 
-                if (renderManager.options.thirdPersonView > 0 || shooter != Minecraft.getMinecraft().thePlayer)
+                if (renderManager.options.thirdPersonView > 0 || shooter != Minecraft.getInstance().thePlayer)
                 {
                     float renderYawOffset = SHRenderHelper.interpolate(shooter.renderYawOffset, shooter.prevRenderYawOffset) * (float) Math.PI / 180.0F;
                     double side = 0.3D;
                     double forward = 0.3D;
-                    double yOffset = (shooter == Minecraft.getMinecraft().thePlayer ? 0.0D : (double) shooter.getEyeHeight()) - 0.3D;
+                    double yOffset = (shooter == Minecraft.getInstance().thePlayer ? 0.0D : (double) shooter.getEyeHeight()) - 0.3D;
                     double d = MathHelper.sin(renderYawOffset);
                     double d1 = MathHelper.cos(renderYawOffset);
 

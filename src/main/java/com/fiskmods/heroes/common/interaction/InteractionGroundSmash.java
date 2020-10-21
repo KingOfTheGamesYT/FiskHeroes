@@ -15,11 +15,11 @@ import com.fiskmods.heroes.util.VectorHelper;
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import cpw.mods.fml.relauncher.Side;
 import net.minecraft.block.Block;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.EntityFallingBlock;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Blocks;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.EntityDamageSource;
 import net.minecraft.util.Vec3;
 
@@ -34,19 +34,19 @@ public class InteractionGroundSmash extends InteractionBase
     }
 
     @Override
-    public boolean serverRequirements(EntityPlayer player, InteractionType type, int x, int y, int z)
+    public boolean serverRequirements(PlayerEntity player, InteractionType type, int x, int y, int z)
     {
         return true;
     }
 
     @Override
-    public boolean clientRequirements(EntityPlayer player, InteractionType type, int x, int y, int z)
+    public boolean clientRequirements(PlayerEntity player, InteractionType type, int x, int y, int z)
     {
         return Cooldown.GROUND_SMASH.available(player) && SHHelper.getHero(player).isKeyPressed(player, KEY_GROUND_SMASH);
     }
 
     @Override
-    public void receive(EntityPlayer sender, EntityPlayer clientPlayer, InteractionType type, Side side, int x, int y, int z)
+    public void receive(PlayerEntity sender, PlayerEntity clientPlayer, InteractionType type, Side side, int x, int y, int z)
     {
         if (side.isServer())
         {
@@ -60,43 +60,43 @@ public class InteractionGroundSmash extends InteractionBase
             {
                 for (int z1 = -radius; z1 <= radius; ++z1)
                 {
-                    if (Rule.GRIEF_GEOKINESIS.get(sender.worldObj, x + x1, z + z1))
+                    if (Rule.GRIEF_GEOKINESIS.get(sender.world, x + x1, z + z1))
                     {
                         for (int y1 = -radius / 2; y1 <= radius; ++y1)
                         {
-                            Block block = sender.worldObj.getBlock(x + x1, y + y1, z + z1);
-                            int metadata = sender.worldObj.getBlockMetadata(x + x1, y + y1, z + z1);
+                            Block block = sender.world.getBlock(x + x1, y + y1, z + z1);
+                            int metadata = sender.world.getBlockMetadata(x + x1, y + y1, z + z1);
 
-                            if ((x1 <= radius - 2 && y1 <= radius - 2 && z1 <= radius - 2 || x1 >= -radius + 2 && y1 >= -radius + 2 && z1 >= -radius + 2 || rand.nextInt(3) != 0) && block != Blocks.air && block.isBlockSolid(sender.worldObj, x + x1, y + y1, z + z1, 0) && block.getBlockHardness(sender.worldObj, x + x1, y + y1, z + z1) >= 0)
+                            if ((x1 <= radius - 2 && y1 <= radius - 2 && z1 <= radius - 2 || x1 >= -radius + 2 && y1 >= -radius + 2 && z1 >= -radius + 2 || rand.nextInt(3) != 0) && block != Blocks.air && block.isBlockSolid(sender.world, x + x1, y + y1, z + z1, 0) && block.getBlockHardness(sender.world, x + x1, y + y1, z + z1) >= 0)
                             {
-                                EntityFallingBlock entity = new EntityFallingBlock(sender.worldObj, x + x1 + 0.5F, y + y1 + 0.5F, z + z1 + 0.5F, block, metadata);
+                                EntityFallingBlock entity = new EntityFallingBlock(sender.world, x + x1 + 0.5F, y + y1 + 0.5F, z + z1 + 0.5F, block, metadata);
                                 entity.motionY += 0.5F;
                                 entity.field_145812_b = -100;
                                 entity.field_145813_c = false;
 
-                                NBTTagCompound nbt = new NBTTagCompound();
+                                CompoundNBT nbt = new CompoundNBT();
                                 entity.writeToNBT(nbt);
                                 nbt.setFloat("FallHurtAmount", 100);
                                 nbt.setInteger("FallHurtMax", 100);
                                 entity.readFromNBT(nbt);
 
                                 list.add(entity);
-                                sender.worldObj.spawnEntityInWorld(entity);
-                                sender.worldObj.setBlock(x + x1, y + y1, z + z1, Blocks.air);
+                                sender.world.spawnEntityInWorld(entity);
+                                sender.world.setBlock(x + x1, y + y1, z + z1, Blocks.air);
                             }
                         }
                     }
                 }
             }
 
-            List<EntityLivingBase> list1 = VectorHelper.getEntitiesNear(EntityLivingBase.class, sender.worldObj, x + 0.5D, y + 0.5D, z + 0.5D, radius);
+            List<LivingEntity> list1 = VectorHelper.getEntitiesNear(LivingEntity.class, sender.world, x + 0.5D, y + 0.5D, z + 0.5D, radius);
 
             if (!list1.isEmpty())
             {
                 float dmg = Rule.DMG_GROUNDSMASH.get(sender, hero);
                 float knockback = Rule.KNOCKBACK_GROUNDSMASH.get(sender, hero);
                 
-                for (EntityLivingBase entity : list1)
+                for (LivingEntity entity : list1)
                 {
                     float amount = FiskMath.getScaledDistance(Vec3.createVectorHelper(x + 0.5D, y + 0.5D, z + 0.5D), VectorHelper.centerOf(entity), radius);
                     entity.attackEntityFrom(new EntityDamageSource("explosion.player", sender).setExplosion(), dmg * amount);
@@ -104,7 +104,7 @@ public class InteractionGroundSmash extends InteractionBase
                 }
             }
 
-            sender.worldObj.createExplosion(sender, x, y, z, Rule.RADIUS_GROUNDSMASH_EXPL.get(sender, hero), false);
+            sender.world.createExplosion(sender, x, y, z, Rule.RADIUS_GROUNDSMASH_EXPL.get(sender, hero), false);
         }
         else if (sender == clientPlayer)
         {
@@ -114,7 +114,7 @@ public class InteractionGroundSmash extends InteractionBase
     }
 
     @Override
-    public TargetPoint getTargetPoint(EntityPlayer player, int x, int y, int z)
+    public TargetPoint getTargetPoint(PlayerEntity player, int x, int y, int z)
     {
         return TARGET_NONE;
     }

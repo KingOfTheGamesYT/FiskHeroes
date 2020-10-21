@@ -17,7 +17,7 @@ import com.fiskmods.heroes.util.QuiverHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
@@ -45,15 +45,15 @@ public enum RenderItemCompoundBow implements IItemRenderer
     @Override
     public void renderItem(ItemRenderType type, ItemStack item, Object... data)
     {
-        EntityPlayer player = null;
+        PlayerEntity player = null;
         float drawback = 0;
         float horizontal = 0;
 
         if (data.length > 1 && data[1] instanceof Entity)
         {
-            if (data[1] instanceof EntityPlayer)
+            if (data[1] instanceof PlayerEntity)
             {
-                player = (EntityPlayer) data[1];
+                player = (PlayerEntity) data[1];
 
                 if (player.isUsingItem())
                 {
@@ -134,7 +134,7 @@ public enum RenderItemCompoundBow implements IItemRenderer
 
     public static void renderBow(ItemStack item, float arches)
     {
-        Minecraft.getMinecraft().getTextureManager().bindTexture(TEXTURE);
+        Minecraft.getInstance().getTextureManager().bindTexture(TEXTURE);
         MODEL.archBottom1.rotateAngleX = 0.1308996938995747F - arches;
         MODEL.archTop1.rotateAngleX = 0.18151424220741028F - arches;
         MODEL.render();
@@ -145,7 +145,7 @@ public enum RenderItemCompoundBow implements IItemRenderer
         }
     }
 
-    public static void renderArrow(EntityPlayer player, float drawback, float[] end1, float[] end2)
+    public static void renderArrow(PlayerEntity player, float drawback, float[] end1, float[] end2)
     {
         if (player != null && player.isUsingItem())
         {

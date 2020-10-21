@@ -96,11 +96,11 @@ public enum RenderItemMiniAtomSuit implements IItemRenderer
 
     public static void render(ItemStack itemstack)
     {
-        if (itemstack.hasTagCompound())
+        if (itemstack.hasTag())
         {
             ItemStack[] armorFromNBT = null;
 
-            if (itemstack.hasTagCompound() && itemstack.getTagCompound().hasKey("Suit", NBT.TAG_STRING))
+            if (itemstack.hasTag() && itemstack.getTag().hasKey("Suit", NBT.TAG_STRING))
             {
                 HeroIteration iter = ItemFlashRing.getContainedHero(itemstack);
 

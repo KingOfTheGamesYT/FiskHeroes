@@ -2,13 +2,13 @@ package com.fiskmods.heroes.common.entity.ai;
 
 import com.fiskmods.heroes.common.entity.EntityIronMan;
 
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.EntityAITarget;
 
 public class EntityAIOwnerHurtTarget2 extends EntityAITarget
 {
     EntityIronMan theIronMan;
-    EntityLivingBase theTarget;
+    LivingEntity theTarget;
     private int attackTime;
 
     public EntityAIOwnerHurtTarget2(EntityIronMan entity)
@@ -21,7 +21,7 @@ public class EntityAIOwnerHurtTarget2 extends EntityAITarget
     @Override
     public boolean shouldExecute()
     {
-        EntityLivingBase owner = theIronMan.getOwner();
+        LivingEntity owner = theIronMan.getOwner();
 
         if (owner == null)
         {
@@ -39,7 +39,7 @@ public class EntityAIOwnerHurtTarget2 extends EntityAITarget
     public void startExecuting()
     {
         taskOwner.setAttackTarget(theTarget);
-        EntityLivingBase owner = theIronMan.getOwner();
+        LivingEntity owner = theIronMan.getOwner();
 
         if (owner != null)
         {

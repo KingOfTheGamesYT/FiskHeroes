@@ -3,7 +3,7 @@ package com.fiskmods.heroes.common.event;
 import com.fiskmods.heroes.common.entity.IArmorTrackedEntity;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 
 public class ArmorTracker
 {
@@ -26,7 +26,7 @@ public class ArmorTracker
     // @SubscribeEvent
     // public void onLivingDeath(LivingDeathEvent event)
     // {
-    // EntityLivingBase entity = event.entityLiving;
+    // LivingEntity entity = event.entityLiving;
     //
     // if (isTracking(entity))
     // {
@@ -38,7 +38,7 @@ public class ArmorTracker
     // @SubscribeEvent
     // public void onLivingUpdate(LivingUpdateEvent event)
     // {
-    // EntityLivingBase entity = event.entityLiving;
+    // LivingEntity entity = event.entityLiving;
     //
     // if (entity.isEntityAlive())
     // {
@@ -47,7 +47,7 @@ public class ArmorTracker
     //
     // wornArmor.put(entity.getUniqueID(), curr = updateArmorIndex(entity));
     //
-    // if (curr != prev && !(entity instanceof EntityPlayer))
+    // if (curr != prev && !(entity instanceof PlayerEntity))
     // {
     // prevWornArmor.put(entity.getUniqueID(), curr);
     // }
@@ -57,7 +57,7 @@ public class ArmorTracker
     // @SubscribeEvent
     // public void onPlayerTick(PlayerTickEvent event)
     // {
-    // EntityPlayer player = event.player;
+    // PlayerEntity player = event.player;
     // int curr = getSlimeNum(player);
     // int prev = prevWornArmor.getOrDefault(player.getUniqueID(), -1);
     //
@@ -65,7 +65,7 @@ public class ArmorTracker
     // {
     // wornArmor.put(player.getUniqueID(), curr = updateArmorIndex(player));
     //
-    // if (!player.worldObj.isRemote && curr < 0)
+    // if (!player.world.isRemote && curr < 0)
     // {
     // ItemStack chest = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
     //
@@ -87,7 +87,7 @@ public class ArmorTracker
     // }
     // else
     // {
-    // if (curr != prev || !!player.worldObj.isRemote || curr >= 0)
+    // if (curr != prev || !!player.world.isRemote || curr >= 0)
     // {
     // updateSize(player, getScale(player));
     // }
@@ -101,6 +101,6 @@ public class ArmorTracker
 
     public static boolean isTracking(Entity entity)
     {
-        return entity instanceof EntityPlayer || entity instanceof IArmorTrackedEntity;
+        return entity instanceof PlayerEntity || entity instanceof IArmorTrackedEntity;
     }
 }

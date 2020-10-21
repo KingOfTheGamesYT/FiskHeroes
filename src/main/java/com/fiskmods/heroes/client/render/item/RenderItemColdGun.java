@@ -9,7 +9,7 @@ import com.fiskmods.heroes.util.FiskMath;
 import com.fiskmods.heroes.util.SHRenderHelper;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;
@@ -37,11 +37,11 @@ public enum RenderItemColdGun implements IItemRenderer
     @Override
     public void renderItem(ItemRenderType type, ItemStack item, Object... data)
     {
-        EntityPlayer player = null;
+        PlayerEntity player = null;
 
-        if (data.length > 1 && data[1] instanceof EntityPlayer)
+        if (data.length > 1 && data[1] instanceof PlayerEntity)
         {
-            player = (EntityPlayer) data[1];
+            player = (PlayerEntity) data[1];
         }
 
         if (type == ItemRenderType.EQUIPPED_FIRST_PERSON)
@@ -98,11 +98,11 @@ public enum RenderItemColdGun implements IItemRenderer
     {
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-        Minecraft.getMinecraft().getTextureManager().bindTexture(TEXTURE);
+        Minecraft.getInstance().getTextureManager().bindTexture(TEXTURE);
         MODEL.render();
         GL11.glDisable(GL11.GL_LIGHTING);
         SHRenderHelper.setLighting(SHRenderHelper.FULLBRIGHT);
-        Minecraft.getMinecraft().getTextureManager().bindTexture(TEXTURE_LIGHTS);
+        Minecraft.getInstance().getTextureManager().bindTexture(TEXTURE_LIGHTS);
         MODEL.render();
         SHRenderHelper.resetLighting();
         GL11.glEnable(GL11.GL_LIGHTING);

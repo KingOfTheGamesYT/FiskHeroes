@@ -17,7 +17,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Vec3;
@@ -52,7 +52,7 @@ public class RenderLightningCast extends Render
             Random rand = new Random(), randPrev = new Random();
 
             long seed = -2743867098925L + 0xFFABC * entity.getEntityId();
-            int ao = Minecraft.getMinecraft().gameSettings.ambientOcclusion;
+            int ao = Minecraft.getInstance().gameSettings.ambientOcclusion;
             int layers = 3 + ao * 4;
             int segments = 3;
 
@@ -65,9 +65,9 @@ public class RenderLightningCast extends Render
             Vec3 src;
             Vec3 dst = Vec3.createVectorHelper(entityX, entityY, entityZ);
 
-            if (anchor instanceof EntityLivingBase)
+            if (anchor instanceof LivingEntity)
             {
-                src = VectorHelper.getOffsetCoords((EntityLivingBase) anchor, -0.4, -0.6, 0.4, partialTicks);
+                src = VectorHelper.getOffsetCoords((LivingEntity) anchor, -0.4, -0.6, 0.4, partialTicks);
             }
             else
             {

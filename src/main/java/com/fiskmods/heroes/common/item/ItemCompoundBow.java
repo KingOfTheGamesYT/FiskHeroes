@@ -17,14 +17,14 @@ import mods.battlegear2.api.IOffhandWield;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemBow;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
@@ -50,13 +50,13 @@ public class ItemCompoundBow extends ItemBow implements IPunchWeapon, IBattlegea
     }
 
     @Override
-    public boolean isOffhandWieldable(ItemStack itemstack, EntityPlayer player)
+    public boolean isOffhandWieldable(ItemStack itemstack, PlayerEntity player)
     {
         return false;
     }
 
     @Override
-    public void addInformation(ItemStack itemstack, EntityPlayer player, List list, boolean flag)
+    public void addInformation(ItemStack itemstack, PlayerEntity player, List list, boolean flag)
     {
         if (isBroken(itemstack))
         {
@@ -65,7 +65,7 @@ public class ItemCompoundBow extends ItemBow implements IPunchWeapon, IBattlegea
     }
 
     @Override
-    public void onPlayerStoppedUsing(ItemStack itemstack, World world, EntityPlayer player, int charge)
+    public void onPlayerStoppedUsing(ItemStack itemstack, World world, PlayerEntity player, int charge)
     {
         ItemStack arrow = QuiverHelper.getArrowToFire(player);
 
@@ -113,7 +113,7 @@ public class ItemCompoundBow extends ItemBow implements IPunchWeapon, IBattlegea
     }
 
     @Override
-    public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer player)
+    public ItemStack onItemRightClick(ItemStack itemstack, World world, PlayerEntity player)
     {
         ItemStack arrow = QuiverHelper.getArrowToFire(player);
 
@@ -138,14 +138,14 @@ public class ItemCompoundBow extends ItemBow implements IPunchWeapon, IBattlegea
     }
 
     @Override
-    public boolean hitEntity(ItemStack itemstack, EntityLivingBase entity1, EntityLivingBase entity2)
+    public boolean hitEntity(ItemStack itemstack, LivingEntity entity1, LivingEntity entity2)
     {
         itemstack.damageItem(1, entity2);
         return true;
     }
 
     @Override
-    public boolean onBlockDestroyed(ItemStack itemstack, World world, Block block, int x, int y, int z, EntityLivingBase entity)
+    public boolean onBlockDestroyed(ItemStack itemstack, World world, Block block, int x, int y, int z, LivingEntity entity)
     {
         if (block.getBlockHardness(world, x, y, z) != 0)
         {
@@ -179,18 +179,18 @@ public class ItemCompoundBow extends ItemBow implements IPunchWeapon, IBattlegea
 
     public static ItemStack setBroken(ItemStack itemstack, boolean broken)
     {
-        if (!itemstack.hasTagCompound())
+        if (!itemstack.hasTag())
         {
-            itemstack.setTagCompound(new NBTTagCompound());
+            itemstack.setTag(new CompoundNBT());
         }
 
-        itemstack.getTagCompound().setBoolean("Broken", broken);
+        itemstack.getTag().setBoolean("Broken", broken);
 
         return itemstack;
     }
 
     public static boolean isBroken(ItemStack itemstack)
     {
-        return itemstack.hasTagCompound() && itemstack.getTagCompound().getBoolean("Broken");
+        return itemstack.hasTag() && itemstack.getTag().getBoolean("Broken");
     }
 }

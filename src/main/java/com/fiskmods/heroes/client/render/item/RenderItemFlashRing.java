@@ -25,7 +25,7 @@ public enum RenderItemFlashRing implements IItemRenderer
     private static final ResourceLocation TEXTURE = new ResourceLocation(FiskHeroes.MODID, "textures/models/the_flash_ring.png");
     private static final ModelFlashRing MODEL = new ModelFlashRing();
 
-    private static final Minecraft mc = Minecraft.getMinecraft();
+    private static final Minecraft mc = Minecraft.getInstance();
 
     @Override
     public boolean handleRenderType(ItemStack item, ItemRenderType type)

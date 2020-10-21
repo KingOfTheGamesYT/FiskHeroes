@@ -12,8 +12,8 @@ import com.fiskmods.heroes.util.FiskServerUtils;
 import com.fiskmods.heroes.util.SHHelper;
 import com.fiskmods.heroes.util.VectorHelper;
 
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MovingObjectPosition;
@@ -30,7 +30,7 @@ public class ItemHeatGun extends ItemUntextured
     }
 
     @Override
-    public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
+    public ItemStack onItemRightClick(ItemStack stack, World world, PlayerEntity player)
     {
         if (SHData.AIMING_TIMER.get(player) >= 1 && SHHelper.hasPermission(player, Permission.USE_HEAT_GUN))
         {
@@ -41,9 +41,9 @@ public class ItemHeatGun extends ItemUntextured
     }
 
     @Override
-    public void onUsingTick(ItemStack itemstack, EntityPlayer player, int count)
+    public void onUsingTick(ItemStack itemstack, PlayerEntity player, int count)
     {
-        World world = player.worldObj;
+        World world = player.world;
         Hero hero;
 
         if (SHData.AIMING_TIMER.get(player) >= 1 && (hero = SHHelper.getHero(player)) != null && hero.hasPermission(player, Permission.USE_HEAT_GUN))
@@ -53,7 +53,7 @@ public class ItemHeatGun extends ItemUntextured
 
             if (rayTrace != null)
             {
-                if (rayTrace.typeOfHit == MovingObjectType.BLOCK && !player.worldObj.isRemote)
+                if (rayTrace.typeOfHit == MovingObjectType.BLOCK && !player.world.isRemote)
                 {
                     ForgeDirection dir = ForgeDirection.getOrientation(rayTrace.sideHit);
                     int x = rayTrace.blockX + dir.offsetX;
@@ -83,7 +83,7 @@ public class ItemHeatGun extends ItemUntextured
                 }
             }
 
-            if (player.worldObj.isRemote)
+            if (player.world.isRemote)
             {
                 double length = rayTrace != null && rayTrace.hitInfo instanceof Double ? (Double) rayTrace.hitInfo : range;
                 float spread = 0.2F;
@@ -113,7 +113,7 @@ public class ItemHeatGun extends ItemUntextured
     }
 
     @Override
-    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack)
+    public boolean onEntitySwing(LivingEntity entityLiving, ItemStack stack)
     {
         return true;
     }

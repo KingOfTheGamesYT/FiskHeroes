@@ -18,7 +18,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Vec3;
@@ -27,7 +27,7 @@ public class RenderEarthCrack extends Render
 {
     public void doRender(EntityEarthCrack entity, double x, double y, double z, float entityYaw, float partialTicks)
     {
-        EntityLivingBase target = entity.target;
+        LivingEntity target = entity.target;
 
         if (target != null)
         {
@@ -57,7 +57,7 @@ public class RenderEarthCrack extends Render
             double targetY = target.lastTickPosY + (target.posY - target.lastTickPosY) * partialTicks;
             double targetZ = target.lastTickPosZ + (target.posZ - target.lastTickPosZ) * partialTicks;
             long seed = -2743867098925L + 0xFFABC * entity.getEntityId();
-            int ao = Minecraft.getMinecraft().gameSettings.ambientOcclusion;
+            int ao = Minecraft.getInstance().gameSettings.ambientOcclusion;
             int layers = 3 + ao * 4;
             int segments = 6;
 

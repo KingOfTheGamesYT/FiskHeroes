@@ -5,7 +5,7 @@ import com.fiskmods.heroes.common.data.effect.StatEffect;
 import com.fiskmods.heroes.common.data.effect.StatusEffect;
 import com.fiskmods.heroes.common.entity.IPiercingProjectile;
 
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.world.World;
 
 public class EntityTutridiumArrow extends EntityTrickArrow implements IPiercingProjectile
@@ -20,29 +20,29 @@ public class EntityTutridiumArrow extends EntityTrickArrow implements IPiercingP
         super(world, x, y, z);
     }
 
-    public EntityTutridiumArrow(World world, EntityLivingBase shooter, float velocity)
+    public EntityTutridiumArrow(World world, LivingEntity shooter, float velocity)
     {
         super(world, shooter, velocity);
     }
 
-    public EntityTutridiumArrow(World world, EntityLivingBase shooter, float velocity, boolean horizontal)
+    public EntityTutridiumArrow(World world, LivingEntity shooter, float velocity, boolean horizontal)
     {
         super(world, shooter, velocity, horizontal);
     }
 
     @Override
-    protected void handlePostDamageEffects(EntityLivingBase entityHit)
+    protected void handlePostDamageEffects(LivingEntity entityHit)
     {
         super.handlePostDamageEffects(entityHit);
         
-        if (!worldObj.isRemote)
+        if (!world.isRemote)
         {
             StatusEffect.add(entityHit, StatEffect.TUTRIDIUM_POISON, Rule.TICKS_TUTRIDIUMARROW.getHero(getShooter()), 0);
         }
     }
 
     @Override
-    public boolean canPierceDurability(EntityLivingBase entity)
+    public boolean canPierceDurability(LivingEntity entity)
     {
         return true;
     }

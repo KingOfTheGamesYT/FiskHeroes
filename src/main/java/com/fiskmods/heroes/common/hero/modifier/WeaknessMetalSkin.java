@@ -9,7 +9,7 @@ import com.fiskmods.heroes.util.SHHelper;
 
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.AxisAlignedBB;
 
 public class WeaknessMetalSkin extends Weakness
@@ -20,7 +20,7 @@ public class WeaknessMetalSkin extends Weakness
     public static final int COOLDOWN_TICKS = 200;
 
     @Override
-    public void onUpdateGlobal(EntityLivingBase entity, Hero hero, Phase phase, boolean hasWeakness)
+    public void onUpdateGlobal(LivingEntity entity, Hero hero, Phase phase, boolean hasWeakness)
     {
         if (phase == Phase.END)
         {
@@ -43,11 +43,11 @@ public class WeaknessMetalSkin extends Weakness
 
                         for (int i = 0; i < 3; ++i)
                         {
-                            entity.worldObj.spawnParticle("largesmoke", entity.posX + (entity.getRNG().nextDouble() - 0.5D) * entity.width, entity.boundingBox.minY + entity.getRNG().nextDouble() * entity.height, entity.posZ + (entity.getRNG().nextDouble() - 0.5D) * entity.width, 0, 0, 0);
+                            entity.world.spawnParticle("largesmoke", entity.posX + (entity.getRNG().nextDouble() - 0.5D) * entity.width, entity.boundingBox.minY + entity.getRNG().nextDouble() * entity.height, entity.posZ + (entity.getRNG().nextDouble() - 0.5D) * entity.width, 0, 0, 0);
                         }
                     }
                 }
-                else if (entity.worldObj.func_147470_e(aabb) && entity.worldObj.isAnyLiquid(aabb))
+                else if (entity.world.func_147470_e(aabb) && entity.world.isAnyLiquid(aabb))
                 {
                     HeatSource.LAVA.applyHeat(entity);
                 }
@@ -75,7 +75,7 @@ public class WeaknessMetalSkin extends Weakness
         }
     }
 
-    private static void applyHeat(EntityLivingBase entity, HeatSource source, boolean withNotify)
+    private static void applyHeat(LivingEntity entity, HeatSource source, boolean withNotify)
     {
         if (SHHelper.hasEnabledModifier(entity, Weakness.METAL_SKIN))
         {
@@ -107,21 +107,21 @@ public class WeaknessMetalSkin extends Weakness
             this(rule::get);
         }
 
-        public void applyHeat(EntityLivingBase entity)
+        public void applyHeat(LivingEntity entity)
         {
             WeaknessMetalSkin.applyHeat(entity, this, false);
         }
 
-        public void applyHeatWithNotify(EntityLivingBase entity)
+        public void applyHeatWithNotify(LivingEntity entity)
         {
             WeaknessMetalSkin.applyHeat(entity, this, true);
         }
 
         public void applyHeat(Entity entity)
         {
-            if (entity instanceof EntityLivingBase)
+            if (entity instanceof LivingEntity)
             {
-                applyHeat((EntityLivingBase) entity);
+                applyHeat((LivingEntity) entity);
             }
         }
 

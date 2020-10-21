@@ -2,7 +2,7 @@ package com.fiskmods.heroes.common.container;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemArmor;
@@ -11,10 +11,10 @@ import net.minecraft.util.IIcon;
 
 public class SlotArmor extends Slot
 {
-    protected final EntityPlayer player;
+    protected final PlayerEntity player;
     protected final int armorIndex;
 
-    public SlotArmor(IInventory inventory, int armorIndex, int index, int x, int y, EntityPlayer player)
+    public SlotArmor(IInventory inventory, int armorIndex, int index, int x, int y, PlayerEntity player)
     {
         super(inventory, index, x, y);
         this.armorIndex = armorIndex;

@@ -24,7 +24,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Container;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
@@ -39,16 +39,16 @@ public class GuiSuitFabricator extends GuiContainer implements IGuiStringList
     private GuiStringList heroList;
     private List<Hero> heroes;
 
-    protected GuiSuitFabricator(Container container, InventoryPlayer inventoryPlayer, TileEntitySuitFabricator tileentity)
+    protected GuiSuitFabricator(Container container, PlayerInventory playerInventory, TileEntitySuitFabricator tileentity)
     {
         super(container);
         tile = tileentity;
         ySize = 210;
     }
 
-    public GuiSuitFabricator(InventoryPlayer inventoryPlayer, TileEntitySuitFabricator tileentity)
+    public GuiSuitFabricator(PlayerInventory playerInventory, TileEntitySuitFabricator tileentity)
     {
-        this(new ContainerSuitFabricator(inventoryPlayer, tileentity), inventoryPlayer, tileentity);
+        this(new ContainerSuitFabricator(playerInventory, tileentity), playerInventory, tileentity);
     }
 
     @Override

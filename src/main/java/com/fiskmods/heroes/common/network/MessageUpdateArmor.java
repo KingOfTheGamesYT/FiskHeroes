@@ -2,7 +2,7 @@ package com.fiskmods.heroes.common.network;
 
 import cpw.mods.fml.common.network.ByteBufUtils;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 
 public class MessageUpdateArmor extends AbstractMessage<MessageUpdateArmor>
@@ -14,7 +14,7 @@ public class MessageUpdateArmor extends AbstractMessage<MessageUpdateArmor>
     {
     }
 
-    public MessageUpdateArmor(EntityPlayer player)
+    public MessageUpdateArmor(PlayerEntity player)
     {
         id = player.getEntityId();
         armor = player.inventory.armorInventory;

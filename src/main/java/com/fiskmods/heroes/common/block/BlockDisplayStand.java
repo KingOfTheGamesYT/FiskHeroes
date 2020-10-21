@@ -27,16 +27,16 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
@@ -288,7 +288,7 @@ public class BlockDisplayStand extends BlockContainer
     }
 
     @Override
-    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ)
+    public boolean onBlockActivated(World world, int x, int y, int z, PlayerEntity player, int side, float hitX, float hitY, float hitZ)
     {
         if (SHTileHelper.getTileBase(world.getTileEntity(x, y, z)) instanceof TileEntityDisplayStand)
         {
@@ -345,7 +345,7 @@ public class BlockDisplayStand extends BlockContainer
             }
             else if (heldItem != null && heldItem.getItem() == Items.dye)
             {
-                if (!world.isRemote && tile.setColor(15 - heldItem.getItemDamage()))
+                if (!world.isRemote && tile.setColor(15 - heldItem.getDamage()))
                 {
                     tile.markDirty();
 
@@ -391,7 +391,7 @@ public class BlockDisplayStand extends BlockContainer
     }
 
     @Override
-    public void onBlockClicked(World world, int x, int y, int z, EntityPlayer player)
+    public void onBlockClicked(World world, int x, int y, int z, PlayerEntity player)
     {
         super.onBlockClicked(world, x, y, z, player);
 
@@ -532,7 +532,7 @@ public class BlockDisplayStand extends BlockContainer
     }
 
     @Override
-    public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack itemstack)
+    public void onBlockPlacedBy(World world, int x, int y, int z, LivingEntity entity, ItemStack itemstack)
     {
         int rotation = MathHelper.floor_double(entity.rotationYaw * 8F / 360F + 4.5) & 7;
 
@@ -542,7 +542,7 @@ public class BlockDisplayStand extends BlockContainer
         migrating = false;
     }
 
-    private void placeAt(World world, int x, int y, int z, Block block, EntityLivingBase entity, ItemStack itemstack, int metadata)
+    private void placeAt(World world, int x, int y, int z, Block block, LivingEntity entity, ItemStack itemstack, int metadata)
     {
         if (world.setBlock(x, y, z, block, metadata, 2))
         {
@@ -550,12 +550,12 @@ public class BlockDisplayStand extends BlockContainer
 
             if (tile != null)
             {
-                tile.setColor(itemstack.getItemDamage());
+                tile.setColor(itemstack.getDamage());
                 GameProfile profile = null;
 
-                if (itemstack.hasTagCompound())
+                if (itemstack.hasTag())
                 {
-                    NBTTagCompound nbt = itemstack.getTagCompound();
+                    CompoundNBT nbt = itemstack.getTag();
 
                     if (nbt.hasKey("Username", NBT.TAG_COMPOUND))
                     {
@@ -599,20 +599,20 @@ public class BlockDisplayStand extends BlockContainer
 
         if (tile.hasCustomInventoryName())
         {
-            if (!itemstack.hasTagCompound())
+            if (!itemstack.hasTag())
             {
-                itemstack.setTagCompound(new NBTTagCompound());
+                itemstack.setTag(new CompoundNBT());
             }
 
-            NBTTagCompound compound = new NBTTagCompound();
+            CompoundNBT compound = new CompoundNBT();
             NBTUtil.func_152460_a(compound, tile.getUsername());
 
-            itemstack.getTagCompound().setTag("Username", compound);
+            itemstack.getTag().setTag("Username", compound);
         }
     }
 
     @Override
-    public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z, EntityPlayer player)
+    public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z, PlayerEntity player)
     {
         ItemStack itemstack = super.getPickBlock(target, world, x, y, z, player);
         TileEntityDisplayStand tile = getTile(world, x, y, z);
@@ -626,7 +626,7 @@ public class BlockDisplayStand extends BlockContainer
     }
 
     @Override
-    public boolean removedByPlayer(World world, EntityPlayer player, int x, int y, int z, boolean willHarvest)
+    public boolean removedByPlayer(World world, PlayerEntity player, int x, int y, int z, boolean willHarvest)
     {
         int metadata = world.getBlockMetadata(x, y, z);
 

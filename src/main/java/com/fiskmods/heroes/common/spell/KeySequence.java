@@ -60,7 +60,7 @@ public class KeySequence
                 {
                     KeyBinding keyBind = key.get();
 
-                    if (keyBind.getIsKeyPressed())
+                    if (keyBind.isPressed())
                     {
                         if (!keyPressed[key.ordinal()])
                         {
@@ -98,10 +98,10 @@ public class KeySequence
 
     public static enum Key
     {
-        W(() -> Minecraft.getMinecraft().gameSettings.keyBindForward),
-        A(() -> Minecraft.getMinecraft().gameSettings.keyBindLeft),
-        S(() -> Minecraft.getMinecraft().gameSettings.keyBindBack),
-        D(() -> Minecraft.getMinecraft().gameSettings.keyBindRight);
+        W(() -> Minecraft.getInstance().gameSettings.keyBindForward),
+        A(() -> Minecraft.getInstance().gameSettings.keyBindLeft),
+        S(() -> Minecraft.getInstance().gameSettings.keyBindBack),
+        D(() -> Minecraft.getInstance().gameSettings.keyBindRight);
 
         private final Supplier key;
 

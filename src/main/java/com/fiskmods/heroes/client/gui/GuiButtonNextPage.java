@@ -2,6 +2,7 @@ package com.fiskmods.heroes.client.gui;
 
 import java.awt.Rectangle;
 
+import net.minecraft.client.gui.widget.button.Button;
 import org.lwjgl.opengl.GL11;
 
 import cpw.mods.fml.relauncher.Side;
@@ -11,7 +12,7 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.Tessellator;
 
 @SideOnly(Side.CLIENT)
-public class GuiButtonNextPage extends GuiButton
+public class GuiButtonNextPage extends Button
 {
     private final GuiSuperheroesBook parent;
     private final boolean backButton;

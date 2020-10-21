@@ -8,7 +8,7 @@ import com.fiskmods.heroes.client.model.item.ModelBoStaff;
 import com.fiskmods.heroes.common.event.ClientEventHandler;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
@@ -36,13 +36,13 @@ public enum RenderItemBoStaff implements IItemRenderer
     @Override
     public void renderItem(ItemRenderType type, ItemStack item, Object... data)
     {
-        EntityLivingBase entity = null;
+        LivingEntity entity = null;
         boolean split = false;
         float f = 1;
 
-        if (data.length > 1 && data[1] instanceof EntityLivingBase)
+        if (data.length > 1 && data[1] instanceof LivingEntity)
         {
-            entity = (EntityLivingBase) data[1];
+            entity = (LivingEntity) data[1];
         }
 
         if (type == ItemRenderType.EQUIPPED_FIRST_PERSON)
@@ -120,7 +120,7 @@ public enum RenderItemBoStaff implements IItemRenderer
 
     public static void render(boolean enchanted, boolean split, float f)
     {
-        Minecraft.getMinecraft().getTextureManager().bindTexture(TEXTURE);
+        Minecraft.getInstance().getTextureManager().bindTexture(TEXTURE);
         Runnable r = () ->
         {
             MODEL.render(f);

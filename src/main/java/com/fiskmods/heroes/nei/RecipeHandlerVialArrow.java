@@ -31,12 +31,12 @@ public class RecipeHandlerVialArrow extends ShapelessRecipeHandler
 
             for (ItemStack potion : subItems)
             {
-                if (!ItemPotion.isSplash(potion.getItemDamage()))
+                if (!ItemPotion.isSplash(potion.getDamage()))
                 {
                     ItemStack arrow = ArrowTypeManager.VIAL.makeItem();
                     ItemStack potion1 = potion.copy();
 
-                    potion1.setItemDamage(potion.getItemDamage() | 16384);
+                    potion1.setItemDamage(potion.getDamage() | 16384);
                     ItemTrickArrow.setItem(arrow, potion1);
 
                     arecipes.add(new CachedShapelessRecipe(Arrays.asList(ArrowTypeManager.NORMAL.makeItem(), potion), arrow));
@@ -59,7 +59,7 @@ public class RecipeHandlerVialArrow extends ShapelessRecipeHandler
             if (potion != null)
             {
                 potion = potion.copy();
-                potion.setItemDamage(potion.getItemDamage() & ~16384);
+                potion.setItemDamage(potion.getDamage() & ~16384);
 
                 arecipes.add(new CachedShapelessRecipe(Arrays.asList(ArrowTypeManager.NORMAL.makeItem(), potion), result));
             }
@@ -76,24 +76,24 @@ public class RecipeHandlerVialArrow extends ShapelessRecipeHandler
 
             for (ItemStack potion : subItems)
             {
-                if (!ItemPotion.isSplash(potion.getItemDamage()))
+                if (!ItemPotion.isSplash(potion.getDamage()))
                 {
                     ItemStack arrow = ArrowTypeManager.VIAL.makeItem();
                     ItemStack potion1 = potion.copy();
 
-                    potion1.setItemDamage(potion.getItemDamage() | 16384);
+                    potion1.setItemDamage(potion.getDamage() | 16384);
                     ItemTrickArrow.setItem(arrow, potion1);
 
                     arecipes.add(new CachedShapelessRecipe(Arrays.asList(ingredient, potion), arrow));
                 }
             }
         }
-        else if (ingredient.getItem() == Items.potionitem && !ItemPotion.isSplash(ingredient.getItemDamage()))
+        else if (ingredient.getItem() == Items.potionitem && !ItemPotion.isSplash(ingredient.getDamage()))
         {
             ItemStack arrow = ArrowTypeManager.VIAL.makeItem();
             ItemStack potion = ingredient.copy();
 
-            potion.setItemDamage(ingredient.getItemDamage() | 16384);
+            potion.setItemDamage(ingredient.getDamage() | 16384);
             ItemTrickArrow.setItem(arrow, potion);
 
             arecipes.add(new CachedShapelessRecipe(Arrays.asList(ArrowTypeManager.NORMAL.makeItem(), ingredient), arrow));

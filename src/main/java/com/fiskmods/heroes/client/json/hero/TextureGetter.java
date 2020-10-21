@@ -13,11 +13,11 @@ import com.google.common.base.Objects;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 
 public abstract class TextureGetter
 {
-    public static final Map<String, BiFunction<EntityLivingBase, Integer, String>> FUNCTIONS = new HashMap<>();
+    public static final Map<String, BiFunction<LivingEntity, Integer, String>> FUNCTIONS = new HashMap<>();
 
     public static final String RENDER_LAYER = "renderLayer";
     public static final String HELD_ITEM = "heldItem";

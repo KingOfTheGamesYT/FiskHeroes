@@ -6,13 +6,13 @@ import com.fiskmods.heroes.common.entity.EntitySpellDuplicate;
 import com.fiskmods.heroes.util.SHHelper;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.boss.EntityDragonPart;
 import net.minecraft.util.MovingObjectPosition;
 
 public class SpellDuplication extends Spell
 {
-    private EntityLivingBase target;
+    private LivingEntity target;
 
     public SpellDuplication()
     {
@@ -20,16 +20,16 @@ public class SpellDuplication extends Spell
     }
 
     @Override
-    public boolean canTrigger(EntityLivingBase caster)
+    public boolean canTrigger(LivingEntity caster)
     {
         collectTarget(caster);
         return target != null;
     }
 
     @Override
-    public void onTrigger(EntityLivingBase caster)
+    public void onTrigger(LivingEntity caster)
     {
-        if (!caster.worldObj.isRemote)
+        if (!caster.world.isRemote)
         {
             if (target == null)
             {
@@ -38,12 +38,12 @@ public class SpellDuplication extends Spell
 
             if (target != null)
             {
-                caster.worldObj.loadedEntityList.stream().filter(t -> t instanceof EntitySpellDuplicate && ((EntitySpellDuplicate) t).isOwner(caster)).forEach(t -> ((EntityLivingBase) t).setHealth(0));
+                caster.world.loadedEntityList.stream().filter(t -> t instanceof EntitySpellDuplicate && ((EntitySpellDuplicate) t).isOwner(caster)).forEach(t -> ((LivingEntity) t).setHealth(0));
                 int duplicates = 6;
 
                 for (int i = 1; i < duplicates; ++i)
                 {
-                    caster.worldObj.spawnEntityInWorld(new EntitySpellDuplicate(caster, target, 360F / duplicates * i));
+                    caster.world.spawnEntityInWorld(new EntitySpellDuplicate(caster, target, 360F / duplicates * i));
                 }
 
                 target = null;
@@ -51,7 +51,7 @@ public class SpellDuplication extends Spell
         }
     }
 
-    private void collectTarget(EntityLivingBase caster)
+    private void collectTarget(LivingEntity caster)
     {
         MovingObjectPosition mop = null;
 
@@ -62,11 +62,11 @@ public class SpellDuplication extends Spell
 
         Entity entity = mop != null ? mop.entityHit : null;
 
-        if (entity instanceof EntityDragonPart && ((EntityDragonPart) entity).entityDragonObj instanceof EntityLivingBase)
+        if (entity instanceof EntityDragonPart && ((EntityDragonPart) entity).entityDragonObj instanceof LivingEntity)
         {
             entity = (Entity) ((EntityDragonPart) entity).entityDragonObj;
         }
 
-        target = entity instanceof EntityLivingBase ? (EntityLivingBase) entity : null;
+        target = entity instanceof LivingEntity ? (LivingEntity) entity : null;
     }
 }

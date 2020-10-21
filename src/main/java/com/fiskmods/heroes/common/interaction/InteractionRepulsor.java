@@ -13,8 +13,8 @@ import com.fiskmods.heroes.util.VectorHelper;
 
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import cpw.mods.fml.relauncher.Side;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.MovingObjectPosition.MovingObjectType;
@@ -28,19 +28,19 @@ public class InteractionRepulsor extends InteractionBase
     }
 
     @Override
-    public boolean serverRequirements(EntityPlayer player, InteractionType type, int x, int y, int z)
+    public boolean serverRequirements(PlayerEntity player, InteractionType type, int x, int y, int z)
     {
         return SHData.AIMING.get(player);
     }
 
     @Override
-    public boolean clientRequirements(EntityPlayer player, InteractionType type, int x, int y, int z)
+    public boolean clientRequirements(PlayerEntity player, InteractionType type, int x, int y, int z)
     {
         return Cooldown.REPULSOR.available(player);
     }
 
     @Override
-    public void receive(EntityPlayer sender, EntityPlayer clientPlayer, InteractionType type, Side side, int x, int y, int z)
+    public void receive(PlayerEntity sender, PlayerEntity clientPlayer, InteractionType type, Side side, int x, int y, int z)
     {
         if (side.isServer())
         {
@@ -53,21 +53,21 @@ public class InteractionRepulsor extends InteractionBase
     }
 
     @Override
-    public TargetPoint getTargetPoint(EntityPlayer player, int x, int y, int z)
+    public TargetPoint getTargetPoint(PlayerEntity player, int x, int y, int z)
     {
         return TARGET_NONE;
     }
     
-    public static void shoot(EntityLivingBase sender)
+    public static void shoot(LivingEntity sender)
     {
         Hero hero = SHHelper.getHero(sender);
         float range = Rule.RANGE_REPULSOR.get(sender, hero);
         
         MovingObjectPosition rayTrace = SHHelper.rayTrace(sender, range, 4, 1);
 
-        if (rayTrace != null && rayTrace.typeOfHit == MovingObjectType.ENTITY && rayTrace.entityHit instanceof EntityLivingBase)
+        if (rayTrace != null && rayTrace.typeOfHit == MovingObjectType.ENTITY && rayTrace.entityHit instanceof LivingEntity)
         {
-            EntityLivingBase entity = (EntityLivingBase) rayTrace.entityHit;
+            LivingEntity entity = (LivingEntity) rayTrace.entityHit;
             entity.attackEntityFrom(ModDamageSources.REPULSOR.apply(sender), Rule.DMG_REPULSOR.get(sender, hero));
 
             double d0 = sender.posX - entity.posX;
@@ -104,7 +104,7 @@ public class InteractionRepulsor extends InteractionBase
             dst = rayTrace.hitVec;
         }
 
-        sender.worldObj.spawnEntityInWorld(new EntityRepulsorBlast(sender.worldObj, sender, src, dst));
-        sender.worldObj.playSoundAtEntity(sender, SHSounds.ABILITY_REPULSOR_BLAST.toString(), 2, 1);
+        sender.world.spawnEntityInWorld(new EntityRepulsorBlast(sender.world, sender, src, dst));
+        sender.world.playSoundAtEntity(sender, SHSounds.ABILITY_REPULSOR_BLAST.toString(), 2, 1);
     }
 }

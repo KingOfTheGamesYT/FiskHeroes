@@ -11,7 +11,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
@@ -39,10 +39,10 @@ public class ArrowTypeVial<T extends EntityTrickArrow> extends ArrowType<T>
 
         for (ItemStack potion : subItems)
         {
-            if (!ItemPotion.isSplash(potion.getItemDamage()))
+            if (!ItemPotion.isSplash(potion.getDamage()))
             {
                 ItemStack itemstack = makeItem();
-                potion.setItemDamage(potion.getItemDamage() & ~8192 | 16384);
+                potion.setItemDamage(potion.getDamage() & ~8192 | 16384);
 
                 ItemTrickArrow.setItem(itemstack, potion);
                 list.add(itemstack);
@@ -59,7 +59,7 @@ public class ArrowTypeVial<T extends EntityTrickArrow> extends ArrowType<T>
     }
 
     @Override
-    public ItemStack[] onEaten(ItemStack itemstack, World world, EntityPlayer player)
+    public ItemStack[] onEaten(ItemStack itemstack, World world, PlayerEntity player)
     {
         ItemStack itemstack1 = ItemTrickArrow.getItem(itemstack);
 
@@ -83,7 +83,7 @@ public class ArrowTypeVial<T extends EntityTrickArrow> extends ArrowType<T>
     }
 
     @Override
-    public boolean isEdible(ItemStack itemstack, EntityPlayer player)
+    public boolean isEdible(ItemStack itemstack, PlayerEntity player)
     {
         return true;
     }
@@ -137,7 +137,7 @@ public class ArrowTypeVial<T extends EntityTrickArrow> extends ArrowType<T>
 
             if (potion != null)
             {
-                return Items.potionitem.getColorFromDamage(potion.getItemDamage());
+                return Items.potionitem.getColorFromDamage(potion.getDamage());
             }
         }
 

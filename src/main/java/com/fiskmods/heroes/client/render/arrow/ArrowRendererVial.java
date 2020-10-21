@@ -20,7 +20,7 @@ public class ArrowRendererVial extends ArrowRenderer
         {
             float scale = 0.3F;
             potion = potion.copy();
-            potion.setItemDamage(potion.getItemDamage() & ~16384 | 8192);
+            potion.setItemDamage(potion.getDamage() & ~16384 | 8192);
 
             GL11.glPushMatrix();
             GL11.glScalef(scale, scale, scale);
@@ -30,7 +30,7 @@ public class ArrowRendererVial extends ArrowRenderer
             GL11.glRotatef(-335, 0, 0, 1);
             GL11.glRotatef(-50, 0, 1, 0);
 
-            int damage = PotionHelper.func_77915_a(potion.getItemDamage(), false);
+            int damage = PotionHelper.func_77915_a(potion.getDamage(), false);
             float r = (damage >> 16 & 255) / 255.0F;
             float g = (damage >> 8 & 255) / 255.0F;
             float b = (damage & 255) / 255.0F;

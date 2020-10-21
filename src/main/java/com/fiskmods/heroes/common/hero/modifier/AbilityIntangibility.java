@@ -10,8 +10,8 @@ import com.fiskmods.heroes.util.FiskServerUtils;
 import com.fiskmods.heroes.util.SHHelper;
 
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.DamageSource;
 
 public class AbilityIntangibility extends Ability
@@ -27,7 +27,7 @@ public class AbilityIntangibility extends Ability
     }
 
     @Override
-    public void onUpdate(EntityLivingBase entity, Hero hero, Phase phase, boolean enabled)
+    public void onUpdate(LivingEntity entity, Hero hero, Phase phase, boolean enabled)
     {
         if (phase == Phase.END && enabled)
         {
@@ -44,7 +44,7 @@ public class AbilityIntangibility extends Ability
     }
 
     @Override
-    public boolean canTakeDamage(EntityLivingBase entity, EntityLivingBase attacker, Hero hero, DamageSource source, float amount)
+    public boolean canTakeDamage(LivingEntity entity, LivingEntity attacker, Hero hero, DamageSource source, float amount)
     {
         if (SHData.INTANGIBLE.get(entity) && isActive(entity))
         {
@@ -60,19 +60,19 @@ public class AbilityIntangibility extends Ability
     }
 
     @Override
-    public float damageDealt(EntityLivingBase entity, EntityLivingBase target, Hero hero, DamageSource source, float amount, float originalAmount)
+    public float damageDealt(LivingEntity entity, LivingEntity target, Hero hero, DamageSource source, float amount, float originalAmount)
     {
         return isAbsolute && SHData.INTANGIBLE.get(entity) && isActive(entity) && FiskServerUtils.isMeleeDamage(source) ? 0 : amount;
     }
 
     @Override
-    public boolean isActive(EntityLivingBase entity)
+    public boolean isActive(LivingEntity entity)
     {
         return !StatusEffect.has(entity, StatEffect.PHASE_SUPPRESSANT) && Rule.ALLOW_INTANGIBILITY.get(entity);
     }
 
     @Override
-    public boolean renderIcon(EntityPlayer player)
+    public boolean renderIcon(PlayerEntity player)
     {
         return SHData.INTANGIBLE.get(player);
     }

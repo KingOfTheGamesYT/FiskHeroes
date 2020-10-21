@@ -7,18 +7,18 @@ import com.fiskmods.heroes.common.achievement.SHAchievements;
 
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import cpw.mods.fml.relauncher.Side;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntitySign;
 
 public class InteractionBatfish extends Interaction
 {
     @Override
-    public boolean listen(EntityPlayer sender, EntityPlayer clientPlayer, InteractionType type, Side side, int x, int y, int z)
+    public boolean listen(PlayerEntity sender, PlayerEntity clientPlayer, InteractionType type, Side side, int x, int y, int z)
     {
         if (type == InteractionType.RIGHT_CLICK_BLOCK)
         {
-            TileEntity tile = sender.worldObj.getTileEntity(x, y, z);
+            TileEntity tile = sender.world.getTileEntity(x, y, z);
 
             if (tile instanceof TileEntitySign)
             {
@@ -38,11 +38,11 @@ public class InteractionBatfish extends Interaction
     }
 
     @Override
-    public void receive(EntityPlayer sender, EntityPlayer clientPlayer, InteractionType type, Side side, int x, int y, int z)
+    public void receive(PlayerEntity sender, PlayerEntity clientPlayer, InteractionType type, Side side, int x, int y, int z)
     {
         if (side.isServer())
         {
-            TileEntity tile = sender.worldObj.getTileEntity(x, y, z);
+            TileEntity tile = sender.world.getTileEntity(x, y, z);
 
             if (tile instanceof TileEntitySign)
             {
@@ -58,12 +58,12 @@ public class InteractionBatfish extends Interaction
                 }
             }
 
-            sender.worldObj.playSoundEffect(x + 0.5, y + 0.5, z + 0.5, SHSounds.RANDOM_BATFISH.toString(), 1.0F, 1.0F);
+            sender.world.playSoundEffect(x + 0.5, y + 0.5, z + 0.5, SHSounds.RANDOM_BATFISH.toString(), 1.0F, 1.0F);
         }
     }
 
     @Override
-    public TargetPoint getTargetPoint(EntityPlayer player, int x, int y, int z)
+    public TargetPoint getTargetPoint(PlayerEntity player, int x, int y, int z)
     {
         return TARGET_NONE;
     }

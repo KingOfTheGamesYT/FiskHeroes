@@ -8,8 +8,8 @@ import com.fiskmods.heroes.util.SHHelper;
 
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
 import net.minecraft.block.Block;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
@@ -18,16 +18,16 @@ import net.minecraft.util.MathHelper;
 public class WeaknessEternium extends Weakness
 {
     @Override
-    public void onUpdate(EntityLivingBase entity, Hero hero, Phase phase, boolean enabled)
+    public void onUpdate(LivingEntity entity, Hero hero, Phase phase, boolean enabled)
     {
-        if (phase == Phase.END && enabled && !entity.worldObj.isRemote && entity.ticksExisted % 10 == 0)
+        if (phase == Phase.END && enabled && !entity.world.isRemote && entity.ticksExisted % 10 == 0)
         {
             boolean flag = false;
             float radius;
 
-            if (entity instanceof EntityPlayer)
+            if (entity instanceof PlayerEntity)
             {
-                EntityPlayer player = (EntityPlayer) entity;
+                PlayerEntity player = (PlayerEntity) entity;
 
                 for (ItemStack element : player.inventory.mainInventory)
                 {
@@ -49,7 +49,7 @@ public class WeaknessEternium extends Weakness
                 int minZ = MathHelper.floor_double(aabb.minZ);
                 int maxZ = MathHelper.floor_double(aabb.maxZ + 1);
 
-                if (entity.worldObj.checkChunksExist(minX, minY, minZ, maxX, maxY, maxZ))
+                if (entity.world.checkChunksExist(minX, minY, minZ, maxX, maxY, maxZ))
                 {
                     for (int x = minX; x < maxX; ++x)
                     {
@@ -57,7 +57,7 @@ public class WeaknessEternium extends Weakness
                         {
                             for (int z = minZ; z < maxZ; ++z)
                             {
-                                Block block = entity.worldObj.getBlock(x, y, z);
+                                Block block = entity.world.getBlock(x, y, z);
 
                                 if (SHHelper.isPoisonEternium(block))
                                 {
@@ -83,7 +83,7 @@ public class WeaknessEternium extends Weakness
     }
 
     @Override
-    public float damageDealt(EntityLivingBase entity, EntityLivingBase target, Hero hero, DamageSource source, float amount, float originalAmount)
+    public float damageDealt(LivingEntity entity, LivingEntity target, Hero hero, DamageSource source, float amount, float originalAmount)
     {
         return StatusEffect.has(entity, StatEffect.ETERNIUM_WEAKNESS) ? amount / 2 : amount;
     }

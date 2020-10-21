@@ -5,10 +5,10 @@ import java.util.List;
 
 import com.fiskmods.heroes.util.SHTileHelper;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.util.Constants.NBT;
 
@@ -154,7 +154,7 @@ public abstract class TileEntityContainer extends TileEntitySH implements IInven
     }
 
     @Override
-    public void readCustomNBT(NBTTagCompound nbt)
+    public void readCustomNBT(CompoundNBT nbt)
     {
         if (!nbt.hasKey("LoadInventory", NBT.TAG_BYTE) || nbt.getBoolean("LoadInventory"))
         {
@@ -163,7 +163,7 @@ public abstract class TileEntityContainer extends TileEntitySH implements IInven
 
             for (int i = 0; i < nbttaglist.tagCount(); ++i)
             {
-                NBTTagCompound nbttagcompound1 = nbttaglist.getCompoundTagAt(i);
+                CompoundNBT nbttagcompound1 = nbttaglist.getCompoundTagAt(i);
                 byte slot = nbttagcompound1.getByte("Slot");
 
                 if (slot >= 0 && slot < getItemStacks().length)
@@ -175,7 +175,7 @@ public abstract class TileEntityContainer extends TileEntitySH implements IInven
     }
 
     @Override
-    public void writeCustomNBT(NBTTagCompound nbt)
+    public void writeCustomNBT(CompoundNBT nbt)
     {
         boolean flag = SHTileHelper.getTileBase(this) == this;
         nbt.setBoolean("LoadInventory", flag);
@@ -191,7 +191,7 @@ public abstract class TileEntityContainer extends TileEntitySH implements IInven
         {
             if (getItemStacks()[i] != null)
             {
-                NBTTagCompound nbttagcompound1 = new NBTTagCompound();
+                CompoundNBT nbttagcompound1 = new CompoundNBT();
                 nbttagcompound1.setByte("Slot", (byte) i);
                 getItemStacks()[i].writeToNBT(nbttagcompound1);
                 nbttaglist.appendTag(nbttagcompound1);
@@ -208,9 +208,9 @@ public abstract class TileEntityContainer extends TileEntitySH implements IInven
     }
 
     @Override
-    public boolean isUseableByPlayer(EntityPlayer player)
+    public boolean isUseableByPlayer(PlayerEntity player)
     {
-        return worldObj.getBlock(xCoord, yCoord, zCoord) == getBlockType() && player.getDistanceSq(xCoord + 0.5D, yCoord + 0.5D, zCoord + 0.5D) <= 64.0D;
+        return world.getBlock(xCoord, yCoord, zCoord) == getBlockType() && player.getDistanceSq(xCoord + 0.5D, yCoord + 0.5D, zCoord + 0.5D) <= 64.0D;
     }
 
     @Override

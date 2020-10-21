@@ -2,7 +2,7 @@ package com.fiskmods.heroes.common.entity.arrow;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.potion.Potion;
@@ -24,12 +24,12 @@ public class EntitySlimeArrow extends EntityTrickArrow
         super(world, x, y, z);
     }
 
-    public EntitySlimeArrow(World world, EntityLivingBase shooter, float velocity)
+    public EntitySlimeArrow(World world, LivingEntity shooter, float velocity)
     {
         super(world, shooter, velocity);
     }
 
-    public EntitySlimeArrow(World world, EntityLivingBase shooter, float velocity, boolean horizontal)
+    public EntitySlimeArrow(World world, LivingEntity shooter, float velocity, boolean horizontal)
     {
         super(world, shooter, velocity, horizontal);
     }
@@ -47,12 +47,12 @@ public class EntitySlimeArrow extends EntityTrickArrow
 
         if (rand.nextFloat() < MathHelper.sqrt_double(motionX * motionX + motionY * motionY + motionZ * motionZ))
         {
-            worldObj.spawnParticle(getParticleName(), posX, posY, posZ, (rand.nextDouble() * 2 - 1) * f, (rand.nextDouble() * 2 - 1) * f, (rand.nextDouble() * 2 - 1) * f);
+            world.spawnParticle(getParticleName(), posX, posY, posZ, (rand.nextDouble() * 2 - 1) * f, (rand.nextDouble() * 2 - 1) * f, (rand.nextDouble() * 2 - 1) * f);
         }
     }
 
     @Override
-    protected void handlePostDamageEffects(EntityLivingBase entityHit)
+    protected void handlePostDamageEffects(LivingEntity entityHit)
     {
         super.handlePostDamageEffects(entityHit);
 
@@ -71,14 +71,14 @@ public class EntitySlimeArrow extends EntityTrickArrow
         if (velocity > 0.25F)
         {
             ForgeDirection dir = ForgeDirection.getOrientation(mop.sideHit);
-            Block block = worldObj.getBlock(mop.blockX, mop.blockY, mop.blockZ);
+            Block block = world.getBlock(mop.blockX, mop.blockY, mop.blockZ);
 
             if (block.getMaterial() != Material.air)
             {
-                block.onEntityCollidedWithBlock(worldObj, xTile, yTile, zTile, this);
+                block.onEntityCollidedWithBlock(world, xTile, yTile, zTile, this);
             }
 
-            if (block.getCollisionBoundingBoxFromPool(worldObj, mop.blockX, mop.blockY, mop.blockZ) != null && worldObj.isAirBlock(mop.blockX + dir.offsetX, mop.blockY + dir.offsetY, mop.blockZ + dir.offsetZ))
+            if (block.getCollisionBoundingBoxFromPool(world, mop.blockX, mop.blockY, mop.blockZ) != null && world.isAirBlock(mop.blockX + dir.offsetX, mop.blockY + dir.offsetY, mop.blockZ + dir.offsetZ))
             {
                 float f = 0.6F;
                 motionX *= (1 - Math.abs(dir.offsetX) * 2) * f;
@@ -92,7 +92,7 @@ public class EntitySlimeArrow extends EntityTrickArrow
 
                 for (int i = 0; i < 20; ++i)
                 {
-                    worldObj.spawnParticle(getParticleName(), mop.hitVec.xCoord + (rand.nextDouble() * 2 - 1) * f1, mop.hitVec.yCoord + (rand.nextDouble() * 2 - 1) * f1, mop.hitVec.zCoord + (rand.nextDouble() * 2 - 1) * f1, (rand.nextDouble() * 2 - 1) * f2, (rand.nextDouble() * 2 - 1) * f2, (rand.nextDouble() * 2 - 1) * f2);
+                    world.spawnParticle(getParticleName(), mop.hitVec.xCoord + (rand.nextDouble() * 2 - 1) * f1, mop.hitVec.yCoord + (rand.nextDouble() * 2 - 1) * f1, mop.hitVec.zCoord + (rand.nextDouble() * 2 - 1) * f1, (rand.nextDouble() * 2 - 1) * f2, (rand.nextDouble() * 2 - 1) * f2, (rand.nextDouble() * 2 - 1) * f2);
                 }
             }
         }
