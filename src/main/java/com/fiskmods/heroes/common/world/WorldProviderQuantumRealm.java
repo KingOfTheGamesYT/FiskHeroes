@@ -23,7 +23,7 @@ public class WorldProviderQuantumRealm extends WorldProvider
     @Override
     public IChunkProvider createChunkGenerator()
     {
-        return new ChunkProviderQuantumRealm(worldObj, worldObj.getSeed());
+        return new ChunkProviderQuantumRealm(world, world.getSeed());
     }
 
     @Override
@@ -88,7 +88,7 @@ public class WorldProviderQuantumRealm extends WorldProvider
     @Override
     public boolean canCoordinateBeSpawn(int x, int z)
     {
-        return worldObj.getTopBlock(x, z).getMaterial().blocksMovement();
+        return world.getTopBlock(x, z).getMaterial().blocksMovement();
     }
 
     @Override

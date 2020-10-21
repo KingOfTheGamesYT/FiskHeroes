@@ -414,7 +414,7 @@ public class InventoryQuiver implements IInventory
     {
         ItemStack quiver = getQuiverItem();
 
-        if (quiver != null && !thePlayer.worldObj.isRemote)
+        if (quiver != null && !thePlayer.world.isRemote)
         {
             writeToNBT(quiver.getTagCompound());
         }

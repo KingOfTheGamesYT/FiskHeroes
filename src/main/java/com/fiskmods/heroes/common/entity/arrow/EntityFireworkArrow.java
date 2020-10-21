@@ -165,13 +165,13 @@ public class EntityFireworkArrow extends EntityTrickArrow
     @SideOnly(Side.CLIENT)
     public void handleHealthUpdate(byte b)
     {
-        if (b == 17 && worldObj.isRemote && getArrowItem() != null)
+        if (b == 17 && world.isRemote && getArrowItem() != null)
         {
             NBTTagCompound firework = getFireworksTag();
 
             if (firework != null)
             {
-                worldObj.makeFireworks(posX, posY, posZ, motionX, motionY, motionZ, firework);
+                world.makeFireworks(posX, posY, posZ, motionX, motionY, motionZ, firework);
             }
         }
 
@@ -180,16 +180,16 @@ public class EntityFireworkArrow extends EntityTrickArrow
 
     public void trigger(Entity entityHit)
     {
-        if (!worldObj.isRemote)
+        if (!world.isRemote)
         {
-            worldObj.setEntityState(this, (byte) 17);
+            world.setEntityState(this, (byte) 17);
             setDead();
         }
 
         if (radius > 0)
         {
             AxisAlignedBB aabb = boundingBox.expand(radius, radius, radius).contract(width / 2, height / 2, width / 2);
-            List<EntityLivingBase> list = worldObj.getEntitiesWithinAABB(EntityLivingBase.class, aabb);
+            List<EntityLivingBase> list = world.getEntitiesWithinAABB(EntityLivingBase.class, aabb);
             EntityLivingBase shooter = null;
 
             if (getShooter() instanceof EntityLivingBase)

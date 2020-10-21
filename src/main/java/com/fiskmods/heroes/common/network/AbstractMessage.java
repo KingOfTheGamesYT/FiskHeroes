@@ -83,7 +83,7 @@ public abstract class AbstractMessage<REQ extends AbstractMessage> implements IM
 
     public World getWorld() throws MessageException
     {
-        return getPlayer().worldObj;
+        return getPlayer().world;
     }
 
     public World getWorld(int dimension) throws MessageException

@@ -86,7 +86,7 @@ public class EntitySpellWhip extends EntityThrowable implements IEntityAdditiona
             whipPull += 1F / SHConstants.TICKS_WHIP_PULL;
         }
 
-        if (!worldObj.isRemote)
+        if (!world.isRemote)
         {
             if (hookedEntity != null)
             {
@@ -194,7 +194,7 @@ public class EntitySpellWhip extends EntityThrowable implements IEntityAdditiona
             {
                 motionX = motionY = motionZ = 0;
 
-                if (!worldObj.isRemote)
+                if (!world.isRemote)
                 {
                     setDead();
                 }
@@ -214,7 +214,7 @@ public class EntitySpellWhip extends EntityThrowable implements IEntityAdditiona
     @Override
     public void readSpawnData(ByteBuf buf)
     {
-        Entity entity = worldObj.getEntityByID(buf.readInt());
+        Entity entity = world.getEntityByID(buf.readInt());
 
         if (entity instanceof EntityLivingBase)
         {

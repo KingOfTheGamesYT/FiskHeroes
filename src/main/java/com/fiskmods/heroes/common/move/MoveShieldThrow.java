@@ -40,10 +40,10 @@ public class MoveShieldThrow extends Move
 
         if (heldItem != null && heldItem.getItem() == ModItems.captainAmericasShield)
         {
-            if (!entity.worldObj.isRemote)
+            if (!entity.world.isRemote)
             {
-                entity.worldObj.playSoundAtEntity(entity, SHSounds.ITEM_SHIELD_THROW.toString(), 1, 1 + (entity.getRNG().nextFloat() - 0.5F) * 0.2F);
-                entity.worldObj.spawnEntityInWorld(new EntityThrownShield(entity.worldObj, entity, heldItem.copy()));
+                entity.world.playSoundAtEntity(entity, SHSounds.ITEM_SHIELD_THROW.toString(), 1, 1 + (entity.getRNG().nextFloat() - 0.5F) * 0.2F);
+                entity.world.spawnEntityInWorld(new EntityThrownShield(entity.world, entity, heldItem.copy()));
                 entity.setCurrentItemOrArmor(0, null);
             }
             else

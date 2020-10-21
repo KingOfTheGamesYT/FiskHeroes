@@ -114,12 +114,12 @@ public class EntityLaserBolt extends EntityThrowable implements IEntityAdditiona
 
             for (int i = 0; i < 8; ++i)
             {
-                worldObj.spawnParticle("smoke", v.xCoord, v.yCoord, v.zCoord, (Math.random() * 2 - 1) * f, (Math.random() * 2 - 1) * f, (Math.random() * 2 - 1) * f);
+                world.spawnParticle("smoke", v.xCoord, v.yCoord, v.zCoord, (Math.random() * 2 - 1) * f, (Math.random() * 2 - 1) * f, (Math.random() * 2 - 1) * f);
             }
         }
-        else if (!worldObj.isRemote)
+        else if (!world.isRemote)
         {
-            worldObj.createExplosion(getThrower(), posX, posY, posZ, 1.25F, false);
+            world.createExplosion(getThrower(), posX, posY, posZ, 1.25F, false);
         }
 
         setDead();
@@ -194,7 +194,7 @@ public class EntityLaserBolt extends EntityThrowable implements IEntityAdditiona
     @Override
     public void readSpawnData(ByteBuf buf)
     {
-        Entity entity = worldObj.getEntityByID(buf.readInt());
+        Entity entity = world.getEntityByID(buf.readInt());
 
         if (entity instanceof EntityLivingBase)
         {

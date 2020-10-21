@@ -79,7 +79,7 @@ public class StatusEffect implements Comparable<StatusEffect>
 
     public static void add(EntityLivingBase entity, StatEffect effect, int duration, int amplifier)
     {
-        if (!entity.worldObj.isRemote)
+        if (!entity.world.isRemote)
         {
             List<StatusEffect> list = get(entity);
             duration = MathHelper.clamp_int(duration, 0, Short.MAX_VALUE);
@@ -155,7 +155,7 @@ public class StatusEffect implements Comparable<StatusEffect>
 
     public static void clear(EntityLivingBase entity)
     {
-        if (!entity.worldObj.isRemote)
+        if (!entity.world.isRemote)
         {
             List<StatusEffect> list = get(entity);
 
@@ -169,7 +169,7 @@ public class StatusEffect implements Comparable<StatusEffect>
 
     public static void clear(EntityLivingBase entity, StatEffect effect)
     {
-        if (!entity.worldObj.isRemote && has(entity, effect))
+        if (!entity.world.isRemote && has(entity, effect))
         {
             List<StatusEffect> list = get(entity);
             Iterator<StatusEffect> iter = list.iterator();

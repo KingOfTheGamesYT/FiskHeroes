@@ -60,7 +60,7 @@ public class EntityGrapplingHook extends EntityProjectile
             setDead();
         }
 
-        for (Entity entity : (List<Entity>) worldObj.loadedEntityList)
+        for (Entity entity : (List<Entity>) world.loadedEntityList)
         {
             if (entity instanceof EntityGrapplingHook)
             {
@@ -100,9 +100,9 @@ public class EntityGrapplingHook extends EntityProjectile
             z = MathHelper.floor_double(getShooter().posZ);
         }
 
-        if (worldObj.blockExists(x, 0, z))
+        if (world.blockExists(x, 0, z))
         {
-            return worldObj.getLightBrightness(x, y, z);
+            return world.getLightBrightness(x, y, z);
         }
         else
         {

@@ -96,7 +96,7 @@ public class EntityRepulsorBlast extends Entity implements IEntityAdditionalSpaw
     @Override
     public void readSpawnData(ByteBuf buf)
     {
-        Entity entity = worldObj.getEntityByID(buf.readInt());
+        Entity entity = world.getEntityByID(buf.readInt());
 
         if (entity instanceof EntityLivingBase)
         {

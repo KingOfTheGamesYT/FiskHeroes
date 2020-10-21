@@ -23,7 +23,7 @@ public class AbilityTeleportation extends Ability
         {
             int delay = SHData.TELEPORT_DELAY.get(entity) & 0xFF;
 
-            if (delay > 0 && SHData.TELEPORT_DELAY.setWithoutNotify(entity, (byte) --delay) && delay == 0 && !entity.worldObj.isRemote)
+            if (delay > 0 && SHData.TELEPORT_DELAY.setWithoutNotify(entity, (byte) --delay) && delay == 0 && !entity.world.isRemote)
             {
                 DimensionalCoords coords = SHData.TELEPORT_DEST.get(entity);
 

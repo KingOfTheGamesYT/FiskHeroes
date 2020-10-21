@@ -38,7 +38,7 @@ public class InteractionIcicleShoot extends InteractionBase
 
             for (int i = 0; i <= (int) (f * 5); ++i)
             {
-                EntityIcicle entity = new EntityIcicle(sender.worldObj, sender);
+                EntityIcicle entity = new EntityIcicle(sender.world, sender);
 
                 if (i > 0)
                 {
@@ -47,7 +47,7 @@ public class InteractionIcicleShoot extends InteractionBase
                     entity.motionZ += (Math.random() - 0.5D) * spread;
                 }
 
-                sender.worldObj.spawnEntityInWorld(entity);
+                sender.world.spawnEntityInWorld(entity);
             }
 
             SHData.CRYO_CHARGE.set(sender, 0.0F);

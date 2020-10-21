@@ -46,7 +46,7 @@ public class EntityVineArrow extends EntityGrappleArrow
 
         if (getIsSnake())
         {
-            for (Entity entity : (List<Entity>) worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox))
+            for (Entity entity : (List<Entity>) world.getEntitiesWithinAABBExcludingEntity(this, boundingBox))
             {
                 if (entity instanceof EntityLivingBase)
                 {
@@ -89,10 +89,10 @@ public class EntityVineArrow extends EntityGrappleArrow
 
     protected void update()
     {
-        if (!worldObj.isRemote && ticksInGround > 0 && !getIsSnake() && !getIsCableCut() && rand.nextInt(Math.max(100 - ticksInGround, 10)) == 0)
+        if (!world.isRemote && ticksInGround > 0 && !getIsSnake() && !getIsCableCut() && rand.nextInt(Math.max(100 - ticksInGround, 10)) == 0)
         {
             setIsCableCut(true);
-            worldObj.playSoundAtEntity(getShooter(), SHSounds.ENTITY_ARROW_VINE_SNAP.toString(), 1.0F, 0.8F);
+            world.playSoundAtEntity(getShooter(), SHSounds.ENTITY_ARROW_VINE_SNAP.toString(), 1.0F, 0.8F);
         }
     }
 

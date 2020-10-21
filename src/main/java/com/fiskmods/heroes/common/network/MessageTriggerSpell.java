@@ -51,7 +51,7 @@ public class MessageTriggerSpell extends AbstractMessage<MessageTriggerSpell>
 
                 if (spell.canDuplicatesUse)
                 {
-                    for (Object obj : new ArrayList<>(caster.worldObj.loadedEntityList))
+                    for (Object obj : new ArrayList<>(caster.world.loadedEntityList))
                     {
                         if (obj instanceof EntitySpellDuplicate)
                         {

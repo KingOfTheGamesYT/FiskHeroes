@@ -40,13 +40,13 @@ public class TileEntitySuitFabricator extends TileEntityContainer implements ITi
             output.setInventorySlotContents(slot, flag ? selectedHero.getDefault().createArmor(slot) : null);
         }
 
-        if (worldObj.getTotalWorldTime() % 80L == 0L)
+        if (world.getTotalWorldTime() % 80L == 0L)
         {
             if (energy > 9000)
             {
                 float radius = 6;
                 AxisAlignedBB aabb = AxisAlignedBB.getBoundingBox(xCoord, yCoord, zCoord, xCoord + 1, yCoord + 1, zCoord + 1).expand(radius, radius, radius);
-                List<EntityPlayer> list = worldObj.getEntitiesWithinAABB(EntityPlayer.class, aabb);
+                List<EntityPlayer> list = world.getEntitiesWithinAABB(EntityPlayer.class, aabb);
 
                 for (PlayerEntity player : list)
                 {

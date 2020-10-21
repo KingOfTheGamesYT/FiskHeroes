@@ -109,7 +109,7 @@ public class EntityIronMan extends EntityCreature implements IEntityOwnable, IDa
         SHData.onUpdate(this);
         Hero.updateModifiers(this, hero, Phase.START);
 
-        if (!worldObj.isRemote)
+        if (!world.isRemote)
         {
             if (getActivePotionEffects().size() > 0)
             {
@@ -531,7 +531,7 @@ public class EntityIronMan extends EntityCreature implements IEntityOwnable, IDa
         try
         {
             UUID uuid = UUID.fromString(func_152113_b());
-            return uuid == null ? null : worldObj.func_152378_a(uuid);
+            return uuid == null ? null : world.func_152378_a(uuid);
         }
         catch (IllegalArgumentException e)
         {
@@ -591,7 +591,7 @@ public class EntityIronMan extends EntityCreature implements IEntityOwnable, IDa
             rotationPitch = f3;
         }
 
-        if (!worldObj.isRemote)
+        if (!world.isRemote)
         {
             InteractionRepulsor.shoot(this);
         }

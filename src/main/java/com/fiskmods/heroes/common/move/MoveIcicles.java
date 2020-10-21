@@ -34,13 +34,13 @@ public class MoveIcicles extends Move
 
         if (num > 0)
         {
-            if (!entity.worldObj.isRemote)
+            if (!entity.world.isRemote)
             {
                 float spread = 0.5F;
 
                 for (int i = 0; i < num; ++i)
                 {
-                    EntityIcicle icicle = new EntityIcicle(entity.worldObj, entity);
+                    EntityIcicle icicle = new EntityIcicle(entity.world, entity);
 
                     if (i > 0)
                     {
@@ -49,7 +49,7 @@ public class MoveIcicles extends Move
                         icicle.motionZ += (Math.random() - 0.5D) * spread;
                     }
 
-                    entity.worldObj.spawnEntityInWorld(icicle);
+                    entity.world.spawnEntityInWorld(icicle);
                 }
             }
             else

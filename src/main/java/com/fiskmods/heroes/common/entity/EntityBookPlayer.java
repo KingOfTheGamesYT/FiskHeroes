@@ -29,7 +29,7 @@ public class EntityBookPlayer extends EntityClientPlayerMP
 
         if (riddenByEntity == null)
         {
-            riddenByEntity = new EntityHorse(worldObj);
+            riddenByEntity = new EntityHorse(world);
         }
     }
 

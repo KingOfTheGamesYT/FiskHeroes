@@ -68,9 +68,9 @@ public class TileEntityTreadmill extends TileEntitySH implements IMultiTile, ITi
 
     public PlayerEntity getPlayer()
     {
-        if (playerId >= 0 && worldObj.getEntityByID(playerId) instanceof EntityPlayer)
+        if (playerId >= 0 && world.getEntityByID(playerId) instanceof EntityPlayer)
         {
-            return (EntityPlayer) worldObj.getEntityByID(playerId);
+            return (EntityPlayer) world.getEntityByID(playerId);
         }
 
         return null;

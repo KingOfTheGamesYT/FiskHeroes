@@ -54,7 +54,7 @@ public class HeroEffectParticleCloud extends HeroEffect
 
             for (int i = 0; i < thickness; ++i)
             {
-                EntitySHCloudSmokeFX particle = new EntitySHCloudSmokeFX(player.worldObj, particles.color, x + (Math.random() * 2 - 1) * spread, y + (Math.random() * 2 - 1) * spread, z + (Math.random() * 2 - 1) * spread, player.motionX * m + (Math.random() * 2 - 1) * m1, player.motionY * m + (Math.random() * 2 - 1) * m1, player.motionZ * m + (Math.random() * 2 - 1) * m1);
+                EntitySHCloudSmokeFX particle = new EntitySHCloudSmokeFX(player.world, particles.color, x + (Math.random() * 2 - 1) * spread, y + (Math.random() * 2 - 1) * spread, z + (Math.random() * 2 - 1) * spread, player.motionX * m + (Math.random() * 2 - 1) * m1, player.motionY * m + (Math.random() * 2 - 1) * m1, player.motionZ * m + (Math.random() * 2 - 1) * m1);
 //                particle.pa
                 SHParticlesClient.spawnParticleClient(particle);
             }

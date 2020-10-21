@@ -54,15 +54,15 @@ public class EntityExplPufferfArrow extends EntityPufferfishArrow
         }
         else if (ticksInGround > fuse)
         {
-            if (!worldObj.isRemote)
+            if (!world.isRemote)
             {
-                worldObj.createExplosion(getShooter(), posX, posY, posZ, 1.5F, false);
+                world.createExplosion(getShooter(), posX, posY, posZ, 1.5F, false);
                 setDead();
             }
         }
         else if (ticksInGround > 1)
         {
-            worldObj.spawnParticle("smoke", posX, posY, posZ, 0, 0, 0);
+            world.spawnParticle("smoke", posX, posY, posZ, 0, 0, 0);
         }
     }
 

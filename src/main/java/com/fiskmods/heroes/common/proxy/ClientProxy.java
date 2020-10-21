@@ -367,7 +367,7 @@ public class ClientProxy extends CommonProxy
         }
         else if ("absorb".equals(sound))
         {
-            TileEntity tile = entity.worldObj.getTileEntity(args[0], args[1], args[2]);
+            TileEntity tile = entity.world.getTileEntity(args[0], args[1], args[2]);
 
             if (tile instanceof TileEntityParticleCore)
             {

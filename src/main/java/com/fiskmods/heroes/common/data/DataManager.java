@@ -50,13 +50,13 @@ public class DataManager
         {
             getArrowsInEntity(entity).add(data);
 
-            if (!entity.worldObj.isRemote)
+            if (!entity.world.isRemote)
             {
                 SHNetworkManager.wrapper.sendToDimension(new MessageAddArrowToEntity(entity, arrow), arrow.dimension);
             }
         }
 
-//        EntityTrickArrow arrow1 = type.newInstance(worldObj, posX, posY, posZ);
+//        EntityTrickArrow arrow1 = type.newInstance(world, posX, posY, posZ);
 //
 //        if (arrow1 != null)
 //        {
@@ -121,7 +121,7 @@ public class DataManager
             if (amount > 0 && SHData.SPEED_LEVEL_UP_COOLDOWN.get(player) < player.ticksExisted - 20.0F)
             {
                 float f = speedExperienceLevel > 30 ? 1.0F : speedExperienceLevel / 30.0F;
-                player.worldObj.playSoundAtEntity(player, "random.levelup", f * 0.75F, 1.0F);
+                player.world.playSoundAtEntity(player, "random.levelup", f * 0.75F, 1.0F);
                 SHData.SPEED_LEVEL_UP_COOLDOWN.setWithoutNotify(player, player.ticksExisted);
             }
         }
@@ -149,7 +149,7 @@ public class DataManager
 
     public static void updatePlayerWithServerInfo(PlayerEntity player)
     {
-        if (!player.worldObj.isRemote)
+        if (!player.world.isRemote)
         {
             SHNetworkManager.wrapper.sendTo(new MessagePlayerJoin(player), (EntityPlayerMP) player);
         }

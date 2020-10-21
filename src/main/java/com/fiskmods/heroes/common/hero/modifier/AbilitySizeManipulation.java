@@ -76,7 +76,7 @@ public class AbilitySizeManipulation extends Ability
                         {
                             AxisAlignedBB aabb = player.boundingBox;
                             aabb = AxisAlignedBB.getBoundingBox(aabb.minX, aabb.minY, aabb.minZ, aabb.minX + width, aabb.minY + height, aabb.minZ + width);
-                            flag = player.worldObj.getCollidingBoundingBoxes(player, aabb).isEmpty();
+                            flag = player.world.getCollidingBoundingBoxes(player, aabb).isEmpty();
                         }
 
                         if (flag)
@@ -106,7 +106,7 @@ public class AbilitySizeManipulation extends Ability
                     }
                 }
 
-                if (entity.worldObj.isRemote && FiskHeroes.proxy.isClientPlayer(entity))
+                if (entity.world.isRemote && FiskHeroes.proxy.isClientPlayer(entity))
                 {
                     boolean shrink = hero.isKeyPressed(entity, KEY_SHRINK);
                     boolean grow = hero.isKeyPressed(entity, KEY_GROW);
@@ -127,7 +127,7 @@ public class AbilitySizeManipulation extends Ability
                             AxisAlignedBB aabb = player.boundingBox;
                             aabb = AxisAlignedBB.getBoundingBox(aabb.minX, aabb.minY, aabb.minZ, aabb.minX + width, aabb.minY + height, aabb.minZ + width);
 
-                            if (player.worldObj.getCollidingBoundingBoxes(player, aabb).isEmpty())
+                            if (player.world.getCollidingBoundingBoxes(player, aabb).isEmpty())
                             {
                                 SHData.SHRINKING.set(player, false);
                                 SHData.GROWING.set(player, true);

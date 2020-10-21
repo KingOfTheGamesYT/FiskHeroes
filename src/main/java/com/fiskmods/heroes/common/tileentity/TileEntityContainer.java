@@ -210,7 +210,7 @@ public abstract class TileEntityContainer extends TileEntitySH implements IInven
     @Override
     public boolean isUseableByPlayer(PlayerEntity player)
     {
-        return worldObj.getBlock(xCoord, yCoord, zCoord) == getBlockType() && player.getDistanceSq(xCoord + 0.5D, yCoord + 0.5D, zCoord + 0.5D) <= 64.0D;
+        return world.getBlock(xCoord, yCoord, zCoord) == getBlockType() && player.getDistanceSq(xCoord + 0.5D, yCoord + 0.5D, zCoord + 0.5D) <= 64.0D;
     }
 
     @Override

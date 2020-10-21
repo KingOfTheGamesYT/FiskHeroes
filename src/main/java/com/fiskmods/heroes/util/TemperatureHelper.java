@@ -20,7 +20,7 @@ public class TemperatureHelper
 
     public static float getCurrentBiomeTemperature(EntityLivingBase entity)
     {
-        return getCurrentBiomeTemperature(entity.worldObj, MathHelper.floor_double(entity.posX), MathHelper.floor_double(entity.boundingBox.minY), MathHelper.floor_double(entity.posZ));
+        return getCurrentBiomeTemperature(entity.world, MathHelper.floor_double(entity.posX), MathHelper.floor_double(entity.boundingBox.minY), MathHelper.floor_double(entity.posZ));
     }
 
     public static float getCurrentBiomeTemperature(World world, int x, int y, int z)
@@ -109,7 +109,7 @@ public class TemperatureHelper
     {
         if (getTemperature(entity) != temperature)
         {
-            if (!entity.worldObj.isRemote)
+            if (!entity.world.isRemote)
             {
                 SHNetworkManager.wrapper.sendToDimension(new MessageSetTemperature(entity, temperature), entity.dimension);
             }

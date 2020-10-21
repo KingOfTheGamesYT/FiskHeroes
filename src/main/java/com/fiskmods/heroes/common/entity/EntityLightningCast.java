@@ -41,11 +41,11 @@ public class EntityLightningCast extends Entity implements IEntityAdditionalSpaw
     {
         if (doExplosion > 0)
         {
-            if (worldObj.isRemote)
+            if (world.isRemote)
             {
                 if ((doExplosion & 1) == 1)
                 {
-                    worldObj.spawnParticle("largeexplode", posX, posY, posZ, 0, 0, 0);
+                    world.spawnParticle("largeexplode", posX, posY, posZ, 0, 0, 0);
                 }
             }
             else if ((doExplosion & 2) == 2)
@@ -94,14 +94,14 @@ public class EntityLightningCast extends Entity implements IEntityAdditionalSpaw
     @Override
     public void readSpawnData(ByteBuf buf)
     {
-        Entity entity = worldObj.getEntityByID(buf.readInt());
+        Entity entity = world.getEntityByID(buf.readInt());
 
         if (entity instanceof EntityLivingBase)
         {
             casterEntity = (EntityLivingBase) entity;
         }
 
-        anchorEntity = worldObj.getEntityByID(buf.readInt());
+        anchorEntity = world.getEntityByID(buf.readInt());
         doExplosion = buf.readByte();
     }
 }

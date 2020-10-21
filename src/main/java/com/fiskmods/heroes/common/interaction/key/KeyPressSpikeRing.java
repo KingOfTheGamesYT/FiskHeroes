@@ -56,11 +56,11 @@ public class KeyPressSpikeRing extends KeyPressBase
             for (int i = 0; i < spikes; ++i)
             {
                 sender.rotationYaw = i * (360F / spikes);
-                sender.worldObj.spawnEntityInWorld(new EntityCactusSpike(sender.worldObj, sender));
+                sender.world.spawnEntityInWorld(new EntityCactusSpike(sender.world, sender));
             }
 
             sender.rotationYaw = prevYaw;
-            sender.worldObj.playSoundAtEntity(sender, SHSounds.ITEM_BOW_SHOOT.toString(), 1.0F, 1.0F / (sender.getRNG().nextFloat() * 0.4F + 1.2F) + 0.75F);
+            sender.world.playSoundAtEntity(sender, SHSounds.ITEM_BOW_SHOOT.toString(), 1.0F, 1.0F / (sender.getRNG().nextFloat() * 0.4F + 1.2F) + 0.75F);
         }
         else if (sender == clientPlayer)
         {

@@ -24,7 +24,7 @@ public class EntityAIFollowOwner2 extends EntityAIBase
     public EntityAIFollowOwner2(EntityIronMan entity, double d, float min, float max)
     {
         theIronMan = entity;
-        theWorld = entity.worldObj;
+        theWorld = entity.world;
         field_75336_f = d;
         petPathfinder = entity.getNavigator();
         minDist = min;

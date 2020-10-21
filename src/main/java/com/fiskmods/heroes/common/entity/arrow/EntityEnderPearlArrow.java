@@ -45,7 +45,7 @@ public class EntityEnderPearlArrow extends EntityTrickArrow
 
         for (int i = 0; i < 5; ++i)
         {
-            worldObj.spawnParticle(getParticleName(), posX, posY, posZ, (rand.nextDouble() * 2 - 1) * f, (rand.nextDouble() * 2 - 1) * f, (rand.nextDouble() * 2 - 1) * f);
+            world.spawnParticle(getParticleName(), posX, posY, posZ, (rand.nextDouble() * 2 - 1) * f, (rand.nextDouble() * 2 - 1) * f, (rand.nextDouble() * 2 - 1) * f);
         }
     }
 
@@ -54,11 +54,11 @@ public class EntityEnderPearlArrow extends EntityTrickArrow
     {
         if (getArrowId() > 0)
         {
-            if (worldObj.isRemote)
+            if (world.isRemote)
             {
                 for (int i = 0; i < 32; ++i)
                 {
-                    worldObj.spawnParticle("portal", posX, posY + rand.nextDouble() * 2, posZ, rand.nextGaussian(), 0, rand.nextGaussian());
+                    world.spawnParticle("portal", posX, posY + rand.nextDouble() * 2, posZ, rand.nextGaussian(), 0, rand.nextGaussian());
                 }
             }
             else
@@ -67,7 +67,7 @@ public class EntityEnderPearlArrow extends EntityTrickArrow
                 {
                     EntityPlayerMP player = (EntityPlayerMP) getShooter();
 
-                    if (player.playerNetServerHandler.func_147362_b().isChannelOpen() && player.worldObj == worldObj)
+                    if (player.playerNetServerHandler.func_147362_b().isChannelOpen() && player.world == world)
                     {
                         double x = posX;
                         double y = posY;

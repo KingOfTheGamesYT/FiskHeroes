@@ -152,7 +152,7 @@ public class EntityGrappleArrow extends EntityTrickArrow
                 if (player.getHeldItem() == null || player.getHeldItem().getItem() != ModItems.compoundBow || player.swingProgressInt == 1)
                 {
                     setIsCableCut(true);
-                    player.worldObj.playSoundAtEntity(player, SHSounds.ENTITY_ARROW_GRAPPLE_DISCONNECT.toString(), 1.0F, 0.8F);
+                    player.world.playSoundAtEntity(player, SHSounds.ENTITY_ARROW_GRAPPLE_DISCONNECT.toString(), 1.0F, 0.8F);
                 }
 
                 if (prevPosX == posX && prevPosY == posY && prevPosZ == posZ)
@@ -171,14 +171,14 @@ public class EntityGrappleArrow extends EntityTrickArrow
                     }
                 }
 
-                worldObj.spawnEntityInWorld(makeCable(living, player));
+                world.spawnEntityInWorld(makeCable(living, player));
             }
         }
     }
 
     public EntityGrapplingHookCable makeCable(EntityLivingBase living, PlayerEntity player)
     {
-        return new EntityGrapplingHookCable(worldObj, living, player);
+        return new EntityGrapplingHookCable(world, living, player);
     }
 
     @Override

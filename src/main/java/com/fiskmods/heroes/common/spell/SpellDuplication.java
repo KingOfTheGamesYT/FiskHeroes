@@ -29,7 +29,7 @@ public class SpellDuplication extends Spell
     @Override
     public void onTrigger(EntityLivingBase caster)
     {
-        if (!caster.worldObj.isRemote)
+        if (!caster.world.isRemote)
         {
             if (target == null)
             {
@@ -38,12 +38,12 @@ public class SpellDuplication extends Spell
 
             if (target != null)
             {
-                caster.worldObj.loadedEntityList.stream().filter(t -> t instanceof EntitySpellDuplicate && ((EntitySpellDuplicate) t).isOwner(caster)).forEach(t -> ((EntityLivingBase) t).setHealth(0));
+                caster.world.loadedEntityList.stream().filter(t -> t instanceof EntitySpellDuplicate && ((EntitySpellDuplicate) t).isOwner(caster)).forEach(t -> ((EntityLivingBase) t).setHealth(0));
                 int duplicates = 6;
 
                 for (int i = 1; i < duplicates; ++i)
                 {
-                    caster.worldObj.spawnEntityInWorld(new EntitySpellDuplicate(caster, target, 360F / duplicates * i));
+                    caster.world.spawnEntityInWorld(new EntitySpellDuplicate(caster, target, 360F / duplicates * i));
                 }
 
                 target = null;

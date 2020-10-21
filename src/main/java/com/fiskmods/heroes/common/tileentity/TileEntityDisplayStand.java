@@ -73,7 +73,7 @@ public class TileEntityDisplayStand extends TileEntityContainer implements IMult
             markDirty();
         }
 
-        if (worldObj.isRemote)
+        if (world.isRemote)
         {
             if (SHTileHelper.getTileBase(this) == this)
             {
@@ -84,10 +84,10 @@ public class TileEntityDisplayStand extends TileEntityContainer implements IMult
         {
             if (getBlockMetadata() >= 8 && getBlockType() != ModBlocks.displayStandTop)
             {
-                BlockDisplayStand.migrate(worldObj, xCoord, yCoord, zCoord, ModBlocks.displayStandTop);
+                BlockDisplayStand.migrate(world, xCoord, yCoord, zCoord, ModBlocks.displayStandTop);
             }
 
-            fakePlayer = FakePlayerFactory.get((WorldServer) worldObj, internalProfile);
+            fakePlayer = FakePlayerFactory.get((WorldServer) world, internalProfile);
         }
 
         if (fakePlayer != null)
@@ -101,7 +101,7 @@ public class TileEntityDisplayStand extends TileEntityContainer implements IMult
 
             fakePlayer.setCurrentItemOrArmor(0, getStackInSlot(6));
 
-            if (!worldObj.isRemote && SHTileHelper.getTileBase(this) == this)
+            if (!world.isRemote && SHTileHelper.getTileBase(this) == this)
             {
                 ItemStack equipped = getStackInSlot(4);
 
@@ -159,7 +159,7 @@ public class TileEntityDisplayStand extends TileEntityContainer implements IMult
 
                 for (int i = 0; i < list.size(); ++i)
                 {
-                    list.get(i).onUpdate(fakePlayer, worldObj);
+                    list.get(i).onUpdate(fakePlayer, world);
                 }
             }
 
@@ -245,7 +245,7 @@ public class TileEntityDisplayStand extends TileEntityContainer implements IMult
     {
         displayProfile = profile;
 
-        if (!worldObj.isRemote)
+        if (!world.isRemote)
         {
             validateUsername();
         }

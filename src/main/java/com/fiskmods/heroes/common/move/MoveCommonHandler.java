@@ -83,7 +83,7 @@
 //
 //                    if (stack.getItem() == Items.diamond && event.item.func_145800_j() != null)
 //                    {
-//                        PlayerEntity thrower = event.item.worldObj.getPlayerEntityByName(event.item.func_145800_j());
+//                        PlayerEntity thrower = event.item.world.getPlayerEntityByName(event.item.func_145800_j());
 //
 //                        if (thrower != null && thrower != player)
 //                        {
@@ -93,7 +93,7 @@
 //
 //                    FMLCommonHandler.instance().firePlayerItemPickupEvent(player, event.item);
 //
-//                    event.item.worldObj.playSoundAtEntity(player, "random.pop", 0.2F, ((player.getRNG().nextFloat() - player.getRNG().nextFloat()) * 0.7F + 1.0F) * 2.0F);
+//                    event.item.world.playSoundAtEntity(player, "random.pop", 0.2F, ((player.getRNG().nextFloat() - player.getRNG().nextFloat()) * 0.7F + 1.0F) * 2.0F);
 //                    player.onItemPickup(event.item, i);
 //
 //                    if (stack.stackSize <= 0)

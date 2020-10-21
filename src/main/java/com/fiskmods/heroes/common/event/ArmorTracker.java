@@ -65,7 +65,7 @@ public class ArmorTracker
     // {
     // wornArmor.put(player.getUniqueID(), curr = updateArmorIndex(player));
     //
-    // if (!player.worldObj.isRemote && curr < 0)
+    // if (!player.world.isRemote && curr < 0)
     // {
     // ItemStack chest = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
     //
@@ -87,7 +87,7 @@ public class ArmorTracker
     // }
     // else
     // {
-    // if (curr != prev || !!player.worldObj.isRemote || curr >= 0)
+    // if (curr != prev || !!player.world.isRemote || curr >= 0)
     // {
     // updateSize(player, getScale(player));
     // }

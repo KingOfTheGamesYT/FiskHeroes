@@ -73,7 +73,7 @@ public class Spell extends FiskRegistryEntry<Spell>
 
     public void trigger(PlayerEntity player)
     {
-        if (!player.worldObj.isRemote)
+        if (!player.world.isRemote)
         {
             TargetPoint target = getTargetPoint(player);
 

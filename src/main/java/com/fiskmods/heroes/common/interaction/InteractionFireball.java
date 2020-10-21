@@ -34,8 +34,8 @@ public class InteractionFireball extends InteractionBase
     {
         if (side.isServer())
         {
-            sender.worldObj.spawnEntityInWorld(new EntityFireBlast(sender.worldObj, sender));
-            sender.worldObj.playSoundAtEntity(sender, SHSounds.ABILITY_PYROKINESIS_FIREBALL.toString(), 1, 1);
+            sender.world.spawnEntityInWorld(new EntityFireBlast(sender.world, sender));
+            sender.world.playSoundAtEntity(sender, SHSounds.ABILITY_PYROKINESIS_FIREBALL.toString(), 1, 1);
         }
         else if (sender == clientPlayer)
         {

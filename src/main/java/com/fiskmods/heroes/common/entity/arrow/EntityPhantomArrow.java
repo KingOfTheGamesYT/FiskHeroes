@@ -34,7 +34,7 @@ public class EntityPhantomArrow extends EntityTrickArrow
     {
         super.handlePostDamageEffects(entityHit);
         
-        if (!worldObj.isRemote)
+        if (!world.isRemote)
         {
             StatusEffect.add(entityHit, StatEffect.PHASE_SUPPRESSANT, Rule.TICKS_PHANTOMARROW.getHero(getShooter()), 0);
         }

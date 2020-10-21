@@ -216,7 +216,7 @@ public class SpeedsterHelper
 
     public static TileEntityTreadmill getTreadmill(PlayerEntity player)
     {
-        for (TileEntity tileentity : (List<TileEntity>) player.worldObj.loadedTileEntityList)
+        for (TileEntity tileentity : (List<TileEntity>) player.world.loadedTileEntityList)
         {
             if (tileentity instanceof TileEntityTreadmill)
             {

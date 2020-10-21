@@ -28,7 +28,7 @@ public class AbilityInvisibility extends Ability
 
             if (flag)
             {
-                if (entity.worldObj.isRemote && !FiskHeroes.proxy.isClientPlayer(entity))
+                if (entity.world.isRemote && !FiskHeroes.proxy.isClientPlayer(entity))
                 {
                     entity.setInvisible(!SHHelper.canPlayerSeeMartianInvis(FiskHeroes.proxy.getPlayer()));
                 }

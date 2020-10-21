@@ -43,7 +43,7 @@ public class ItemHeatGun extends ItemUntextured
     @Override
     public void onUsingTick(ItemStack itemstack, PlayerEntity player, int count)
     {
-        World world = player.worldObj;
+        World world = player.world;
         Hero hero;
 
         if (SHData.AIMING_TIMER.get(player) >= 1 && (hero = SHHelper.getHero(player)) != null && hero.hasPermission(player, Permission.USE_HEAT_GUN))
@@ -53,7 +53,7 @@ public class ItemHeatGun extends ItemUntextured
 
             if (rayTrace != null)
             {
-                if (rayTrace.typeOfHit == MovingObjectType.BLOCK && !player.worldObj.isRemote)
+                if (rayTrace.typeOfHit == MovingObjectType.BLOCK && !player.world.isRemote)
                 {
                     ForgeDirection dir = ForgeDirection.getOrientation(rayTrace.sideHit);
                     int x = rayTrace.blockX + dir.offsetX;
@@ -83,7 +83,7 @@ public class ItemHeatGun extends ItemUntextured
                 }
             }
 
-            if (player.worldObj.isRemote)
+            if (player.world.isRemote)
             {
                 double length = rayTrace != null && rayTrace.hitInfo instanceof Double ? (Double) rayTrace.hitInfo : range;
                 float spread = 0.2F;

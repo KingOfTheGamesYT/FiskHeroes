@@ -50,7 +50,7 @@ public class MessageGrappleArrowCut extends AbstractMessage<MessageGrappleArrowC
         {
             if (data instanceof GrappleArrowData)
             {
-                EntityTrickArrow arrow = data.getEntity(entity.worldObj);
+                EntityTrickArrow arrow = data.getEntity(entity.world);
 
                 if (arrow != null && arrow.getEntityId() == arrowId)
                 {

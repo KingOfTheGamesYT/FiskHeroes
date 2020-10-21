@@ -44,9 +44,9 @@ public class EntityExplosiveArrow extends EntityTrickArrow
 
     public void trigger()
     {
-        if (!worldObj.isRemote)
+        if (!world.isRemote)
         {
-            worldObj.createExplosion(getShooter(), posX, posY, posZ, Rule.RADIUS_EXPLOSIVEARROW.getHero(getShooter()), false);
+            world.createExplosion(getShooter(), posX, posY, posZ, Rule.RADIUS_EXPLOSIVEARROW.getHero(getShooter()), false);
             setDead();
         }
     }

@@ -60,16 +60,16 @@ public class InteractionGroundSmash extends InteractionBase
             {
                 for (int z1 = -radius; z1 <= radius; ++z1)
                 {
-                    if (Rule.GRIEF_GEOKINESIS.get(sender.worldObj, x + x1, z + z1))
+                    if (Rule.GRIEF_GEOKINESIS.get(sender.world, x + x1, z + z1))
                     {
                         for (int y1 = -radius / 2; y1 <= radius; ++y1)
                         {
-                            Block block = sender.worldObj.getBlock(x + x1, y + y1, z + z1);
-                            int metadata = sender.worldObj.getBlockMetadata(x + x1, y + y1, z + z1);
+                            Block block = sender.world.getBlock(x + x1, y + y1, z + z1);
+                            int metadata = sender.world.getBlockMetadata(x + x1, y + y1, z + z1);
 
-                            if ((x1 <= radius - 2 && y1 <= radius - 2 && z1 <= radius - 2 || x1 >= -radius + 2 && y1 >= -radius + 2 && z1 >= -radius + 2 || rand.nextInt(3) != 0) && block != Blocks.air && block.isBlockSolid(sender.worldObj, x + x1, y + y1, z + z1, 0) && block.getBlockHardness(sender.worldObj, x + x1, y + y1, z + z1) >= 0)
+                            if ((x1 <= radius - 2 && y1 <= radius - 2 && z1 <= radius - 2 || x1 >= -radius + 2 && y1 >= -radius + 2 && z1 >= -radius + 2 || rand.nextInt(3) != 0) && block != Blocks.air && block.isBlockSolid(sender.world, x + x1, y + y1, z + z1, 0) && block.getBlockHardness(sender.world, x + x1, y + y1, z + z1) >= 0)
                             {
-                                EntityFallingBlock entity = new EntityFallingBlock(sender.worldObj, x + x1 + 0.5F, y + y1 + 0.5F, z + z1 + 0.5F, block, metadata);
+                                EntityFallingBlock entity = new EntityFallingBlock(sender.world, x + x1 + 0.5F, y + y1 + 0.5F, z + z1 + 0.5F, block, metadata);
                                 entity.motionY += 0.5F;
                                 entity.field_145812_b = -100;
                                 entity.field_145813_c = false;
@@ -81,15 +81,15 @@ public class InteractionGroundSmash extends InteractionBase
                                 entity.readFromNBT(nbt);
 
                                 list.add(entity);
-                                sender.worldObj.spawnEntityInWorld(entity);
-                                sender.worldObj.setBlock(x + x1, y + y1, z + z1, Blocks.air);
+                                sender.world.spawnEntityInWorld(entity);
+                                sender.world.setBlock(x + x1, y + y1, z + z1, Blocks.air);
                             }
                         }
                     }
                 }
             }
 
-            List<EntityLivingBase> list1 = VectorHelper.getEntitiesNear(EntityLivingBase.class, sender.worldObj, x + 0.5D, y + 0.5D, z + 0.5D, radius);
+            List<EntityLivingBase> list1 = VectorHelper.getEntitiesNear(EntityLivingBase.class, sender.world, x + 0.5D, y + 0.5D, z + 0.5D, radius);
 
             if (!list1.isEmpty())
             {
@@ -104,7 +104,7 @@ public class InteractionGroundSmash extends InteractionBase
                 }
             }
 
-            sender.worldObj.createExplosion(sender, x, y, z, Rule.RADIUS_GROUNDSMASH_EXPL.get(sender, hero), false);
+            sender.world.createExplosion(sender, x, y, z, Rule.RADIUS_GROUNDSMASH_EXPL.get(sender, hero), false);
         }
         else if (sender == clientPlayer)
         {

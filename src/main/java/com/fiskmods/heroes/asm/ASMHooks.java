@@ -99,7 +99,7 @@ public class ASMHooks
 
     public static PlayerEntity getClosestVulnerablePlayer(Entity entity, double x, double y, double z, double radius)
     {
-        World world = entity.worldObj;
+        World world = entity.world;
         double d = -1.0D;
         PlayerEntity PlayerEntity = null;
 
@@ -287,7 +287,7 @@ public class ASMHooks
 
         int nextStepDistance = SHReflection.nextStepDistanceField.get(entity);
 
-        entity.worldObj.theProfiler.startSection("move");
+        entity.world.theProfiler.startSection("move");
         entity.ySize *= 0.4F;
         double d3 = entity.posX;
         double d4 = entity.posY;
@@ -500,8 +500,8 @@ public class ASMHooks
             }
         }
 
-        entity.worldObj.theProfiler.endSection();
-        entity.worldObj.theProfiler.startSection("rest");
+        entity.world.theProfiler.endSection();
+        entity.world.theProfiler.startSection("rest");
         entity.posX = (entity.boundingBox.minX + entity.boundingBox.maxX) / 2.0D;
         entity.posY = entity.boundingBox.minY + entity.yOffset - entity.ySize;
         entity.posZ = (entity.boundingBox.minZ + entity.boundingBox.maxZ) / 2.0D;
@@ -535,12 +535,12 @@ public class ASMHooks
             int j1 = MathHelper.floor_double(entity.posX);
             k = MathHelper.floor_double(entity.posY - 0.20000000298023224D - entity.yOffset);
             int l = MathHelper.floor_double(entity.posZ);
-            Block block = entity.worldObj.getBlock(j1, k, l);
-            int i1 = entity.worldObj.getBlock(j1, k - 1, l).getRenderType();
+            Block block = entity.world.getBlock(j1, k, l);
+            int i1 = entity.world.getBlock(j1, k - 1, l).getRenderType();
 
             if (i1 == 11 || i1 == 32 || i1 == 21)
             {
-                block = entity.worldObj.getBlock(j1, k - 1, l);
+                block = entity.world.getBlock(j1, k - 1, l);
             }
 
             if (block != Blocks.ladder)
@@ -557,13 +557,13 @@ public class ASMHooks
             }
         }
 
-        entity.worldObj.theProfiler.endSection();
+        entity.world.theProfiler.endSection();
         SHReflection.nextStepDistanceField.set(entity, nextStepDistance);
     }
 
     private static List getCollidingBoundingBoxes(Entity entity, AxisAlignedBB aabb)
     {
-        World world = entity.worldObj;
+        World world = entity.world;
         List<AxisAlignedBB> collidingBoundingBoxes = new ArrayList<>();
 
         int i = MathHelper.floor_double(aabb.minX);
@@ -610,7 +610,7 @@ public class ASMHooks
         {
             PlayerEntity player = (EntityPlayer) entity;
 
-            if (player.isClientWorld() && !player.isInWater() && !player.handleLavaMovement() && player.worldObj.provider.dimensionId != ModDimensions.QUANTUM_REALM_ID && SHData.GLIDING.get(player))
+            if (player.isClientWorld() && !player.isInWater() && !player.handleLavaMovement() && player.world.provider.dimensionId != ModDimensions.QUANTUM_REALM_ID && SHData.GLIDING.get(player))
             {
                 Hero hero = SHHelper.getHero(player);
                 boolean flight = hero != null && hero.hasEnabledModifier(entity, Ability.GLIDING_FLIGHT);
@@ -659,7 +659,7 @@ public class ASMHooks
                 player.motionZ *= 0.9900000095367432D;
                 player.moveEntity(player.motionX, player.motionY, player.motionZ);
 
-                if (player.isCollidedHorizontally && !player.worldObj.isRemote)
+                if (player.isCollidedHorizontally && !player.world.isRemote)
                 {
                     double d10 = Math.sqrt(player.motionX * player.motionX + player.motionY * player.motionY + player.motionZ * player.motionZ);
                     double d3 = d8 - d10;
@@ -675,9 +675,9 @@ public class ASMHooks
                 if (flight)
                 {
                     AxisAlignedBB aabb = player.boundingBox.copy().expand(1, 0, 1);
-                    List<EntityLivingBase> list = player.worldObj.selectEntitiesWithinAABB(EntityLivingBase.class, aabb, IEntitySelector.selectAnything);
+                    List<EntityLivingBase> list = player.world.selectEntitiesWithinAABB(EntityLivingBase.class, aabb, IEntitySelector.selectAnything);
 
-                    if (!player.worldObj.isRemote)
+                    if (!player.world.isRemote)
                     {
                         for (EntityLivingBase entity1 : list)
                         {

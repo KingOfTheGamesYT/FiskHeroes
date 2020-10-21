@@ -24,7 +24,7 @@ public enum InteractionType
     {
         boolean flag = false;
 
-        if (player.worldObj.isRemote)
+        if (player.world.isRemote)
         {
             for (Interaction interaction : Interaction.REGISTRY.values())
             {

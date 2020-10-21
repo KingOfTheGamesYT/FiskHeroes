@@ -37,17 +37,17 @@ public class EntityCactusArrow extends EntityTrickArrow
 
     public void createExplosion()
     {
-        if (!worldObj.isRemote)
+        if (!world.isRemote)
         {
             int j = 20 + rand.nextInt(2);
 
             for (int i = 0; i < j; ++i)
             {
-                EntityCactusSpike entity = new EntityCactusSpike(worldObj);
+                EntityCactusSpike entity = new EntityCactusSpike(world);
 
                 if (getShooter() instanceof EntityLivingBase)
                 {
-                    entity = new EntityCactusSpike(worldObj, (EntityLivingBase) getShooter());
+                    entity = new EntityCactusSpike(world, (EntityLivingBase) getShooter());
                 }
 
                 float multiplier = 0.2F;
@@ -57,10 +57,10 @@ public class EntityCactusArrow extends EntityTrickArrow
                 entity.motionZ = (posZ - prevPosZ) / divider + (rand.nextDouble() * 2 - 1) * multiplier;
 
                 entity.setPosition(posX, posY, posZ);
-                worldObj.spawnEntityInWorld(entity);
+                world.spawnEntityInWorld(entity);
             }
 
-            worldObj.createExplosion(getShooter(), posX, posY, posZ, 1.999F, false);
+            world.createExplosion(getShooter(), posX, posY, posZ, 1.999F, false);
             setDead();
         }
     }

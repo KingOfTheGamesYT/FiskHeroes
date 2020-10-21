@@ -39,7 +39,7 @@ public class KeyPressOpenQuiver extends KeyPressBase
     {
         if (side.isServer())
         {
-            sender.openGui(FiskHeroes.MODID, 0, sender.worldObj, SHData.EQUIPPED_QUIVER_SLOT.get(sender), 0, 0);
+            sender.openGui(FiskHeroes.MODID, 0, sender.world, SHData.EQUIPPED_QUIVER_SLOT.get(sender), 0, 0);
         }
 
         if (SHData.SELECTED_ARROW.get(sender) > 0)

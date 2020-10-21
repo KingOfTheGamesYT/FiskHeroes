@@ -53,9 +53,9 @@ public class EntitySmokeBombArrow extends EntityTrickArrow
     @SideOnly(Side.CLIENT)
     public void handleHealthUpdate(byte b)
     {
-        if (b == 17 && worldObj.isRemote)
+        if (b == 17 && world.isRemote)
         {
-            SHHelper.doSmokeExplosion(worldObj, posX, posY, posZ);
+            SHHelper.doSmokeExplosion(world, posX, posY, posZ);
         }
 
         super.handleHealthUpdate(b);
@@ -65,9 +65,9 @@ public class EntitySmokeBombArrow extends EntityTrickArrow
     {
         if (getArrowId() > 0)
         {
-            if (!worldObj.isRemote)
+            if (!world.isRemote)
             {
-                worldObj.setEntityState(this, (byte) 17);
+                world.setEntityState(this, (byte) 17);
             }
 
             setArrowId(0);

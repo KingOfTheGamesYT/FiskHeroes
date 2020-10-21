@@ -26,7 +26,7 @@ public class SpellEarthSwallow extends Spell
     @Override
     public boolean canTrigger(EntityLivingBase caster)
     {
-        if (!caster.worldObj.isRemote)
+        if (!caster.world.isRemote)
         {
             collectTargets(caster);
             return !targets.isEmpty();
@@ -38,7 +38,7 @@ public class SpellEarthSwallow extends Spell
     @Override
     public void onTrigger(EntityLivingBase caster)
     {
-        if (!caster.worldObj.isRemote)
+        if (!caster.world.isRemote)
         {
             if (targets.isEmpty())
             {
@@ -47,7 +47,7 @@ public class SpellEarthSwallow extends Spell
 
             for (EntityLivingBase entity : targets)
             {
-                caster.worldObj.spawnEntityInWorld(new EntityEarthCrack(caster.worldObj, caster, entity));
+                caster.world.spawnEntityInWorld(new EntityEarthCrack(caster.world, caster, entity));
             }
 
             targets.clear();
@@ -69,7 +69,7 @@ public class SpellEarthSwallow extends Spell
             float radius = Rule.RADIUS_SPELL_EARTHSWALLOW.get(realCaster, hero);
 
             AxisAlignedBB aabb = AxisAlignedBB.getBoundingBox(x - radius, y - radius, z - radius, x + radius, y + radius, z + radius);
-            List<EntityLivingBase> list = caster.worldObj.getEntitiesWithinAABB(EntityLivingBase.class, aabb);
+            List<EntityLivingBase> list = caster.world.getEntitiesWithinAABB(EntityLivingBase.class, aabb);
 
             for (EntityLivingBase entity : list)
             {

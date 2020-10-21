@@ -41,7 +41,7 @@ public class AbilityUmbrakinesis extends Ability
             {
                 entity.extinguish();
 
-                if (entity.worldObj.isRemote && !FiskHeroes.proxy.isClientPlayer(entity))
+                if (entity.world.isRemote && !FiskHeroes.proxy.isClientPlayer(entity))
                 {
                     entity.setInvisible(!SHHelper.canPlayerSeeMartianInvis(FiskHeroes.proxy.getPlayer()));
                 }
@@ -53,7 +53,7 @@ public class AbilityUmbrakinesis extends Ability
 
             boolean flag1 = SHData.LIGHTSOUT.get(entity);
 
-            if (entity.worldObj.isRemote)
+            if (entity.world.isRemote)
             {
                 if (FiskHeroes.proxy.isClientPlayer(entity))
                 {
@@ -91,9 +91,9 @@ public class AbilityUmbrakinesis extends Ability
                 SHData.LIGHTSOUT_TIMER.getPrevData().setWithoutNotify(entity, 0F);
                 SHData.LIGHTSOUT.setWithoutNotify(entity, false);
 
-                if (flag1 && !entity.worldObj.isRemote)
+                if (flag1 && !entity.world.isRemote)
                 {
-                    entity.worldObj.spawnEntityInWorld(new EntityShadowDome(entity.worldObj, entity));
+                    entity.world.spawnEntityInWorld(new EntityShadowDome(entity.world, entity));
                 }
             }
         }

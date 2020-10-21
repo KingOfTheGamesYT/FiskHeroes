@@ -44,7 +44,7 @@ public class SHEntityData implements IExtendedEntityProperties
         {
             if (data != null)
             {
-                EntityTrickArrow arrow = data.getEntity(living.worldObj);
+                EntityTrickArrow arrow = data.getEntity(living.world);
 
                 if (arrow != null)
                 {

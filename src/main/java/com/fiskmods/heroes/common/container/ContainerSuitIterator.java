@@ -124,7 +124,7 @@ public class ContainerSuitIterator extends ContainerBasic implements ITileContai
             ((TileEntityDisplayStand) input).removeListener(this);
         }
 
-        if (!worldObj.isRemote && input instanceof InventoryBasic)
+        if (!world.isRemote && input instanceof InventoryBasic)
         {
             for (int i = 0; i < input.getSizeInventory(); ++i)
             {
@@ -141,7 +141,7 @@ public class ContainerSuitIterator extends ContainerBasic implements ITileContai
     @Override
     public boolean canInteractWith(PlayerEntity player)
     {
-        return worldObj.getBlock(posX, posY, posZ) == ModBlocks.suitIterator && player.getDistanceSq(posX + 0.5, posY + 0.5, posZ + 0.5) <= 64;
+        return world.getBlock(posX, posY, posZ) == ModBlocks.suitIterator && player.getDistanceSq(posX + 0.5, posY + 0.5, posZ + 0.5) <= 64;
     }
 
     @Override

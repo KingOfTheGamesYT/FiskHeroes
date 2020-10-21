@@ -35,7 +35,7 @@ public class EntityTutridiumArrow extends EntityTrickArrow implements IPiercingP
     {
         super.handlePostDamageEffects(entityHit);
         
-        if (!worldObj.isRemote)
+        if (!world.isRemote)
         {
             StatusEffect.add(entityHit, StatEffect.TUTRIDIUM_POISON, Rule.TICKS_TUTRIDIUMARROW.getHero(getShooter()), 0);
         }

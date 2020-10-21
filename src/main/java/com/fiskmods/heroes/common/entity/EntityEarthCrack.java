@@ -45,7 +45,7 @@ public class EntityEarthCrack extends Entity implements IEntityAdditionalSpawnDa
         int z = MathHelper.floor_double(target.posZ);
         Block block = null;
 
-        while (y > 0 && ((block = worldObj.getBlock(x, y, z)).isAir(worldObj, x, y, z) || !block.isSideSolid(worldObj, x, y, z, ForgeDirection.UP)))
+        while (y > 0 && ((block = world.getBlock(x, y, z)).isAir(world, x, y, z) || !block.isSideSolid(world, x, y, z, ForgeDirection.UP)))
         {
             --y;
         }
@@ -84,7 +84,7 @@ public class EntityEarthCrack extends Entity implements IEntityAdditionalSpawnDa
 
         if (++ticksExisted > SHConstants.TICKS_EARTHCRACK || target != null && target.isDead)
         {
-            if (target != null && !target.isDead && !worldObj.isRemote)
+            if (target != null && !target.isDead && !world.isRemote)
             {
                 if (target instanceof EntityCreeper)
                 {
@@ -154,14 +154,14 @@ public class EntityEarthCrack extends Entity implements IEntityAdditionalSpawnDa
     @Override
     public void readSpawnData(ByteBuf buf)
     {
-        Entity entity = worldObj.getEntityByID(buf.readInt());
+        Entity entity = world.getEntityByID(buf.readInt());
 
         if (entity instanceof EntityLivingBase)
         {
             caster = (EntityLivingBase) entity;
         }
 
-        entity = worldObj.getEntityByID(buf.readInt());
+        entity = world.getEntityByID(buf.readInt());
 
         if (entity instanceof EntityLivingBase)
         {

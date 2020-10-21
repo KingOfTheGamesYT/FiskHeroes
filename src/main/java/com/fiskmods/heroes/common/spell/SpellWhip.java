@@ -16,10 +16,10 @@ public class SpellWhip extends Spell
     @Override
     public void onTrigger(EntityLivingBase caster)
     {
-        if (!caster.worldObj.isRemote)
+        if (!caster.world.isRemote)
         {
-            caster.worldObj.loadedEntityList.stream().filter(t -> t instanceof EntitySpellWhip && ((EntitySpellWhip) t).casterEntity == caster).forEach(t -> ((Entity) t).setDead());
-            caster.worldObj.spawnEntityInWorld(new EntitySpellWhip(caster.worldObj, caster));
+            caster.world.loadedEntityList.stream().filter(t -> t instanceof EntitySpellWhip && ((EntitySpellWhip) t).casterEntity == caster).forEach(t -> ((Entity) t).setDead());
+            caster.world.spawnEntityInWorld(new EntitySpellWhip(caster.world, caster));
         }
     }
 }

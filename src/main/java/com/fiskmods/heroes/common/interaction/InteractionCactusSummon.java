@@ -27,7 +27,7 @@ public class InteractionCactusSummon extends InteractionBase
     @Override
     public boolean serverRequirements(PlayerEntity player, InteractionType type, int x, int y, int z)
     {
-        return (player.worldObj.getBlock(x, y, z) == Blocks.cactus || type != InteractionType.RIGHT_CLICK_BLOCK) && SHData.AIMING.get(player) && !player.isSneaking();
+        return (player.world.getBlock(x, y, z) == Blocks.cactus || type != InteractionType.RIGHT_CLICK_BLOCK) && SHData.AIMING.get(player) && !player.isSneaking();
     }
 
     @Override
@@ -43,7 +43,7 @@ public class InteractionCactusSummon extends InteractionBase
         Vec3 src = VectorHelper.getOffsetCoords(sender, -0.3, -0.4, 0.6);
         Vec3 dst = VectorHelper.getOffsetCoords(sender, 0, 0, range);
 
-        MovingObjectPosition mop = sender.worldObj.rayTraceBlocks(VectorHelper.copy(src), VectorHelper.copy(dst));
+        MovingObjectPosition mop = sender.world.rayTraceBlocks(VectorHelper.copy(src), VectorHelper.copy(dst));
 
         if (mop != null && mop.typeOfHit == MovingObjectType.BLOCK)
         {
@@ -52,33 +52,33 @@ public class InteractionCactusSummon extends InteractionBase
             int y1 = mop.blockY;
             int z1 = mop.blockZ;
 
-            if (sender.worldObj.getBlock(x1, y1, z1) == Blocks.cactus)
+            if (sender.world.getBlock(x1, y1, z1) == Blocks.cactus)
             {
                 if (side.isServer())
                 {
                     int start = y1;
                     int end = y1;
 
-                    while (sender.worldObj.getBlock(x1, start - 1, z1) == Blocks.cactus)
+                    while (sender.world.getBlock(x1, start - 1, z1) == Blocks.cactus)
                     {
                         --start;
                     }
 
-                    while (sender.worldObj.getBlock(x1, end + 1, z1) == Blocks.cactus)
+                    while (sender.world.getBlock(x1, end + 1, z1) == Blocks.cactus)
                     {
                         ++end;
                     }
 
                     for (int i = end; i >= start; --i)
                     {
-                        sender.worldObj.setBlockToAir(x1, i, z1);
+                        sender.world.setBlockToAir(x1, i, z1);
                     }
 
-                    EntityCactus entity = new EntityCactus(sender.worldObj);
+                    EntityCactus entity = new EntityCactus(sender.world);
                     entity.setPosition(x1 + 0.5F, start, z1 + 0.5F);
                     entity.setCactusSize(end - start + 1);
                     entity.setDonatorSummoned(RewardHelper.hasReward(sender));
-                    sender.worldObj.spawnEntityInWorld(entity);
+                    sender.world.spawnEntityInWorld(entity);
                 }
                 else
                 {
@@ -94,7 +94,7 @@ public class InteractionCactusSummon extends InteractionBase
 
                         for (int i = 0; i < 1 + d0 * 3; ++i)
                         {
-                            sender.worldObj.spawnParticle("happyVillager", particleVec.xCoord + (d1 + Math.random() * 2 - 1) * d0, particleVec.yCoord + (d2 + Math.random() * 2 - 1) * d0, particleVec.zCoord + (d3 + Math.random() * 2 - 1) * d0, 0, 0, 0);
+                            sender.world.spawnParticle("happyVillager", particleVec.xCoord + (d1 + Math.random() * 2 - 1) * d0, particleVec.yCoord + (d2 + Math.random() * 2 - 1) * d0, particleVec.zCoord + (d3 + Math.random() * 2 - 1) * d0, 0, 0, 0);
                         }
                     }
                 }

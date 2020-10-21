@@ -169,7 +169,7 @@ public enum CommonEventHandler
         {
             PlayerEntity player = (EntityPlayer) entity;
 
-            if (!entity.worldObj.isRemote)
+            if (!entity.world.isRemote)
             {
                 playersToSync.add(player);
             }
@@ -181,7 +181,7 @@ public enum CommonEventHandler
     {
         PlayerEntity player = event.entityPlayer;
 
-        if (player != null && !player.worldObj.isRemote)
+        if (player != null && !player.world.isRemote)
         {
             if (event.target instanceof EntityPlayer)
             {
@@ -255,7 +255,7 @@ public enum CommonEventHandler
 
             updateArmSwingProgress(player);
 
-            if (!player.worldObj.isRemote)
+            if (!player.world.isRemote)
             {
                 ItemStack quiver = QuiverHelper.getEquippedQuiver(player);
                 ItemStack tachyonDevice = SpeedsterHelper.getEquippedTachyonDevice(player);
@@ -336,7 +336,7 @@ public enum CommonEventHandler
             SHHelper.incr(SHData.HORIZONTAL_BOW_TIMER, player, SHConstants.TICKS_HORIZONTAL_BOW, SHData.HORIZONTAL_BOW.get(player));
             SHHelper.incr(SHData.HAT_TIP, player, SHConstants.ANIMATION_HAT_TIP, false);
 
-            for (Entity entity : (List<Entity>) player.worldObj.loadedEntityList)
+            for (Entity entity : (List<Entity>) player.world.loadedEntityList)
             {
                 if (entity instanceof EntityGrappleArrow)
                 {
@@ -347,7 +347,7 @@ public enum CommonEventHandler
                         if (heldItem == null || heldItem.getItem() != ModItems.compoundBow || heldItem == null || player.swingProgressInt == 1)
                         {
                             arrow.setIsCableCut(true);
-                            player.worldObj.playSoundAtEntity(player, SHSounds.ENTITY_ARROW_GRAPPLE_DISCONNECT.toString(), 1.0F, 0.8F);
+                            player.world.playSoundAtEntity(player, SHSounds.ENTITY_ARROW_GRAPPLE_DISCONNECT.toString(), 1.0F, 0.8F);
                         }
 
                         if (arrow.inGround && !(arrow instanceof EntityVineArrow && ((EntityVineArrow) arrow).getIsSnake()))
@@ -424,7 +424,7 @@ public enum CommonEventHandler
 
                 if (SHData.SPEEDING.get(player))
                 {
-                    if (!player.worldObj.isRemote)
+                    if (!player.world.isRemote)
                     {
                         if (player.ticksExisted % 40 == 0 && SHData.SPEED.get(player) > SpeedsterHelper.getFilteredMaxSpeedSetting(player, SpeedBar.TACHYON))
                         {
@@ -508,7 +508,7 @@ public enum CommonEventHandler
                 AxisAlignedBB aabb = player.boundingBox;
                 aabb = AxisAlignedBB.getBoundingBox(aabb.minX, aabb.minY, aabb.minZ, aabb.minX + width, aabb.minY + height, aabb.minZ + width);
 
-                if (player.worldObj.getCollidingBoundingBoxes(player, aabb).isEmpty())
+                if (player.world.getCollidingBoundingBoxes(player, aabb).isEmpty())
                 {
                     SHData.SCALE.setWithoutNotify(player, scale = defScale);
                 }
@@ -678,7 +678,7 @@ public enum CommonEventHandler
                 }
             }
 
-            if (!player.worldObj.isRemote)
+            if (!player.world.isRemote)
             {
                 SHAttributes.applyModifiers(player);
             }
@@ -693,14 +693,14 @@ public enum CommonEventHandler
                     int z = MathHelper.floor_double(player.posZ);
                     float y = MathHelper.floor_double(player.boundingBox.minY);
 
-                    if (player.worldObj.blockExists(x, 0, z))
+                    if (player.world.blockExists(x, 0, z))
                     {
-                        while (player.worldObj.isAirBlock(x, (int) y, z) && y > 0)
+                        while (player.world.isAirBlock(x, (int) y, z) && y > 0)
                         {
                             y -= 1;
                         }
 
-                        Block block = player.worldObj.getBlock(x, (int) y, z);
+                        Block block = player.world.getBlock(x, (int) y, z);
 
                         if (block.getMaterial() != Material.air && block.isCollidable())
                         {
@@ -758,9 +758,9 @@ public enum CommonEventHandler
         {
             if (Rule.ALLOW_SENTRYMODE.get(player) && player.canPlayerEdit(MathHelper.floor_double(player.posX), MathHelper.floor_double(player.posY), MathHelper.floor_double(player.posZ), 0, player.getHeldItem()))
             {
-                if (!player.worldObj.isRemote)
+                if (!player.world.isRemote)
                 {
-                    EntityIronMan entity = new EntityIronMan(player.worldObj);
+                    EntityIronMan entity = new EntityIronMan(player.world);
                     entity.setLocationAndAngles(player.posX, player.posY, player.posZ, player.rotationYaw, player.rotationPitch);
                     entity.renderYawOffset = entity.prevRenderYawOffset = player.renderYawOffset;
                     entity.rotationYawHead = entity.prevRotationYawHead = player.rotationYawHead;
@@ -776,7 +776,7 @@ public enum CommonEventHandler
                         player.setCurrentItemOrArmor(i, null);
                     }
 
-                    player.worldObj.spawnEntityInWorld(entity);
+                    player.world.spawnEntityInWorld(entity);
                     entity.onSpawnWithEgg(null);
                 }
 
@@ -901,7 +901,7 @@ public enum CommonEventHandler
         {
             double radius = 1.5D;
             AxisAlignedBB aabb = player.boundingBox.expand(radius, 0.0D, radius);
-            List<Entity> list = player.worldObj.getEntitiesWithinAABBExcludingEntity(player, aabb);
+            List<Entity> list = player.world.getEntitiesWithinAABBExcludingEntity(player, aabb);
 
             for (Entity entity : list)
             {
@@ -926,7 +926,7 @@ public enum CommonEventHandler
         {
             PlayerEntity player = (EntityPlayer) entity;
 
-            if (!player.worldObj.isRemote)
+            if (!player.world.isRemote)
             {
                 if (playersToSync.size() > 0 && playersToSync.contains(player))
                 {
@@ -989,9 +989,9 @@ public enum CommonEventHandler
 
                 if (entity.posY < 0)
                 {
-                    player.playerNetServerHandler.setPlayerLocation(player.posX, entity.worldObj.getHeight(), player.posZ, player.rotationYaw, player.rotationPitch);
+                    player.playerNetServerHandler.setPlayerLocation(player.posX, entity.world.getHeight(), player.posZ, player.rotationYaw, player.rotationPitch);
                 }
-                else if (entity.posY > entity.worldObj.getHeight())
+                else if (entity.posY > entity.world.getHeight())
                 {
                     player.playerNetServerHandler.setPlayerLocation(player.posX, 0, player.posZ, player.rotationYaw, player.rotationPitch);
                 }
@@ -1000,9 +1000,9 @@ public enum CommonEventHandler
             {
                 if (entity.posY < 0)
                 {
-                    entity.posY = entity.worldObj.getHeight();
+                    entity.posY = entity.world.getHeight();
                 }
-                else if (entity.posY > entity.worldObj.getHeight())
+                else if (entity.posY > entity.world.getHeight())
                 {
                     entity.posY = 0;
                 }
@@ -1022,7 +1022,7 @@ public enum CommonEventHandler
                 flag = hero == null || !hero.hasProperty(entity, Property.BREATHE_SPACE);
             }
 
-            if (flag && !entity.worldObj.isRemote)
+            if (flag && !entity.world.isRemote)
             {
                 entity.attackEntityFrom(ModDamageSources.SUFFOCATE, Rule.DMG_QR_SUFFOCATE.get(entity, hero));
             }
@@ -1159,7 +1159,7 @@ public enum CommonEventHandler
 
                     if (!event.source.isExplosion())
                     {
-                        entity.worldObj.playSoundAtEntity(entity, SHSounds.ITEM_SHIELD_HIT.toString(), 0.6F, 0.8F + 0.1F * rand.nextFloat() - Math.min(event.ammount, 10) / 50);
+                        entity.world.playSoundAtEntity(entity, SHSounds.ITEM_SHIELD_HIT.toString(), 0.6F, 0.8F + 0.1F * rand.nextFloat() - Math.min(event.ammount, 10) / 50);
                     }
                 }
             }
@@ -1307,7 +1307,7 @@ public enum CommonEventHandler
                 event.distance /= scale;
             }
 
-            if (!entity.worldObj.isRemote && event.distance > 0 && entity instanceof PlayerEntity && hero == Heroes.deadpool_xmen)
+            if (!entity.world.isRemote && event.distance > 0 && entity instanceof PlayerEntity && hero == Heroes.deadpool_xmen)
             {
                 SHData.SUPERHERO_LANDING.setWithoutNotify(entity, true);
             }

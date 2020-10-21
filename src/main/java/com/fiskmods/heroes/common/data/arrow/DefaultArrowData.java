@@ -18,7 +18,7 @@ public class DefaultArrowData implements IArrowData
 
         if (arrow != null)
         {
-            arrowEntity = type.newInstance(arrow.worldObj, arrow.posX, arrow.posY, arrow.posZ);
+            arrowEntity = type.newInstance(arrow.world, arrow.posX, arrow.posY, arrow.posZ);
 
             if (arrowEntity != null)
             {

@@ -35,7 +35,7 @@ public class MoveSpikeRing extends Move
 
         if (num > 0)
         {
-            if (!entity.worldObj.isRemote)
+            if (!entity.world.isRemote)
             {
                 int spikes = 6 * num;
                 float prevYaw = entity.rotationYaw;
@@ -43,11 +43,11 @@ public class MoveSpikeRing extends Move
                 for (int i = 0; i < spikes; ++i)
                 {
                     entity.rotationYaw = i * (360F / spikes);
-                    entity.worldObj.spawnEntityInWorld(new EntityCactusSpike(entity.worldObj, entity));
+                    entity.world.spawnEntityInWorld(new EntityCactusSpike(entity.world, entity));
                 }
 
                 entity.rotationYaw = prevYaw;
-                entity.worldObj.playSoundAtEntity(entity, SHSounds.ITEM_BOW_SHOOT.toString(), 1.0F, 1.0F / (entity.getRNG().nextFloat() * 0.4F + 1.2F) + 0.75F);
+                entity.world.playSoundAtEntity(entity, SHSounds.ITEM_BOW_SHOOT.toString(), 1.0F, 1.0F / (entity.getRNG().nextFloat() * 0.4F + 1.2F) + 0.75F);
             }
 
             return true;

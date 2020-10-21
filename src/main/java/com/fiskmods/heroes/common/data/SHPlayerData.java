@@ -51,7 +51,7 @@ public class SHPlayerData implements IExtendedEntityProperties
             SHData.SCALE.setWithoutNotify(player, 1F);
         }
 
-        if (!player.worldObj.isRemote)
+        if (!player.world.isRemote)
         {
             if (arrowsNeedUpdate)
             {

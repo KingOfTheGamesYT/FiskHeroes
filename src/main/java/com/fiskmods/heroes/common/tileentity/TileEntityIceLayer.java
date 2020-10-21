@@ -18,15 +18,15 @@ public class TileEntityIceLayer extends TileEntitySH
     @Override
     public void updateEntity()
     {
-        float temp = TemperatureHelper.getCurrentBiomeTemperature(worldObj, xCoord, yCoord, zCoord);
+        float temp = TemperatureHelper.getCurrentBiomeTemperature(world, xCoord, yCoord, zCoord);
         ++ticks;
 
-        if (temp > 0 || worldObj.getSavedLightValue(EnumSkyBlock.Block, xCoord, yCoord, zCoord) > 11)
+        if (temp > 0 || world.getSavedLightValue(EnumSkyBlock.Block, xCoord, yCoord, zCoord) > 11)
         {
             int metadata = getBlockMetadata();
             ForgeDirection dir = ForgeDirection.getOrientation(metadata);
 
-            if (!(thickness >= 60 && worldObj.getBlock(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ) == ModBlocks.iceLayer && worldObj.getBlockMetadata(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ) == metadata))
+            if (!(thickness >= 60 && world.getBlock(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ) == ModBlocks.iceLayer && world.getBlockMetadata(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ) == metadata))
             {
                 if (--thawTicks <= 0)
                 {
@@ -36,7 +36,7 @@ public class TileEntityIceLayer extends TileEntitySH
                     }
                     else
                     {
-                        worldObj.setBlockToAir(xCoord, yCoord, zCoord);
+                        world.setBlockToAir(xCoord, yCoord, zCoord);
                     }
 
                     thawTicks = Math.max(20 + new Random(ticks * 100).nextInt(60) - Math.round(temp), 10);

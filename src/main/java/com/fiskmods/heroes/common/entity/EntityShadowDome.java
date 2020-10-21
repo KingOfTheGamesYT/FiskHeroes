@@ -50,7 +50,7 @@ public class EntityShadowDome extends EntityThrowable
         {
             setDead();
         }
-        else if (worldObj.isRemote)
+        else if (world.isRemote)
         {
             float radius = Rule.RADIUS_SHADOWDOME.get(this);
             double dist = FiskHeroes.proxy.getPlayer().getDistanceToEntity(this);

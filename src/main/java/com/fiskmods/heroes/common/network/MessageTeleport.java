@@ -86,7 +86,7 @@ public class MessageTeleport extends AbstractMessage<MessageTeleport>
                 off.rotateAroundY((float) Math.toRadians(360 / yaw));
 
                 Vec3 v = Vec3.createVectorHelper(off.xCoord * user.width, off.yCoord * user.height / 2, off.zCoord * user.width);
-                Minecraft.getInstance().effectRenderer.addEffect(new EntitySHBreachFX(user.worldObj, pos, color, v.xCoord, v.yCoord, v.zCoord, scale));
+                Minecraft.getInstance().effectRenderer.addEffect(new EntitySHBreachFX(user.world, pos, color, v.xCoord, v.yCoord, v.zCoord, scale));
             }
         }
     }

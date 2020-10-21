@@ -104,7 +104,7 @@ public class InteractionRepulsor extends InteractionBase
             dst = rayTrace.hitVec;
         }
 
-        sender.worldObj.spawnEntityInWorld(new EntityRepulsorBlast(sender.worldObj, sender, src, dst));
-        sender.worldObj.playSoundAtEntity(sender, SHSounds.ABILITY_REPULSOR_BLAST.toString(), 2, 1);
+        sender.world.spawnEntityInWorld(new EntityRepulsorBlast(sender.world, sender, src, dst));
+        sender.world.playSoundAtEntity(sender, SHSounds.ABILITY_REPULSOR_BLAST.toString(), 2, 1);
     }
 }

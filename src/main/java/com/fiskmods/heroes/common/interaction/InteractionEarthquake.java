@@ -36,12 +36,12 @@ public class InteractionEarthquake extends InteractionBase
     {
         if (side.isServer())
         {
-            EntityEarthquake entity = new EntityEarthquake(sender.worldObj, sender);
+            EntityEarthquake entity = new EntityEarthquake(sender.world, sender);
             entity.posX = x + 0.5F;
             entity.posY = y + 0.5F;
             entity.posZ = z + 0.5F;
 
-            sender.worldObj.spawnEntityInWorld(entity);
+            sender.world.spawnEntityInWorld(entity);
         }
         else if (sender == clientPlayer)
         {

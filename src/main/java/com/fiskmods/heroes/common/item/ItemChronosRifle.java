@@ -89,7 +89,7 @@ public class ItemChronosRifle extends ItemUntextured implements IReloadWeapon, I
 
     public void shoot(ItemStack stack, PlayerEntity player, HeroIteration iter)
     {
-        if (!player.worldObj.isRemote)
+        if (!player.world.isRemote)
         {
             if (stack.hasTagCompound() && stack.getTagCompound().hasKey("fisktag", NBT.TAG_COMPOUND))
             {
@@ -139,7 +139,7 @@ public class ItemChronosRifle extends ItemUntextured implements IReloadWeapon, I
             }
             else
             {
-                player.worldObj.spawnEntityInWorld(new EntityLaserBolt(player.worldObj, player, Type.RIFLE, iter, true));
+                player.world.spawnEntityInWorld(new EntityLaserBolt(player.world, player, Type.RIFLE, iter, true));
             }
         }
 
@@ -179,18 +179,18 @@ public class ItemChronosRifle extends ItemUntextured implements IReloadWeapon, I
 
                 if (mop.hitVec != null)
                 {
-                    player.worldObj.spawnEntityInWorld(new EntityRepulsorBlast(player.worldObj, player, VectorHelper.getOffsetCoords(player, -0.25 * (1 - scope), -0.25, 0.9), mop.hitVec));
+                    player.world.spawnEntityInWorld(new EntityRepulsorBlast(player.world, player, VectorHelper.getOffsetCoords(player, -0.25 * (1 - scope), -0.25, 0.9), mop.hitVec));
                 }
             }
         }
         else
         {
-            EntityLaserBolt entity = new EntityLaserBolt(player.worldObj, player, type, iter, true);
+            EntityLaserBolt entity = new EntityLaserBolt(player.world, player, type, iter, true);
             entity.motionX += mX;
             entity.motionY += mY;
             entity.motionZ += mZ;
 
-            player.worldObj.spawnEntityInWorld(entity);
+            player.world.spawnEntityInWorld(entity);
         }
     }
 

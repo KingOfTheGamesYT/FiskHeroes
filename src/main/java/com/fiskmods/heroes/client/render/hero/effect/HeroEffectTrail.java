@@ -83,7 +83,7 @@ public class HeroEffectTrail extends HeroEffect
                     if (dist >= player.width + player.width / 10)
                     {
                         LinkedList<EntitySpeedBlur> list = getTrail(player);
-                        EntitySpeedBlur entity = new EntitySpeedBlur(player.worldObj, player);
+                        EntitySpeedBlur entity = new EntitySpeedBlur(player.world, player);
                         int fade = entity.trail.fade;
 
                         if (entity.trail.particles != null)
@@ -100,7 +100,7 @@ public class HeroEffectTrail extends HeroEffect
                         dist = 0;
 
                         trailData.put(player, list);
-                        player.worldObj.spawnEntityInWorld(entity);
+                        player.world.spawnEntityInWorld(entity);
                     }
 
                     traveledBlocks.put(player, dist);

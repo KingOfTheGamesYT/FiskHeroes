@@ -14,7 +14,7 @@ public class ContainerQuiver extends ContainerBasic
 
     public ContainerQuiver(PlayerInventory playerInventory, InventoryQuiver inventoryQuiver)
     {
-        super(playerInventory.player.worldObj);
+        super(playerInventory.player.world);
         inventory = inventoryQuiver;
 
         for (int i = 0; i < inventoryQuiver.getSizeInventory(); ++i)

@@ -48,7 +48,7 @@ public class EntityVialArrow extends EntityTrickArrow
                 shooter = (EntityLivingBase) getShooter();
             }
 
-            if (!worldObj.isRemote)
+            if (!world.isRemote)
             {
                 ItemStack potionDamage = ItemTrickArrow.getItem(getArrowItem());
 
@@ -59,7 +59,7 @@ public class EntityVialArrow extends EntityTrickArrow
                     if (list != null && !list.isEmpty())
                     {
                         AxisAlignedBB aabb = boundingBox.expand(4.0D, 2.0D, 4.0D);
-                        List list1 = worldObj.getEntitiesWithinAABB(EntityLivingBase.class, aabb);
+                        List list1 = world.getEntitiesWithinAABB(EntityLivingBase.class, aabb);
 
                         if (list1 != null && !list1.isEmpty())
                         {
@@ -105,7 +105,7 @@ public class EntityVialArrow extends EntityTrickArrow
                         }
                     }
 
-                    worldObj.playAuxSFX(2002, (int) Math.round(posX), (int) Math.round(posY), (int) Math.round(posZ), potionDamage.getItemDamage());
+                    world.playAuxSFX(2002, (int) Math.round(posX), (int) Math.round(posY), (int) Math.round(posZ), potionDamage.getItemDamage());
                 }
             }
         }

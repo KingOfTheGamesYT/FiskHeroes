@@ -37,7 +37,7 @@ public class ItemBoStaff extends ItemUntextured implements IPunchWeapon
         float width = attacker.width * 2;
         Vec3 vec3 = VectorHelper.getOffsetCoords(attacker, 0, 0, -0.2F);
         AxisAlignedBB aabb = AxisAlignedBB.getBoundingBox(-width, 0, -width, width, attacker.height, width).offset(vec3.xCoord, attacker.boundingBox.minY, vec3.zCoord);
-        List<EntityLivingBase> list = attacker.worldObj.selectEntitiesWithinAABB(EntityLivingBase.class, aabb, IEntitySelector.selectAnything);
+        List<EntityLivingBase> list = attacker.world.selectEntitiesWithinAABB(EntityLivingBase.class, aabb, IEntitySelector.selectAnything);
 
         for (EntityLivingBase entity : list)
         {

@@ -70,9 +70,9 @@ public class EntityCanaryCry extends EntityThrowable
         if (ticksExisted < getMaxTicksExisted() - 4)
         {
             AxisAlignedBB aabb = boundingBox.expand(radius, radius, radius);
-            List<Entity> list = worldObj.getEntitiesWithinAABBExcludingEntity(getThrower(), aabb);
+            List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(getThrower(), aabb);
 
-            if (!worldObj.isRemote)
+            if (!world.isRemote)
             {
                 int minX = MathHelper.floor_double(aabb.minX);
                 int maxX = MathHelper.floor_double(aabb.maxX + 1);
@@ -81,7 +81,7 @@ public class EntityCanaryCry extends EntityThrowable
                 int minZ = MathHelper.floor_double(aabb.minZ);
                 int maxZ = MathHelper.floor_double(aabb.maxZ + 1);
 
-                if (worldObj.checkChunksExist(minX, minY, minZ, maxX, maxY, maxZ))
+                if (world.checkChunksExist(minX, minY, minZ, maxX, maxY, maxZ))
                 {
                     for (int x = minX; x < maxX; ++x)
                     {
@@ -89,18 +89,18 @@ public class EntityCanaryCry extends EntityThrowable
                         {
                             for (int z = minZ; z < maxZ; ++z)
                             {
-                                Block block = worldObj.getBlock(x, y, z);
+                                Block block = world.getBlock(x, y, z);
 
                                 if (block.getMaterial() == Material.glass)
                                 {
-                                    if (getThrower() instanceof PlayerEntity && !((EntityPlayer) getThrower()).canPlayerEdit(x, y, z, 0, null) || !Rule.GRIEF_CANARYCRY.get(worldObj, x, z))
+                                    if (getThrower() instanceof PlayerEntity && !((EntityPlayer) getThrower()).canPlayerEdit(x, y, z, 0, null) || !Rule.GRIEF_CANARYCRY.get(world, x, z))
                                     {
                                         continue;
                                     }
 
                                     if (rand.nextInt(10 * MathHelper.ceiling_double_int(getDistance(x + 0.5, y + 0.5, z + 0.5))) == 0)
                                     {
-                                        worldObj.func_147480_a(x, y, z, true);
+                                        world.func_147480_a(x, y, z, true);
                                     }
                                 }
                             }
@@ -117,13 +117,13 @@ public class EntityCanaryCry extends EntityThrowable
                     {
                         EntityThrownShield shield = (EntityThrownShield) entity;
 
-                        if (!worldObj.isRemote)
+                        if (!world.isRemote)
                         {
-                            EntityItem entityitem = new EntityItem(worldObj);
+                            EntityItem entityitem = new EntityItem(world);
                             entityitem.setLocationAndAngles(shield.posX, shield.posY, shield.posZ, 0.0F, 0.0F);
                             entityitem.setEntityItemStack(shield.getShieldItem());
 
-                            worldObj.spawnEntityInWorld(entityitem);
+                            world.spawnEntityInWorld(entityitem);
                         }
 
                         shield.setDead();
@@ -135,7 +135,7 @@ public class EntityCanaryCry extends EntityThrowable
                     }
                 }
                 
-                if (!worldObj.isRemote)
+                if (!world.isRemote)
                 {
                     Hero hero = getThrower() != null ? SHHelper.getHero(getThrower()) : null;
                     float dmgMin = Rule.DMG_CANARYCRY_MIN.get(getThrower(), hero);

@@ -25,9 +25,9 @@ public class AbilityCanaryCry extends Ability
         {
             if (enabled && SHData.SHOOTING.get(entity))
             {
-                if (!entity.worldObj.isRemote)
+                if (!entity.world.isRemote)
                 {
-                    entity.worldObj.spawnEntityInWorld(new EntityCanaryCry(entity.worldObj, entity));
+                    entity.world.spawnEntityInWorld(new EntityCanaryCry(entity.world, entity));
                 }
 
                 if (!(entity instanceof PlayerEntity && ((EntityPlayer) entity).capabilities.isFlying))
@@ -38,7 +38,7 @@ public class AbilityCanaryCry extends Ability
                 }
             }
 
-            if (entity.worldObj.isRemote && FiskHeroes.proxy.isClientPlayer(entity))
+            if (entity.world.isRemote && FiskHeroes.proxy.isClientPlayer(entity))
             {
                 SHData.SHOOTING.set(entity, enabled && hero.isKeyPressed(entity, KEY_CANARY_CRY));
             }

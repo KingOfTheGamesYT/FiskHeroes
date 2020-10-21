@@ -41,11 +41,11 @@ public class InteractionEnergyBlast extends InteractionBase
             double frontOffset = 0.6;
             double sideOffset = -0.3;
             Vec3 src = VectorHelper.getOffsetCoords(sender, sideOffset, -0.3, frontOffset);
-            EntityLaserBolt entity = new EntityLaserBolt(sender.worldObj, sender, Type.SUIT, SHHelper.getHeroIter(sender), false);
+            EntityLaserBolt entity = new EntityLaserBolt(sender.world, sender, Type.SUIT, SHHelper.getHeroIter(sender), false);
             entity.setPosition(src.xCoord, src.yCoord, src.zCoord);
 
-            sender.worldObj.spawnEntityInWorld(entity);
-            sender.worldObj.playSoundAtEntity(sender, SHSounds.ITEM_CHRONOSRIFLE_SHOOT.toString(), 1, 1.0F / (sender.getRNG().nextFloat() * 0.3F + 0.7F));
+            sender.world.spawnEntityInWorld(entity);
+            sender.world.playSoundAtEntity(sender, SHSounds.ITEM_CHRONOSRIFLE_SHOOT.toString(), 1, 1.0F / (sender.getRNG().nextFloat() * 0.3F + 0.7F));
         }
         else if (sender == clientPlayer)
         {

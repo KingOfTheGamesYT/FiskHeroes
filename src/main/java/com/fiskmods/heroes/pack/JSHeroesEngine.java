@@ -222,7 +222,7 @@ public enum JSHeroesEngine
         {
             PlayerEntity player = (EntityPlayer) event.entity;
 
-            if (!player.worldObj.isRemote)
+            if (!player.world.isRemote)
             {
                 if (lastPackData instanceof HeroPackSerializer)
                 {
@@ -252,7 +252,7 @@ public enum JSHeroesEngine
     @SubscribeEvent
     public void onPlayerTick(PlayerTickEvent event)
     {
-        if (event.player.worldObj.isRemote && receivedAll)
+        if (event.player.world.isRemote && receivedAll)
         {
             if (!receivedSlices.isEmpty())
             {

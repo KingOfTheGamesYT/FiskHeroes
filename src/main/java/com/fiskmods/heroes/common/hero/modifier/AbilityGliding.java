@@ -26,7 +26,7 @@ public class AbilityGliding extends Ability
         {
             boolean flag = shouldDisable(entity);
 
-            if (entity.worldObj.isRemote && FiskHeroes.proxy.isClientPlayer(entity) && entity instanceof EntityPlayerSP)
+            if (entity.world.isRemote && FiskHeroes.proxy.isClientPlayer(entity) && entity instanceof EntityPlayerSP)
             {
                 EntityPlayerSP player = (EntityPlayerSP) entity;
 
@@ -63,6 +63,6 @@ public class AbilityGliding extends Ability
             }
         }
 
-        return entity.onGround || entity.isCollided || entity.worldObj.provider.dimensionId == ModDimensions.QUANTUM_REALM_ID || entity.isInWater() || entity.isRiding();
+        return entity.onGround || entity.isCollided || entity.world.provider.dimensionId == ModDimensions.QUANTUM_REALM_ID || entity.isInWater() || entity.isRiding();
     }
 }

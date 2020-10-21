@@ -22,7 +22,7 @@ public class TileEntityRuleHandler extends TileEntitySH implements ITileDataCall
     @Override
     public void updateEntity()
     {
-        if (!worldObj.isRemote && ruleSet != null)
+        if (!world.isRemote && ruleSet != null)
         {
             ruleSet.tick();
         }
@@ -32,14 +32,14 @@ public class TileEntityRuleHandler extends TileEntitySH implements ITileDataCall
     public void invalidate()
     {
         super.invalidate();
-        SHMapData.get(worldObj).addRuleHandler(this);
+        SHMapData.get(world).addRuleHandler(this);
     }
 
     @Override
     public void validate()
     {
         super.validate();
-        SHMapData.get(worldObj).removeRuleHandler(this);
+        SHMapData.get(world).removeRuleHandler(this);
     }
 
     public void notifyRuleSetChange(String key)

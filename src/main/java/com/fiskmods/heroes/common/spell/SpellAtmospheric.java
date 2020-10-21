@@ -34,12 +34,12 @@ public class SpellAtmospheric extends Spell
     @Override
     public void onTrigger(EntityLivingBase caster)
     {
-        if (!caster.worldObj.isRemote)
+        if (!caster.world.isRemote)
         {
             double range = 64;
             Vec3 look = caster.getLook(1);
             AxisAlignedBB bounds = caster.boundingBox.addCoord(look.xCoord * range, look.yCoord * range, look.zCoord * range).expand(1, 1, 1);
-            List<Entity> list = caster.worldObj.getEntitiesWithinAABBExcludingEntity(caster, bounds, IEntitySelector.selectAnything);
+            List<Entity> list = caster.world.getEntitiesWithinAABBExcludingEntity(caster, bounds, IEntitySelector.selectAnything);
             EntityLivingBase realCaster = SHHelper.filterDuplicate(caster);
             Float dmg = null;
 
@@ -105,7 +105,7 @@ public class SpellAtmospheric extends Spell
             }
         }
 
-        Minecraft.getInstance().effectRenderer.addEffect(new EntitySHSpellWaveFX(caster.worldObj, caster.posX, caster.posY + caster.getEyeHeight(), caster.posZ, caster.getLookVec(), SHRenderHelper.hexToRGB(hex)));
+        Minecraft.getInstance().effectRenderer.addEffect(new EntitySHSpellWaveFX(caster.world, caster.posX, caster.posY + caster.getEyeHeight(), caster.posZ, caster.getLookVec(), SHRenderHelper.hexToRGB(hex)));
     }
 
     @Override

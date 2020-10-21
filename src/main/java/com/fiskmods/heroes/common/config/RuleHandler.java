@@ -125,6 +125,6 @@ public enum RuleHandler
 
     public static RuleSet getLocal(Entity entity)
     {
-        return entity != null ? getLocal(entity.worldObj, (int) entity.posX, (int) entity.posZ) : getGlobal();
+        return entity != null ? getLocal(entity.world, (int) entity.posX, (int) entity.posZ) : getGlobal();
     }
 }

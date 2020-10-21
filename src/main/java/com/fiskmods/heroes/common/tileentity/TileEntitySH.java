@@ -26,7 +26,7 @@ public abstract class TileEntitySH extends TileEntity
 
     public void markBlockForUpdate()
     {
-        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+        world.markBlockForUpdate(xCoord, yCoord, zCoord);
     }
 
     @Override
@@ -53,14 +53,14 @@ public abstract class TileEntitySH extends TileEntity
         {
             int y = yCoord;
 
-            while (SHTileHelper.getTileBase(worldObj.getTileEntity(xCoord, ++y, zCoord)) == this)
+            while (SHTileHelper.getTileBase(world.getTileEntity(xCoord, ++y, zCoord)) == this)
             {
-                worldObj.markBlockForUpdate(xCoord, y, zCoord);
+                world.markBlockForUpdate(xCoord, y, zCoord);
             }
         }
         else if (tile != null)
         {
-            worldObj.markBlockForUpdate(tile.xCoord, tile.yCoord, tile.zCoord);
+            world.markBlockForUpdate(tile.xCoord, tile.yCoord, tile.zCoord);
         }
 
         markBlockForUpdate();

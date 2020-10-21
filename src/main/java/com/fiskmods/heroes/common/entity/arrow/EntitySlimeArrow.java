@@ -47,7 +47,7 @@ public class EntitySlimeArrow extends EntityTrickArrow
 
         if (rand.nextFloat() < MathHelper.sqrt_double(motionX * motionX + motionY * motionY + motionZ * motionZ))
         {
-            worldObj.spawnParticle(getParticleName(), posX, posY, posZ, (rand.nextDouble() * 2 - 1) * f, (rand.nextDouble() * 2 - 1) * f, (rand.nextDouble() * 2 - 1) * f);
+            world.spawnParticle(getParticleName(), posX, posY, posZ, (rand.nextDouble() * 2 - 1) * f, (rand.nextDouble() * 2 - 1) * f, (rand.nextDouble() * 2 - 1) * f);
         }
     }
 
@@ -71,14 +71,14 @@ public class EntitySlimeArrow extends EntityTrickArrow
         if (velocity > 0.25F)
         {
             ForgeDirection dir = ForgeDirection.getOrientation(mop.sideHit);
-            Block block = worldObj.getBlock(mop.blockX, mop.blockY, mop.blockZ);
+            Block block = world.getBlock(mop.blockX, mop.blockY, mop.blockZ);
 
             if (block.getMaterial() != Material.air)
             {
-                block.onEntityCollidedWithBlock(worldObj, xTile, yTile, zTile, this);
+                block.onEntityCollidedWithBlock(world, xTile, yTile, zTile, this);
             }
 
-            if (block.getCollisionBoundingBoxFromPool(worldObj, mop.blockX, mop.blockY, mop.blockZ) != null && worldObj.isAirBlock(mop.blockX + dir.offsetX, mop.blockY + dir.offsetY, mop.blockZ + dir.offsetZ))
+            if (block.getCollisionBoundingBoxFromPool(world, mop.blockX, mop.blockY, mop.blockZ) != null && world.isAirBlock(mop.blockX + dir.offsetX, mop.blockY + dir.offsetY, mop.blockZ + dir.offsetZ))
             {
                 float f = 0.6F;
                 motionX *= (1 - Math.abs(dir.offsetX) * 2) * f;
@@ -92,7 +92,7 @@ public class EntitySlimeArrow extends EntityTrickArrow
 
                 for (int i = 0; i < 20; ++i)
                 {
-                    worldObj.spawnParticle(getParticleName(), mop.hitVec.xCoord + (rand.nextDouble() * 2 - 1) * f1, mop.hitVec.yCoord + (rand.nextDouble() * 2 - 1) * f1, mop.hitVec.zCoord + (rand.nextDouble() * 2 - 1) * f1, (rand.nextDouble() * 2 - 1) * f2, (rand.nextDouble() * 2 - 1) * f2, (rand.nextDouble() * 2 - 1) * f2);
+                    world.spawnParticle(getParticleName(), mop.hitVec.xCoord + (rand.nextDouble() * 2 - 1) * f1, mop.hitVec.yCoord + (rand.nextDouble() * 2 - 1) * f1, mop.hitVec.zCoord + (rand.nextDouble() * 2 - 1) * f1, (rand.nextDouble() * 2 - 1) * f2, (rand.nextDouble() * 2 - 1) * f2, (rand.nextDouble() * 2 - 1) * f2);
                 }
             }
         }

@@ -57,9 +57,9 @@ public class InteractionEquipment extends InteractionBase
             EnumEquipment equipment = SHHelper.getUtilityBelt(sender);
             Entity entity;
 
-            if (!sender.worldObj.isRemote && (entity = equipment.createEntity(sender.worldObj, sender)) != null)
+            if (!sender.world.isRemote && (entity = equipment.createEntity(sender.world, sender)) != null)
             {
-                sender.worldObj.spawnEntityInWorld(entity);
+                sender.world.spawnEntityInWorld(entity);
             }
         }
         else if (sender == clientPlayer)

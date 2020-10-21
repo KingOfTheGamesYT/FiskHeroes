@@ -26,7 +26,7 @@
 //
 //public class ChunkProviderQuantumRealmNew implements IChunkProvider
 //{
-//    private World worldObj;
+//    private World world;
 //    private Random random;
 //
 //    private NoiseGeneratorOctaves noiseGen1;
@@ -48,7 +48,7 @@
 //
 //    public ChunkProviderQuantumRealmNew(World world, long seed)
 //    {
-//        worldObj = world;
+//        world = world;
 //        random = new Random(seed);
 //
 //        noiseGen1 = new NoiseGeneratorOctaves(random, 16);
@@ -83,7 +83,7 @@
 //
 //    public void generateBlocks(int chunkX, int chunkZ, Block[] data)
 //    {
-//        biomesForGeneration = worldObj.getWorldChunkManager().getBiomesForGeneration(biomesForGeneration, chunkX * 4 - 2, chunkZ * 4 - 2, 10, 10);
+//        biomesForGeneration = world.getWorldChunkManager().getBiomesForGeneration(biomesForGeneration, chunkX * 4 - 2, chunkZ * 4 - 2, 10, 10);
 //        initializeNoiseField(chunkX * 4, 0, chunkZ * 4);
 //
 //        short height = 256;
@@ -175,14 +175,14 @@
 //
 //        Block[] data = new Block[65536];
 //        byte[] meta = new byte[data.length];
-//        BiomeGenBase[] biomes = worldObj.getWorldChunkManager().loadBlockGeneratorData(null, chunkX * 16, chunkZ * 16, 16, 16); // Forge Move up to allow for passing to replaceBiomeBlocks
+//        BiomeGenBase[] biomes = world.getWorldChunkManager().loadBlockGeneratorData(null, chunkX * 16, chunkZ * 16, 16, 16); // Forge Move up to allow for passing to replaceBiomeBlocks
 //
 //        generateBlocks(chunkX, chunkZ, data);
 ////        replaceBiomeBlocks(chunkX, chunkZ, data, meta, biomes);
-////        netherCaveGenerator.func_151539_a(this, worldObj, chunkX, chunkZ, data);
-////        genNetherBridge.func_151539_a(this, worldObj, chunkX, chunkZ, data);
+////        netherCaveGenerator.func_151539_a(this, world, chunkX, chunkZ, data);
+////        genNetherBridge.func_151539_a(this, world, chunkX, chunkZ, data);
 //
-//        Chunk chunk = new Chunk(worldObj, data, meta, chunkX, chunkZ);
+//        Chunk chunk = new Chunk(world, data, meta, chunkX, chunkZ);
 //        byte[] bytes = chunk.getBiomeArray();
 //
 //        for (int i = 0; i < bytes.length; ++i)
@@ -332,14 +332,14 @@
 //    public void populate(IChunkProvider provider, int chunkX, int chunkZ)
 //    {
 //        BlockFalling.fallInstantly = true;
-//        MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Pre(provider, worldObj, worldObj.rand, chunkX, chunkZ, false));
+//        MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Pre(provider, world, world.rand, chunkX, chunkZ, false));
 //
 //        int x = chunkX * 16;
 //        int z = chunkZ * 16;
-//        BiomeGenBase biome = worldObj.getBiomeGenForCoords(x + 16, z + 16);
-//        biome.decorate(worldObj, worldObj.rand, x, z);
+//        BiomeGenBase biome = world.getBiomeGenForCoords(x + 16, z + 16);
+//        biome.decorate(world, world.rand, x, z);
 //
-//        MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Post(provider, worldObj, worldObj.rand, chunkX, chunkZ, false));
+//        MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Post(provider, world, world.rand, chunkX, chunkZ, false));
 //        BlockFalling.fallInstantly = false;
 //    }
 //

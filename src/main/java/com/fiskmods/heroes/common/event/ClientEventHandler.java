@@ -294,7 +294,7 @@ public enum ClientEventHandler
     {
         PlayerEntity player = event.player;
 
-        if (player.worldObj.isRemote)
+        if (player.world.isRemote)
         {
             HeroIteration iter = SHHelper.getHeroIter(player);
             HeroRenderer renderer = HeroRenderer.get(iter);
@@ -372,7 +372,7 @@ public enum ClientEventHandler
                 for (int i = 0; i < list.size(); ++i)
                 {
                     LightningData data = list.get(i);
-                    data.onUpdate(player, player.worldObj);
+                    data.onUpdate(player, player.world);
                 }
 
                 if (player == mc.thePlayer)
@@ -619,7 +619,7 @@ public enum ClientEventHandler
     {
         AbstractClientPlayer player = (AbstractClientPlayer) event.entityPlayer;
         HeroIteration iter = SHHelper.getHeroIter(player);
-        World world = player.worldObj;
+        World world = player.world;
 
         if (SHData.INVISIBLE.get(player) && SHHelper.getInvisibility(player, mc.thePlayer) <= 0 || SHData.SHADOWFORM_TIMER.get(player) >= 1 && !SHHelper.canPlayerSeeMartianInvis(mc.thePlayer))
         {
@@ -781,7 +781,7 @@ public enum ClientEventHandler
         {
             if (data != null)
             {
-                EntityTrickArrow arrow = data.getEntity(player.worldObj);
+                EntityTrickArrow arrow = data.getEntity(player.world);
 
                 if (arrow != null)
                 {

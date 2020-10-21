@@ -85,7 +85,7 @@ public class EntityFireballArrow extends EntityTrickArrow
                 v = VectorHelper.centerOf(this);
             }
 
-            if (worldObj.isRemote)
+            if (world.isRemote)
             {
                 float spread = 1.5F;
                 float spread1 = 0.5F;
@@ -101,7 +101,7 @@ public class EntityFireballArrow extends EntityTrickArrow
                 float radius = Rule.RADIUS_FIREBALLARROW.get(getShooter(), hero);
                 float dmg = Rule.DMG_FIREBALLARROW.get(getShooter(), hero);
 
-                for (Entity entity : VectorHelper.getEntitiesNear(Entity.class, worldObj, posX, posY, posZ, radius))
+                for (Entity entity : VectorHelper.getEntitiesNear(Entity.class, world, posX, posY, posZ, radius))
                 {
                     if (entity != getShooter() && entity != mop.entityHit)
                     {

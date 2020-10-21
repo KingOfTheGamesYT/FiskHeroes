@@ -497,9 +497,9 @@ public class SHData<T> extends FiskRegistryEntry<SHData<?>>
 
     public boolean sync(PlayerEntity player)
     {
-        if (hasPerms(player.worldObj.isRemote ? Side.CLIENT : Side.SERVER) && legalUpdate(player))
+        if (hasPerms(player.world.isRemote ? Side.CLIENT : Side.SERVER) && legalUpdate(player))
         {
-            if (player.worldObj.isRemote)
+            if (player.world.isRemote)
             {
                 SHNetworkManager.wrapper.sendToServer(new MessagePlayerData(player, this, get(player)));
             }

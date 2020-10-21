@@ -34,8 +34,8 @@ public class MessageThrowShield extends AbstractMessage<MessageThrowShield>
 
         if (heldItem != null && heldItem.getItem() == ModItems.captainAmericasShield && player.isSneaking() && SHHelper.hasPermission(player, Permission.THROW_SHIELD))
         {
-            player.worldObj.playSoundAtEntity(player, SHSounds.ITEM_SHIELD_THROW.toString(), 1, 1 + (player.getRNG().nextFloat() - 0.5F) * 0.2F);
-            player.worldObj.spawnEntityInWorld(new EntityThrownShield(player.worldObj, player, heldItem.copy()));
+            player.world.playSoundAtEntity(player, SHSounds.ITEM_SHIELD_THROW.toString(), 1, 1 + (player.getRNG().nextFloat() - 0.5F) * 0.2F);
+            player.world.spawnEntityInWorld(new EntityThrownShield(player.world, player, heldItem.copy()));
             player.setCurrentItemOrArmor(0, null);
         }
     }

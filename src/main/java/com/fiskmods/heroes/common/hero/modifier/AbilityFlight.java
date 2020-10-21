@@ -31,14 +31,14 @@ public class AbilityFlight extends Ability
         {
             if (phase == Phase.END)
             {
-                if (entity.worldObj.isRemote)
+                if (entity.world.isRemote)
                 {
                     onClientUpdate(entity, hero);
                 }
 
                 entity.fallDistance = 0;
             }
-            else if (this == Ability.PROPELLED_FLIGHT && applyMotion(entity) && entity.worldObj.isRemote)
+            else if (this == Ability.PROPELLED_FLIGHT && applyMotion(entity) && entity.world.isRemote)
             {
                 boolean clientPlayer = FiskHeroes.proxy.isClientPlayer(entity);
                 boolean firstPerson = clientPlayer && Minecraft.getInstance().gameSettings.thirdPersonView == 0;

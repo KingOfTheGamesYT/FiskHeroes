@@ -314,7 +314,7 @@ public class SHHelper
 
     public static void knockback(EntityLivingBase entity, Entity attacker, float amount)
     {
-        if (!entity.worldObj.isRemote)
+        if (!entity.world.isRemote)
         {
             SHNetworkManager.wrapper.sendToDimension(new MessageKnockback(entity, attacker, amount), entity.dimension);
         }
@@ -482,7 +482,7 @@ public class SHHelper
 
     public static void setInQuantumRealm(PlayerEntity player)
     {
-        if (player instanceof EntityPlayerMP && !player.worldObj.isRemote)
+        if (player instanceof EntityPlayerMP && !player.world.isRemote)
         {
             EntityPlayerMP playerMP = (EntityPlayerMP) player;
             DimensionalCoords coords = SHData.QR_ORIGIN.get(player);
@@ -494,7 +494,7 @@ public class SHHelper
                 if (coords.equals(new DimensionalCoords()) || coords.dimension != ModDimensions.QUANTUM_REALM_ID)
                 {
                     coords.posX = MathHelper.getRandomIntegerInRange(player.getRNG(), -SHConfig.get().qrSpread, SHConfig.get().qrSpread);
-                    coords.posY = MathHelper.getRandomIntegerInRange(player.getRNG(), 0, player.worldObj.getHeight());
+                    coords.posY = MathHelper.getRandomIntegerInRange(player.getRNG(), 0, player.world.getHeight());
                     coords.posZ = MathHelper.getRandomIntegerInRange(player.getRNG(), -SHConfig.get().qrSpread, SHConfig.get().qrSpread);
                     coords.dimension = ModDimensions.QUANTUM_REALM_ID;
                 }
@@ -556,14 +556,14 @@ public class SHHelper
         Vec3 src = VectorHelper.getPosition(entity, partialTicks).addVector(0, VectorHelper.getOffset(entity), 0);
         Vec3 dest = VectorHelper.add(src, VectorHelper.multiply(look, range));
 
-        MovingObjectPosition rayTrace = entity.worldObj.func_147447_a(VectorHelper.copy(src), VectorHelper.copy(dest), (flags & 1) == 1, (flags & 2) == 2, (flags & 4) == 4);
+        MovingObjectPosition rayTrace = entity.world.func_147447_a(VectorHelper.copy(src), VectorHelper.copy(dest), (flags & 1) == 1, (flags & 2) == 2, (flags & 4) == 4);
         Entity pointedEntity = null;
         Vec3 hitVec = null;
 
         double length = rayTrace != null ? rayTrace.hitVec.distanceTo(src) : range;
         double newLength = length;
 
-        for (Entity target : (List<Entity>) entity.worldObj.getEntitiesWithinAABBExcludingEntity(entity, entity.boundingBox.addCoord(look.xCoord * range, look.yCoord * range, look.zCoord * range).expand(1, 1, 1)))
+        for (Entity target : (List<Entity>) entity.world.getEntitiesWithinAABBExcludingEntity(entity, entity.boundingBox.addCoord(look.xCoord * range, look.yCoord * range, look.zCoord * range).expand(1, 1, 1)))
         {
             if (target.canBeCollidedWith())
             {
@@ -796,7 +796,7 @@ public class SHHelper
 
     public static boolean isEarthCrackTarget(EntityLivingBase entity)
     {
-        for (Object obj : entity.worldObj.loadedEntityList)
+        for (Object obj : entity.world.loadedEntityList)
         {
             if (obj instanceof EntityEarthCrack && ((EntityEarthCrack) obj).target == entity)
             {

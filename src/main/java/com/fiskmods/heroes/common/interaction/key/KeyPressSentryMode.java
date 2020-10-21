@@ -25,7 +25,7 @@ public class KeyPressSentryMode extends KeyPressBase
     @Override
     public boolean serverRequirements(PlayerEntity player, InteractionType type, int x, int y, int z)
     {
-        return Rule.ALLOW_SENTRYMODE.get(player.worldObj, x, z) && super.serverRequirements(player, type, x, y, z);
+        return Rule.ALLOW_SENTRYMODE.get(player.world, x, z) && super.serverRequirements(player, type, x, y, z);
     }
 
     @Override

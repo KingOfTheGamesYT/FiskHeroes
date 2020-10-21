@@ -30,7 +30,7 @@ public class KeyPressShapeShift extends KeyPressBase
     {
         if (side.isClient())
         {
-            sender.openGui(FiskHeroes.MODID, 1, sender.worldObj, x, y, z);
+            sender.openGui(FiskHeroes.MODID, 1, sender.world, x, y, z);
         }
     }
 }

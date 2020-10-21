@@ -43,11 +43,11 @@ public class WeaknessMetalSkin extends Weakness
 
                         for (int i = 0; i < 3; ++i)
                         {
-                            entity.worldObj.spawnParticle("largesmoke", entity.posX + (entity.getRNG().nextDouble() - 0.5D) * entity.width, entity.boundingBox.minY + entity.getRNG().nextDouble() * entity.height, entity.posZ + (entity.getRNG().nextDouble() - 0.5D) * entity.width, 0, 0, 0);
+                            entity.world.spawnParticle("largesmoke", entity.posX + (entity.getRNG().nextDouble() - 0.5D) * entity.width, entity.boundingBox.minY + entity.getRNG().nextDouble() * entity.height, entity.posZ + (entity.getRNG().nextDouble() - 0.5D) * entity.width, 0, 0, 0);
                         }
                     }
                 }
-                else if (entity.worldObj.func_147470_e(aabb) && entity.worldObj.isAnyLiquid(aabb))
+                else if (entity.world.func_147470_e(aabb) && entity.world.isAnyLiquid(aabb))
                 {
                     HeatSource.LAVA.applyHeat(entity);
                 }

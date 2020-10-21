@@ -132,7 +132,7 @@ public class EntityTrickArrow extends ArrowEntity implements IEntityAdditionalSp
     {
         if (shootingEntity == null && shooterName != null)
         {
-            shootingEntity = worldObj.getPlayerEntityByName(shooterName);
+            shootingEntity = world.getPlayerEntityByName(shooterName);
         }
 
         return shootingEntity;
@@ -236,7 +236,7 @@ public class EntityTrickArrow extends ArrowEntity implements IEntityAdditionalSp
     @Override
     public void onCollideWithPlayer(PlayerEntity player)
     {
-        if (!worldObj.isRemote && inGround && arrowShake <= 0)
+        if (!world.isRemote && inGround && arrowShake <= 0)
         {
             boolean flag = canBePickedUp == 1 || canBePickedUp == 2 && player.capabilities.isCreativeMode;
 
@@ -334,7 +334,7 @@ public class EntityTrickArrow extends ArrowEntity implements IEntityAdditionalSp
             for (int i = 0; i < 4; ++i)
             {
                 float f3 = 0.25F;
-                worldObj.spawnParticle("bubble", posX - motionX * f3, posY - motionY * f3, posZ - motionZ * f3, motionX, motionY, motionZ);
+                world.spawnParticle("bubble", posX - motionX * f3, posY - motionY * f3, posZ - motionZ * f3, motionX, motionY, motionZ);
             }
 
             motionFactor = 0.8F;
@@ -354,12 +354,12 @@ public class EntityTrickArrow extends ArrowEntity implements IEntityAdditionalSp
 
     protected void checkInGround()
     {
-        Block block = worldObj.getBlock(xTile, yTile, zTile);
+        Block block = world.getBlock(xTile, yTile, zTile);
 
         if (block.getMaterial() != Material.air)
         {
-            block.setBlockBoundsBasedOnState(worldObj, xTile, yTile, zTile);
-            AxisAlignedBB axisalignedbb = block.getCollisionBoundingBoxFromPool(worldObj, xTile, yTile, zTile);
+            block.setBlockBoundsBasedOnState(world, xTile, yTile, zTile);
+            AxisAlignedBB axisalignedbb = block.getCollisionBoundingBoxFromPool(world, xTile, yTile, zTile);
 
             if (axisalignedbb != null && axisalignedbb.isVecInside(Vec3.createVectorHelper(posX, posY, posZ)))
             {
@@ -370,8 +370,8 @@ public class EntityTrickArrow extends ArrowEntity implements IEntityAdditionalSp
 
     protected void updateInGround()
     {
-        Block block = worldObj.getBlock(xTile, yTile, zTile);
-        int k = worldObj.getBlockMetadata(xTile, yTile, zTile);
+        Block block = world.getBlock(xTile, yTile, zTile);
+        int k = world.getBlockMetadata(xTile, yTile, zTile);
 
         if (block == inTile && k == inData)
         {
@@ -401,14 +401,14 @@ public class EntityTrickArrow extends ArrowEntity implements IEntityAdditionalSp
     protected void updateInAir()
     {
         ++ticksInAir;
-        MovingObjectPosition mop = checkForImpact(worldObj, this, getShooter(), 0.3D, ticksInAir >= 5);
+        MovingObjectPosition mop = checkForImpact(world, this, getShooter(), 0.3D, ticksInAir >= 5);
 
         if (mop != null)
         {
             onImpact(mop);
         }
 
-        if (worldObj.isRemote)
+        if (world.isRemote)
         {
             spawnTrailingParticles();
         }
@@ -528,7 +528,7 @@ public class EntityTrickArrow extends ArrowEntity implements IEntityAdditionalSp
         {
             for (int i = 0; i < 4; ++i)
             {
-                worldObj.spawnParticle(getParticleName(), posX + motionX * i / 4.0D, posY + motionY * i / 4.0D, posZ + motionZ * i / 4.0D, -motionX, -motionY + 0.2D, -motionZ);
+                world.spawnParticle(getParticleName(), posX + motionX * i / 4.0D, posY + motionY * i / 4.0D, posZ + motionZ * i / 4.0D, -motionX, -motionY + 0.2D, -motionZ);
             }
         }
     }
@@ -604,8 +604,8 @@ public class EntityTrickArrow extends ArrowEntity implements IEntityAdditionalSp
         xTile = mop.blockX;
         yTile = mop.blockY;
         zTile = mop.blockZ;
-        inTile = worldObj.getBlock(xTile, yTile, zTile);
-        inData = worldObj.getBlockMetadata(xTile, yTile, zTile);
+        inTile = world.getBlock(xTile, yTile, zTile);
+        inData = world.getBlockMetadata(xTile, yTile, zTile);
         motionX = (float) (mop.hitVec.xCoord - posX);
         motionY = (float) (mop.hitVec.yCoord - posY);
         motionZ = (float) (mop.hitVec.zCoord - posZ);
@@ -620,7 +620,7 @@ public class EntityTrickArrow extends ArrowEntity implements IEntityAdditionalSp
 
         if (inTile.getMaterial() != Material.air)
         {
-            inTile.onEntityCollidedWithBlock(worldObj, xTile, yTile, zTile, this);
+            inTile.onEntityCollidedWithBlock(world, xTile, yTile, zTile, this);
         }
 
         if (noEntity)
@@ -639,7 +639,7 @@ public class EntityTrickArrow extends ArrowEntity implements IEntityAdditionalSp
         int i1 = MathHelper.floor_double(boundingBox.maxY - 0.001D);
         int j1 = MathHelper.floor_double(boundingBox.maxZ - 0.001D);
 
-        if (worldObj.checkChunksExist(i, j, k, l, i1, j1))
+        if (world.checkChunksExist(i, j, k, l, i1, j1))
         {
             for (int k1 = i; k1 <= l; ++k1)
             {
@@ -647,17 +647,17 @@ public class EntityTrickArrow extends ArrowEntity implements IEntityAdditionalSp
                 {
                     for (int i2 = k; i2 <= j1; ++i2)
                     {
-                        Block block = worldObj.getBlock(k1, l1, i2);
+                        Block block = world.getBlock(k1, l1, i2);
 
                         try
                         {
-                            block.onEntityCollidedWithBlock(worldObj, k1, l1, i2, this);
+                            block.onEntityCollidedWithBlock(world, k1, l1, i2, this);
                         }
                         catch (Throwable throwable)
                         {
                             CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Colliding entity with block");
                             CrashReportCategory crashreportcategory = crashreport.makeCategory("Block being collided with");
-                            CrashReportCategory.func_147153_a(crashreportcategory, k1, l1, i2, block, worldObj.getBlockMetadata(k1, l1, i2));
+                            CrashReportCategory.func_147153_a(crashreportcategory, k1, l1, i2, block, world.getBlockMetadata(k1, l1, i2));
                             throw new ReportedException(crashreport);
                         }
                     }
@@ -688,7 +688,7 @@ public class EntityTrickArrow extends ArrowEntity implements IEntityAdditionalSp
 
     protected void handlePostDamageEffects(EntityLivingBase entityHit)
     {
-        if (!worldObj.isRemote)
+        if (!world.isRemote)
         {
             ArrowType<EntityTrickArrow> type = ArrowType.getArrowById(getArrowId());
 
@@ -811,7 +811,7 @@ public class EntityTrickArrow extends ArrowEntity implements IEntityAdditionalSp
     @Override
     public void readSpawnData(ByteBuf buffer)
     {
-        Entity shooter = worldObj.getEntityByID(buffer.readInt());
+        Entity shooter = world.getEntityByID(buffer.readInt());
 
         if (shooter instanceof EntityLivingBase)
         {

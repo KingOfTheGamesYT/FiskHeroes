@@ -46,7 +46,7 @@ public class EntityFireChargeArrow extends EntityTrickArrow
 
         for (int i = 0; i < 2; ++i)
         {
-            worldObj.spawnParticle(getParticleName(), posX, posY, posZ, (rand.nextDouble() * 2 - 1) * f, (rand.nextDouble() * 2 - 1) * f, (rand.nextDouble() * 2 - 1) * f);
+            world.spawnParticle(getParticleName(), posX, posY, posZ, (rand.nextDouble() * 2 - 1) * f, (rand.nextDouble() * 2 - 1) * f, (rand.nextDouble() * 2 - 1) * f);
         }
     }
 
@@ -81,12 +81,12 @@ public class EntityFireChargeArrow extends EntityTrickArrow
             int y = mop.blockY + dir.offsetY;
             int z = mop.blockZ + dir.offsetZ;
 
-            if (Rule.GRIEF_FIRECHARGEARROW.get(worldObj, x, z) && worldObj.isAirBlock(x, y, z) && FiskServerUtils.canEntityEdit(getShooter(), x, y, z, mop.sideHit, getArrowItem()))
+            if (Rule.GRIEF_FIRECHARGEARROW.get(world, x, z) && world.isAirBlock(x, y, z) && FiskServerUtils.canEntityEdit(getShooter(), x, y, z, mop.sideHit, getArrowItem()))
             {
-                if (!worldObj.isRemote)
+                if (!world.isRemote)
                 {
-                    worldObj.playSoundEffect(x + 0.5, y + 0.5, z + 0.5, "fire.ignite", 1.0F, rand.nextFloat() * 0.4F + 0.8F);
-                    worldObj.setBlock(x, y, z, Blocks.fire);
+                    world.playSoundEffect(x + 0.5, y + 0.5, z + 0.5, "fire.ignite", 1.0F, rand.nextFloat() * 0.4F + 0.8F);
+                    world.setBlock(x, y, z, Blocks.fire);
                 }
 
                 setArrowId(0);

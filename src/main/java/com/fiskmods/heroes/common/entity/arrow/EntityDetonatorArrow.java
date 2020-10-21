@@ -43,13 +43,13 @@ public class EntityDetonatorArrow extends EntityTrickArrow
                 grappleTimer = Math.min(grappleTimer + 1F / 5, 1);
             }
 
-            if (inTile != null && worldObj.isBlockIndirectlyGettingPowered(xTile, yTile, zTile))
+            if (inTile != null && world.isBlockIndirectlyGettingPowered(xTile, yTile, zTile))
             {
                 setDead();
 
-                if (!worldObj.isRemote)
+                if (!world.isRemote)
                 {
-                    worldObj.createExplosion(this, posX, posY, posZ, 4, true);
+                    world.createExplosion(this, posX, posY, posZ, 4, true);
                 }
             }
         }

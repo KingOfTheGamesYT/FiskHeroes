@@ -29,7 +29,7 @@ public class AbilityCryokinesis extends Ability
         {
             SHHelper.incr(SHData.CRYO_CHARGE, entity, SHConstants.TICKS_CRYO_CHARGE, SHData.CRYO_CHARGING.get(entity), false);
 
-            if (entity.worldObj.isRemote && FiskHeroes.proxy.isClientPlayer(entity))
+            if (entity.world.isRemote && FiskHeroes.proxy.isClientPlayer(entity))
             {
                 boolean flag = SHData.CRYO_CHARGING.get(entity);
                 SHData.CRYO_CHARGING.set(entity, hero.isKeyPressed(entity, KEY_CHARGE_ICE) && SHData.CRYO_CHARGE.get(entity) < 1);
@@ -49,7 +49,7 @@ public class AbilityCryokinesis extends Ability
         {
             amount += Rule.DMG_ICEFISTBONUS.get(entity, hero) * SHData.CRYO_CHARGE.get(entity);
 
-            if (!entity.worldObj.isRemote)
+            if (!entity.world.isRemote)
             {
                 if (TemperatureHelper.getCurrentBodyTemperature(target) > 0)
                 {

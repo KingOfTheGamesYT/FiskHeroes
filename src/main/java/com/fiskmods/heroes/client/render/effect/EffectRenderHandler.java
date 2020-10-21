@@ -38,7 +38,7 @@ public enum EffectRenderHandler
 
         if (list.isEmpty())
         {
-            INSTANCE.entities.put(anchor, new WeakReference<>(new EffectEntity(anchor.worldObj, anchor)));
+            INSTANCE.entities.put(anchor, new WeakReference<>(new EffectEntity(anchor.world, anchor)));
         }
 
         list.add(new Entry(ticks, effect));

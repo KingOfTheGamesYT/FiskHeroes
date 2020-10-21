@@ -260,14 +260,14 @@ public class ArrowType<T extends EntityTrickArrow> extends FiskRegistryEntry<Arr
             entity.setFire(100);
         }
 
-        entity.worldObj.spawnEntityInWorld(entity);
+        entity.world.spawnEntityInWorld(entity);
     }
 
     public T getDummyEntity(EntityLivingBase shooter)
     {
         if (dummyEntity == null)
         {
-            dummyEntity = newInstance(shooter.worldObj, 0, 0, 0);
+            dummyEntity = newInstance(shooter.world, 0, 0, 0);
             dummyEntity.setArrowId(getIdFromArrow(this));
             dummyEntity.setArrowItem(makeItem());
         }
@@ -275,7 +275,7 @@ public class ArrowType<T extends EntityTrickArrow> extends FiskRegistryEntry<Arr
         HeroIteration iter = SHHelper.getHeroIter(shooter);
         dummyEntity.setHero(iter != null ? iter.getName() : null);
         dummyEntity.ticksExisted = shooter.ticksExisted;
-        dummyEntity.worldObj = shooter.worldObj;
+        dummyEntity.world = shooter.world;
 
         return dummyEntity;
     }

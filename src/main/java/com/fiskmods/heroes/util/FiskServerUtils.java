@@ -170,7 +170,7 @@ public class FiskServerUtils
         }
         else if (entity instanceof EntityLivingBase)
         {
-            return entity.worldObj.getGameRules().getGameRuleBooleanValue("mobGriefing");
+            return entity.world.getGameRules().getGameRuleBooleanValue("mobGriefing");
         }
 
         return false;

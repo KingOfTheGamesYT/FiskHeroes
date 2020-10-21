@@ -33,7 +33,7 @@ public class JSEntityAccessor implements JSAccessor<JSEntityAccessor>
 
     public JSWorldAccessor world()
     {
-        return JSWorldAccessor.wrap(entity.worldObj);
+        return JSWorldAccessor.wrap(entity.world);
     }
 
     public JSItemAccessor getEquipmentInSlot(int slot)

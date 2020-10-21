@@ -12,18 +12,18 @@ import net.minecraft.world.World;
 public class ContainerBasic<T extends TileEntity> extends Container
 {
     protected final T tileentity;
-    protected final World worldObj;
+    protected final World world;
 
     public ContainerBasic(T tile)
     {
         tileentity = tile;
-        worldObj = tile != null ? tile.getWorldObj() : null;
+        world = tile != null ? tile.getWorldObj() : null;
     }
 
     public ContainerBasic(World world)
     {
         tileentity = null;
-        worldObj = world;
+        world = world;
     }
 
     public void addPlayerInventory(PlayerInventory playerInventory, int yOffset)

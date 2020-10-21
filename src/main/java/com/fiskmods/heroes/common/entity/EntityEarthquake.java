@@ -59,7 +59,7 @@ public class EntityEarthquake extends EntityThrowable
         else if (ticksExisted % (rand.nextInt(5) + 1) == 0)
         {
             int radius = 20;
-            List<EntityLivingBase> list = worldObj.selectEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getBoundingBox(posX - radius, posY - radius / 2, posZ - radius, posX + radius, posY + radius / 2, posZ + radius), IEntitySelector.selectAnything);
+            List<EntityLivingBase> list = world.selectEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getBoundingBox(posX - radius, posY - radius / 2, posZ - radius, posX + radius, posY + radius / 2, posZ + radius), IEntitySelector.selectAnything);
 
             for (int i = -radius; i <= radius; ++i)
             {
@@ -71,12 +71,12 @@ public class EntityEarthquake extends EntityThrowable
                         int y = MathHelper.floor_double(posY) + j;
                         int z = MathHelper.floor_double(posZ) + k;
 
-                        if (!worldObj.isAirBlock(x, y - 1, z) && worldObj.isAirBlock(x, y, z))
+                        if (!world.isAirBlock(x, y - 1, z) && world.isAirBlock(x, y, z))
                         {
                             if (rand.nextInt(200) == 0)
                             {
-                                worldObj.spawnParticle("largeexplode", x + rand.nextDouble(), y + rand.nextDouble(), z + rand.nextDouble(), 0, 0, 0);
-                                worldObj.playSound(x + rand.nextDouble(), y + rand.nextDouble(), z + rand.nextDouble(), "random.explode", 0.5F, 1.0F - rand.nextFloat() * 0.5F, false);
+                                world.spawnParticle("largeexplode", x + rand.nextDouble(), y + rand.nextDouble(), z + rand.nextDouble(), 0, 0, 0);
+                                world.playSound(x + rand.nextDouble(), y + rand.nextDouble(), z + rand.nextDouble(), "random.explode", 0.5F, 1.0F - rand.nextFloat() * 0.5F, false);
                             }
                         }
                     }
@@ -114,9 +114,9 @@ public class EntityEarthquake extends EntityThrowable
                         // {
                         // if (rand.nextInt(10) == 0)
                         // {
-                        // Block block = worldObj.getBlock((int)posX + i, (int)posY + j, (int)posZ + k);
-                        // int metadata = worldObj.getBlockMetadata((int)posX + i, (int)posY + j, (int)posZ + k);
-                        // worldObj.playAuxSFX(2001, (int)posX + i, (int)posY + j + 1, (int)posZ + k, Block.getIdFromBlock(block) + (metadata << 12));
+                        // Block block = world.getBlock((int)posX + i, (int)posY + j, (int)posZ + k);
+                        // int metadata = world.getBlockMetadata((int)posX + i, (int)posY + j, (int)posZ + k);
+                        // world.playAuxSFX(2001, (int)posX + i, (int)posY + j + 1, (int)posZ + k, Block.getIdFromBlock(block) + (metadata << 12));
                         // }
                         // }
                         // }

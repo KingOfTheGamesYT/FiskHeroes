@@ -46,7 +46,7 @@ public class EntitySpellDuplicate extends EntityLivingBase implements IEntityOwn
 
     public EntitySpellDuplicate(EntityLivingBase owner, EntityLivingBase target, float offset)
     {
-        this(owner.worldObj);
+        this(owner.world);
         setOwner(owner.getUniqueID().toString());
         setTarget(target);
 
@@ -335,7 +335,7 @@ public class EntitySpellDuplicate extends EntityLivingBase implements IEntityOwn
         try
         {
             UUID uuid = UUID.fromString(func_152113_b());
-            return ownerEntity = uuid == null ? null : worldObj.func_152378_a(uuid);
+            return ownerEntity = uuid == null ? null : world.func_152378_a(uuid);
         }
         catch (IllegalArgumentException e)
         {
@@ -453,7 +453,7 @@ public class EntitySpellDuplicate extends EntityLivingBase implements IEntityOwn
     @Override
     public void readSpawnData(ByteBuf buf)
     {
-        Entity entity = worldObj.getEntityByID(buf.readInt());
+        Entity entity = world.getEntityByID(buf.readInt());
 
         if (entity instanceof EntityLivingBase)
         {

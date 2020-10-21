@@ -132,7 +132,7 @@ public class VectorHelper
     {
         double yOffset = entity.getEyeHeight();
 
-        if (entity instanceof PlayerEntity && entity.worldObj.isRemote)
+        if (entity instanceof PlayerEntity && entity.world.isRemote)
         {
             yOffset -= ((EntityPlayer) entity).getDefaultEyeHeight();
 

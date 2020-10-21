@@ -18,7 +18,7 @@ public class InteractionBatfish extends Interaction
     {
         if (type == InteractionType.RIGHT_CLICK_BLOCK)
         {
-            TileEntity tile = sender.worldObj.getTileEntity(x, y, z);
+            TileEntity tile = sender.world.getTileEntity(x, y, z);
 
             if (tile instanceof TileEntitySign)
             {
@@ -42,7 +42,7 @@ public class InteractionBatfish extends Interaction
     {
         if (side.isServer())
         {
-            TileEntity tile = sender.worldObj.getTileEntity(x, y, z);
+            TileEntity tile = sender.world.getTileEntity(x, y, z);
 
             if (tile instanceof TileEntitySign)
             {
@@ -58,7 +58,7 @@ public class InteractionBatfish extends Interaction
                 }
             }
 
-            sender.worldObj.playSoundEffect(x + 0.5, y + 0.5, z + 0.5, SHSounds.RANDOM_BATFISH.toString(), 1.0F, 1.0F);
+            sender.world.playSoundEffect(x + 0.5, y + 0.5, z + 0.5, SHSounds.RANDOM_BATFISH.toString(), 1.0F, 1.0F);
         }
     }
 

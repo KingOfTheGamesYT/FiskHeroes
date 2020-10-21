@@ -139,7 +139,7 @@ public class EntityThrownShield extends EntityThrowable implements IEntityAdditi
     @Override
     public void onUpdate()
     {
-        if (!worldObj.isRemote && (getThrower() == null || !getThrower().isEntityAlive()))
+        if (!world.isRemote && (getThrower() == null || !getThrower().isEntityAlive()))
         {
             setDead();
         }
@@ -162,7 +162,7 @@ public class EntityThrownShield extends EntityThrowable implements IEntityAdditi
 
             float velocity = MathHelper.sqrt_double(motionX * motionX + motionY * motionY + motionZ * motionZ);
 
-            if (!worldObj.isRemote && dist <= MathHelper.clamp_double(velocity * 3, 1, 5))
+            if (!world.isRemote && dist <= MathHelper.clamp_double(velocity * 3, 1, 5))
             {
                 if (player.inventory.getCurrentItem() == null)
                 {
@@ -198,7 +198,7 @@ public class EntityThrownShield extends EntityThrowable implements IEntityAdditi
 
             Vec3 pos = Vec3.createVectorHelper(posX, posY, posZ);
             Vec3 nextPos = Vec3.createVectorHelper(posX + motionX, posY + motionY, posZ + motionZ);
-            MovingObjectPosition mop = worldObj.rayTraceBlocks(pos, nextPos);
+            MovingObjectPosition mop = world.rayTraceBlocks(pos, nextPos);
 
             pos = Vec3.createVectorHelper(posX, posY, posZ);
             nextPos = Vec3.createVectorHelper(posX + motionX, posY + motionY, posZ + motionZ);
@@ -208,10 +208,10 @@ public class EntityThrownShield extends EntityThrowable implements IEntityAdditi
                 nextPos = Vec3.createVectorHelper(mop.hitVec.xCoord, mop.hitVec.yCoord, mop.hitVec.zCoord);
             }
 
-            if (!worldObj.isRemote)
+            if (!world.isRemote)
             {
                 Entity entity = null;
-                List<Entity> list = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.addCoord(motionX, motionY, motionZ).expand(1, 1, 1));
+                List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(this, boundingBox.addCoord(motionX, motionY, motionZ).expand(1, 1, 1));
                 double minDist = 0;
 
                 for (Entity entity1 : list)
@@ -242,7 +242,7 @@ public class EntityThrownShield extends EntityThrowable implements IEntityAdditi
 
             if (mop != null)
             {
-                if (mop.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK && worldObj.getBlock(mop.blockX, mop.blockY, mop.blockZ) == Blocks.portal)
+                if (mop.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK && world.getBlock(mop.blockX, mop.blockY, mop.blockZ) == Blocks.portal)
                 {
                     setInPortal();
                 }
@@ -288,7 +288,7 @@ public class EntityThrownShield extends EntityThrowable implements IEntityAdditi
                 for (int i = 0; i < 4; ++i)
                 {
                     float f2 = 0.25F;
-                    worldObj.spawnParticle("bubble", posX - motionX * f2, posY - motionY * f2, posZ - motionZ * f2, motionX, motionY, motionZ);
+                    world.spawnParticle("bubble", posX - motionX * f2, posY - motionY * f2, posZ - motionZ * f2, motionX, motionY, motionZ);
                 }
 
                 f = 0.8F;
@@ -319,7 +319,7 @@ public class EntityThrownShield extends EntityThrowable implements IEntityAdditi
                     SHHelper.ignite(mop.entityHit, EnchantmentHelper.getEnchantmentLevel(Enchantment.fireAspect.effectId, shieldItem) * 4);
                 }
 
-                if (!worldObj.isRemote && shieldItem != null)
+                if (!world.isRemote && shieldItem != null)
                 {
                     shieldItem.damageItem(1, getThrower());
                 }
@@ -339,7 +339,7 @@ public class EntityThrownShield extends EntityThrowable implements IEntityAdditi
                 {
                     ticksExisted = 50;
                 }
-                else if (!worldObj.isAirBlock(x, y, z) && worldObj.getBlock(x, y, z).isOpaqueCube())
+                else if (!world.isAirBlock(x, y, z) && world.getBlock(x, y, z).isOpaqueCube())
                 {
                     if (electroMagnetic)
                     {
@@ -356,14 +356,14 @@ public class EntityThrownShield extends EntityThrowable implements IEntityAdditi
                 else if (velocity > 0.5F)
                 {
                     ForgeDirection dir = ForgeDirection.getOrientation(mop.sideHit);
-                    Block block = worldObj.getBlock(mop.blockX, mop.blockY, mop.blockZ);
+                    Block block = world.getBlock(mop.blockX, mop.blockY, mop.blockZ);
 
                     if (block.getMaterial() != Material.air)
                     {
-                        block.onEntityCollidedWithBlock(worldObj, mop.blockX, mop.blockY, mop.blockZ, this);
+                        block.onEntityCollidedWithBlock(world, mop.blockX, mop.blockY, mop.blockZ, this);
                     }
 
-                    if (block.getCollisionBoundingBoxFromPool(worldObj, mop.blockX, mop.blockY, mop.blockZ) != null && worldObj.isAirBlock(mop.blockX + dir.offsetX, mop.blockY + dir.offsetY, mop.blockZ + dir.offsetZ))
+                    if (block.getCollisionBoundingBoxFromPool(world, mop.blockX, mop.blockY, mop.blockZ) != null && world.isAirBlock(mop.blockX + dir.offsetX, mop.blockY + dir.offsetY, mop.blockZ + dir.offsetZ))
                     {
                         motionX *= (1 - Math.abs(dir.offsetX) * 2) * f;
                         motionY *= (1 - Math.abs(dir.offsetY) * 2) * f;
@@ -383,7 +383,7 @@ public class EntityThrownShield extends EntityThrowable implements IEntityAdditi
                 }
             }
 
-            worldObj.playSoundAtEntity(this, SHSounds.ITEM_SHIELD_HIT.toString(), 1.0F, 1.0F + (rand.nextFloat() - 0.5F) * 0.2F);
+            world.playSoundAtEntity(this, SHSounds.ITEM_SHIELD_HIT.toString(), 1.0F, 1.0F + (rand.nextFloat() - 0.5F) * 0.2F);
             setShouldReturn(true);
         }
     }
@@ -391,7 +391,7 @@ public class EntityThrownShield extends EntityThrowable implements IEntityAdditi
     @Override
     public void setDead()
     {
-        if (!worldObj.isRemote && shieldItem != null && !isDead)
+        if (!world.isRemote && shieldItem != null && !isDead)
         {
             if (getThrower() instanceof EntityPlayer)
             {
@@ -413,11 +413,11 @@ public class EntityThrownShield extends EntityThrowable implements IEntityAdditi
 
             if (shieldItem != null)
             {
-                EntityItem entityitem = new EntityItem(worldObj);
+                EntityItem entityitem = new EntityItem(world);
                 entityitem.setLocationAndAngles(posX, posY, posZ, 0.0F, 0.0F);
                 entityitem.setEntityItemStack(shieldItem);
 
-                worldObj.spawnEntityInWorld(entityitem);
+                world.spawnEntityInWorld(entityitem);
             }
         }
 
@@ -429,7 +429,7 @@ public class EntityThrownShield extends EntityThrowable implements IEntityAdditi
     {
         if (thrower == null && throwerName != null && throwerName.length() > 0)
         {
-            thrower = worldObj.getPlayerEntityByName(throwerName);
+            thrower = world.getPlayerEntityByName(throwerName);
         }
 
         return thrower;
@@ -438,7 +438,7 @@ public class EntityThrownShield extends EntityThrowable implements IEntityAdditi
     @Override
     public void readSpawnData(ByteBuf buf)
     {
-        Entity entity = worldObj.getEntityByID(buf.readInt());
+        Entity entity = world.getEntityByID(buf.readInt());
 
         if (entity instanceof EntityLivingBase)
         {

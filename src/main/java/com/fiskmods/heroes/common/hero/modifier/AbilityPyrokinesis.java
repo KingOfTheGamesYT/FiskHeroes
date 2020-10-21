@@ -57,13 +57,13 @@ public class AbilityPyrokinesis extends Ability
 
                     HeatSource.FLAME_BLAST.applyHeat(rayTrace.entityHit);
                 }
-                else if (!entity.worldObj.isRemote && rayTrace.typeOfHit == MovingObjectType.BLOCK && FiskServerUtils.canEntityEdit(entity, rayTrace, null))
+                else if (!entity.world.isRemote && rayTrace.typeOfHit == MovingObjectType.BLOCK && FiskServerUtils.canEntityEdit(entity, rayTrace, null))
                 {
-                    SHHelper.melt(entity.worldObj, rayTrace.blockX, rayTrace.blockY, rayTrace.blockZ, Rule.GRIEF_FLAMEBLAST.get(entity.worldObj, rayTrace.blockX, rayTrace.blockZ) ? 7 : 3);
+                    SHHelper.melt(entity.world, rayTrace.blockX, rayTrace.blockY, rayTrace.blockZ, Rule.GRIEF_FLAMEBLAST.get(entity.world, rayTrace.blockX, rayTrace.blockZ) ? 7 : 3);
                 }
             }
 
-            if (entity.worldObj.isRemote)
+            if (entity.world.isRemote)
             {
                 double length = rayTrace != null && rayTrace.hitInfo instanceof Double ? (Double) rayTrace.hitInfo : range;
                 float aiming = SHData.AIMING_TIMER.get(entity);

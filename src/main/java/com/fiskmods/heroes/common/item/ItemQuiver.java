@@ -63,7 +63,7 @@ public class ItemQuiver extends Item implements IEquipmentItem
                 itemstack.setTagCompound(new NBTTagCompound());
             }
 
-            if (itemstack.getItemDamage() == 1 && player.ticksExisted % 8 == 0 && !player.worldObj.isRemote && !(player.openContainer instanceof ContainerQuiver) && !currentlyHeld)
+            if (itemstack.getItemDamage() == 1 && player.ticksExisted % 8 == 0 && !player.world.isRemote && !(player.openContainer instanceof ContainerQuiver) && !currentlyHeld)
             {
                 InventoryQuiver quiver = new InventoryQuiver(player, slot);
 

@@ -104,7 +104,7 @@ public class ItemCapsShield extends ItemUntextured implements IPunchWeapon, IBat
     @Override
     public boolean onEntitySwing(EntityLivingBase entity, ItemStack itemstack)
     {
-        if (entity.worldObj.isRemote && FiskHeroes.proxy.isClientPlayer(entity))
+        if (entity.world.isRemote && FiskHeroes.proxy.isClientPlayer(entity))
         {
             if (entity.isSneaking() && SHHelper.hasPermission(entity, Permission.THROW_SHIELD) && Cooldown.SHIELD_THROW.available(entity))
             {

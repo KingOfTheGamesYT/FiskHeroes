@@ -31,7 +31,7 @@ public class BlockCompressedSH extends Block implements IMaterialEnergy
     }
 
     @Override
-    public boolean isBeaconBase(IBlockAccess worldObj, int x, int y, int z, int beaconX, int beaconY, int beaconZ)
+    public boolean isBeaconBase(IBlockAccess world, int x, int y, int z, int beaconX, int beaconY, int beaconZ)
     {
         return true;
     }

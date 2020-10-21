@@ -20,7 +20,7 @@ public class WeaknessFire extends Weakness
     @Override
     public void onUpdate(EntityLivingBase entity, Hero hero, Phase phase, boolean enabled)
     {
-        if (phase == Phase.END && enabled && !entity.worldObj.isRemote)
+        if (phase == Phase.END && enabled && !entity.world.isRemote)
         {
             boolean flag = entity.isBurning();
             float radius;
@@ -28,11 +28,11 @@ public class WeaknessFire extends Weakness
             if (!flag && (radius = Rule.RADIUS_FIREWEAKNESS.get(entity, hero)) > 0)
             {
                 AxisAlignedBB aabb = entity.boundingBox.expand(radius, radius, radius);
-                flag = entity.worldObj.func_147470_e(aabb);
+                flag = entity.world.func_147470_e(aabb);
 
                 if (!flag)
                 {
-                    for (Entity target : (List<Entity>) entity.worldObj.selectEntitiesWithinAABB(Entity.class, aabb, IEntitySelector.selectAnything))
+                    for (Entity target : (List<Entity>) entity.world.selectEntitiesWithinAABB(Entity.class, aabb, IEntitySelector.selectAnything))
                     {
                         if (target.isBurning() && !(target instanceof EntityHanging))
                         {

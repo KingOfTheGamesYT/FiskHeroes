@@ -9,9 +9,9 @@ public class JSWorldAccessor
 
     private final World world;
 
-    private JSWorldAccessor(World worldObj)
+    private JSWorldAccessor(World world)
     {
-        world = worldObj;
+        world = world;
     }
 
     public static JSWorldAccessor wrap(World world)

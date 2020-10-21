@@ -161,8 +161,8 @@ public class EntityProjectile extends EntityTrickArrow
         xTile = mop.blockX;
         yTile = mop.blockY;
         zTile = mop.blockZ;
-        inTile = worldObj.getBlock(xTile, yTile, zTile);
-        inData = worldObj.getBlockMetadata(xTile, yTile, zTile);
+        inTile = world.getBlock(xTile, yTile, zTile);
+        inData = world.getBlockMetadata(xTile, yTile, zTile);
         motionX = (float) (mop.hitVec.xCoord - posX);
         motionY = (float) (mop.hitVec.yCoord - posY);
         motionZ = (float) (mop.hitVec.zCoord - posZ);
@@ -177,7 +177,7 @@ public class EntityProjectile extends EntityTrickArrow
 
         if (inTile.getMaterial() != Material.air)
         {
-            inTile.onEntityCollidedWithBlock(worldObj, xTile, yTile, zTile, this);
+            inTile.onEntityCollidedWithBlock(world, xTile, yTile, zTile, this);
         }
     }
 
