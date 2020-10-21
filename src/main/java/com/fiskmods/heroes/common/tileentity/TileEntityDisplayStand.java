@@ -140,7 +140,7 @@ public class TileEntityDisplayStand extends TileEntityContainer implements IMult
     {
         if (fakePlayer == null)
         {
-            Minecraft mc = Minecraft.getMinecraft();
+            Minecraft mc = Minecraft.getInstance();
 
             if (mc != null && mc.playerController != null && getWorldObj() != null)
             {

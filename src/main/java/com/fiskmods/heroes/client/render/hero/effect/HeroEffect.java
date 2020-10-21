@@ -48,7 +48,7 @@ public abstract class HeroEffect implements Pass
         return REGISTRY.inverse().get(value);
     }
 
-    protected final Minecraft mc = Minecraft.getMinecraft();
+    protected final Minecraft mc = Minecraft.getInstance();
 
     public Conditionals conditionals = new Conditionals();
     public Set<SlotType> applicable;

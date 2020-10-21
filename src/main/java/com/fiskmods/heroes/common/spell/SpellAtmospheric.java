@@ -105,7 +105,7 @@ public class SpellAtmospheric extends Spell
             }
         }
 
-        Minecraft.getMinecraft().effectRenderer.addEffect(new EntitySHSpellWaveFX(caster.worldObj, caster.posX, caster.posY + caster.getEyeHeight(), caster.posZ, caster.getLookVec(), SHRenderHelper.hexToRGB(hex)));
+        Minecraft.getInstance().effectRenderer.addEffect(new EntitySHSpellWaveFX(caster.worldObj, caster.posX, caster.posY + caster.getEyeHeight(), caster.posZ, caster.getLookVec(), SHRenderHelper.hexToRGB(hex)));
     }
 
     @Override

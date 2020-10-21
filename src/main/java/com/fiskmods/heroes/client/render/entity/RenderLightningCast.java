@@ -52,7 +52,7 @@ public class RenderLightningCast extends Render
             Random rand = new Random(), randPrev = new Random();
 
             long seed = -2743867098925L + 0xFFABC * entity.getEntityId();
-            int ao = Minecraft.getMinecraft().gameSettings.ambientOcclusion;
+            int ao = Minecraft.getInstance().gameSettings.ambientOcclusion;
             int layers = 3 + ao * 4;
             int segments = 3;
 

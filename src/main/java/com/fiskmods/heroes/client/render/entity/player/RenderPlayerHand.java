@@ -182,7 +182,7 @@ public class RenderPlayerHand extends RenderPlayer
     @Override
     protected void bindTexture(ResourceLocation location)
     {
-        Minecraft.getMinecraft().getTextureManager().bindTexture(location);
+        Minecraft.getInstance().getTextureManager().bindTexture(location);
     }
 
     public void setParent(RenderPlayer render)

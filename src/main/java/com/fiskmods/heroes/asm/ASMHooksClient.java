@@ -25,7 +25,7 @@ import net.minecraft.world.IBlockAccess;
 
 public class ASMHooksClient
 {
-    private static Minecraft mc = Minecraft.getMinecraft();
+    private static Minecraft mc = Minecraft.getInstance();
 
     private static boolean intangible;
 

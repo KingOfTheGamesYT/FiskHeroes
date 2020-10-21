@@ -25,7 +25,7 @@
 //{
 //    INSTANCE;
 //
-//    private Minecraft mc = Minecraft.getMinecraft();
+//    private Minecraft mc = Minecraft.getInstance();
 //    private MoveEntry moveEntry;
 //
 //    private boolean usingMove;

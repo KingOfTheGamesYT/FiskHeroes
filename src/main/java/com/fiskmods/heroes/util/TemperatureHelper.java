@@ -38,7 +38,7 @@ public class TemperatureHelper
     @SideOnly(Side.CLIENT)
     public static int getTemperatureForGui()
     {
-        EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+        EntityPlayer player = Minecraft.getInstance().thePlayer;
         float temp = getCurrentBodyTemperature(player);
 
         if (temp != DEFAULT_BODY_TEMPERATURE)

@@ -36,7 +36,7 @@ public class EntitySHFreezeRayFX extends EntityFX
             entity.particleBlue = 1.0F;
             entity.motionY = 0;
 
-            Minecraft.getMinecraft().effectRenderer.addEffect(entity);
+            Minecraft.getInstance().effectRenderer.addEffect(entity);
         }
     }
 

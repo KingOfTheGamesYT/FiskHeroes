@@ -23,7 +23,7 @@ public class RenderLaserBolt extends Render
         Vec3 src = Vec3.createVectorHelper(entity.lastTickPosX, entity.lastTickPosY, entity.lastTickPosZ);
         Vec3 dst = Vec3.createVectorHelper(entity.posX, entity.posY, entity.posZ);
         Vec3 color = SHRenderHelper.getColorFromHex(entity.getColor());
-        int smoothFactor = Minecraft.getMinecraft().gameSettings.ambientOcclusion;
+        int smoothFactor = Minecraft.getInstance().gameSettings.ambientOcclusion;
         int layers = 10 + smoothFactor * 20;
 
         src = dst.subtract(src);

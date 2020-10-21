@@ -13,7 +13,7 @@ public enum SHKeyHandler
 {
     INSTANCE;
 
-    private final Minecraft mc = Minecraft.getMinecraft();
+    private final Minecraft mc = Minecraft.getInstance();
 
     private int pressed;
     private int[] timePressed;

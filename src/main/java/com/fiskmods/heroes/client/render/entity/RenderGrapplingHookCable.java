@@ -40,18 +40,18 @@ public class RenderGrapplingHookCable extends Render
             vec3.rotateAroundY(f10 * 0.5F);
 
             double entityPosX = SHRenderHelper.interpolate(entity.posX, entity.prevPosX);
-            double entityPosY = SHRenderHelper.interpolate(entity.posY, entity.prevPosY) + entity.height / 2 - (entity == Minecraft.getMinecraft().thePlayer ? 1.62F : 0);
+            double entityPosY = SHRenderHelper.interpolate(entity.posY, entity.prevPosY) + entity.height / 2 - (entity == Minecraft.getInstance().thePlayer ? 1.62F : 0);
             double entityPosZ = SHRenderHelper.interpolate(entity.posZ, entity.prevPosZ);
             double playerPosX = SHRenderHelper.interpolate(player.posX, player.prevPosX) + vec3.xCoord;
             double playerPosY = SHRenderHelper.interpolate(player.posY, player.prevPosY) + vec3.yCoord;
             double playerPosZ = SHRenderHelper.interpolate(player.posZ, player.prevPosZ) + vec3.zCoord;
 
-            if (renderManager.options.thirdPersonView > 0 || player != Minecraft.getMinecraft().thePlayer)
+            if (renderManager.options.thirdPersonView > 0 || player != Minecraft.getInstance().thePlayer)
             {
                 float renderYawOffset = SHRenderHelper.interpolate(player.renderYawOffset, player.prevRenderYawOffset) * (float) Math.PI / 180.0F;
                 double side = 0.3D;
                 double forward = 0.3D;
-                double yOffset = (player == Minecraft.getMinecraft().thePlayer ? 0.0D : (double) player.getEyeHeight()) - 0.3D;
+                double yOffset = (player == Minecraft.getInstance().thePlayer ? 0.0D : (double) player.getEyeHeight()) - 0.3D;
                 double d = MathHelper.sin(renderYawOffset);
                 double d1 = MathHelper.cos(renderYawOffset);
 

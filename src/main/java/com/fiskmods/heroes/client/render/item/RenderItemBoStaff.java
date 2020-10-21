@@ -120,7 +120,7 @@ public enum RenderItemBoStaff implements IItemRenderer
 
     public static void render(boolean enchanted, boolean split, float f)
     {
-        Minecraft.getMinecraft().getTextureManager().bindTexture(TEXTURE);
+        Minecraft.getInstance().getTextureManager().bindTexture(TEXTURE);
         Runnable r = () ->
         {
             MODEL.render(f);

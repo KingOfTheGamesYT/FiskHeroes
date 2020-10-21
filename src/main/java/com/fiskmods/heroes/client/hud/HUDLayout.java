@@ -19,7 +19,7 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 
 public abstract class HUDLayout extends Gui
 {
-    protected Minecraft mc = Minecraft.getMinecraft();
+    protected Minecraft mc = Minecraft.getInstance();
 
     private final Map<Class, Pair<HUDElement, HUDBounds>> elements = new HashMap<>();
 

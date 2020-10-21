@@ -43,7 +43,7 @@ public class MovingSoundGameboii extends MovingSound
     @Override
     public void update()
     {
-        Minecraft mc = Minecraft.getMinecraft();
+        Minecraft mc = Minecraft.getInstance();
 
         if (sound == BatfishSounds.TITLE && (Gameboii.getScreen() instanceof ScreenGameOver || Gameboii.getScreen() instanceof ScreenCredits))
         {

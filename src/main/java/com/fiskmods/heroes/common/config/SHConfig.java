@@ -78,7 +78,7 @@ public class SHConfig
             switch (this)
             {
             case FIRST_PERSON_ONLY:
-                return Minecraft.getMinecraft().gameSettings.thirdPersonView == 0;
+                return Minecraft.getInstance().gameSettings.thirdPersonView == 0;
             case THIRD_PERSON_ONLY:
                 return !FIRST_PERSON_ONLY.test();
             case ALWAYS:

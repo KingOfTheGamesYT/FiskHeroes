@@ -16,7 +16,7 @@ public enum RenderItemQuiver implements IItemRenderer
 {
     INSTANCE;
 
-    private final Minecraft mc = Minecraft.getMinecraft();
+    private final Minecraft mc = Minecraft.getInstance();
 
     @Override
     public boolean handleRenderType(ItemStack item, ItemRenderType type)

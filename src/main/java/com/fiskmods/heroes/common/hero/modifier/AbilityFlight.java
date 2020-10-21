@@ -41,7 +41,7 @@ public class AbilityFlight extends Ability
             else if (this == Ability.PROPELLED_FLIGHT && applyMotion(entity) && entity.worldObj.isRemote)
             {
                 boolean clientPlayer = FiskHeroes.proxy.isClientPlayer(entity);
-                boolean firstPerson = clientPlayer && Minecraft.getMinecraft().gameSettings.thirdPersonView == 0;
+                boolean firstPerson = clientPlayer && Minecraft.getInstance().gameSettings.thirdPersonView == 0;
                 float scale = SHData.SCALE.get(entity);
 
                 if (!clientPlayer || !firstPerson || scale >= 1)
@@ -68,7 +68,7 @@ public class AbilityFlight extends Ability
     {
         if (FiskHeroes.proxy.isClientPlayer(entity))
         {
-            Minecraft mc = Minecraft.getMinecraft();
+            Minecraft mc = Minecraft.getInstance();
 
             if (this == Ability.PROPELLED_FLIGHT)
             {

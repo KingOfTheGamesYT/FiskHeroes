@@ -27,10 +27,13 @@ import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.BlockPane;
 import net.minecraft.block.material.Material;
 import net.minecraft.command.IEntitySelector;
+import net.minecraft.command.arguments.EntitySelector;
+import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -40,6 +43,7 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.StringUtils;
 import net.minecraft.util.Vec3;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants.NBT;
 
@@ -50,23 +54,23 @@ public class ASMHooks
         return Tickrate.MILISECONDS_PER_TICK;
     }
 
-    public static List selectEntitiesWithinAABB(EntityCreature entity, Class clazz, AxisAlignedBB aabb, IEntitySelector entitySelector)
+    public static List selectEntitiesWithinAABB(CreatureEntity entity, Class clazz, AxisAlignedBB aabb, EntitySelector entitySelector)
     {
-        World world = entity.worldObj;
+        World world = entity.world;
         List<Entity> list = world.selectEntitiesWithinAABB(clazz, aabb, entitySelector);
 
         for (int i = 0; i < list.size(); ++i)
         {
             Entity entity1 = list.get(i);
 
-            if (entity1 instanceof EntityPlayer)
+            if (entity1 instanceof PlayerEntity)
             {
-                EntityPlayer player = (EntityPlayer) entity1;
+                PlayerEntity player = (PlayerEntity) entity1;
                 Hero hero = SHHelper.getHero(player);
 
                 if (hero != null && hero.hasEnabledModifier(player, Ability.INVISIBILITY))
                 {
-                    if (SHData.INVISIBLE.get(player) && player.getDistanceToEntity(entity) > 2)
+                    if (SHData.INVISIBLE.get(player) && player.getDistance(entity) > 2)
                     {
                         list.remove(i);
                     }

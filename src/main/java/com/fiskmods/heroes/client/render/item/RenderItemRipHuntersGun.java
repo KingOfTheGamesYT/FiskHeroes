@@ -114,7 +114,7 @@ public enum RenderItemRipHuntersGun implements IItemRenderer
         else
         {
             MODEL.shape50.rotateAngleZ = 0.5235987755982988F;
-            player = Minecraft.getMinecraft().thePlayer;
+            player = Minecraft.getInstance().thePlayer;
         }
 
         HeroIteration iter = SHHelper.getHeroIter(player);
@@ -132,11 +132,11 @@ public enum RenderItemRipHuntersGun implements IItemRenderer
 
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-        Minecraft.getMinecraft().getTextureManager().bindTexture(TEXTURE);
+        Minecraft.getInstance().getTextureManager().bindTexture(TEXTURE);
         MODEL.render();
         GL11.glDisable(GL11.GL_LIGHTING);
         SHRenderHelper.setLighting(SHRenderHelper.FULLBRIGHT);
-        Minecraft.getMinecraft().getTextureManager().bindTexture(TEXTURE_LIGHTS);
+        Minecraft.getInstance().getTextureManager().bindTexture(TEXTURE_LIGHTS);
         SHRenderHelper.setGlColor(SHRenderHelper.getColorFromHex(color));
         MODEL.render();
         GL11.glColor4f(1, 1, 1, 1);

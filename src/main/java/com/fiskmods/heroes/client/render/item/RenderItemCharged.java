@@ -14,7 +14,7 @@ import net.minecraftforge.client.IItemRenderer;
 
 public class RenderItemCharged implements IItemRenderer
 {
-    private static final Minecraft mc = Minecraft.getMinecraft();
+    private static final Minecraft mc = Minecraft.getInstance();
     private static final RenderItem renderItem = RenderItem.getInstance();
 
     private final IItemRenderer wrapped;

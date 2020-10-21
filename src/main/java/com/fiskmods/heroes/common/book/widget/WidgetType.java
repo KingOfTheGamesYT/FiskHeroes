@@ -162,7 +162,7 @@ public enum WidgetType
         @Override
         public Dimension getSize(Widget widget)
         {
-            return new Dimension(Minecraft.getMinecraft().fontRenderer.getStringWidth((String) widget.type.handleObject(widget, this)), Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT);
+            return new Dimension(Minecraft.getInstance().fontRenderer.getStringWidth((String) widget.type.handleObject(widget, this)), Minecraft.getInstance().fontRenderer.FONT_HEIGHT);
         }
 
         @Override
@@ -197,7 +197,7 @@ public enum WidgetType
         {
             if (type == TEXT)
             {
-                return new Point(Math.round(12 * widget.scale), Math.round(Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT / 2 * (widget.scale - 1)));
+                return new Point(Math.round(12 * widget.scale), Math.round(Minecraft.getInstance().fontRenderer.FONT_HEIGHT / 2 * (widget.scale - 1)));
             }
 
             return OFFSET_ZERO;

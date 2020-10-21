@@ -7,7 +7,7 @@ import net.minecraft.entity.Entity;
 
 public interface Effect
 {
-    Minecraft mc = Minecraft.getMinecraft();
+    Minecraft mc = Minecraft.getInstance();
 
     void doRender(Entry e, Entity anchor, boolean isClientPlayer, boolean isFirstPerson, float partialTicks);
 

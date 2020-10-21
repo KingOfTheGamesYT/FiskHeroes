@@ -31,7 +31,7 @@ import net.minecraft.util.Vec3;
 
 public class SHRenderHelper
 {
-    protected static Minecraft mc = Minecraft.getMinecraft();
+    protected static Minecraft mc = Minecraft.getInstance();
     protected static RenderItem renderItem = RenderItem.getInstance();
 
     private static float lastBrightnessX;

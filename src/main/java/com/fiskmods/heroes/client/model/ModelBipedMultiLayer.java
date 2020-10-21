@@ -35,7 +35,7 @@ public class ModelBipedMultiLayer extends ModelBiped
     public ModelRenderer[] bipedLeftLegL2 = new ModelRenderer[2];
     public ModelRenderer hatLayer;
 
-    protected Minecraft mc = Minecraft.getMinecraft();
+    protected Minecraft mc = Minecraft.getInstance();
     public HeroRenderer renderer;
     public int armorSlot;
 

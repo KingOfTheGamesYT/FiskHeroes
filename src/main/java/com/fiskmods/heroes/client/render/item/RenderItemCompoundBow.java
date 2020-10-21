@@ -134,7 +134,7 @@ public enum RenderItemCompoundBow implements IItemRenderer
 
     public static void renderBow(ItemStack item, float arches)
     {
-        Minecraft.getMinecraft().getTextureManager().bindTexture(TEXTURE);
+        Minecraft.getInstance().getTextureManager().bindTexture(TEXTURE);
         MODEL.archBottom1.rotateAngleX = 0.1308996938995747F - arches;
         MODEL.archTop1.rotateAngleX = 0.18151424220741028F - arches;
         MODEL.render();

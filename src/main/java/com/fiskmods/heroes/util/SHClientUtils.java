@@ -24,7 +24,7 @@ import net.minecraftforge.common.util.Constants.NBT;
 
 public class SHClientUtils
 {
-    private static Minecraft mc = Minecraft.getMinecraft();
+    private static Minecraft mc = Minecraft.getInstance();
 
     public static void addServer()
     {

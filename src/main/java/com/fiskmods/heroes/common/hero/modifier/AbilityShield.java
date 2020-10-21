@@ -27,7 +27,7 @@ public class AbilityShield extends Ability
         {
             if (enabled && entity.worldObj.isRemote && FiskHeroes.proxy.isClientPlayer(entity))
             {
-                boolean flag = Minecraft.getMinecraft().gameSettings.keyBindUseItem.getIsKeyPressed();
+                boolean flag = Minecraft.getInstance().gameSettings.keyBindUseItem.getIsKeyPressed();
 
                 if (!hero.getFuncBoolean(entity, FUNC_TOGGLE, true))
                 {

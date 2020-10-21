@@ -111,7 +111,7 @@ public enum RenderItemPrometheusSword implements IItemRenderer
 
     public static void render(boolean enchanted)
     {
-        Minecraft.getMinecraft().getTextureManager().bindTexture(TEXTURE);
+        Minecraft.getInstance().getTextureManager().bindTexture(TEXTURE);
         MODEL.guard.isHidden = true;
         MODEL.render();
 

@@ -32,7 +32,7 @@ public class KeyPressIntangibility extends KeyPressBase
         if (side.isClient())
         {
             SHData.INTANGIBLE.set(sender, !SHData.INTANGIBLE.get(sender));
-            Minecraft.getMinecraft().renderGlobal.loadRenderers();
+            Minecraft.getInstance().renderGlobal.loadRenderers();
         }
     }
 }

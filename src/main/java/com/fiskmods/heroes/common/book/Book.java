@@ -39,7 +39,7 @@ public class Book
 
         try
         {
-            fontRendererObj = Minecraft.getMinecraft().fontRenderer;
+            fontRendererObj = Minecraft.getInstance().fontRenderer;
             if (container != null)
             {
                 try
@@ -71,10 +71,10 @@ public class Book
         try
         {
             String filePath = String.format("%s:books/%s/%s.json", modid, "%s", name);
-            String lang = Minecraft.getMinecraft().getLanguageManager().getCurrentLanguage().getLanguageCode();
+            String lang = Minecraft.getInstance().getLanguageManager().getCurrentLanguage().getLanguageCode();
             JsonBook jsonBook = null;
 
-            IResourceManager manager = Minecraft.getMinecraft().getResourceManager();
+            IResourceManager manager = Minecraft.getInstance().getResourceManager();
 
             for (int i = 0; i < 2; ++i)
             {
@@ -99,7 +99,7 @@ public class Book
                 lang = "en_US";
             }
 
-            fontRendererObj = Minecraft.getMinecraft().fontRenderer;
+            fontRendererObj = Minecraft.getInstance().fontRenderer;
             try
             {
                 List<JsonChapter> list = new ArrayList<>();

@@ -234,7 +234,7 @@ public abstract class Hero implements Comparable<Hero>, Predicate<Entity>, INBTS
         }
 
         int i = getKeyBinding(key);
-        return i == -1 ? Minecraft.getMinecraft().gameSettings.keyBindAttack : SHKeyBinds.getMapping(i);
+        return i == -1 ? Minecraft.getInstance().gameSettings.keyBindAttack : SHKeyBinds.getMapping(i);
     }
 
     @SideOnly(Side.CLIENT)

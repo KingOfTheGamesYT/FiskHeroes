@@ -57,7 +57,7 @@ public class RenderEarthCrack extends Render
             double targetY = target.lastTickPosY + (target.posY - target.lastTickPosY) * partialTicks;
             double targetZ = target.lastTickPosZ + (target.posZ - target.lastTickPosZ) * partialTicks;
             long seed = -2743867098925L + 0xFFABC * entity.getEntityId();
-            int ao = Minecraft.getMinecraft().gameSettings.ambientOcclusion;
+            int ao = Minecraft.getInstance().gameSettings.ambientOcclusion;
             int layers = 3 + ao * 4;
             int segments = 6;
 

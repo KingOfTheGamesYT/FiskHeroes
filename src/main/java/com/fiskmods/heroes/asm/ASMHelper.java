@@ -2,15 +2,9 @@ package com.fiskmods.heroes.asm;
 
 import java.util.List;
 
-import org.objectweb.asm.Opcodes;
-import org.objectweb.asm.Type;
-import org.objectweb.asm.tree.AbstractInsnNode;
-import org.objectweb.asm.tree.FrameNode;
-import org.objectweb.asm.tree.InsnNode;
-import org.objectweb.asm.tree.JumpInsnNode;
-import org.objectweb.asm.tree.LabelNode;
-import org.objectweb.asm.tree.MethodInsnNode;
-import org.objectweb.asm.tree.TypeInsnNode;
+import jdk.internal.org.objectweb.asm.Opcodes;
+import jdk.internal.org.objectweb.asm.Type;
+import jdk.internal.org.objectweb.asm.tree.*;
 
 public class ASMHelper implements Opcodes
 {
@@ -50,21 +44,6 @@ public class ASMHelper implements Opcodes
         list.add(new FrameNode(Opcodes.F_SAME, 0, null, 0, null));
         list.add(new InsnNode(ICONST_1));
         list.add(new InsnNode(IRETURN));
-
-//        Label l0 = new Label();
-//        mv.visitLabel(l0);
-//        mv.visitLineNumber(32, l0);
-//        mv.visitVarInsn(ILOAD, 0);
-//        Label l1 = new Label();
-//        mv.visitJumpInsn(IFNE, l1);
-//        mv.visitVarInsn(ILOAD, 1);
-//        mv.visitJumpInsn(IFNE, l1);
-//        mv.visitInsn(ICONST_0);
-//        mv.visitInsn(IRETURN);
-//        mv.visitLabel(l1);
-//        mv.visitFrame(Opcodes.F_SAME, 0, null, 0, null);
-//        mv.visitInsn(ICONST_1);
-//        mv.visitInsn(IRETURN);
     }
 
     public static boolean or(boolean arg1, boolean arg2)

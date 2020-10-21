@@ -137,7 +137,7 @@ public class BlockTreadmill extends BlockDirectional implements ITileEntityProvi
     @SideOnly(Side.CLIENT)
     public void sendDismountMessageTo(EntityPlayer player)
     {
-        Minecraft mc = Minecraft.getMinecraft();
+        Minecraft mc = Minecraft.getInstance();
 
         if (mc.thePlayer == player)
         {

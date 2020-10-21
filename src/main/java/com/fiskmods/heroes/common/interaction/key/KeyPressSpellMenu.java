@@ -39,6 +39,6 @@ public class KeyPressSpellMenu extends KeyPressBase
     @SideOnly(Side.CLIENT)
     private void openMenu(EntityPlayer sender)
     {
-        Minecraft.getMinecraft().displayGuiScreen(new GuiSpellMenu(SHHelper.getSpells(sender, SHHelper.getHero(sender))));
+        Minecraft.getInstance().displayGuiScreen(new GuiSpellMenu(SHHelper.getSpells(sender, SHHelper.getHero(sender))));
     }
 }

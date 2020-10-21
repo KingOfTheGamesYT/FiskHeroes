@@ -307,7 +307,7 @@ public class TileEntityParticleCore extends TileEntityContainer implements ISide
     @Override
     public double getMaxRenderDistanceSquared()
     {
-        double dist = Minecraft.getMinecraft().gameSettings.renderDistanceChunks * 16;
+        double dist = Minecraft.getInstance().gameSettings.renderDistanceChunks * 16;
         return dist * dist;
     }
 

@@ -41,7 +41,7 @@ public enum RenderItemCapsShield implements IItemRenderer
     @Override
     public void renderItem(ItemRenderType type, ItemStack item, Object... data)
     {
-        EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+        EntityPlayer player = Minecraft.getInstance().thePlayer;
 
         if (data.length > 1 && data[1] instanceof EntityPlayer)
         {
@@ -163,7 +163,7 @@ public enum RenderItemCapsShield implements IItemRenderer
 
     public static void render(boolean straps, boolean enchanted, boolean stealth)
     {
-        Minecraft.getMinecraft().getTextureManager().bindTexture(stealth ? TEXTURE_STEALTH : TEXTURE);
+        Minecraft.getInstance().getTextureManager().bindTexture(stealth ? TEXTURE_STEALTH : TEXTURE);
         MODEL.render(straps);
 
         if (enchanted)

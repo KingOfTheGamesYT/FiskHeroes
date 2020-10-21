@@ -15,7 +15,7 @@ public enum StatStringFormatAllArrows implements IStatStringFormat
 {
     INSTANCE;
 
-    private final Minecraft mc = Minecraft.getMinecraft();
+    private final Minecraft mc = Minecraft.getInstance();
 
     @Override
     public String formatString(String s)

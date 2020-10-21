@@ -76,7 +76,7 @@ public enum SHResourceHandler implements IResourceManagerReloadListener
     public static void register()
     {
         FMLCommonHandler.instance().bus().register(SHResourceHandler.INSTANCE);
-        ((IReloadableResourceManager) Minecraft.getMinecraft().getResourceManager()).registerReloadListener(SHResourceHandler.INSTANCE);
+        ((IReloadableResourceManager) Minecraft.getInstance().getResourceManager()).registerReloadListener(SHResourceHandler.INSTANCE);
     }
 
     @SubscribeEvent
@@ -268,7 +268,7 @@ public enum SHResourceHandler implements IResourceManagerReloadListener
 
     public void clearTextures()
     {
-        Map map = SHReflection.mapTextureObjectsField.get(Minecraft.getMinecraft().getTextureManager());
+        Map map = SHReflection.mapTextureObjectsField.get(Minecraft.getInstance().getTextureManager());
 
         for (ResourceLocation location : resources)
         {

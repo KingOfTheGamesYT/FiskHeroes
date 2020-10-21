@@ -27,7 +27,7 @@ public class RenderSpeedBlur extends Render
 
         if (player != null && entity.trail != null && entity.trail.blur != null)
         {
-            Minecraft mc = Minecraft.getMinecraft();
+            Minecraft mc = Minecraft.getInstance();
 
             if (player == mc.thePlayer && mc.gameSettings.thirdPersonView == 0)
             {

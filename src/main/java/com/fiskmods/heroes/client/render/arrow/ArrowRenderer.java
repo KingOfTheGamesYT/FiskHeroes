@@ -37,7 +37,7 @@ public class ArrowRenderer extends FiskRegistryEntry<ArrowRenderer>
         return get(key.delegate.name());
     }
 
-    protected Minecraft mc = Minecraft.getMinecraft();
+    protected Minecraft mc = Minecraft.getInstance();
     protected ItemRenderer itemRenderer = new ItemRenderer(mc);
 
     protected ModelArrow model = new ModelArrow();

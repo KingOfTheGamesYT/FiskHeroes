@@ -51,7 +51,7 @@ public class HeroRenderer
     }
 
     protected final Map<String, String> variables = new HashMap<>();
-    protected final Minecraft mc = Minecraft.getMinecraft();
+    protected final Minecraft mc = Minecraft.getInstance();
 
     public final ModelBipedMultiLayer model;
     public JsonHeroRenderer json;

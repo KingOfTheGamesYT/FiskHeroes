@@ -11,7 +11,7 @@ public enum EquipmentHandler
 {
     INSTANCE;
 
-    private final Minecraft mc = Minecraft.getMinecraft();
+    private final Minecraft mc = Minecraft.getInstance();
 
     public static int[] useCooldown = new int[EnumEquipment.values().length];
     public static int[] prevUseCooldown = new int[useCooldown.length];

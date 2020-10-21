@@ -64,7 +64,7 @@ public class RenderDisplayStand extends TileEntitySpecialRenderer
 
                 if (tile.getUsername() != null)
                 {
-                    Minecraft mc = Minecraft.getMinecraft();
+                    Minecraft mc = Minecraft.getInstance();
                     Map map = mc.func_152342_ad().func_152788_a(tile.getUsername());
 
                     if (map.containsKey(Type.SKIN))

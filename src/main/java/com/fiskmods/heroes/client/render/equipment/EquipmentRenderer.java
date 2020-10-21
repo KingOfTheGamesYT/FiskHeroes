@@ -17,7 +17,7 @@ public interface EquipmentRenderer extends Predicate<EntityPlayer>
 {
     Set<EquipmentRenderer> REGISTRY = new HashSet<>();
 
-    Minecraft mc = Minecraft.getMinecraft();
+    Minecraft mc = Minecraft.getInstance();
 
     public static void register()
     {

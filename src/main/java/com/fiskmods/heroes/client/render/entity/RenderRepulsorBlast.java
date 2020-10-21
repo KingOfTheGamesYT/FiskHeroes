@@ -53,7 +53,7 @@ public class RenderRepulsorBlast extends Render
             double entityX = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * partialTicks;
             double entityY = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * partialTicks;
             double entityZ = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * partialTicks;
-            int ao = Minecraft.getMinecraft().gameSettings.ambientOcclusion;
+            int ao = Minecraft.getInstance().gameSettings.ambientOcclusion;
             int layers = 3 + ao * 4;
             int segments = 6;
 

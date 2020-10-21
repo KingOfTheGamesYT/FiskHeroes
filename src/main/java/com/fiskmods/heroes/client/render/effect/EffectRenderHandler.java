@@ -76,7 +76,7 @@ public enum EffectRenderHandler
     @SubscribeEvent
     public void onClientTick(ClientTickEvent event)
     {
-        Minecraft mc = Minecraft.getMinecraft();
+        Minecraft mc = Minecraft.getInstance();
 
         if (event.phase == TickEvent.Phase.END && mc.theWorld != null && !mc.isGamePaused())
         {

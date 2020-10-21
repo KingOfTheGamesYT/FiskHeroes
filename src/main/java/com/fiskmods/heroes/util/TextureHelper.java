@@ -42,7 +42,7 @@ public class TextureHelper
     public static final ResourceLocation RES_ITEM_GLINT = new ResourceLocation("textures/misc/enchanted_item_glint.png");
     public static final ResourceLocation MISSING_TEXTURE = new ResourceLocation("missingno");
 
-    private static Minecraft mc = Minecraft.getMinecraft();
+    private static Minecraft mc = Minecraft.getInstance();
     private static Map<String, ResourceLocation> cachedImages = new HashMap<>();
     private static Map<String, Dimension> cachedImageDimensions = new HashMap<>();
 
@@ -58,7 +58,7 @@ public class TextureHelper
 
             if (profile != null)
             {
-                SkinManager skinmanager = Minecraft.getMinecraft().func_152342_ad();
+                SkinManager skinmanager = Minecraft.getInstance().func_152342_ad();
                 skinmanager.func_152790_a(profile, (type, location) ->
                 {
                     switch (type)

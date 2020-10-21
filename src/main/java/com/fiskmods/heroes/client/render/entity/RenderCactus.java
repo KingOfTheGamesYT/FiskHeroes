@@ -80,7 +80,7 @@ public class RenderCactus extends RenderLiving
             {
                 renderModel(entity);
             }
-            else if (!entity.isInvisibleToPlayer(Minecraft.getMinecraft().thePlayer))
+            else if (!entity.isInvisibleToPlayer(Minecraft.getInstance().thePlayer))
             {
                 boolean inventoryTint = field_147909_c.useInventoryTint;
                 field_147909_c.useInventoryTint = false;

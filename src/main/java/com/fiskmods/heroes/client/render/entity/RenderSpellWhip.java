@@ -67,10 +67,10 @@ public class RenderSpellWhip extends Render
                 entityZ = SHRenderHelper.interpolate(entity.posZ, entity.prevPosZ);
             }
 
-            if (renderManager.options.thirdPersonView > 0 || caster != Minecraft.getMinecraft().thePlayer)
+            if (renderManager.options.thirdPersonView > 0 || caster != Minecraft.getInstance().thePlayer)
             {
                 float yaw = (float) Math.toRadians(SHRenderHelper.interpolate(caster.renderYawOffset, caster.prevRenderYawOffset));
-                double offsetY = caster == Minecraft.getMinecraft().thePlayer ? 0 : caster.getEyeHeight();
+                double offsetY = caster == Minecraft.getInstance().thePlayer ? 0 : caster.getEyeHeight();
                 double sin = MathHelper.sin(yaw), cos = MathHelper.cos(yaw);
                 double side = 0.35, front = 0.1;
 

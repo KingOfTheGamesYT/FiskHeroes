@@ -126,7 +126,7 @@ public enum ClientEventHandler
 {
     INSTANCE;
 
-    private Minecraft mc = Minecraft.getMinecraft();
+    private Minecraft mc = Minecraft.getInstance();
 
     public RenderPlayerHand renderHandInstance;
     private EntityRenderer renderer, prevRenderer;

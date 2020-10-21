@@ -112,7 +112,7 @@ public class SHGuiHandler implements IGuiHandler
                         }
                     }).start();
 
-                    Minecraft mc = Minecraft.getMinecraft();
+                    Minecraft mc = Minecraft.getInstance();
 
                     if (mc.isSingleplayer() && !mc.getIntegratedServer().getPublic())
                     {

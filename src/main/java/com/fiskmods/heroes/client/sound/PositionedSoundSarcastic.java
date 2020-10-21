@@ -25,7 +25,7 @@ public class PositionedSoundSarcastic extends SoundSH implements ITickableSound
     @Override
     public void update()
     {
-        float t = Minecraft.getMinecraft().thePlayer.ticksExisted + ClientEventHandler.renderTick;
+        float t = Minecraft.getInstance().thePlayer.ticksExisted + ClientEventHandler.renderTick;
         field_147663_c = pitch + (float) Math.sin(t * 1.5F) * 0.2F;
     }
 }
