@@ -7,7 +7,7 @@ import com.fiskmods.heroes.client.render.hero.effect.HeroEffectPropelledFlight.F
 import com.fiskmods.heroes.common.hero.HeroIteration;
 import com.fiskmods.heroes.util.VectorHelper;
 
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Vec3;
 
 public enum FlightParticlesAtom implements FlightParticleRenderer
@@ -15,7 +15,7 @@ public enum FlightParticlesAtom implements FlightParticleRenderer
     INSTANCE;
 
     @Override
-    public void doParticles(EntityLivingBase entity, HeroIteration iter, HeroRenderer renderer, Random rand, Vec3 pos, double d, double d1, double yaw, float scale, boolean clientPlayer, boolean firstPerson)
+    public void doParticles(LivingEntity entity, HeroIteration iter, HeroRenderer renderer, Random rand, Vec3 pos, double d, double d1, double yaw, float scale, boolean clientPlayer, boolean firstPerson)
     {
         Vec3 offsets = VectorHelper.multiply(Vec3.createVectorHelper(0.1, -0.5, -0.175), scale);
 

@@ -20,7 +20,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.IEntitySelector;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.Vec3;
 
@@ -32,7 +32,7 @@ public class SpellAtmospheric extends Spell
     }
 
     @Override
-    public void onTrigger(EntityLivingBase caster)
+    public void onTrigger(LivingEntity caster)
     {
         if (!caster.world.isRemote)
         {
@@ -40,7 +40,7 @@ public class SpellAtmospheric extends Spell
             Vec3 look = caster.getLook(1);
             AxisAlignedBB bounds = caster.boundingBox.addCoord(look.xCoord * range, look.yCoord * range, look.zCoord * range).expand(1, 1, 1);
             List<Entity> list = caster.world.getEntitiesWithinAABBExcludingEntity(caster, bounds, IEntitySelector.selectAnything);
-            EntityLivingBase realCaster = SHHelper.filterDuplicate(caster);
+            LivingEntity realCaster = SHHelper.filterDuplicate(caster);
             Float dmg = null;
 
             for (Entity entity : list)
@@ -58,7 +58,7 @@ public class SpellAtmospheric extends Spell
 
                         if (d < 1.2)
                         {
-                            if (entity instanceof EntityLivingBase)
+                            if (entity instanceof LivingEntity)
                             {
                                 if (dmg == null)
                                 {
@@ -83,13 +83,13 @@ public class SpellAtmospheric extends Spell
         }
     }
 
-    private boolean canTarget(EntityLivingBase caster, Entity entity)
+    private boolean canTarget(LivingEntity caster, Entity entity)
     {
         return !(entity instanceof EntitySpellDuplicate || caster instanceof EntitySpellDuplicate && ((EntitySpellDuplicate) caster).isOwner(entity));
     }
 
     @SideOnly(Side.CLIENT)
-    private void spawnParticle(EntityLivingBase caster)
+    private void spawnParticle(LivingEntity caster)
     {
         HeroIteration iter = SHHelper.getHeroIter(caster);
         int hex = 0xFF8000;
@@ -109,7 +109,7 @@ public class SpellAtmospheric extends Spell
     }
 
     @Override
-    public TargetPoint getTargetPoint(EntityLivingBase caster)
+    public TargetPoint getTargetPoint(LivingEntity caster)
     {
         return Interaction.TARGET_ALL;
     }

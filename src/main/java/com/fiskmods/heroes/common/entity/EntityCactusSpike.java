@@ -4,7 +4,7 @@ import com.fiskmods.heroes.common.config.Rule;
 import com.fiskmods.heroes.common.damagesource.ModDamageSources;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
@@ -17,7 +17,7 @@ public class EntityCactusSpike extends EntityThrowable implements IPiercingProje
         setSize(0.1F, 0.1F);
     }
 
-    public EntityCactusSpike(World world, EntityLivingBase entity)
+    public EntityCactusSpike(World world, LivingEntity entity)
     {
         super(world, entity);
         setSize(0.1F, 0.1F);
@@ -77,7 +77,7 @@ public class EntityCactusSpike extends EntityThrowable implements IPiercingProje
     }
 
     @Override
-    public boolean canPierceDurability(EntityLivingBase entity)
+    public boolean canPierceDurability(LivingEntity entity)
     {
         return false;
     }

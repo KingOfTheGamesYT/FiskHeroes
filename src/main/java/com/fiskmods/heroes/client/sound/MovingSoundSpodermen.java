@@ -6,15 +6,15 @@ import com.fiskmods.heroes.util.SHHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.audio.MovingSound;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.ResourceLocation;
 
 @SideOnly(Side.CLIENT)
 public class MovingSoundSpodermen extends MovingSound
 {
-    public final EntityLivingBase theEntity;
+    public final LivingEntity theEntity;
 
-    public MovingSoundSpodermen(EntityLivingBase entity, float vol, float pitch)
+    public MovingSoundSpodermen(LivingEntity entity, float vol, float pitch)
     {
         super(new ResourceLocation(SHSounds.RANDOM_SPIDER.toString()));
         theEntity = entity;

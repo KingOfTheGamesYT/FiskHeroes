@@ -13,7 +13,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.MathHelper;
@@ -22,7 +22,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 public class EntityEarthCrack extends Entity implements IEntityAdditionalSpawnData
 {
-    public EntityLivingBase caster, target;
+    public LivingEntity caster, target;
 
     public EntityEarthCrack(World world)
     {
@@ -34,7 +34,7 @@ public class EntityEarthCrack extends Entity implements IEntityAdditionalSpawnDa
         setSize(0.1F, 0.1F);
     }
 
-    public EntityEarthCrack(World world, EntityLivingBase caster, EntityLivingBase target)
+    public EntityEarthCrack(World world, LivingEntity caster, LivingEntity target)
     {
         this(world);
         this.caster = caster;
@@ -92,7 +92,7 @@ public class EntityEarthCrack extends Entity implements IEntityAdditionalSpawnDa
                 }
                 else
                 {
-                    EntityLivingBase entity = SHHelper.filterDuplicate(caster);
+                    LivingEntity entity = SHHelper.filterDuplicate(caster);
                     
                     target.hurtResistantTime = 0;
                     target.attackEntityFrom(ModDamageSources.EARTH_CRACK.apply(entity), Rule.DMG_SPELL_EARTHSWALLOW.getHero(caster));
@@ -156,16 +156,16 @@ public class EntityEarthCrack extends Entity implements IEntityAdditionalSpawnDa
     {
         Entity entity = world.getEntityByID(buf.readInt());
 
-        if (entity instanceof EntityLivingBase)
+        if (entity instanceof LivingEntity)
         {
-            caster = (EntityLivingBase) entity;
+            caster = (LivingEntity) entity;
         }
 
         entity = world.getEntityByID(buf.readInt());
 
-        if (entity instanceof EntityLivingBase)
+        if (entity instanceof LivingEntity)
         {
-            target = (EntityLivingBase) entity;
+            target = (LivingEntity) entity;
         }
     }
 }

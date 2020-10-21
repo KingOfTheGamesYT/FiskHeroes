@@ -9,7 +9,7 @@ import com.fiskmods.heroes.pack.accessor.JSEntityAccessor;
 import com.fiskmods.heroes.pack.accessor.JSItemAccessor;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 
 public class JsonHeroVar
@@ -60,7 +60,7 @@ public class JsonHeroVar
         }
         else
         {
-            return (entity, stack) -> entity instanceof EntityLivingBase ? JSHeroesEngine.INSTANCE.evalSilently(key, "entity, item", JSEntityAccessor.wrap((EntityLivingBase) entity), JSItemAccessor.wrap(stack)) : null;
+            return (entity, stack) -> entity instanceof LivingEntity ? JSHeroesEngine.INSTANCE.evalSilently(key, "entity, item", JSEntityAccessor.wrap((LivingEntity) entity), JSItemAccessor.wrap(stack)) : null;
         }
     }
 }

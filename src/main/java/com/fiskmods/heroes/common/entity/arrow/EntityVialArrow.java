@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.fiskmods.heroes.common.item.ItemTrickArrow;
 
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
@@ -26,12 +26,12 @@ public class EntityVialArrow extends EntityTrickArrow
         super(world, x, y, z);
     }
 
-    public EntityVialArrow(World world, EntityLivingBase shooter, float velocity)
+    public EntityVialArrow(World world, LivingEntity shooter, float velocity)
     {
         super(world, shooter, velocity);
     }
 
-    public EntityVialArrow(World world, EntityLivingBase shooter, float velocity, boolean horizontal)
+    public EntityVialArrow(World world, LivingEntity shooter, float velocity, boolean horizontal)
     {
         super(world, shooter, velocity, horizontal);
     }
@@ -41,11 +41,11 @@ public class EntityVialArrow extends EntityTrickArrow
     {
         if (getArrowId() > 0)
         {
-            EntityLivingBase shooter = null;
+            LivingEntity shooter = null;
 
-            if (getShooter() instanceof EntityLivingBase)
+            if (getShooter() instanceof LivingEntity)
             {
-                shooter = (EntityLivingBase) getShooter();
+                shooter = (LivingEntity) getShooter();
             }
 
             if (!world.isRemote)
@@ -59,7 +59,7 @@ public class EntityVialArrow extends EntityTrickArrow
                     if (list != null && !list.isEmpty())
                     {
                         AxisAlignedBB aabb = boundingBox.expand(4.0D, 2.0D, 4.0D);
-                        List list1 = world.getEntitiesWithinAABB(EntityLivingBase.class, aabb);
+                        List list1 = world.getEntitiesWithinAABB(LivingEntity.class, aabb);
 
                         if (list1 != null && !list1.isEmpty())
                         {
@@ -67,7 +67,7 @@ public class EntityVialArrow extends EntityTrickArrow
 
                             while (iterator.hasNext())
                             {
-                                EntityLivingBase entity = (EntityLivingBase) iterator.next();
+                                LivingEntity entity = (LivingEntity) iterator.next();
                                 double dist = getDistanceSqToEntity(entity);
 
                                 if (dist < 16.0D)

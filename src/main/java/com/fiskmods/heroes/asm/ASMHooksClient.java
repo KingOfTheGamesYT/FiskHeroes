@@ -17,7 +17,7 @@ import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerCapabilities;
 import net.minecraft.util.MathHelper;
@@ -119,17 +119,17 @@ public class ASMHooksClient
         return result || intangible && !SHConfig.get().canPhase(block) && SHConfig.get().canPhase(world.getBlock(x, y, z));
     }
 
-    public static float getplayerInventoryScale(int scale, EntityLivingBase entity)
+    public static float getplayerInventoryScale(int scale, LivingEntity entity)
     {
         return scale / ASMHooks.getModifiedEntityScale(entity);
     }
 
-    public static float getplayerInventoryOffset(int offset, int originalScale, EntityLivingBase entity)
+    public static float getplayerInventoryOffset(int offset, int originalScale, LivingEntity entity)
     {
         return offset;
     }
 
-    public static float getplayerInventoryOffsetPost(int offset, int originalScale, EntityLivingBase entity)
+    public static float getplayerInventoryOffsetPost(int offset, int originalScale, LivingEntity entity)
     {
         return entity.yOffset - 1.62F;
     }

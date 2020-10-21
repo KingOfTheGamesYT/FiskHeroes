@@ -120,7 +120,7 @@ import cpw.mods.fml.relauncher.Side;
 import mods.battlegear2.api.core.BattlegearUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
@@ -346,7 +346,7 @@ public class ClientProxy extends CommonProxy
     }
 
     @Override
-    public void playSound(EntityLivingBase entity, String sound, float volume, float pitch, int... args)
+    public void playSound(LivingEntity entity, String sound, float volume, float pitch, int... args)
     {
         if (entity == null)
         {

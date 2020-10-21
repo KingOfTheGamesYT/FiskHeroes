@@ -28,7 +28,7 @@ import com.fiskmods.heroes.util.RewardHelper;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraftforge.common.MinecraftForge;
@@ -98,7 +98,7 @@ public class CommonProxy
         return null;
     }
 
-    public void playSound(EntityLivingBase entity, String sound, float volume, float pitch, int... args)
+    public void playSound(LivingEntity entity, String sound, float volume, float pitch, int... args)
     {
     }
 }

@@ -8,7 +8,7 @@ import com.fiskmods.heroes.common.network.SHNetworkManager;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
@@ -18,7 +18,7 @@ public class TemperatureHelper
 {
     public static final float DEFAULT_BODY_TEMPERATURE = 36.0F;
 
-    public static float getCurrentBiomeTemperature(EntityLivingBase entity)
+    public static float getCurrentBiomeTemperature(LivingEntity entity)
     {
         return getCurrentBiomeTemperature(entity.world, MathHelper.floor_double(entity.posX), MathHelper.floor_double(entity.boundingBox.minY), MathHelper.floor_double(entity.posZ));
     }
@@ -30,7 +30,7 @@ public class TemperatureHelper
         return f * 70 / 2 - 10;
     }
 
-    public static float getCurrentBodyTemperature(EntityLivingBase entity)
+    public static float getCurrentBodyTemperature(LivingEntity entity)
     {
         return getTemperature(entity);
     }
@@ -57,7 +57,7 @@ public class TemperatureHelper
         return 0;
     }
 
-    public static void updateTemperature(EntityLivingBase entity)
+    public static void updateTemperature(LivingEntity entity)
     {
         float temp = getCurrentBodyTemperature(entity);
         float newTemp = temp;
@@ -85,12 +85,12 @@ public class TemperatureHelper
         // }
     }
 
-    public static boolean shouldFreeze(EntityLivingBase entity)
+    public static boolean shouldFreeze(LivingEntity entity)
     {
         return getCurrentBodyTemperature(entity) < DEFAULT_BODY_TEMPERATURE;
     }
 
-    public static void setTemperatureWithoutNotify(EntityLivingBase entity, float temperature)
+    public static void setTemperatureWithoutNotify(LivingEntity entity, float temperature)
     {
         float prevTemperature = SHEntityData.getData(entity).temperature;
 
@@ -105,7 +105,7 @@ public class TemperatureHelper
         SHEntityData.getData(entity).temperature = temperature;
     }
 
-    public static void setTemperature(EntityLivingBase entity, float temperature)
+    public static void setTemperature(LivingEntity entity, float temperature)
     {
         if (getTemperature(entity) != temperature)
         {
@@ -118,7 +118,7 @@ public class TemperatureHelper
         }
     }
 
-    public static float getTemperature(EntityLivingBase entity)
+    public static float getTemperature(LivingEntity entity)
     {
         return SHEntityData.getData(entity).temperature;
     }

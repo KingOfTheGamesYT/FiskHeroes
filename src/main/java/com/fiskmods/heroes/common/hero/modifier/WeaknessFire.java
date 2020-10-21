@@ -9,7 +9,7 @@ import cpw.mods.fml.common.gameevent.TickEvent.Phase;
 import net.minecraft.command.IEntitySelector;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityHanging;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.AxisAlignedBB;
@@ -18,7 +18,7 @@ import net.minecraft.util.DamageSource;
 public class WeaknessFire extends Weakness
 {
     @Override
-    public void onUpdate(EntityLivingBase entity, Hero hero, Phase phase, boolean enabled)
+    public void onUpdate(LivingEntity entity, Hero hero, Phase phase, boolean enabled)
     {
         if (phase == Phase.END && enabled && !entity.world.isRemote)
         {
@@ -58,7 +58,7 @@ public class WeaknessFire extends Weakness
     }
 
     @Override
-    public float damageReduction(EntityLivingBase entity, Hero hero, DamageSource source, float reduction)
+    public float damageReduction(LivingEntity entity, Hero hero, DamageSource source, float reduction)
     {
         reduction = super.damageReduction(entity, hero, source, reduction);
         return source.isFireDamage() ? reduction / 2 : reduction;

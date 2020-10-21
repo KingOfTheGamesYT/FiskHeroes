@@ -16,7 +16,7 @@ import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.resources.SimpleReloadableResourceManager;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.gen.feature.WorldGenMinable;
@@ -34,7 +34,7 @@ public class SHReflection
 
     // Common
     private static GenericMethod<Entity, Void> setSizeMethod;
-    private static GenericMethod<EntityLivingBase, Integer> getArmSwingAnimationEndMethod;
+    private static GenericMethod<LivingEntity, Integer> getArmSwingAnimationEndMethod;
     private static GenericMethod<Entity, Boolean> canTriggerWalkingMethod;
     private static GenericMethod<EntityCreeper, Void> creeperExplodeMethod;
 
@@ -48,7 +48,7 @@ public class SHReflection
     @SideOnly(Side.CLIENT)
     public static void client()
     {
-        renderNametagMethod = MethodBuilder.in(RenderPlayer.class, void.class).with(EntityLivingBase.class, double.class, double.class, double.class, String.class, float.class, double.class).find("func_96449_a");
+        renderNametagMethod = MethodBuilder.in(RenderPlayer.class, void.class).with(LivingEntity.class, double.class, double.class, double.class, String.class, float.class, double.class).find("func_96449_a");
         clearResourcesMethod = MethodBuilder.in(SimpleReloadableResourceManager.class, void.class).with().find("func_110543_a", "clearResources");
 
         splashTextField = new GenericField(GuiMainMenu.class, String.class, "field_73975_c", "splashText");
@@ -60,7 +60,7 @@ public class SHReflection
     public static void common()
     {
         setSizeMethod = MethodBuilder.in(Entity.class, void.class).with(float.class, float.class).find("func_70105_a", "setSize");
-        getArmSwingAnimationEndMethod = MethodBuilder.in(EntityLivingBase.class, int.class).with().find("func_82166_i", "getArmSwingAnimationEnd");
+        getArmSwingAnimationEndMethod = MethodBuilder.in(LivingEntity.class, int.class).with().find("func_82166_i", "getArmSwingAnimationEnd");
         canTriggerWalkingMethod = MethodBuilder.in(Entity.class, boolean.class).with().find("func_70041_e_", "canTriggerWalking");
         creeperExplodeMethod = MethodBuilder.in(EntityCreeper.class, void.class).with().find("func_146077_cc");
 
@@ -72,7 +72,7 @@ public class SHReflection
         genMineableStoneField = new GenericField(WorldGenMinable.class, Block.class, "field_150518_c");
     }
 
-    public static void renderNametag(RenderPlayer instance, EntityLivingBase entity, double x, double y, double z, String username, float p_96449_9_, double p_96449_10_)
+    public static void renderNametag(RenderPlayer instance, LivingEntity entity, double x, double y, double z, String username, float p_96449_9_, double p_96449_10_)
     {
         renderNametagMethod.invoke(instance, entity, x, y, z, username, p_96449_9_, p_96449_10_);
     }
@@ -87,7 +87,7 @@ public class SHReflection
         setSizeMethod.invoke(instance, f, f1);
     }
 
-    public static int getArmSwingAnimationEnd(EntityLivingBase instance)
+    public static int getArmSwingAnimationEnd(LivingEntity instance)
     {
         return getArmSwingAnimationEndMethod.invoke(instance);
     }

@@ -3,7 +3,7 @@ package com.fiskmods.heroes.common.entity.ai;
 import com.fiskmods.heroes.common.data.SHData;
 import com.fiskmods.heroes.common.entity.EntityIronMan;
 
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.pathfinding.PathNavigate;
 import net.minecraft.util.MathHelper;
@@ -12,7 +12,7 @@ import net.minecraft.world.World;
 public class EntityAIFollowOwner2 extends EntityAIBase
 {
     private EntityIronMan theIronMan;
-    private EntityLivingBase theOwner;
+    private LivingEntity theOwner;
     World theWorld;
     private double field_75336_f;
     private PathNavigate petPathfinder;
@@ -35,7 +35,7 @@ public class EntityAIFollowOwner2 extends EntityAIBase
     @Override
     public boolean shouldExecute()
     {
-        EntityLivingBase entitylivingbase = theIronMan.getOwner();
+        LivingEntity entitylivingbase = theIronMan.getOwner();
 
         if (entitylivingbase == null)
         {

@@ -9,7 +9,7 @@ import com.google.common.collect.Multimap;
 import net.minecraft.block.Block;
 import net.minecraft.command.IEntitySelector;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.PlayerEntity;
@@ -32,14 +32,14 @@ public class ItemBoStaff extends ItemUntextured implements IPunchWeapon
     }
 
     @Override
-    public boolean hitEntity(ItemStack itemstack, EntityLivingBase target, EntityLivingBase attacker)
+    public boolean hitEntity(ItemStack itemstack, LivingEntity target, LivingEntity attacker)
     {
         float width = attacker.width * 2;
         Vec3 vec3 = VectorHelper.getOffsetCoords(attacker, 0, 0, -0.2F);
         AxisAlignedBB aabb = AxisAlignedBB.getBoundingBox(-width, 0, -width, width, attacker.height, width).offset(vec3.xCoord, attacker.boundingBox.minY, vec3.zCoord);
-        List<EntityLivingBase> list = attacker.world.selectEntitiesWithinAABB(EntityLivingBase.class, aabb, IEntitySelector.selectAnything);
+        List<LivingEntity> list = attacker.world.selectEntitiesWithinAABB(LivingEntity.class, aabb, IEntitySelector.selectAnything);
 
-        for (EntityLivingBase entity : list)
+        for (LivingEntity entity : list)
         {
             if (entity != attacker)
             {
@@ -187,7 +187,7 @@ public class ItemBoStaff extends ItemUntextured implements IPunchWeapon
     }
 
     @Override
-    public boolean onBlockDestroyed(ItemStack itemstack, World world, Block block, int x, int y, int z, EntityLivingBase entity)
+    public boolean onBlockDestroyed(ItemStack itemstack, World world, Block block, int x, int y, int z, LivingEntity entity)
     {
         if (block.getBlockHardness(world, x, y, z) != 0.0D)
         {

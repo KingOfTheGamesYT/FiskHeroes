@@ -2,7 +2,7 @@ package com.fiskmods.heroes.common.entity.arrow;
 
 import com.fiskmods.heroes.common.entity.IPiercingProjectile;
 
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.world.World;
 
 public class EntityVibraniumArrow extends EntityTrickArrow implements IPiercingProjectile
@@ -17,18 +17,18 @@ public class EntityVibraniumArrow extends EntityTrickArrow implements IPiercingP
         super(world, x, y, z);
     }
 
-    public EntityVibraniumArrow(World world, EntityLivingBase shooter, float velocity)
+    public EntityVibraniumArrow(World world, LivingEntity shooter, float velocity)
     {
         super(world, shooter, velocity);
     }
 
-    public EntityVibraniumArrow(World world, EntityLivingBase shooter, float velocity, boolean horizontal)
+    public EntityVibraniumArrow(World world, LivingEntity shooter, float velocity, boolean horizontal)
     {
         super(world, shooter, velocity, horizontal);
     }
 
     @Override
-    public boolean canPierceDurability(EntityLivingBase entity)
+    public boolean canPierceDurability(LivingEntity entity)
     {
         return true;
     }

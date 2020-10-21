@@ -4,7 +4,7 @@ import com.fiskmods.heroes.common.data.SHData;
 import com.fiskmods.heroes.common.data.effect.StatEffect;
 import com.fiskmods.heroes.common.data.effect.StatusEffect;
 
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 
 public class AbilitySuperSpeed extends Ability
@@ -19,7 +19,7 @@ public class AbilitySuperSpeed extends Ability
     }
 
     @Override
-    public boolean isActive(EntityLivingBase entity)
+    public boolean isActive(LivingEntity entity)
     {
         return SHData.SPEED.get(entity) >= 0 && !StatusEffect.has(entity, StatEffect.SPEED_DAMPENER);
     }

@@ -26,7 +26,7 @@ public class ArmorTracker
     // @SubscribeEvent
     // public void onLivingDeath(LivingDeathEvent event)
     // {
-    // EntityLivingBase entity = event.entityLiving;
+    // LivingEntity entity = event.entityLiving;
     //
     // if (isTracking(entity))
     // {
@@ -38,7 +38,7 @@ public class ArmorTracker
     // @SubscribeEvent
     // public void onLivingUpdate(LivingUpdateEvent event)
     // {
-    // EntityLivingBase entity = event.entityLiving;
+    // LivingEntity entity = event.entityLiving;
     //
     // if (entity.isEntityAlive())
     // {

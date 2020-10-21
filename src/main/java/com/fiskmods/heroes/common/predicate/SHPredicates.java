@@ -12,7 +12,7 @@ import net.minecraft.item.Item;
 
 public class SHPredicates
 {
-//    public static final Predicate<Entity> HAS_MOVESET = t -> t instanceof EntityLivingBase && MoveCommonHandler.hasMoveSet((EntityLivingBase) t); // TODO: 1.4 Combat
+//    public static final Predicate<Entity> HAS_MOVESET = t -> t instanceof LivingEntity && MoveCommonHandler.hasMoveSet((LivingEntity) t); // TODO: 1.4 Combat
 //
 //    public static Predicate<SHData<?>> isModeApplicable(CommandPlayerData.Mode mode)
 //    {

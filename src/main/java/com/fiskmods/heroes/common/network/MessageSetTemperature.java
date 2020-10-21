@@ -3,7 +3,7 @@ package com.fiskmods.heroes.common.network;
 import com.fiskmods.heroes.util.TemperatureHelper;
 
 import io.netty.buffer.ByteBuf;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 
 public class MessageSetTemperature extends AbstractMessage<MessageSetTemperature>
 {
@@ -14,7 +14,7 @@ public class MessageSetTemperature extends AbstractMessage<MessageSetTemperature
     {
     }
 
-    public MessageSetTemperature(EntityLivingBase entity, float f)
+    public MessageSetTemperature(LivingEntity entity, float f)
     {
         id = entity.getEntityId();
         temperature = f;
@@ -37,6 +37,6 @@ public class MessageSetTemperature extends AbstractMessage<MessageSetTemperature
     @Override
     public void receive() throws MessageException
     {
-        TemperatureHelper.setTemperature(getEntity(EntityLivingBase.class, id), temperature);
+        TemperatureHelper.setTemperature(getEntity(LivingEntity.class, id), temperature);
     }
 }

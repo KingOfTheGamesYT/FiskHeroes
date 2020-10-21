@@ -103,7 +103,7 @@ public abstract class ClassTransformerBase implements IClassTransformer, Opcodes
             initVars = true;
             varPlayer = SHTranslator.getMappedName("yz", "net/minecraft/entity/player/EntityPlayer");
             varEntity = SHTranslator.getMappedName("sa", "net/minecraft/entity/Entity");
-            varLivingBase = SHTranslator.getMappedName("sv", "net/minecraft/entity/EntityLivingBase");
+            varLivingBase = SHTranslator.getMappedName("sv", "net/minecraft/entity/LivingEntity");
             varAABB = SHTranslator.getMappedName("azt", "net/minecraft/util/AxisAlignedBB");
             varIBlockAccess = SHTranslator.getMappedName("ahl", "net/minecraft/world/IBlockAccess");
             varBlock = SHTranslator.getMappedName("aji", "net/minecraft/block/Block");

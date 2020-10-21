@@ -19,7 +19,7 @@ import com.fiskmods.heroes.common.item.ItemTachyonDevice;
 import com.fiskmods.heroes.common.item.ModItems;
 import com.fiskmods.heroes.common.tileentity.TileEntityTreadmill;
 
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
@@ -30,7 +30,7 @@ import net.minecraft.world.World;
 
 public class SpeedsterHelper
 {
-    public static int getSuitBaseSpeed(EntityLivingBase entity, Hero hero)
+    public static int getSuitBaseSpeed(LivingEntity entity, Hero hero)
     {
         return MathHelper.floor_double(SHAttributes.BASE_SPEED_LEVELS.get(entity, hero, -1));
     }
@@ -145,7 +145,7 @@ public class SpeedsterHelper
         return Math.max(f, 20);
     }
 
-    public static JsonTrail getJsonTrail(EntityLivingBase entity)
+    public static JsonTrail getJsonTrail(LivingEntity entity)
     {
         HeroRenderer renderer = HeroRenderer.get(SHHelper.getHeroIter(entity));
 
@@ -162,7 +162,7 @@ public class SpeedsterHelper
         return SHResourceHandler.getV9Trail();
     }
 
-    public static ITrailAspect getTrailLightning(EntityLivingBase entity)
+    public static ITrailAspect getTrailLightning(LivingEntity entity)
     {
         return getJsonTrail(entity).getTrailLightning();
     }
@@ -182,12 +182,12 @@ public class SpeedsterHelper
         return canPlayerRun(player) && SHData.SPEED.get(player) >= 3 && player.isSprinting();
     }
 
-    public static boolean hasSuperSpeed(EntityLivingBase entity)
+    public static boolean hasSuperSpeed(LivingEntity entity)
     {
         return (isSpeedster(entity) || StatusEffect.has(entity, StatEffect.VELOCITY_9)) && Ability.SUPER_SPEED.isActive(entity);
     }
 
-    public static boolean isSpeedster(EntityLivingBase entity)
+    public static boolean isSpeedster(LivingEntity entity)
     {
         return SHHelper.hasEnabledModifier(entity, Ability.SUPER_SPEED);
     }
@@ -294,7 +294,7 @@ public class SpeedsterHelper
         return FiskServerUtils.getStackInSlot(player, SHData.EQUIPPED_TACHYON_DEVICE_SLOT.get(player));
     }
 
-    public static boolean hasTachyonDevice(EntityLivingBase entity)
+    public static boolean hasTachyonDevice(LivingEntity entity)
     {
         return SHData.EQUIPPED_TACHYON_DEVICE_SLOT.get(entity) >= 0 && (entity.getHeldItem() == null || entity.getHeldItem().getItem() != ModItems.tachyonDevice);
     }
@@ -321,7 +321,7 @@ public class SpeedsterHelper
             this(-1);
         }
 
-        public Vec3 getColor(EntityLivingBase entity)
+        public Vec3 getColor(LivingEntity entity)
         {
             return this == SUIT ? getTrailLightning(entity).getVecColor() : color;
         }

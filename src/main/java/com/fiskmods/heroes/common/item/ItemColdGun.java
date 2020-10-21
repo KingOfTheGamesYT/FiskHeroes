@@ -18,7 +18,7 @@ import com.fiskmods.heroes.util.VectorHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -107,9 +107,9 @@ public class ItemColdGun extends ItemUntextured
                 {
                     rayTrace.entityHit.attackEntityFrom(ModDamageSources.FREEZE.apply(player), Rule.DMG_COLDGUN.get(player, hero));
 
-                    if (rayTrace.entityHit instanceof EntityLivingBase)
+                    if (rayTrace.entityHit instanceof LivingEntity)
                     {
-                        EntityLivingBase entity = (EntityLivingBase) rayTrace.entityHit;
+                        LivingEntity entity = (LivingEntity) rayTrace.entityHit;
 
                         if (TemperatureHelper.getCurrentBodyTemperature(entity) > 0)
                         {
@@ -146,7 +146,7 @@ public class ItemColdGun extends ItemUntextured
     }
 
     @Override
-    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack)
+    public boolean onEntitySwing(LivingEntity entityLiving, ItemStack stack)
     {
         return true;
     }

@@ -14,7 +14,7 @@ import cpw.mods.fml.common.gameevent.TickEvent.Phase;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.MathHelper;
 
 public class AbilityFlight extends Ability
@@ -25,7 +25,7 @@ public class AbilityFlight extends Ability
     }
 
     @Override
-    public void onUpdate(EntityLivingBase entity, Hero hero, Phase phase, boolean enabled)
+    public void onUpdate(LivingEntity entity, Hero hero, Phase phase, boolean enabled)
     {
         if (enabled)
         {
@@ -64,7 +64,7 @@ public class AbilityFlight extends Ability
     }
 
     @SideOnly(Side.CLIENT)
-    private void onClientUpdate(EntityLivingBase entity, Hero hero)
+    private void onClientUpdate(LivingEntity entity, Hero hero)
     {
         if (FiskHeroes.proxy.isClientPlayer(entity))
         {
@@ -142,7 +142,7 @@ public class AbilityFlight extends Ability
         }
     }
 
-    public boolean applyMotion(EntityLivingBase entity)
+    public boolean applyMotion(LivingEntity entity)
     {
         boolean flying = SHData.JETPACKING.get(entity);
         boolean hovering = SHData.HOVERING.get(entity);

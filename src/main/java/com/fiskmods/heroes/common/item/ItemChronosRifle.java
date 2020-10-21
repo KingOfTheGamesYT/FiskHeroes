@@ -13,7 +13,7 @@ import com.fiskmods.heroes.common.hero.HeroIteration;
 import com.fiskmods.heroes.util.SHHelper;
 import com.fiskmods.heroes.util.VectorHelper;
 
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -201,7 +201,7 @@ public class ItemChronosRifle extends ItemUntextured implements IReloadWeapon, I
     }
 
     @Override
-    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack)
+    public boolean onEntitySwing(LivingEntity entityLiving, ItemStack stack)
     {
         return true;
     }

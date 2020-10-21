@@ -8,7 +8,7 @@ import com.fiskmods.heroes.util.SHHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.EntityItemFrame;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.AxisAlignedBB;
@@ -154,7 +154,7 @@ public class SHEntityRenderer extends EntityRenderer
                 {
                     mc.objectMouseOver = new MovingObjectPosition(pointedEntity, vec33);
 
-                    if (pointedEntity instanceof EntityLivingBase || pointedEntity instanceof EntityItemFrame)
+                    if (pointedEntity instanceof LivingEntity || pointedEntity instanceof EntityItemFrame)
                     {
                         mc.pointedEntity = pointedEntity;
                     }

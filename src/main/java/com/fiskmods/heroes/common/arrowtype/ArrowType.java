@@ -27,7 +27,7 @@ import net.minecraft.dispenser.IBlockSource;
 import net.minecraft.dispenser.IPosition;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
@@ -159,11 +159,11 @@ public class ArrowType<T extends EntityTrickArrow> extends FiskRegistryEntry<Arr
         return null;
     }
 
-    public T newInstance(World world, EntityLivingBase shooter, float speed, boolean horizontal)
+    public T newInstance(World world, LivingEntity shooter, float speed, boolean horizontal)
     {
         try
         {
-            return entity.getConstructor(World.class, EntityLivingBase.class, float.class, boolean.class).newInstance(world, shooter, speed, horizontal);
+            return entity.getConstructor(World.class, LivingEntity.class, float.class, boolean.class).newInstance(world, shooter, speed, horizontal);
         }
         catch (Exception e)
         {
@@ -173,7 +173,7 @@ public class ArrowType<T extends EntityTrickArrow> extends FiskRegistryEntry<Arr
         return null;
     }
 
-    public T shoot(World world, EntityLivingBase shooter, IBlockSource source, ItemStack bow, ItemStack arrow, float f)
+    public T shoot(World world, LivingEntity shooter, IBlockSource source, ItemStack bow, ItemStack arrow, float f)
     {
         if (!world.isRemote)
         {
@@ -209,7 +209,7 @@ public class ArrowType<T extends EntityTrickArrow> extends FiskRegistryEntry<Arr
         return null;
     }
 
-    public void onShoot(EntityLivingBase shooter, IBlockSource source, T entity, ItemStack bow, ItemStack arrow, float f)
+    public void onShoot(LivingEntity shooter, IBlockSource source, T entity, ItemStack bow, ItemStack arrow, float f)
     {
         entity.setArrowItem(arrow);
         entity.setArrowId(getIdFromArrow(this));
@@ -263,7 +263,7 @@ public class ArrowType<T extends EntityTrickArrow> extends FiskRegistryEntry<Arr
         entity.world.spawnEntityInWorld(entity);
     }
 
-    public T getDummyEntity(EntityLivingBase shooter)
+    public T getDummyEntity(LivingEntity shooter)
     {
         if (dummyEntity == null)
         {

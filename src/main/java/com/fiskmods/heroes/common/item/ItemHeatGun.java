@@ -12,7 +12,7 @@ import com.fiskmods.heroes.util.FiskServerUtils;
 import com.fiskmods.heroes.util.SHHelper;
 import com.fiskmods.heroes.util.VectorHelper;
 
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -113,7 +113,7 @@ public class ItemHeatGun extends ItemUntextured
     }
 
     @Override
-    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack)
+    public boolean onEntitySwing(LivingEntity entityLiving, ItemStack stack)
     {
         return true;
     }

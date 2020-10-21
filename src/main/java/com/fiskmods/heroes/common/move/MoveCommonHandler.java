@@ -17,7 +17,7 @@
 //import net.minecraft.crash.CrashReport;
 //import net.minecraft.crash.CrashReportCategory;
 //import net.minecraft.entity.Entity;
-//import net.minecraft.entity.EntityLivingBase;
+//import net.minecraft.entity.LivingEntity;
 //import net.minecraft.entity.player.PlayerEntity;
 //import net.minecraft.entity.player.PlayerInventory;
 //import net.minecraft.init.Blocks;
@@ -402,17 +402,17 @@
 ////        }
 ////    }
 //
-//    public static boolean hasMoveSet(EntityLivingBase entity, Hero hero)
+//    public static boolean hasMoveSet(LivingEntity entity, Hero hero)
 //    {
 //        return hero != null && hero.getMoveSet() != null;
 //    }
 //
-//    public static boolean hasMoveSet(EntityLivingBase entity)
+//    public static boolean hasMoveSet(LivingEntity entity)
 //    {
 //        return hasMoveSet(entity, SHHelper.getHero(entity));
 //    }
 //
-//    public static MoveEntry getMove(EntityLivingBase entity, Hero hero)
+//    public static MoveEntry getMove(LivingEntity entity, Hero hero)
 //    {
 //        if (hasMoveSet(entity, hero) && SHData.COMBAT_MODE.get(entity))
 //        {
@@ -422,19 +422,19 @@
 //        return null;
 //    }
 //
-//    public static MoveEntry getMove(EntityLivingBase entity)
+//    public static MoveEntry getMove(LivingEntity entity)
 //    {
 //        return getMove(entity, SHHelper.getHero(entity));
 //    }
 //
 //    public static boolean isFocusing(Entity entity, Hero hero)
 //    {
-//        return entity.isSneaking() && entity instanceof EntityLivingBase && hasMoveSet((EntityLivingBase) entity, hero);
+//        return entity.isSneaking() && entity instanceof LivingEntity && hasMoveSet((LivingEntity) entity, hero);
 //    }
 //
 //    public static boolean isFocusing(Entity entity)
 //    {
-//        return entity.isSneaking() && SHData.COMBAT_MODE.get(entity) && entity instanceof EntityLivingBase && hasMoveSet((EntityLivingBase) entity);
+//        return entity.isSneaking() && SHData.COMBAT_MODE.get(entity) && entity instanceof LivingEntity && hasMoveSet((LivingEntity) entity);
 //    }
 //
 //    public static float getMaxFocus(PlayerEntity player)

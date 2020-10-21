@@ -17,7 +17,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.enchantment.EnchantmentProtection;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityHanging;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.AxisAlignedBB;
@@ -36,7 +36,7 @@ public class EntityFreezeGrenade extends EntityThrowable
         noClip = false;
     }
 
-    public EntityFreezeGrenade(World world, EntityLivingBase entity)
+    public EntityFreezeGrenade(World world, LivingEntity entity)
     {
         super(world, entity);
         noClip = false;
@@ -167,10 +167,10 @@ public class EntityFreezeGrenade extends EntityThrowable
                             entity.attackEntityFrom(ModDamageSources.FREEZE.apply(getThrower()), (int) ((d11 * d11 + d11) / 2.0D * 8.0D * explosionSize + 1.0D));
                         }
 
-                        if (entity instanceof EntityLivingBase)
+                        if (entity instanceof LivingEntity)
                         {
                             float f1 = Math.round((d11 * d11 + d11) / 2.0D * 8.0D * explosionSize + 1.0D);
-                            TemperatureHelper.setTemperature((EntityLivingBase) entity, TemperatureHelper.getTemperature((EntityLivingBase) entity) - f1);
+                            TemperatureHelper.setTemperature((LivingEntity) entity, TemperatureHelper.getTemperature((LivingEntity) entity) - f1);
                         }
 
                         double d8 = EnchantmentProtection.func_92092_a(entity, d11);

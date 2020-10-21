@@ -13,7 +13,7 @@ import com.fiskmods.heroes.common.entity.arrow.EntityTrickArrow;
 import com.fiskmods.heroes.util.TemperatureHelper;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.World;
@@ -29,9 +29,9 @@ public class SHEntityData implements IExtendedEntityProperties
 
     public float temperature = TemperatureHelper.DEFAULT_BODY_TEMPERATURE;
 
-    private EntityLivingBase living;
+    private LivingEntity living;
 
-    public static SHEntityData getData(EntityLivingBase entity)
+    public static SHEntityData getData(LivingEntity entity)
     {
         return (SHEntityData) entity.getExtendedProperties(IDENTIFIER);
     }
@@ -155,9 +155,9 @@ public class SHEntityData implements IExtendedEntityProperties
     @Override
     public void init(Entity entity, World world)
     {
-        if (entity instanceof EntityLivingBase)
+        if (entity instanceof LivingEntity)
         {
-            living = (EntityLivingBase) entity;
+            living = (LivingEntity) entity;
         }
     }
 

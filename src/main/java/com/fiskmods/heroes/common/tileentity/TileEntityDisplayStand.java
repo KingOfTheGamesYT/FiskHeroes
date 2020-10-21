@@ -29,7 +29,7 @@ import com.mojang.authlib.properties.Property;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -280,7 +280,7 @@ public class TileEntityDisplayStand extends TileEntityContainer implements IMult
         return owner;
     }
 
-    public void setOwner(EntityLivingBase entity)
+    public void setOwner(LivingEntity entity)
     {
         if (entity instanceof EntityPlayer)
         {
@@ -297,7 +297,7 @@ public class TileEntityDisplayStand extends TileEntityContainer implements IMult
         }
     }
 
-    public boolean isOwner(EntityLivingBase entity)
+    public boolean isOwner(LivingEntity entity)
     {
         if (owner == null)
         {

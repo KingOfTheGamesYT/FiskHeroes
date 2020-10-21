@@ -36,7 +36,7 @@ import com.google.common.collect.Iterables;
 import cpw.mods.fml.relauncher.Side;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
@@ -77,7 +77,7 @@ public class SHData<T> extends FiskRegistryEntry<SHData<?>>
     protected static final int RESET = RESET_ON_DEATH | RESET_WO_SUIT;
     protected static final int COMMAND_ACCESSIBLE = 0x20;
 
-    public static final SHData<Boolean> SPEEDING = new SHData<>(false, t -> t instanceof EntityLivingBase && SpeedsterHelper.hasSuperSpeed((EntityLivingBase) t)).setExempt(RESET_WO_SUIT);
+    public static final SHData<Boolean> SPEEDING = new SHData<>(false, t -> t instanceof LivingEntity && SpeedsterHelper.hasSuperSpeed((LivingEntity) t)).setExempt(RESET_WO_SUIT);
     public static final SHData<Byte> SPEED = new SHData<>((byte) 10).setExempt(RESET_WO_SUIT);
     public static final SHData<Boolean> SLOW_MOTION = new SHData<>(false, Ability.ACCELERATED_PERCEPTION);
     public static final SHData<Byte> SELECTED_ARROW = new SHData<>((byte) 0).setExempt(RESET);
@@ -131,7 +131,7 @@ public class SHData<T> extends FiskRegistryEntry<SHData<?>>
     public static final SHData<Boolean> SUPERHERO_LANDING = new SHData<>(false).setExempt(SAVE_NBT | SYNC_BYTES | RESET).revokePerms();
     public static final SHData<Boolean> STEELED = new SHData<>(false, Ability.STEEL_TRANSFORMATION.and(t -> t.isEntityAlive()));
     public static final SHData<Float> STEEL_COOLDOWN = new SHData<>(0.0F).setExempt(RESET_WO_SUIT);
-    public static final SHData<Boolean> SHIELD = new SHData<>(false, Ability.RETRACTABLE_SHIELD.and(t -> !(t instanceof EntityLivingBase) || ((EntityLivingBase) t).getHeldItem() == null));
+    public static final SHData<Boolean> SHIELD = new SHData<>(false, Ability.RETRACTABLE_SHIELD.and(t -> !(t instanceof LivingEntity) || ((LivingEntity) t).getHeldItem() == null));
     public static final SHData<Boolean> SHIELD_BLOCKING = new SHData<>(false, SHIELD.isValue(true)).setExempt(SAVE_NBT);
     public static final SHData<Boolean> SHADOWFORM = new SHDataInvisible(false, Ability.UMBRAKINESIS.and(t -> t.isEntityAlive()));
     public static final SHData<Boolean> PREV_SHADOWFORM = new SHData(false).setExempt(RESET | COMMAND_ACCESSIBLE);
@@ -143,7 +143,7 @@ public class SHData<T> extends FiskRegistryEntry<SHData<?>>
     public static final SHData<Boolean> TRANSFORMED = new SHData<>(false, SHPredicates.heroPred(t -> t.getKeyBinding(Ability.KEY_TRANSFORM) > 0).and(t -> t.isEntityAlive()));
     public static final SHData<Float> TRANSFORM_COOLDOWN = new SHData<>(0.0F).setExempt(RESET_WO_SUIT);
     public static final SHData<Integer> PREV_TRANSFORM_MAX = new SHData<>(-1).setExempt(RESET_WO_SUIT);
-    public static final SHData<Boolean> BLADE = new SHData<>(false, Ability.RETRACTABLE_BLADE.and(t -> !(t instanceof EntityLivingBase) || ((EntityLivingBase) t).getHeldItem() == null));
+    public static final SHData<Boolean> BLADE = new SHData<>(false, Ability.RETRACTABLE_BLADE.and(t -> !(t instanceof LivingEntity) || ((LivingEntity) t).getHeldItem() == null));
     public static final SHData<Float> SPELL_FRACTION = new SHData<>(0.0F, Ability.SPELLCASTING).setExempt(SAVE_NBT);
     public static final SHData<Boolean> SPODERMEN = new SHData<>(false).setExempt(RESET).revokePerms(Side.CLIENT);
 
@@ -642,7 +642,7 @@ public class SHData<T> extends FiskRegistryEntry<SHData<?>>
             data.update(entity);
         }
 
-        if (entity instanceof EntityLivingBase && !SHHelper.isHero((EntityLivingBase) entity))
+        if (entity instanceof LivingEntity && !SHHelper.isHero((LivingEntity) entity))
         {
             for (SHData data : SHData.REGISTRY)
             {

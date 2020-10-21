@@ -53,7 +53,7 @@ import com.google.gson.Gson;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
@@ -74,7 +74,7 @@ import net.minecraftforge.oredict.OreDictionary;
 
 public class SHHelper
 {
-    public static Map<EntityLivingBase, Hero> prevHero = new HashMap<>();
+    public static Map<LivingEntity, Hero> prevHero = new HashMap<>();
 
     public static byte getHeroSignature(ItemStack[] itemstacks)
     {
@@ -104,7 +104,7 @@ public class SHHelper
         return prev != null ? b : 0;
     }
 
-    public static ItemStack[] getEquipment(EntityLivingBase entity)
+    public static ItemStack[] getEquipment(LivingEntity entity)
     {
         return new ItemStack[] {entity.getEquipmentInSlot(4), entity.getEquipmentInSlot(3), entity.getEquipmentInSlot(2), entity.getEquipmentInSlot(1)};
     }
@@ -152,32 +152,32 @@ public class SHHelper
         return iter != null && iter.hero.getArmorSignature() == getHeroSignature(itemstacks) ? iter : null;
     }
 
-    public static Hero getHeroFromArmor(EntityLivingBase entity, int slot)
+    public static Hero getHeroFromArmor(LivingEntity entity, int slot)
     {
         return getHeroFromArmor(entity.getEquipmentInSlot(slot + 1));
     }
 
-    public static HeroIteration getHeroIterFromArmor(EntityLivingBase entity, int slot)
+    public static HeroIteration getHeroIterFromArmor(LivingEntity entity, int slot)
     {
         return getHeroIterFromArmor(entity.getEquipmentInSlot(slot + 1));
     }
 
-    public static Hero getHero(EntityLivingBase entity)
+    public static Hero getHero(LivingEntity entity)
     {
         return getHero(getEquipment(entity));
     }
 
     public static Hero getHero(Entity entity)
     {
-        return entity instanceof EntityLivingBase ? getHero((EntityLivingBase) entity) : null;
+        return entity instanceof LivingEntity ? getHero((LivingEntity) entity) : null;
     }
 
-    public static HeroIteration getHeroIter(EntityLivingBase entity)
+    public static HeroIteration getHeroIter(LivingEntity entity)
     {
         return getHeroIter(getEquipment(entity));
     }
 
-    public static Hero getPrevHero(EntityLivingBase entity)
+    public static Hero getPrevHero(LivingEntity entity)
     {
         return prevHero.get(entity);
     }
@@ -187,35 +187,35 @@ public class SHHelper
         return getHero(itemstacks) != null;
     }
 
-    public static boolean isHero(EntityLivingBase entity)
+    public static boolean isHero(LivingEntity entity)
     {
         return isHero(getEquipment(entity));
     }
 
     public static boolean isHero(Entity entity)
     {
-        return entity instanceof EntityLivingBase && isHero((EntityLivingBase) entity);
+        return entity instanceof LivingEntity && isHero((LivingEntity) entity);
     }
 
-    public static boolean hasModifier(EntityLivingBase entity, HeroModifier modifier)
+    public static boolean hasModifier(LivingEntity entity, HeroModifier modifier)
     {
         Hero hero = getHero(entity);
         return hero != null && hero.hasModifier(modifier);
     }
 
-    public static boolean hasEnabledModifier(EntityLivingBase entity, HeroModifier modifier)
+    public static boolean hasEnabledModifier(LivingEntity entity, HeroModifier modifier)
     {
         Hero hero = getHero(entity);
         return hero != null && hero.hasEnabledModifier(entity, modifier);
     }
 
-    public static boolean hasProperty(EntityLivingBase entity, Property property)
+    public static boolean hasProperty(LivingEntity entity, Property property)
     {
         Hero hero = getHero(entity);
         return hero != null && hero.hasProperty(entity, property);
     }
 
-    public static boolean hasPermission(EntityLivingBase entity, String permission)
+    public static boolean hasPermission(LivingEntity entity, String permission)
     {
         Hero hero = getHero(entity);
         return hero != null && hero.hasPermission(entity, permission);
@@ -233,7 +233,7 @@ public class SHHelper
         }
     }
 
-    public static int getShieldBlocking(EntityLivingBase entity)
+    public static int getShieldBlocking(LivingEntity entity)
     {
         if (SHData.SHIELD_BLOCKING.get(entity))
         {
@@ -244,7 +244,7 @@ public class SHHelper
         return entity instanceof PlayerEntity && heldItem != null && heldItem.getItem() == ModItems.captainAmericasShield && ((EntityPlayer) entity).isUsingItem() ? 2 : 0;
     }
 
-    public static boolean canShieldBlock(EntityLivingBase entity, DamageSource source, int blockingType)
+    public static boolean canShieldBlock(LivingEntity entity, DamageSource source, int blockingType)
     {
         if (blockingType > 0)
         {
@@ -264,12 +264,12 @@ public class SHHelper
         return false;
     }
 
-    public static boolean canArmorBlock(EntityLivingBase entity, DamageSource source)
+    public static boolean canArmorBlock(LivingEntity entity, DamageSource source)
     {
         return getDamageMult(entity, source) > 0;
     }
 
-    public static float getDamageMult(EntityLivingBase entity, DamageSource source)
+    public static float getDamageMult(LivingEntity entity, DamageSource source)
     {
         if (ArmorTracker.isTracking(entity))
         {
@@ -293,7 +293,7 @@ public class SHHelper
         return 1;
     }
 
-    public static void knockbackWithoutNotify(EntityLivingBase entity, Entity attacker, float amount)
+    public static void knockbackWithoutNotify(LivingEntity entity, Entity attacker, float amount)
     {
         if (attacker != null)
         {
@@ -312,7 +312,7 @@ public class SHHelper
         }
     }
 
-    public static void knockback(EntityLivingBase entity, Entity attacker, float amount)
+    public static void knockback(LivingEntity entity, Entity attacker, float amount)
     {
         if (!entity.world.isRemote)
         {
@@ -542,7 +542,7 @@ public class SHHelper
         return SpeedsterHelper.canPlayerRun(player) ? 5 : 0;
     }
 
-    public static MovingObjectPosition rayTrace(EntityLivingBase entity, double range, int flags, float partialTicks)
+    public static MovingObjectPosition rayTrace(LivingEntity entity, double range, int flags, float partialTicks)
     {
         return rayTrace(entity, range, 0, flags, partialTicks);
     }
@@ -550,7 +550,7 @@ public class SHHelper
     /**
      * Flags: 1 = Stop at non-collidable blocks 2 = Stop at liquids 4 = ?
      */
-    public static MovingObjectPosition rayTrace(EntityLivingBase entity, double range, float borderSize, int flags, float partialTicks)
+    public static MovingObjectPosition rayTrace(LivingEntity entity, double range, float borderSize, int flags, float partialTicks)
     {
         Vec3 look = entity.getLook(partialTicks);
         Vec3 src = VectorHelper.getPosition(entity, partialTicks).addVector(0, VectorHelper.getOffset(entity), 0);
@@ -661,7 +661,7 @@ public class SHHelper
 
     public static boolean ignite(Entity entity, int seconds)
     {
-        if (seconds > 0 && (entity instanceof EntityLivingBase || entity instanceof EntityGrappleArrow))
+        if (seconds > 0 && (entity instanceof LivingEntity || entity instanceof EntityGrappleArrow))
         {
             entity.setFire(seconds);
             return true;
@@ -707,7 +707,7 @@ public class SHHelper
         }
     }
 
-    public static boolean isHoldingSword(EntityLivingBase entity)
+    public static boolean isHoldingSword(LivingEntity entity)
     {
         ItemStack heldItem = entity.getHeldItem();
         return heldItem != null && (heldItem.getItem() instanceof ItemSword || heldItem.getItem() instanceof ItemAxe) && !(heldItem.getItem() instanceof IPunchWeapon);
@@ -776,7 +776,7 @@ public class SHHelper
         return item == ModItems.eterniumShard || isPoisonEternium(Block.getBlockFromItem(item));
     }
 
-    public static boolean hasLeftClickKey(EntityLivingBase entity, Hero hero)
+    public static boolean hasLeftClickKey(LivingEntity entity, Hero hero)
     {
         if (hero != null && hero.hasKeyBinding(-1))
         {
@@ -794,7 +794,7 @@ public class SHHelper
         return false;
     }
 
-    public static boolean isEarthCrackTarget(EntityLivingBase entity)
+    public static boolean isEarthCrackTarget(LivingEntity entity)
     {
         for (Object obj : entity.world.loadedEntityList)
         {
@@ -807,7 +807,7 @@ public class SHHelper
         return false;
     }
 
-    public static Collection<Spell> getSpells(EntityLivingBase entity, Hero hero)
+    public static Collection<Spell> getSpells(LivingEntity entity, Hero hero)
     {
         Object spells = hero.getFuncObject(entity, AbilitySpellcasting.FUNC_SPELLS);
 
@@ -821,9 +821,9 @@ public class SHHelper
         return ((Stream<String>) c.stream().map(String::valueOf)).map(Spell::getSpellFromName).filter(Objects::nonNull).collect(Collectors.toList());
     }
 
-    public static EntityLivingBase filterDuplicate(EntityLivingBase entity)
+    public static LivingEntity filterDuplicate(LivingEntity entity)
     {
-        EntityLivingBase owner;
+        LivingEntity owner;
         return entity instanceof EntitySpellDuplicate && (owner = ((EntitySpellDuplicate) entity).getOwner()) != null ? owner : entity;
     }
     

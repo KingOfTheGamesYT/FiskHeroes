@@ -11,7 +11,7 @@ import com.fiskmods.heroes.util.SHHelper;
 import com.fiskmods.heroes.util.VectorHelper;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
@@ -30,12 +30,12 @@ public class EntityFireballArrow extends EntityTrickArrow
         super(world, x, y, z);
     }
 
-    public EntityFireballArrow(World world, EntityLivingBase shooter, float velocity)
+    public EntityFireballArrow(World world, LivingEntity shooter, float velocity)
     {
         super(world, shooter, velocity);
     }
 
-    public EntityFireballArrow(World world, EntityLivingBase shooter, float velocity, boolean horizontal)
+    public EntityFireballArrow(World world, LivingEntity shooter, float velocity, boolean horizontal)
     {
         super(world, shooter, velocity, horizontal);
     }
@@ -64,7 +64,7 @@ public class EntityFireballArrow extends EntityTrickArrow
     }
 
     @Override
-    protected void handlePostDamageEffects(EntityLivingBase entityHit)
+    protected void handlePostDamageEffects(LivingEntity entityHit)
     {
         SHHelper.ignite(entityHit, SHConstants.IGNITE_FIREBALL);
         super.handlePostDamageEffects(entityHit);

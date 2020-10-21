@@ -15,7 +15,7 @@ import com.google.common.collect.ImmutableMap;
 
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
@@ -110,32 +110,32 @@ public abstract class Move extends FiskRegistryEntry<Move> implements Comparable
         return null;
     }
 
-    public abstract boolean onActivated(EntityLivingBase entity, Hero hero, MovingObjectPosition mop, MoveActivation activation, ImmutableMap<String, Number> modifiers, float focus);
+    public abstract boolean onActivated(LivingEntity entity, Hero hero, MovingObjectPosition mop, MoveActivation activation, ImmutableMap<String, Number> modifiers, float focus);
 
     public boolean canPickupItem(PlayerInventory inventory, ItemStack stack, MoveSet set)
     {
         return false;
     }
 
-    public void onUpdate(EntityLivingBase entity, Hero hero, Phase phase)
+    public void onUpdate(LivingEntity entity, Hero hero, Phase phase)
     {
     }
 
-    public void onRemoved(EntityLivingBase entity, Hero hero)
+    public void onRemoved(LivingEntity entity, Hero hero)
     {
     }
 
-    public boolean canTakeDamage(EntityLivingBase entity, EntityLivingBase attacker, Hero hero, DamageSource source, float amount)
+    public boolean canTakeDamage(LivingEntity entity, LivingEntity attacker, Hero hero, DamageSource source, float amount)
     {
         return true;
     }
 
-    public float damageTaken(EntityLivingBase entity, EntityLivingBase attacker, Hero hero, DamageSource source, float amount, float originalAmount)
+    public float damageTaken(LivingEntity entity, LivingEntity attacker, Hero hero, DamageSource source, float amount, float originalAmount)
     {
         return amount;
     }
 
-    public float damageDealt(EntityLivingBase entity, EntityLivingBase target, Hero hero, DamageSource source, float amount, float originalAmount)
+    public float damageDealt(LivingEntity entity, LivingEntity target, Hero hero, DamageSource source, float amount, float originalAmount)
     {
         return amount;
     }
@@ -145,7 +145,7 @@ public abstract class Move extends FiskRegistryEntry<Move> implements Comparable
         return true;
     }
 
-    public static void updateMoves(EntityLivingBase entity, Hero hero, Phase phase)
+    public static void updateMoves(LivingEntity entity, Hero hero, Phase phase)
     {
         if (hero != null)
         {

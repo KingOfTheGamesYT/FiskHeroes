@@ -5,7 +5,7 @@ import com.fiskmods.heroes.client.sound.SHSounds;
 import com.fiskmods.heroes.common.config.Rule;
 import com.fiskmods.heroes.common.damagesource.ModDamageSources;
 
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
@@ -17,7 +17,7 @@ public class EntityIcicle extends EntityThrowable implements IPiercingProjectile
         super(world);
     }
 
-    public EntityIcicle(World world, EntityLivingBase entity)
+    public EntityIcicle(World world, LivingEntity entity)
     {
         super(world, entity);
     }
@@ -66,7 +66,7 @@ public class EntityIcicle extends EntityThrowable implements IPiercingProjectile
     }
 
     @Override
-    public boolean canPierceDurability(EntityLivingBase entity)
+    public boolean canPierceDurability(LivingEntity entity)
     {
         return false;
     }

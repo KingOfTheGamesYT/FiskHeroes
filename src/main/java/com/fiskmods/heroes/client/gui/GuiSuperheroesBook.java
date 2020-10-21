@@ -60,7 +60,7 @@ import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.client.settings.KeyBinding;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -1316,14 +1316,14 @@ public class GuiSuperheroesBook extends GuiScreen
 
     private class PropertyButton
     {
-        public final BiFunction<EntityLivingBase, Hero, Integer> cooldown;
+        public final BiFunction<LivingEntity, Hero, Integer> cooldown;
         public final SHData<Boolean> dataHook;
         public Consumer<Boolean> onPress;
 
         public final String name;
         public final int iconX, iconY;
 
-        public PropertyButton(String s, int iconIndex, SHData<Boolean> data, BiFunction<EntityLivingBase, Hero, Integer> f)
+        public PropertyButton(String s, int iconIndex, SHData<Boolean> data, BiFunction<LivingEntity, Hero, Integer> f)
         {
             name = s;
             iconX = iconIndex % 5;

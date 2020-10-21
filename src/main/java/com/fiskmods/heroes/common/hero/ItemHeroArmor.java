@@ -35,7 +35,7 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.EnumAction;
@@ -147,7 +147,7 @@ public class ItemHeroArmor extends ItemArmor implements ISpecialArmor, ITachyonC
     }
 
     @Override
-    public ArmorProperties getProperties(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, int slot)
+    public ArmorProperties getProperties(LivingEntity player, ItemStack armor, DamageSource source, double damage, int slot)
     {
         return new ArmorProperties(0, 1F / 100, armor.getMaxDamage() + 1 - armor.getItemDamage());
     }
@@ -159,7 +159,7 @@ public class ItemHeroArmor extends ItemArmor implements ISpecialArmor, ITachyonC
     }
 
     @Override
-    public void damageArmor(EntityLivingBase entity, ItemStack stack, DamageSource source, int damage, int slot)
+    public void damageArmor(LivingEntity entity, ItemStack stack, DamageSource source, int damage, int slot)
     {
         if (SHHelper.canArmorBlock(entity, source))
         {
@@ -342,7 +342,7 @@ public class ItemHeroArmor extends ItemArmor implements ISpecialArmor, ITachyonC
 
     @Override
     @SideOnly(Side.CLIENT)
-    public ModelBiped getArmorModel(EntityLivingBase entity, ItemStack itemstack, int slot)
+    public ModelBiped getArmorModel(LivingEntity entity, ItemStack itemstack, int slot)
     {
         HeroRenderer renderer = HeroRenderer.get(get(itemstack));
         ModelBipedMultiLayer model = renderer.model;

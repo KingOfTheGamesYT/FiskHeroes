@@ -8,7 +8,7 @@ import com.fiskmods.heroes.common.hero.modifier.Ability;
 import com.fiskmods.heroes.util.SHHelper;
 
 import net.minecraft.command.IEntitySelector;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
@@ -23,7 +23,7 @@ public class EntityEarthquake extends EntityThrowable
         noClip = true;
     }
 
-    public EntityEarthquake(World world, EntityLivingBase entity)
+    public EntityEarthquake(World world, LivingEntity entity)
     {
         super(world, entity);
         noClip = true;
@@ -59,7 +59,7 @@ public class EntityEarthquake extends EntityThrowable
         else if (ticksExisted % (rand.nextInt(5) + 1) == 0)
         {
             int radius = 20;
-            List<EntityLivingBase> list = world.selectEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getBoundingBox(posX - radius, posY - radius / 2, posZ - radius, posX + radius, posY + radius / 2, posZ + radius), IEntitySelector.selectAnything);
+            List<LivingEntity> list = world.selectEntitiesWithinAABB(LivingEntity.class, AxisAlignedBB.getBoundingBox(posX - radius, posY - radius / 2, posZ - radius, posX + radius, posY + radius / 2, posZ + radius), IEntitySelector.selectAnything);
 
             for (int i = -radius; i <= radius; ++i)
             {
@@ -87,7 +87,7 @@ public class EntityEarthquake extends EntityThrowable
             {
                 float dmg = Rule.DMG_EARTHQUAKE.getHero(getThrower());
 
-                for (EntityLivingBase entity : list)
+                for (LivingEntity entity : list)
                 {
                     if (SHHelper.hasEnabledModifier(entity, Ability.GEOKINESIS))
                     {

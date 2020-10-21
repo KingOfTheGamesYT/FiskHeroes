@@ -11,7 +11,7 @@ import com.fiskmods.heroes.common.network.MessageAddArrowToEntity;
 import com.fiskmods.heroes.common.network.MessagePlayerJoin;
 import com.fiskmods.heroes.common.network.SHNetworkManager;
 
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.MathHelper;
@@ -37,12 +37,12 @@ public class DataManager
         return blocksMoved / 50 * 60 * 60;
     }
 
-    public static Set<IArrowData> getArrowsInEntity(EntityLivingBase entity)
+    public static Set<IArrowData> getArrowsInEntity(LivingEntity entity)
     {
         return SHEntityData.getData(entity).arrowsInEntity;
     }
 
-    public static void addArrowToEntity(EntityLivingBase entity, ArrowType<EntityTrickArrow> type, EntityTrickArrow arrow)
+    public static void addArrowToEntity(LivingEntity entity, ArrowType<EntityTrickArrow> type, EntityTrickArrow arrow)
     {
         IArrowData data = type.getDataFactory().apply(type, arrow);
 

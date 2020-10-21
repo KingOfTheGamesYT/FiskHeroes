@@ -18,7 +18,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Vec3;
@@ -27,7 +27,7 @@ public class RenderSpellWhip extends Render
 {
     public void doRender(EntitySpellWhip entity, double x, double y, double z, float entityYaw, float partialTicks)
     {
-        EntityLivingBase caster = entity.casterEntity;
+        LivingEntity caster = entity.casterEntity;
 
         if (caster != null)
         {

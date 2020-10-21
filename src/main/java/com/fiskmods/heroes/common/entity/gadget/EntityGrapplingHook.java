@@ -3,7 +3,7 @@ package com.fiskmods.heroes.common.entity.gadget;
 import java.util.List;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
@@ -23,13 +23,13 @@ public class EntityGrapplingHook extends EntityProjectile
         super(world, x, y, z);
     }
 
-    public EntityGrapplingHook(World world, EntityLivingBase shooter)
+    public EntityGrapplingHook(World world, LivingEntity shooter)
     {
         super(world, shooter);
     }
 
     @Override
-    protected void init(EntityLivingBase shooter, boolean horizontalBow)
+    protected void init(LivingEntity shooter, boolean horizontalBow)
     {
         super.init(shooter, horizontalBow);
         ignoreFrustumCheck = true;

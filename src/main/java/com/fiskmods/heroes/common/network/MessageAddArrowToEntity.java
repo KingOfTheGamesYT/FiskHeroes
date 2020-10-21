@@ -5,7 +5,7 @@ import com.fiskmods.heroes.common.data.DataManager;
 import com.fiskmods.heroes.common.entity.arrow.EntityTrickArrow;
 
 import io.netty.buffer.ByteBuf;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 
 public class MessageAddArrowToEntity extends AbstractMessage<MessageAddArrowToEntity>
 {
@@ -16,7 +16,7 @@ public class MessageAddArrowToEntity extends AbstractMessage<MessageAddArrowToEn
     {
     }
 
-    public MessageAddArrowToEntity(EntityLivingBase entity, EntityTrickArrow arrow)
+    public MessageAddArrowToEntity(LivingEntity entity, EntityTrickArrow arrow)
     {
         id = entity.getEntityId();
         arrowId = arrow.getEntityId();
@@ -39,7 +39,7 @@ public class MessageAddArrowToEntity extends AbstractMessage<MessageAddArrowToEn
     @Override
     public void receive() throws MessageException
     {
-        EntityLivingBase entity = getEntity(EntityLivingBase.class, id);
+        LivingEntity entity = getEntity(LivingEntity.class, id);
         EntityTrickArrow arrow = getEntity(EntityTrickArrow.class, arrowId);
         ArrowType type = ArrowType.getArrowById(arrow.getArrowId());
 

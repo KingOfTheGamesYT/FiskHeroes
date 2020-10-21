@@ -5,14 +5,14 @@ import com.fiskmods.heroes.SHConstants;
 import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
 public class EntityLightningCast extends Entity implements IEntityAdditionalSpawnData
 {
-    public EntityLivingBase casterEntity;
+    public LivingEntity casterEntity;
     public Entity anchorEntity;
 
     private int doExplosion;
@@ -27,7 +27,7 @@ public class EntityLightningCast extends Entity implements IEntityAdditionalSpaw
         setSize(0.1F, 0.1F);
     }
 
-    public EntityLightningCast(World world, EntityLivingBase caster, Entity entity, Vec3 vec3, int explode)
+    public EntityLightningCast(World world, LivingEntity caster, Entity entity, Vec3 vec3, int explode)
     {
         this(world);
         casterEntity = caster;
@@ -96,9 +96,9 @@ public class EntityLightningCast extends Entity implements IEntityAdditionalSpaw
     {
         Entity entity = world.getEntityByID(buf.readInt());
 
-        if (entity instanceof EntityLivingBase)
+        if (entity instanceof LivingEntity)
         {
-            casterEntity = (EntityLivingBase) entity;
+            casterEntity = (LivingEntity) entity;
         }
 
         anchorEntity = world.getEntityByID(buf.readInt());

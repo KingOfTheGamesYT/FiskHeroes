@@ -17,7 +17,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
@@ -175,7 +175,7 @@ public class ModelBipedMultiLayer extends ModelBiped
         float alpha = -1;
         float anim = 0;
 
-        if (entity instanceof EntityLivingBase && StatusEffect.has((EntityLivingBase) entity, StatEffect.TUTRIDIUM_POISON))
+        if (entity instanceof LivingEntity && StatusEffect.has((LivingEntity) entity, StatEffect.TUTRIDIUM_POISON))
         {
             Function<Integer, Float> func = i -> new Random(100000 + (entity.ticksExisted + i) * 1000).nextFloat();
             anim = Math.abs(MathHelper.cos(SHRenderHelper.interpolate(func.apply(1), func.apply(0)) * 2));
@@ -230,7 +230,7 @@ public class ModelBipedMultiLayer extends ModelBiped
 
     public ItemStack getArmorStack(Entity entity)
     {
-        return entity instanceof EntityLivingBase ? ((EntityLivingBase) entity).getEquipmentInSlot(4 - armorSlot) : null;
+        return entity instanceof LivingEntity ? ((LivingEntity) entity).getEquipmentInSlot(4 - armorSlot) : null;
     }
 
     public void reset()

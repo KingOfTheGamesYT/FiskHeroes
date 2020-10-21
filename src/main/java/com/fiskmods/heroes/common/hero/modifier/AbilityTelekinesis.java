@@ -10,7 +10,7 @@
 //import cpw.mods.fml.common.gameevent.TickEvent.Phase;
 //import fiskfille.core.helper.VectorHelper;
 //import net.minecraft.entity.Entity;
-//import net.minecraft.entity.EntityLivingBase;
+//import net.minecraft.entity.LivingEntity;
 //import net.minecraft.util.AxisAlignedBB;
 //import net.minecraft.util.MovingObjectPosition;
 //import net.minecraft.util.Vec3;
@@ -25,7 +25,7 @@
 //    }
 //
 //    @Override
-//    public void onUpdate(EntityLivingBase entity, Hero hero, Phase phase)
+//    public void onUpdate(LivingEntity entity, Hero hero, Phase phase)
 //    {
 //        if (phase == Phase.END)
 //        {

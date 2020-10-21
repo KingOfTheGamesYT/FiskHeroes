@@ -5,7 +5,7 @@ import com.fiskmods.heroes.common.hero.Hero;
 import com.fiskmods.heroes.util.FiskServerUtils;
 import com.fiskmods.heroes.util.SHHelper;
 
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.DamageSource;
 
 public class AbilityCactusPhysiology extends Ability
@@ -18,13 +18,13 @@ public class AbilityCactusPhysiology extends Ability
     }
 
     @Override
-    public boolean canTakeDamage(EntityLivingBase entity, EntityLivingBase attacker, Hero hero, DamageSource source, float amount)
+    public boolean canTakeDamage(LivingEntity entity, LivingEntity attacker, Hero hero, DamageSource source, float amount)
     {
         return !DamageType.CACTUS.isPresent(source) && super.canTakeDamage(entity, attacker, hero, source, amount);
     }
 
     @Override
-    public float damageTaken(EntityLivingBase entity, EntityLivingBase attacker, Hero hero, DamageSource source, float amount, float originalAmount)
+    public float damageTaken(LivingEntity entity, LivingEntity attacker, Hero hero, DamageSource source, float amount, float originalAmount)
     {
         amount = super.damageTaken(entity, attacker, hero, source, amount, originalAmount);
 

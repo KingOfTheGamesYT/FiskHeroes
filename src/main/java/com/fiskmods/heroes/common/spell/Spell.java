@@ -14,7 +14,7 @@ import com.fiskmods.heroes.common.registry.FiskSimpleRegistry;
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.StatCollector;
@@ -66,7 +66,7 @@ public class Spell extends FiskRegistryEntry<Spell>
         return StatCollector.translateToLocal(getUnlocalizedName() + ".name");
     }
 
-    public boolean canTrigger(EntityLivingBase caster)
+    public boolean canTrigger(LivingEntity caster)
     {
         return true;
     }
@@ -96,17 +96,17 @@ public class Spell extends FiskRegistryEntry<Spell>
         }
     }
 
-    public void onTrigger(EntityLivingBase caster)
+    public void onTrigger(LivingEntity caster)
     {
     }
 
-    public boolean shouldSync(EntityLivingBase caster)
+    public boolean shouldSync(LivingEntity caster)
     {
         TargetPoint target = getTargetPoint(caster);
         return target == null || target.range > 0;
     }
 
-    public TargetPoint getTargetPoint(EntityLivingBase caster)
+    public TargetPoint getTargetPoint(LivingEntity caster)
     {
         return Interaction.TARGET_NONE;
     }

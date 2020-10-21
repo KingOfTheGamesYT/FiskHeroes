@@ -27,7 +27,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -532,7 +532,7 @@ public class BlockDisplayStand extends BlockContainer
     }
 
     @Override
-    public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack itemstack)
+    public void onBlockPlacedBy(World world, int x, int y, int z, LivingEntity entity, ItemStack itemstack)
     {
         int rotation = MathHelper.floor_double(entity.rotationYaw * 8F / 360F + 4.5) & 7;
 
@@ -542,7 +542,7 @@ public class BlockDisplayStand extends BlockContainer
         migrating = false;
     }
 
-    private void placeAt(World world, int x, int y, int z, Block block, EntityLivingBase entity, ItemStack itemstack, int metadata)
+    private void placeAt(World world, int x, int y, int z, Block block, LivingEntity entity, ItemStack itemstack, int metadata)
     {
         if (world.setBlock(x, y, z, block, metadata, 2))
         {

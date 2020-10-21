@@ -3,7 +3,7 @@ package com.fiskmods.heroes.common.data;
 import java.util.function.Predicate;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.potion.Potion;
 
 public class SHDataInvisible extends SHData<Boolean>
@@ -21,7 +21,7 @@ public class SHDataInvisible extends SHData<Boolean>
     @Override
     protected void onValueChanged(Entity entity, Boolean value)
     {
-        if (!value && entity instanceof EntityLivingBase && !((EntityLivingBase) entity).isPotionActive(Potion.invisibility))
+        if (!value && entity instanceof LivingEntity && !((LivingEntity) entity).isPotionActive(Potion.invisibility))
         {
             entity.setInvisible(false);
         }

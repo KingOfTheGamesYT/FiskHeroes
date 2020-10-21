@@ -24,7 +24,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -369,7 +369,7 @@ public class SHRenderHooks extends SHRenderHelper
         }
     }
 
-    public static void renderItemAllPasses(EntityLivingBase entity, ItemStack itemstack, ItemRenderType type)
+    public static void renderItemAllPasses(LivingEntity entity, ItemStack itemstack, ItemRenderType type)
     {
         if (itemstack.getItem().requiresMultipleRenderPasses())
         {
@@ -462,7 +462,7 @@ public class SHRenderHooks extends SHRenderHelper
         }
     }
 
-    public static float getSwingProgress(EntityLivingBase entity, float partialTicks)
+    public static float getSwingProgress(LivingEntity entity, float partialTicks)
     {
         float f = SHData.SWING_PROGRESS.get(entity) - SHData.SWING_PROGRESS.getPrev(entity);
         return SHData.SWING_PROGRESS.getPrev(entity) + (f < 0 ? ++f : f) * partialTicks;

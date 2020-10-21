@@ -4,7 +4,7 @@ import com.fiskmods.heroes.util.SHHelper;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 
 public class MessageKnockback extends AbstractMessage<MessageKnockback>
 {
@@ -16,7 +16,7 @@ public class MessageKnockback extends AbstractMessage<MessageKnockback>
     {
     }
 
-    public MessageKnockback(EntityLivingBase entity, Entity attacker, float f)
+    public MessageKnockback(LivingEntity entity, Entity attacker, float f)
     {
         id = entity.getEntityId();
         attackerId = attacker.getEntityId();
@@ -42,6 +42,6 @@ public class MessageKnockback extends AbstractMessage<MessageKnockback>
     @Override
     public void receive() throws MessageException
     {
-        SHHelper.knockbackWithoutNotify(getEntity(EntityLivingBase.class, id), getEntity(EntityLivingBase.class, attackerId), amount);
+        SHHelper.knockbackWithoutNotify(getEntity(LivingEntity.class, id), getEntity(LivingEntity.class, attackerId), amount);
     }
 }

@@ -12,7 +12,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.command.IEntitySelector;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackOnCollide;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
@@ -48,7 +48,7 @@ public class EntityCactus extends EntityGolem implements IEntitySelector
         tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 6));
         tasks.addTask(8, new EntityAILookIdle(this));
         targetTasks.addTask(2, new EntityAIHurtByTarget(this, false));
-        targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityLivingBase.class, 0, false, true, this));
+        targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, LivingEntity.class, 0, false, true, this));
         setCactusSize(1 + rand.nextInt(3));
     }
 
@@ -71,7 +71,7 @@ public class EntityCactus extends EntityGolem implements IEntitySelector
     @Override
     public boolean isEntityApplicable(Entity entity)
     {
-        if (!(entity instanceof EntityLivingBase))
+        if (!(entity instanceof LivingEntity))
         {
             return false;
         }
@@ -83,7 +83,7 @@ public class EntityCactus extends EntityGolem implements IEntitySelector
         {
             return false;
         }
-        else if (SHHelper.hasEnabledModifier((EntityLivingBase) entity, Ability.CACTUS_PHYSIOLOGY))
+        else if (SHHelper.hasEnabledModifier((LivingEntity) entity, Ability.CACTUS_PHYSIOLOGY))
         {
             return false;
         }
@@ -106,9 +106,9 @@ public class EntityCactus extends EntityGolem implements IEntitySelector
     @Override
     protected void collideWithEntity(Entity entity)
     {
-        if (entity instanceof EntityLivingBase && isEntityApplicable(entity) && rand.nextInt(20) == 0)
+        if (entity instanceof LivingEntity && isEntityApplicable(entity) && rand.nextInt(20) == 0)
         {
-            setAttackTarget((EntityLivingBase) entity);
+            setAttackTarget((LivingEntity) entity);
         }
 
         super.collideWithEntity(entity);
@@ -159,7 +159,7 @@ public class EntityCactus extends EntityGolem implements IEntitySelector
                 }
             }
 
-            for (EntityLivingBase entity : (List<EntityLivingBase>) world.selectEntitiesWithinAABB(EntityLivingBase.class, getBoundingBox().expand(0.3, 0.3, 0.3), this))
+            for (LivingEntity entity : (List<LivingEntity>) world.selectEntitiesWithinAABB(LivingEntity.class, getBoundingBox().expand(0.3, 0.3, 0.3), this))
             {
                 entity.attackEntityFrom(ModDamageSources.SPIKE.apply(this), getAttackStrength());
             }

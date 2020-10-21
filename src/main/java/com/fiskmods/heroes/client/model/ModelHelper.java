@@ -30,7 +30,7 @@ import mods.battlegear2.client.utils.BattlegearRenderHelper;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
@@ -102,9 +102,9 @@ public class ModelHelper
             }
         }
 
-        if (entity1 instanceof EntityLivingBase)
+        if (entity1 instanceof LivingEntity)
         {
-            EntityLivingBase entity = (EntityLivingBase) entity1;
+            LivingEntity entity = (LivingEntity) entity1;
             HeroIteration iter = SHHelper.getHeroIter(entity);
             ItemStack heldItem = entity.getHeldItem();
 

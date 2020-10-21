@@ -6,7 +6,7 @@ import com.fiskmods.heroes.common.entity.EntityCanaryCry;
 import com.fiskmods.heroes.common.hero.Hero;
 
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 
 public class AbilityCanaryCry extends Ability
@@ -19,7 +19,7 @@ public class AbilityCanaryCry extends Ability
     }
 
     @Override
-    public void onUpdate(EntityLivingBase entity, Hero hero, Phase phase, boolean enabled)
+    public void onUpdate(LivingEntity entity, Hero hero, Phase phase, boolean enabled)
     {
         if (phase == Phase.END)
         {

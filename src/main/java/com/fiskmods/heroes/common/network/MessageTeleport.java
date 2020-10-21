@@ -17,7 +17,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Vec3;
 
 public class MessageTeleport extends AbstractMessage<MessageTeleport>
@@ -29,7 +29,7 @@ public class MessageTeleport extends AbstractMessage<MessageTeleport>
     {
     }
 
-    public MessageTeleport(EntityLivingBase entity, DimensionalCoords coords)
+    public MessageTeleport(LivingEntity entity, DimensionalCoords coords)
     {
         id = entity.getEntityId();
         dest = coords != null ? coords : new DimensionalCoords();
@@ -52,7 +52,7 @@ public class MessageTeleport extends AbstractMessage<MessageTeleport>
     @Override
     public void receive() throws MessageException
     {
-        EntityLivingBase user = getEntity(EntityLivingBase.class, id);
+        LivingEntity user = getEntity(LivingEntity.class, id);
         HeroIteration iter = SHHelper.getHeroIter(user);
 
         if (iter != null)
@@ -69,7 +69,7 @@ public class MessageTeleport extends AbstractMessage<MessageTeleport>
     }
 
     @SideOnly(Side.CLIENT)
-    private void doParticles(EntityLivingBase user, ParticleColor[] color, Vec3Container pos)
+    private void doParticles(LivingEntity user, ParticleColor[] color, Vec3Container pos)
     {
         Vec3 offset = Vec3.createVectorHelper(0, 1.5F, 0);
         float pitch = user == FiskHeroes.proxy.getPlayer() && Minecraft.getInstance().gameSettings.thirdPersonView == 0 ? 5 : 10;

@@ -21,7 +21,7 @@ import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.ModContainer;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.IInventory;
@@ -151,7 +151,7 @@ public class FiskServerUtils
         return null;
     }
 
-    public static boolean cure(EntityLivingBase entity, Potion potion)
+    public static boolean cure(LivingEntity entity, Potion potion)
     {
         if (entity.isPotionActive(potion))
         {
@@ -168,7 +168,7 @@ public class FiskServerUtils
         {
             return ((EntityPlayer) entity).canPlayerEdit(x, y, z, side, heldItem);
         }
-        else if (entity instanceof EntityLivingBase)
+        else if (entity instanceof LivingEntity)
         {
             return entity.world.getGameRules().getGameRuleBooleanValue("mobGriefing");
         }
@@ -191,7 +191,7 @@ public class FiskServerUtils
         return source.isProjectile() && !DamageType.INDIRECT.isPresent(source);
     }
 
-    public static boolean isEntityLookingAt(EntityLivingBase observer, Entity entity, double accuracy)
+    public static boolean isEntityLookingAt(LivingEntity observer, Entity entity, double accuracy)
     {
         Vec3 vec3 = observer.getLookVec().normalize();
         Vec3 vec31 = Vec3.createVectorHelper(entity.posX - observer.posX, entity.boundingBox.minY + entity.height / 2.0F - (observer.posY + observer.getEyeHeight()), entity.posZ - observer.posZ);
@@ -201,7 +201,7 @@ public class FiskServerUtils
         return d1 > 1 - accuracy / d0;
     }
 
-    public static boolean isEntityLookingAt(EntityLivingBase observer, Entity entity)
+    public static boolean isEntityLookingAt(LivingEntity observer, Entity entity)
     {
         return isEntityLookingAt(observer, entity, 0.5) && observer.canEntityBeSeen(entity);
     }

@@ -5,7 +5,7 @@ import com.fiskmods.heroes.common.data.SHData;
 import com.fiskmods.heroes.common.hero.Hero;
 
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 
 public class AbilityTeleportation extends Ability
 {
@@ -17,7 +17,7 @@ public class AbilityTeleportation extends Ability
     }
 
     @Override
-    public void onUpdate(EntityLivingBase entity, Hero hero, Phase phase, boolean enabled)
+    public void onUpdate(LivingEntity entity, Hero hero, Phase phase, boolean enabled)
     {
         if (phase == Phase.END && enabled)
         {

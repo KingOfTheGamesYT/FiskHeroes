@@ -17,7 +17,7 @@ import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.client.renderer.tileentity.TileEntitySkullRenderer;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumAction;
@@ -374,25 +374,25 @@ public class RenderDisplayMannequin extends RenderPlayer
     }
 
     @Override
-    protected void func_96449_a(EntityLivingBase entity, double x, double y, double z, String text, float yOffset, double dist)
+    protected void func_96449_a(LivingEntity entity, double x, double y, double z, String text, float yOffset, double dist)
     {
         renderNametag((EntityDisplayMannequin) entity, x, y, z, text, yOffset, dist);
     }
 
     @Override
-    protected void renderEquippedItems(EntityLivingBase entity, float partialTicks)
+    protected void renderEquippedItems(LivingEntity entity, float partialTicks)
     {
         renderEquippedItems((EntityDisplayMannequin) entity, partialTicks);
     }
 
     @Override
-    protected void rotateCorpse(EntityLivingBase entity, float f, float f1, float partialTicks)
+    protected void rotateCorpse(LivingEntity entity, float f, float f1, float partialTicks)
     {
         rotateCorpse((EntityDisplayMannequin) entity, f, f1, partialTicks);
     }
 
     @Override
-    protected void renderLivingAt(EntityLivingBase entity, double x, double y, double z)
+    protected void renderLivingAt(LivingEntity entity, double x, double y, double z)
     {
         renderLivingAt((EntityDisplayMannequin) entity, x, y, z);
     }
@@ -404,7 +404,7 @@ public class RenderDisplayMannequin extends RenderPlayer
     }
 
     @Override
-    public void doRender(EntityLivingBase entity, double x, double y, double z, float f, float partialTicks)
+    public void doRender(LivingEntity entity, double x, double y, double z, float f, float partialTicks)
     {
         doRender((EntityDisplayMannequin) entity, x, y, z, f, partialTicks);
     }

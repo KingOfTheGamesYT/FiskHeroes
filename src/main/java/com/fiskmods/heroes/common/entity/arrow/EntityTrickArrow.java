@@ -18,7 +18,7 @@ import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -65,19 +65,19 @@ public class EntityTrickArrow extends ArrowEntity implements IEntityAdditionalSp
         init(null, false);
     }
 
-    public EntityTrickArrow(World world, EntityLivingBase shooter, float velocity)
+    public EntityTrickArrow(World world, LivingEntity shooter, float velocity)
     {
         this(world, shooter, velocity, false);
     }
 
-    public EntityTrickArrow(World world, EntityLivingBase shooter, float velocity, boolean horizontalBow)
+    public EntityTrickArrow(World world, LivingEntity shooter, float velocity, boolean horizontalBow)
     {
         super(world);
         init(shooter, horizontalBow);
         shootFrom(shooter, velocity);
     }
 
-    protected void init(EntityLivingBase shooter, boolean horizontalBow)
+    protected void init(LivingEntity shooter, boolean horizontalBow)
     {
         renderDistanceWeight = 10;
         shootingEntity = shooter;
@@ -561,9 +561,9 @@ public class EntityTrickArrow extends ArrowEntity implements IEntityAdditionalSp
 
                 if (mop.entityHit.attackEntityFrom(getDamageSource(mop.entityHit), dmg))
                 {
-                    if (mop.entityHit instanceof EntityLivingBase)
+                    if (mop.entityHit instanceof LivingEntity)
                     {
-                        handlePostDamageEffects((EntityLivingBase) mop.entityHit);
+                        handlePostDamageEffects((LivingEntity) mop.entityHit);
 
                         if (shootingEntity instanceof EntityPlayerMP && mop.entityHit != shootingEntity && mop.entityHit instanceof EntityPlayer)
                         {
@@ -686,7 +686,7 @@ public class EntityTrickArrow extends ArrowEntity implements IEntityAdditionalSp
         return dmg;
     }
 
-    protected void handlePostDamageEffects(EntityLivingBase entityHit)
+    protected void handlePostDamageEffects(LivingEntity entityHit)
     {
         if (!world.isRemote)
         {
@@ -711,14 +711,14 @@ public class EntityTrickArrow extends ArrowEntity implements IEntityAdditionalSp
             }
         }
 
-        if (shootingEntity instanceof EntityLivingBase)
+        if (shootingEntity instanceof LivingEntity)
         {
             EnchantmentHelper.func_151384_a(entityHit, shootingEntity);
-            EnchantmentHelper.func_151385_b((EntityLivingBase) shootingEntity, entityHit);
+            EnchantmentHelper.func_151385_b((LivingEntity) shootingEntity, entityHit);
         }
     }
 
-    public boolean onCaught(EntityLivingBase entity)
+    public boolean onCaught(LivingEntity entity)
     {
         ItemStack arrowItem = ItemStack.copyItemStack(getArrowItem());
 
@@ -813,7 +813,7 @@ public class EntityTrickArrow extends ArrowEntity implements IEntityAdditionalSp
     {
         Entity shooter = world.getEntityByID(buffer.readInt());
 
-        if (shooter instanceof EntityLivingBase)
+        if (shooter instanceof LivingEntity)
         {
             shootingEntity = shooter;
         }
@@ -822,7 +822,7 @@ public class EntityTrickArrow extends ArrowEntity implements IEntityAdditionalSp
         setArrowId(buffer.readInt());
     }
 
-    public void inEntityUpdate(EntityLivingBase living)
+    public void inEntityUpdate(LivingEntity living)
     {
         ++ticksExisted;
 

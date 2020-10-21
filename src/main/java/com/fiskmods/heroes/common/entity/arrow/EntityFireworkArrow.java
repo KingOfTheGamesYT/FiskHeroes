@@ -12,7 +12,7 @@ import com.fiskmods.heroes.util.VectorHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -41,12 +41,12 @@ public class EntityFireworkArrow extends EntityTrickArrow
         super(world, x, y, z);
     }
 
-    public EntityFireworkArrow(World world, EntityLivingBase shooter, float velocity)
+    public EntityFireworkArrow(World world, LivingEntity shooter, float velocity)
     {
         super(world, shooter, velocity);
     }
 
-    public EntityFireworkArrow(World world, EntityLivingBase shooter, float velocity, boolean horizontal)
+    public EntityFireworkArrow(World world, LivingEntity shooter, float velocity, boolean horizontal)
     {
         super(world, shooter, velocity, horizontal);
     }
@@ -155,7 +155,7 @@ public class EntityFireworkArrow extends EntityTrickArrow
     }
 
     @Override
-    public boolean onCaught(EntityLivingBase entity)
+    public boolean onCaught(LivingEntity entity)
     {
         trigger(entity);
         return true;
@@ -189,15 +189,15 @@ public class EntityFireworkArrow extends EntityTrickArrow
         if (radius > 0)
         {
             AxisAlignedBB aabb = boundingBox.expand(radius, radius, radius).contract(width / 2, height / 2, width / 2);
-            List<EntityLivingBase> list = world.getEntitiesWithinAABB(EntityLivingBase.class, aabb);
-            EntityLivingBase shooter = null;
+            List<LivingEntity> list = world.getEntitiesWithinAABB(LivingEntity.class, aabb);
+            LivingEntity shooter = null;
 
-            if (getShooter() instanceof EntityLivingBase)
+            if (getShooter() instanceof LivingEntity)
             {
-                shooter = (EntityLivingBase) getShooter();
+                shooter = (LivingEntity) getShooter();
             }
 
-            for (EntityLivingBase entity : list)
+            for (LivingEntity entity : list)
             {
                 if (entity instanceof EntityCreeper)
                 {

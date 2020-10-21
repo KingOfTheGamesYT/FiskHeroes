@@ -10,7 +10,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
@@ -28,7 +28,7 @@ public class RenderGrapplingHookCable extends Render
         GL11.glPushMatrix();
         Tessellator tessellator = Tessellator.instance;
         PlayerEntity player = cable.player;
-        EntityLivingBase entity = cable.entity;
+        LivingEntity entity = cable.entity;
 
         if (cable.isEntityAlive())
         {

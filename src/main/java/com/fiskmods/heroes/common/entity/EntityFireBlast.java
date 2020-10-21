@@ -11,7 +11,7 @@ import com.fiskmods.heroes.util.SHHelper;
 import com.fiskmods.heroes.util.VectorHelper;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
@@ -25,7 +25,7 @@ public class EntityFireBlast extends EntityThrowable
         super(world);
     }
 
-    public EntityFireBlast(World world, EntityLivingBase entity)
+    public EntityFireBlast(World world, LivingEntity entity)
     {
         super(world, entity);
     }

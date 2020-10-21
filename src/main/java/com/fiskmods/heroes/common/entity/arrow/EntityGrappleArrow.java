@@ -5,7 +5,7 @@ import com.fiskmods.heroes.common.entity.EntityGrapplingHookCable;
 import com.fiskmods.heroes.common.item.ModItems;
 import com.fiskmods.heroes.util.SHHelper;
 
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -29,18 +29,18 @@ public class EntityGrappleArrow extends EntityTrickArrow
         super(world, x, y, z);
     }
 
-    public EntityGrappleArrow(World world, EntityLivingBase shooter, float velocity)
+    public EntityGrappleArrow(World world, LivingEntity shooter, float velocity)
     {
         super(world, shooter, velocity);
     }
 
-    public EntityGrappleArrow(World world, EntityLivingBase shooter, float velocity, boolean horizontal)
+    public EntityGrappleArrow(World world, LivingEntity shooter, float velocity, boolean horizontal)
     {
         super(world, shooter, velocity, horizontal);
     }
 
     @Override
-    protected void init(EntityLivingBase shooter, boolean horizontalBow)
+    protected void init(LivingEntity shooter, boolean horizontalBow)
     {
         super.init(shooter, horizontalBow);
         ignoreFrustumCheck = true;
@@ -68,9 +68,9 @@ public class EntityGrappleArrow extends EntityTrickArrow
                 SHHelper.ignite(mop.entityHit, 5);
             }
 
-            if (mop.entityHit instanceof EntityLivingBase && !(mop.entityHit instanceof EntityEnderman))
+            if (mop.entityHit instanceof LivingEntity && !(mop.entityHit instanceof EntityEnderman))
             {
-                handlePostDamageEffects((EntityLivingBase) mop.entityHit);
+                handlePostDamageEffects((LivingEntity) mop.entityHit);
 
                 if (shootingEntity instanceof EntityPlayerMP && mop.entityHit != shootingEntity && mop.entityHit instanceof EntityPlayer)
                 {
@@ -139,7 +139,7 @@ public class EntityGrappleArrow extends EntityTrickArrow
     }
 
     @Override
-    public void inEntityUpdate(EntityLivingBase living)
+    public void inEntityUpdate(LivingEntity living)
     {
         super.inEntityUpdate(living);
 
@@ -176,7 +176,7 @@ public class EntityGrappleArrow extends EntityTrickArrow
         }
     }
 
-    public EntityGrapplingHookCable makeCable(EntityLivingBase living, PlayerEntity player)
+    public EntityGrapplingHookCable makeCable(LivingEntity living, PlayerEntity player)
     {
         return new EntityGrapplingHookCable(world, living, player);
     }

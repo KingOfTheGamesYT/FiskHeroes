@@ -9,7 +9,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.ResourceLocation;
 
 @SideOnly(Side.CLIENT)
@@ -17,7 +17,7 @@ public class RenderSpellDuplicate extends Render
 {
     private void render(EntitySpellDuplicate entity, double x, double y, double z, float f, float partialTicks)
     {
-        EntityLivingBase owner = entity.getOwner();
+        LivingEntity owner = entity.getOwner();
 
         if (owner != null)
         {

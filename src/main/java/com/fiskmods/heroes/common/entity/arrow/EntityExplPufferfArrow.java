@@ -2,7 +2,7 @@ package com.fiskmods.heroes.common.entity.arrow;
 
 import com.fiskmods.heroes.client.sound.SHSounds;
 
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.world.World;
@@ -22,12 +22,12 @@ public class EntityExplPufferfArrow extends EntityPufferfishArrow
         super(world, x, y, z);
     }
 
-    public EntityExplPufferfArrow(World world, EntityLivingBase shooter, float velocity)
+    public EntityExplPufferfArrow(World world, LivingEntity shooter, float velocity)
     {
         super(world, shooter, velocity);
     }
 
-    public EntityExplPufferfArrow(World world, EntityLivingBase shooter, float velocity, boolean horizontal)
+    public EntityExplPufferfArrow(World world, LivingEntity shooter, float velocity, boolean horizontal)
     {
         super(world, shooter, velocity, horizontal);
     }
@@ -40,7 +40,7 @@ public class EntityExplPufferfArrow extends EntityPufferfishArrow
     }
 
     @Override
-    public void inEntityUpdate(EntityLivingBase living)
+    public void inEntityUpdate(LivingEntity living)
     {
         super.inEntityUpdate(living);
         update();

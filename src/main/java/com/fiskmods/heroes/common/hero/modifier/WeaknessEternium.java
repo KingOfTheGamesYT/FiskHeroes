@@ -8,7 +8,7 @@ import com.fiskmods.heroes.util.SHHelper;
 
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
 import net.minecraft.block.Block;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
@@ -18,7 +18,7 @@ import net.minecraft.util.MathHelper;
 public class WeaknessEternium extends Weakness
 {
     @Override
-    public void onUpdate(EntityLivingBase entity, Hero hero, Phase phase, boolean enabled)
+    public void onUpdate(LivingEntity entity, Hero hero, Phase phase, boolean enabled)
     {
         if (phase == Phase.END && enabled && !entity.world.isRemote && entity.ticksExisted % 10 == 0)
         {
@@ -83,7 +83,7 @@ public class WeaknessEternium extends Weakness
     }
 
     @Override
-    public float damageDealt(EntityLivingBase entity, EntityLivingBase target, Hero hero, DamageSource source, float amount, float originalAmount)
+    public float damageDealt(LivingEntity entity, LivingEntity target, Hero hero, DamageSource source, float amount, float originalAmount)
     {
         return StatusEffect.has(entity, StatEffect.ETERNIUM_WEAKNESS) ? amount / 2 : amount;
     }

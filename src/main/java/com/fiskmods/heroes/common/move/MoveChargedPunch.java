@@ -4,7 +4,7 @@ import com.fiskmods.heroes.common.hero.Hero;
 import com.fiskmods.heroes.util.SHHelper;
 import com.google.common.collect.ImmutableMap;
 
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.EntityDamageSource;
 import net.minecraft.util.MovingObjectPosition;
@@ -35,11 +35,11 @@ public class MoveChargedPunch extends Move
     }
 
     @Override
-    public boolean onActivated(EntityLivingBase entity, Hero hero, MovingObjectPosition mop, MoveActivation activation, ImmutableMap<String, Number> modifiers, float focus)
+    public boolean onActivated(LivingEntity entity, Hero hero, MovingObjectPosition mop, MoveActivation activation, ImmutableMap<String, Number> modifiers, float focus)
     {
-        if (mop != null && mop.entityHit instanceof EntityLivingBase)
+        if (mop != null && mop.entityHit instanceof LivingEntity)
         {
-            EntityLivingBase target = (EntityLivingBase) mop.entityHit;
+            LivingEntity target = (LivingEntity) mop.entityHit;
             float damage = modifiers.getOrDefault(KEY_DAMAGE, 0).floatValue();
             float knockback = modifiers.getOrDefault(KEY_KNOCKBACK, 0).floatValue();
 

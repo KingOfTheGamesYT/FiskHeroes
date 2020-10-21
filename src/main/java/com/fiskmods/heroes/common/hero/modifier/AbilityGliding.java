@@ -9,7 +9,7 @@ import com.fiskmods.heroes.util.SHHelper;
 
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
 import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 
 public class AbilityGliding extends Ability
@@ -20,7 +20,7 @@ public class AbilityGliding extends Ability
     }
 
     @Override
-    public void onUpdate(EntityLivingBase entity, Hero hero, Phase phase, boolean enabled)
+    public void onUpdate(LivingEntity entity, Hero hero, Phase phase, boolean enabled)
     {
         if (phase == Phase.END && enabled)
         {
@@ -51,7 +51,7 @@ public class AbilityGliding extends Ability
         }
     }
 
-    public boolean shouldDisable(EntityLivingBase entity)
+    public boolean shouldDisable(LivingEntity entity)
     {
         if (entity instanceof EntityPlayer)
         {

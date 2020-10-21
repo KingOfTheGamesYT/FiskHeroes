@@ -7,7 +7,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityHanging;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
@@ -29,7 +29,7 @@ public class EntityProjectile extends EntityTrickArrow
         super(world, x, y, z);
     }
 
-    public EntityProjectile(World world, EntityLivingBase shooter)
+    public EntityProjectile(World world, LivingEntity shooter)
     {
         super(world, shooter, 1);
     }
@@ -86,7 +86,7 @@ public class EntityProjectile extends EntityTrickArrow
     }
 
     @Override
-    protected void handlePostDamageEffects(EntityLivingBase entityHit)
+    protected void handlePostDamageEffects(LivingEntity entityHit)
     {
         int k = getKnockbackStrength();
 
@@ -101,10 +101,10 @@ public class EntityProjectile extends EntityTrickArrow
             }
         }
 
-        if (shootingEntity instanceof EntityLivingBase)
+        if (shootingEntity instanceof LivingEntity)
         {
             EnchantmentHelper.func_151384_a(entityHit, shootingEntity);
-            EnchantmentHelper.func_151385_b((EntityLivingBase) shootingEntity, entityHit);
+            EnchantmentHelper.func_151385_b((LivingEntity) shootingEntity, entityHit);
         }
     }
 
@@ -125,9 +125,9 @@ public class EntityProjectile extends EntityTrickArrow
 
                 if (mop.entityHit.attackEntityFrom(getDamageSource(mop.entityHit), dmg))
                 {
-                    if (mop.entityHit instanceof EntityLivingBase)
+                    if (mop.entityHit instanceof LivingEntity)
                     {
-                        handlePostDamageEffects((EntityLivingBase) mop.entityHit);
+                        handlePostDamageEffects((LivingEntity) mop.entityHit);
 
                         if (shootingEntity instanceof EntityPlayerMP && mop.entityHit != shootingEntity && mop.entityHit instanceof EntityPlayer)
                         {

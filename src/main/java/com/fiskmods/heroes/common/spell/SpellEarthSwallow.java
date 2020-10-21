@@ -10,13 +10,13 @@ import com.fiskmods.heroes.common.entity.EntitySpellDuplicate;
 import com.fiskmods.heroes.common.hero.Hero;
 import com.fiskmods.heroes.util.SHHelper;
 
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MovingObjectPosition;
 
 public class SpellEarthSwallow extends Spell
 {
-    private final List<EntityLivingBase> targets = new ArrayList<>();
+    private final List<LivingEntity> targets = new ArrayList<>();
 
     public SpellEarthSwallow()
     {
@@ -24,7 +24,7 @@ public class SpellEarthSwallow extends Spell
     }
 
     @Override
-    public boolean canTrigger(EntityLivingBase caster)
+    public boolean canTrigger(LivingEntity caster)
     {
         if (!caster.world.isRemote)
         {
@@ -36,7 +36,7 @@ public class SpellEarthSwallow extends Spell
     }
 
     @Override
-    public void onTrigger(EntityLivingBase caster)
+    public void onTrigger(LivingEntity caster)
     {
         if (!caster.world.isRemote)
         {
@@ -45,7 +45,7 @@ public class SpellEarthSwallow extends Spell
                 collectTargets(caster);
             }
 
-            for (EntityLivingBase entity : targets)
+            for (LivingEntity entity : targets)
             {
                 caster.world.spawnEntityInWorld(new EntityEarthCrack(caster.world, caster, entity));
             }
@@ -54,9 +54,9 @@ public class SpellEarthSwallow extends Spell
         }
     }
 
-    private void collectTargets(EntityLivingBase caster)
+    private void collectTargets(LivingEntity caster)
     {
-        EntityLivingBase realCaster = SHHelper.filterDuplicate(caster);
+        LivingEntity realCaster = SHHelper.filterDuplicate(caster);
         Hero hero = SHHelper.getHero(realCaster);
         
         MovingObjectPosition mop = SHHelper.rayTrace(caster, Rule.RANGE_SPELL_EARTHSWALLOW.get(realCaster, hero), 2, 1);
@@ -69,9 +69,9 @@ public class SpellEarthSwallow extends Spell
             float radius = Rule.RADIUS_SPELL_EARTHSWALLOW.get(realCaster, hero);
 
             AxisAlignedBB aabb = AxisAlignedBB.getBoundingBox(x - radius, y - radius, z - radius, x + radius, y + radius, z + radius);
-            List<EntityLivingBase> list = caster.world.getEntitiesWithinAABB(EntityLivingBase.class, aabb);
+            List<LivingEntity> list = caster.world.getEntitiesWithinAABB(LivingEntity.class, aabb);
 
-            for (EntityLivingBase entity : list)
+            for (LivingEntity entity : list)
             {
                 if (entity != caster && entity.isEntityAlive() && !entity.isOnSameTeam(caster) && canTarget(caster, entity))
                 {
@@ -81,7 +81,7 @@ public class SpellEarthSwallow extends Spell
         }
     }
 
-    private boolean canTarget(EntityLivingBase caster, EntityLivingBase entity)
+    private boolean canTarget(LivingEntity caster, LivingEntity entity)
     {
         return !(entity instanceof EntitySpellDuplicate || caster instanceof EntitySpellDuplicate && ((EntitySpellDuplicate) caster).isOwner(entity)) && !SHHelper.isEarthCrackTarget(entity);
     }

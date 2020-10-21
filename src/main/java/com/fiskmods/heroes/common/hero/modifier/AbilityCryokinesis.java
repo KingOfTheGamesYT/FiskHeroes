@@ -10,7 +10,7 @@ import com.fiskmods.heroes.util.SHHelper;
 import com.fiskmods.heroes.util.TemperatureHelper;
 
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.DamageSource;
 
 public class AbilityCryokinesis extends Ability
@@ -23,7 +23,7 @@ public class AbilityCryokinesis extends Ability
     }
 
     @Override
-    public void onUpdate(EntityLivingBase entity, Hero hero, Phase phase, boolean enabled)
+    public void onUpdate(LivingEntity entity, Hero hero, Phase phase, boolean enabled)
     {
         if (phase == Phase.END && enabled)
         {
@@ -43,7 +43,7 @@ public class AbilityCryokinesis extends Ability
     }
 
     @Override
-    public float damageDealt(EntityLivingBase entity, EntityLivingBase target, Hero hero, DamageSource source, float amount, float originalAmount)
+    public float damageDealt(LivingEntity entity, LivingEntity target, Hero hero, DamageSource source, float amount, float originalAmount)
     {
         if (FiskServerUtils.isMeleeDamage(source))
         {

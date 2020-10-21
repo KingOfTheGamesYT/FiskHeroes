@@ -4,7 +4,7 @@ import com.fiskmods.heroes.util.SHHelper;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
@@ -17,7 +17,7 @@ public class EntitySmokePellet extends EntityThrowable
         noClip = false;
     }
 
-    public EntitySmokePellet(World world, EntityLivingBase entity)
+    public EntitySmokePellet(World world, LivingEntity entity)
     {
         super(world, entity);
         noClip = false;

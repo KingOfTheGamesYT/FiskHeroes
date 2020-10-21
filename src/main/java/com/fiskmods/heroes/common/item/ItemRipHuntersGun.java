@@ -10,7 +10,7 @@ import com.fiskmods.heroes.common.hero.Hero.Permission;
 import com.fiskmods.heroes.common.hero.HeroIteration;
 import com.fiskmods.heroes.util.SHHelper;
 
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -42,7 +42,7 @@ public class ItemRipHuntersGun extends ItemUntextured implements IReloadWeapon, 
     }
 
     @Override
-    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack)
+    public boolean onEntitySwing(LivingEntity entityLiving, ItemStack stack)
     {
         return true;
     }

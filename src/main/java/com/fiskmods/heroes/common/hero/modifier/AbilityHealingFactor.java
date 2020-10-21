@@ -5,7 +5,7 @@ import com.fiskmods.heroes.common.data.SHData;
 import com.fiskmods.heroes.common.hero.Hero;
 
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.potion.Potion;
 
 public class AbilityHealingFactor extends AbilityPotionImmunity
@@ -16,7 +16,7 @@ public class AbilityHealingFactor extends AbilityPotionImmunity
     }
 
     @Override
-    public void onUpdate(EntityLivingBase entity, Hero hero, Phase phase, boolean enabled)
+    public void onUpdate(LivingEntity entity, Hero hero, Phase phase, boolean enabled)
     {
         super.onUpdate(entity, hero, phase, enabled);
 

@@ -26,7 +26,7 @@ import com.fiskmods.heroes.util.FiskServerUtils;
 import com.fiskmods.heroes.util.NBTHelper;
 import com.google.common.base.Preconditions;
 
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -394,31 +394,31 @@ public class JSHero
         }
 
         @Override
-        public boolean hasProperty(EntityLivingBase entity, Property property)
+        public boolean hasProperty(LivingEntity entity, Property property)
         {
             return hasProperty != null && hasProperty.apply(JSEntityAccessor.wrap(entity), property.name());
         }
 
         @Override
-        public boolean hasPermission(EntityLivingBase entity, String permission)
+        public boolean hasPermission(LivingEntity entity, String permission)
         {
             return hasPermission != null && hasPermission.apply(JSEntityAccessor.wrap(entity), permission);
         }
 
         @Override
-        public boolean isModifierEnabled(EntityLivingBase entity, HeroModifier modifier)
+        public boolean isModifierEnabled(LivingEntity entity, HeroModifier modifier)
         {
             return isModifierEnabled == null || isModifierEnabled.apply(JSEntityAccessor.wrap(entity), modifier.getName());
         }
 
         @Override
-        public boolean isKeyBindEnabled(EntityLivingBase entity, String keyBind)
+        public boolean isKeyBindEnabled(LivingEntity entity, String keyBind)
         {
             return isKeyBindEnabled == null || isKeyBindEnabled.apply(JSEntityAccessor.wrap(entity), keyBind);
         }
 
         @Override
-        public void onToggleMask(EntityLivingBase entity, boolean state)
+        public void onToggleMask(LivingEntity entity, boolean state)
         {
             if (onToggleMask != null)
             {
@@ -427,7 +427,7 @@ public class JSHero
         }
         
         @Override
-        public Number modifyRuleValue(EntityLivingBase entity, Rule<? extends Number> rule)
+        public Number modifyRuleValue(LivingEntity entity, Rule<? extends Number> rule)
         {
             if (ruleValueModifier != null)
             {
@@ -449,7 +449,7 @@ public class JSHero
         }
 
         @Override
-        public Object getFuncObject(EntityLivingBase entity, String key)
+        public Object getFuncObject(LivingEntity entity, String key)
         {
             return functions.containsKey(key) ? functions.get(key).apply(JSEntityAccessor.wrap(entity)) : null;
         }
@@ -503,7 +503,7 @@ public class JSHero
         }
 
         @Override
-        public void getAttributeModifiers(EntityLivingBase entity, IAttributeContainer c)
+        public void getAttributeModifiers(LivingEntity entity, IAttributeContainer c)
         {
             Tier tier = getTier();
 

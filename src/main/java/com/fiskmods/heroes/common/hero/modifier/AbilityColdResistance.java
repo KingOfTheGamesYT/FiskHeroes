@@ -3,7 +3,7 @@ package com.fiskmods.heroes.common.hero.modifier;
 import com.fiskmods.heroes.common.damagesource.IExtendedDamage.DamageType;
 import com.fiskmods.heroes.common.hero.Hero;
 
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.DamageSource;
 
 public class AbilityColdResistance extends Ability
@@ -14,7 +14,7 @@ public class AbilityColdResistance extends Ability
     }
 
     @Override
-    public float damageTaken(EntityLivingBase entity, EntityLivingBase attacker, Hero hero, DamageSource source, float amount, float originalAmount)
+    public float damageTaken(LivingEntity entity, LivingEntity attacker, Hero hero, DamageSource source, float amount, float originalAmount)
     {
         amount = super.damageTaken(entity, attacker, hero, source, amount, originalAmount);
 

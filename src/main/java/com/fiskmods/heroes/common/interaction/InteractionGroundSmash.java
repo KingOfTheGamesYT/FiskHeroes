@@ -15,7 +15,7 @@ import com.fiskmods.heroes.util.VectorHelper;
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import cpw.mods.fml.relauncher.Side;
 import net.minecraft.block.Block;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.EntityFallingBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Blocks;
@@ -89,14 +89,14 @@ public class InteractionGroundSmash extends InteractionBase
                 }
             }
 
-            List<EntityLivingBase> list1 = VectorHelper.getEntitiesNear(EntityLivingBase.class, sender.world, x + 0.5D, y + 0.5D, z + 0.5D, radius);
+            List<LivingEntity> list1 = VectorHelper.getEntitiesNear(LivingEntity.class, sender.world, x + 0.5D, y + 0.5D, z + 0.5D, radius);
 
             if (!list1.isEmpty())
             {
                 float dmg = Rule.DMG_GROUNDSMASH.get(sender, hero);
                 float knockback = Rule.KNOCKBACK_GROUNDSMASH.get(sender, hero);
                 
-                for (EntityLivingBase entity : list1)
+                for (LivingEntity entity : list1)
                 {
                     float amount = FiskMath.getScaledDistance(Vec3.createVectorHelper(x + 0.5D, y + 0.5D, z + 0.5D), VectorHelper.centerOf(entity), radius);
                     entity.attackEntityFrom(new EntityDamageSource("explosion.player", sender).setExplosion(), dmg * amount);

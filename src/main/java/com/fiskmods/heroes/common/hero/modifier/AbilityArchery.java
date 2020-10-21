@@ -8,7 +8,7 @@ import com.fiskmods.heroes.common.item.ItemCompoundBow;
 import com.fiskmods.heroes.common.item.ModItems;
 
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
@@ -23,7 +23,7 @@ public class AbilityArchery extends Ability
     }
 
     @Override
-    public void onUpdate(EntityLivingBase entity, Hero hero, Phase phase, boolean enabled)
+    public void onUpdate(LivingEntity entity, Hero hero, Phase phase, boolean enabled)
     {
         if (phase == Phase.END)
         {
@@ -35,7 +35,7 @@ public class AbilityArchery extends Ability
     }
 
     @Override
-    public float damageTaken(EntityLivingBase entity, EntityLivingBase attacker, Hero hero, DamageSource source, float amount, float originalAmount)
+    public float damageTaken(LivingEntity entity, LivingEntity attacker, Hero hero, DamageSource source, float amount, float originalAmount)
     {
         amount = super.damageTaken(entity, attacker, hero, source, amount, originalAmount);
 

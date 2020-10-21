@@ -10,7 +10,7 @@ import cpw.mods.fml.common.Optional.InterfaceList;
 import mods.battlegear2.api.IAllowItem;
 import mods.battlegear2.api.IOffhandWield;
 import net.minecraft.block.Block;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.PlayerEntity;
@@ -33,7 +33,7 @@ public class ItemBlackCanarysTonfas extends ItemUntextured implements IDualItem,
     }
 
     @Override
-    public boolean onEntitySwing(EntityLivingBase entity, ItemStack itemstack)
+    public boolean onEntitySwing(LivingEntity entity, ItemStack itemstack)
     {
         SHData.RIGHT_TONFA_STATE.setWithoutNotify(entity, !SHData.RIGHT_TONFA_STATE.get(entity));
         return false;
@@ -71,14 +71,14 @@ public class ItemBlackCanarysTonfas extends ItemUntextured implements IDualItem,
     }
 
     @Override
-    public boolean hitEntity(ItemStack itemstack, EntityLivingBase entity1, EntityLivingBase entity2)
+    public boolean hitEntity(ItemStack itemstack, LivingEntity entity1, LivingEntity entity2)
     {
         itemstack.damageItem(1, entity2);
         return true;
     }
 
     @Override
-    public boolean onBlockDestroyed(ItemStack itemstack, World world, Block block, int x, int y, int z, EntityLivingBase entity)
+    public boolean onBlockDestroyed(ItemStack itemstack, World world, Block block, int x, int y, int z, LivingEntity entity)
     {
         if (block.getBlockHardness(world, x, y, z) != 0.0D)
         {

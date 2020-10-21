@@ -17,7 +17,7 @@ import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
@@ -137,9 +137,9 @@ public class BlockSubatomicCore extends BlockContainer
                 break;
             }
         }
-        else if (entity instanceof EntityLivingBase)
+        else if (entity instanceof LivingEntity)
         {
-            ((EntityLivingBase) entity).attackEntityFrom(ModDamageSources.BLACK_HOLE, Float.MAX_VALUE);
+            ((LivingEntity) entity).attackEntityFrom(ModDamageSources.BLACK_HOLE, Float.MAX_VALUE);
         }
         else
         {

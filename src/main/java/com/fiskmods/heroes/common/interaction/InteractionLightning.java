@@ -15,7 +15,7 @@ import com.fiskmods.heroes.util.VectorHelper;
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import cpw.mods.fml.relauncher.Side;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MovingObjectPosition;
@@ -65,7 +65,7 @@ public class InteractionLightning extends InteractionBase
                 float r = Rule.RADIUS_LIGHTNINGCHAIN.get(sender, hero);
                 AxisAlignedBB aabb = AxisAlignedBB.getBoundingBox(0, 0, 0, 0, 0, 0).offset(v.xCoord, v.yCoord, v.zCoord).expand(r, r, r);
                 List<Entity> list = sender.world.getEntitiesWithinAABBExcludingEntity(sender, aabb);
-                list.removeIf(e -> !(e instanceof EntityLivingBase));
+                list.removeIf(e -> !(e instanceof LivingEntity));
 
                 if (rayTrace.entityHit != null)
                 {

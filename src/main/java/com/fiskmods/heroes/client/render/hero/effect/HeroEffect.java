@@ -24,7 +24,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -130,9 +130,9 @@ public abstract class HeroEffect implements Pass
 
     public void bindTexture(Entity entity, int slot, String key, int pass)
     {
-        if (entity instanceof EntityLivingBase)
+        if (entity instanceof LivingEntity)
         {
-            bindTexture(entity, ((EntityLivingBase) entity).getEquipmentInSlot(4 - slot), key, pass);
+            bindTexture(entity, ((LivingEntity) entity).getEquipmentInSlot(4 - slot), key, pass);
         }
         else
         {

@@ -3,16 +3,16 @@ package com.fiskmods.heroes.client.sound;
 import com.fiskmods.heroes.common.data.SHData;
 
 import net.minecraft.client.audio.MovingSound;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 
 public class MovingSoundFlight extends MovingSound
 {
-    private final EntityLivingBase theEntity;
+    private final LivingEntity theEntity;
     private int ticks;
 
-    public MovingSoundFlight(EntityLivingBase entity)
+    public MovingSoundFlight(LivingEntity entity)
     {
         super(new ResourceLocation(SHSounds.AMBIENT_FLIGHT.toString()));
         theEntity = entity;

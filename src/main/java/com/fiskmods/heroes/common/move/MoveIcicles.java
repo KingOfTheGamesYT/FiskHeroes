@@ -4,7 +4,7 @@ import com.fiskmods.heroes.common.entity.EntityIcicle;
 import com.fiskmods.heroes.common.hero.Hero;
 import com.google.common.collect.ImmutableMap;
 
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.MovingObjectPosition;
 
 public class MoveIcicles extends Move
@@ -28,7 +28,7 @@ public class MoveIcicles extends Move
     }
 
     @Override
-    public boolean onActivated(EntityLivingBase entity, Hero hero, MovingObjectPosition mop, MoveActivation activation, ImmutableMap<String, Number> modifiers, float focus)
+    public boolean onActivated(LivingEntity entity, Hero hero, MovingObjectPosition mop, MoveActivation activation, ImmutableMap<String, Number> modifiers, float focus)
     {
         int num = modifiers.getOrDefault(KEY_QUANTITY, 0).intValue();
 

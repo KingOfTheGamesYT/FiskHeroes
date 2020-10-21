@@ -3,7 +3,7 @@ package com.fiskmods.heroes.common.entity.arrow;
 import com.fiskmods.heroes.common.damagesource.ModDamageSources;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
@@ -21,12 +21,12 @@ public class EntityCarrotArrow extends EntityTrickArrow
         super(world, x, y, z);
     }
 
-    public EntityCarrotArrow(World world, EntityLivingBase shooter, float velocity)
+    public EntityCarrotArrow(World world, LivingEntity shooter, float velocity)
     {
         super(world, shooter, velocity);
     }
 
-    public EntityCarrotArrow(World world, EntityLivingBase shooter, float velocity, boolean horizontal)
+    public EntityCarrotArrow(World world, LivingEntity shooter, float velocity, boolean horizontal)
     {
         super(world, shooter, velocity, horizontal);
     }
@@ -38,7 +38,7 @@ public class EntityCarrotArrow extends EntityTrickArrow
     }
 
     @Override
-    protected void handlePostDamageEffects(EntityLivingBase entityHit)
+    protected void handlePostDamageEffects(LivingEntity entityHit)
     {
         super.handlePostDamageEffects(entityHit);
         entityHit.addPotionEffect(new PotionEffect(Potion.nightVision.id, 1200, 0));

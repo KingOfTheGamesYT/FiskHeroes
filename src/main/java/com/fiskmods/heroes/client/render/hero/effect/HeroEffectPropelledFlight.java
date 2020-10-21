@@ -19,7 +19,7 @@ import com.google.gson.stream.JsonToken;
 
 import net.minecraft.client.particle.EntityFX;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Vec3;
 
 public class HeroEffectPropelledFlight extends HeroEffect
@@ -63,7 +63,7 @@ public class HeroEffectPropelledFlight extends HeroEffect
         return renderer;
     }
 
-    public void doParticles(EntityLivingBase entity, HeroIteration iter, HeroRenderer renderer, Random rand, float scale, boolean clientPlayer, boolean firstPerson)
+    public void doParticles(LivingEntity entity, HeroIteration iter, HeroRenderer renderer, Random rand, float scale, boolean clientPlayer, boolean firstPerson)
     {
         FlightParticleRenderer particles = getRenderer();
 
@@ -80,7 +80,7 @@ public class HeroEffectPropelledFlight extends HeroEffect
 
     public interface FlightParticleRenderer
     {
-        void doParticles(EntityLivingBase entity, HeroIteration iter, HeroRenderer renderer, Random rand, Vec3 pos, double d, double d1, double yaw, float scale, boolean clientPlayer, boolean firstPerson);
+        void doParticles(LivingEntity entity, HeroIteration iter, HeroRenderer renderer, Random rand, Vec3 pos, double d, double d1, double yaw, float scale, boolean clientPlayer, boolean firstPerson);
 
         default void scale(EntityFX entity, float scale)
         {

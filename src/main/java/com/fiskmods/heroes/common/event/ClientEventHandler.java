@@ -97,7 +97,7 @@ import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.client.renderer.entity.RendererLivingEntity;
 import net.minecraft.entity.EntityHanging;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumAction;
@@ -1022,7 +1022,7 @@ public enum ClientEventHandler
         }
     }
 
-    public static void setupPlayerRotation(EntityLivingBase entity)
+    public static void setupPlayerRotation(LivingEntity entity)
     {
         byte b = SHData.FLIGHT_ANIMATION.get(entity);
 

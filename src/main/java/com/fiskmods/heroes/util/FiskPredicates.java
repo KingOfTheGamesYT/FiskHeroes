@@ -7,7 +7,7 @@ import java.util.function.Predicate;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.ModContainer;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 
@@ -51,7 +51,7 @@ public class FiskPredicates
         return pred;
     }
 
-    public static Predicate<EntityLivingBase> isHolding(Item item)
+    public static Predicate<LivingEntity> isHolding(Item item)
     {
         return t -> t.getHeldItem() != null && t.getHeldItem().getItem() == item;
     }

@@ -18,7 +18,7 @@ import com.fiskmods.heroes.util.SHHelper;
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCreature;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.IEntityOwnable;
 import net.minecraft.entity.IRangedAttackMob;
@@ -103,7 +103,7 @@ public class EntityIronMan extends EntityCreature implements IEntityOwnable, IDa
             return;
         }
 
-        EntityLivingBase owner = getOwner();
+        LivingEntity owner = getOwner();
         Hero hero = SHHelper.getHero(this);
 
         SHData.onUpdate(this);
@@ -526,7 +526,7 @@ public class EntityIronMan extends EntityCreature implements IEntityOwnable, IDa
     }
 
     @Override
-    public EntityLivingBase getOwner()
+    public LivingEntity getOwner()
     {
         try
         {
@@ -539,7 +539,7 @@ public class EntityIronMan extends EntityCreature implements IEntityOwnable, IDa
         }
     }
 
-    public boolean isOwner(EntityLivingBase entity)
+    public boolean isOwner(LivingEntity entity)
     {
         return entity == getOwner();
     }
@@ -547,7 +547,7 @@ public class EntityIronMan extends EntityCreature implements IEntityOwnable, IDa
     @Override
     public Team getTeam()
     {
-        EntityLivingBase owner = getOwner();
+        LivingEntity owner = getOwner();
 
         if (owner != null)
         {
@@ -558,9 +558,9 @@ public class EntityIronMan extends EntityCreature implements IEntityOwnable, IDa
     }
 
     @Override
-    public boolean isOnSameTeam(EntityLivingBase entity)
+    public boolean isOnSameTeam(LivingEntity entity)
     {
-        EntityLivingBase owner = getOwner();
+        LivingEntity owner = getOwner();
 
         if (entity == owner)
         {
@@ -576,7 +576,7 @@ public class EntityIronMan extends EntityCreature implements IEntityOwnable, IDa
     }
 
     @Override
-    public void attackEntityWithRangedAttack(EntityLivingBase target, float f)
+    public void attackEntityWithRangedAttack(LivingEntity target, float f)
     {
         double d0 = target.posX - posX;
         double d1 = target.boundingBox.minY + target.height * 0.75F - (posY + getEyeHeight() - 0.1);

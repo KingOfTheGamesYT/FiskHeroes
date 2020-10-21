@@ -7,14 +7,14 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
 public class EntityRepulsorBlast extends Entity implements IEntityAdditionalSpawnData
 {
-    public EntityLivingBase casterEntity;
+    public LivingEntity casterEntity;
     public Vec3 targetVec;
 
     public EntityRepulsorBlast(World world)
@@ -27,7 +27,7 @@ public class EntityRepulsorBlast extends Entity implements IEntityAdditionalSpaw
         setSize(0.1F, 0.1F);
     }
 
-    public EntityRepulsorBlast(World world, EntityLivingBase caster, Vec3 src, Vec3 dst)
+    public EntityRepulsorBlast(World world, LivingEntity caster, Vec3 src, Vec3 dst)
     {
         this(world);
         targetVec = dst;
@@ -98,9 +98,9 @@ public class EntityRepulsorBlast extends Entity implements IEntityAdditionalSpaw
     {
         Entity entity = world.getEntityByID(buf.readInt());
 
-        if (entity instanceof EntityLivingBase)
+        if (entity instanceof LivingEntity)
         {
-            casterEntity = (EntityLivingBase) entity;
+            casterEntity = (LivingEntity) entity;
         }
 
         targetVec = Vec3.createVectorHelper(buf.readFloat(), buf.readFloat(), buf.readFloat());

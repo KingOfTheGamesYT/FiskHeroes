@@ -1,6 +1,6 @@
 package com.fiskmods.heroes.common.entity.arrow;
 
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MovingObjectPosition;
@@ -22,12 +22,12 @@ public class EntityEnderPearlArrow extends EntityTrickArrow
         super(world, x, y, z);
     }
 
-    public EntityEnderPearlArrow(World world, EntityLivingBase shooter, float velocity)
+    public EntityEnderPearlArrow(World world, LivingEntity shooter, float velocity)
     {
         super(world, shooter, velocity);
     }
 
-    public EntityEnderPearlArrow(World world, EntityLivingBase shooter, float velocity, boolean horizontal)
+    public EntityEnderPearlArrow(World world, LivingEntity shooter, float velocity, boolean horizontal)
     {
         super(world, shooter, velocity, horizontal);
     }

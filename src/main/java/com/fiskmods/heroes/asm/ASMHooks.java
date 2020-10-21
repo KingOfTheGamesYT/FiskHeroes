@@ -31,7 +31,7 @@ import net.minecraft.command.arguments.EntitySelector;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCreature;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Blocks;
@@ -208,7 +208,7 @@ public class ASMHooks
         return 1.0F;
     }
 
-    public static int getArmSwingAnimationEnd(int result, EntityLivingBase entity)
+    public static int getArmSwingAnimationEnd(int result, LivingEntity entity)
     {
         if (SHData.isTracking(entity))
         {
@@ -604,7 +604,7 @@ public class ASMHooks
         return collidingBoundingBoxes;
     }
 
-    public static boolean moveEntityWithHeading(EntityLivingBase entity, float strafe, float forward)
+    public static boolean moveEntityWithHeading(LivingEntity entity, float strafe, float forward)
     {
         if (entity instanceof EntityPlayer)
         {
@@ -675,11 +675,11 @@ public class ASMHooks
                 if (flight)
                 {
                     AxisAlignedBB aabb = player.boundingBox.copy().expand(1, 0, 1);
-                    List<EntityLivingBase> list = player.world.selectEntitiesWithinAABB(EntityLivingBase.class, aabb, IEntitySelector.selectAnything);
+                    List<LivingEntity> list = player.world.selectEntitiesWithinAABB(LivingEntity.class, aabb, IEntitySelector.selectAnything);
 
                     if (!player.world.isRemote)
                     {
-                        for (EntityLivingBase entity1 : list)
+                        for (LivingEntity entity1 : list)
                         {
                             if (entity1 != player)
                             {

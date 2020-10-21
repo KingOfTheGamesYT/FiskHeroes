@@ -7,16 +7,16 @@ import com.fiskmods.heroes.common.data.SHData;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.audio.MovingSound;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.ResourceLocation;
 
 @SideOnly(Side.CLIENT)
 public class MovingSoundIceCharge extends MovingSound
 {
-    public final EntityLivingBase theEntity;
+    public final LivingEntity theEntity;
     private final Random rand = new Random();
 
-    public MovingSoundIceCharge(EntityLivingBase entity)
+    public MovingSoundIceCharge(LivingEntity entity)
     {
         super(new ResourceLocation(SHSounds.ABILITY_CRYOKINESIS_CHARGE.toString()));
         theEntity = entity;

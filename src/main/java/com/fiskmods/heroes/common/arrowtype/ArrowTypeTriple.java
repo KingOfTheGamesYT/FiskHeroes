@@ -6,7 +6,7 @@ import com.fiskmods.heroes.common.data.SHData;
 import com.fiskmods.heroes.common.entity.arrow.EntityTrickArrow;
 
 import net.minecraft.dispenser.IBlockSource;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
@@ -23,7 +23,7 @@ public class ArrowTypeTriple<T extends EntityTrickArrow> extends ArrowType<T>
     }
 
     @Override
-    public T shoot(World world, EntityLivingBase shooter, IBlockSource source, ItemStack bow, ItemStack arrow, float f)
+    public T shoot(World world, LivingEntity shooter, IBlockSource source, ItemStack bow, ItemStack arrow, float f)
     {
         if (!world.isRemote)
         {
@@ -57,7 +57,7 @@ public class ArrowTypeTriple<T extends EntityTrickArrow> extends ArrowType<T>
     }
 
     @Override
-    public void onShoot(EntityLivingBase shooter, IBlockSource source, T entity, ItemStack bow, ItemStack arrow, float f)
+    public void onShoot(LivingEntity shooter, IBlockSource source, T entity, ItemStack bow, ItemStack arrow, float f)
     {
         arrow = arrow.copy();
         arrow.setItemDamage(ArrowType.getIdFromArrow(arrowType));

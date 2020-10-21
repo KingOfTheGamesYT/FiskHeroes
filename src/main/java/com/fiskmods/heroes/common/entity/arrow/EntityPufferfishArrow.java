@@ -6,7 +6,7 @@ import com.fiskmods.heroes.common.damagesource.ModDamageSources;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.potion.Potion;
@@ -29,12 +29,12 @@ public class EntityPufferfishArrow extends EntityTrickArrow
         super(world, x, y, z);
     }
 
-    public EntityPufferfishArrow(World world, EntityLivingBase shooter, float velocity)
+    public EntityPufferfishArrow(World world, LivingEntity shooter, float velocity)
     {
         super(world, shooter, velocity);
     }
 
-    public EntityPufferfishArrow(World world, EntityLivingBase shooter, float velocity, boolean horizontal)
+    public EntityPufferfishArrow(World world, LivingEntity shooter, float velocity, boolean horizontal)
     {
         super(world, shooter, velocity, horizontal);
     }
@@ -46,7 +46,7 @@ public class EntityPufferfishArrow extends EntityTrickArrow
     }
 
     @Override
-    protected void handlePostDamageEffects(EntityLivingBase entityHit)
+    protected void handlePostDamageEffects(LivingEntity entityHit)
     {
         super.handlePostDamageEffects(entityHit);
 

@@ -6,7 +6,7 @@ import com.fiskmods.heroes.common.hero.Hero;
 import com.fiskmods.heroes.util.FiskServerUtils;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -20,7 +20,7 @@ public class AbilityEnhancedReflexes extends Ability
     }
 
     @Override
-    public boolean canTakeDamage(EntityLivingBase entity, EntityLivingBase attacker, Hero hero, DamageSource source, float amount)
+    public boolean canTakeDamage(LivingEntity entity, LivingEntity attacker, Hero hero, DamageSource source, float amount)
     {
         ItemStack heldItem = entity.getHeldItem();
         Entity projectile = source.getSourceOfDamage();

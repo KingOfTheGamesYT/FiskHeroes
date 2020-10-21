@@ -25,7 +25,7 @@ import com.fiskmods.heroes.util.TextureHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -78,9 +78,9 @@ public class HeroRenderer
     {
         if (json != null && json.getResourceKeys() != null)
         {
-            if (entity instanceof EntityLivingBase)
+            if (entity instanceof LivingEntity)
             {
-                evaluateVariables((EntityLivingBase) entity, slot);
+                evaluateVariables((LivingEntity) entity, slot);
             }
 
             if (json.texture != null)
@@ -221,7 +221,7 @@ public class HeroRenderer
         json.load(manager, mc.getTextureManager());
     }
 
-    public void evaluateVariables(EntityLivingBase entity, int slot)
+    public void evaluateVariables(LivingEntity entity, int slot)
     {
         variables.clear();
 

@@ -13,7 +13,7 @@ import com.fiskmods.heroes.util.VectorHelper;
 
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import cpw.mods.fml.relauncher.Side;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
@@ -58,16 +58,16 @@ public class InteractionRepulsor extends InteractionBase
         return TARGET_NONE;
     }
     
-    public static void shoot(EntityLivingBase sender)
+    public static void shoot(LivingEntity sender)
     {
         Hero hero = SHHelper.getHero(sender);
         float range = Rule.RANGE_REPULSOR.get(sender, hero);
         
         MovingObjectPosition rayTrace = SHHelper.rayTrace(sender, range, 4, 1);
 
-        if (rayTrace != null && rayTrace.typeOfHit == MovingObjectType.ENTITY && rayTrace.entityHit instanceof EntityLivingBase)
+        if (rayTrace != null && rayTrace.typeOfHit == MovingObjectType.ENTITY && rayTrace.entityHit instanceof LivingEntity)
         {
-            EntityLivingBase entity = (EntityLivingBase) rayTrace.entityHit;
+            LivingEntity entity = (LivingEntity) rayTrace.entityHit;
             entity.attackEntityFrom(ModDamageSources.REPULSOR.apply(sender), Rule.DMG_REPULSOR.get(sender, hero));
 
             double d0 = sender.posX - entity.posX;

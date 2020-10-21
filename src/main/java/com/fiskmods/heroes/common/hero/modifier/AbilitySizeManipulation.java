@@ -10,7 +10,7 @@ import com.fiskmods.heroes.common.world.ModDimensions;
 import com.fiskmods.heroes.util.FiskServerUtils;
 
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
@@ -30,7 +30,7 @@ public class AbilitySizeManipulation extends Ability
     }
 
     @Override
-    public void onUpdate(EntityLivingBase entity, Hero hero, Phase phase, boolean enabled)
+    public void onUpdate(LivingEntity entity, Hero hero, Phase phase, boolean enabled)
     {
         if (phase == Phase.END && enabled && entity instanceof EntityPlayer)
         {
@@ -147,7 +147,7 @@ public class AbilitySizeManipulation extends Ability
     }
 
     @Override
-    public boolean canTakeDamage(EntityLivingBase entity, EntityLivingBase attacker, Hero hero, DamageSource source, float amount)
+    public boolean canTakeDamage(LivingEntity entity, LivingEntity attacker, Hero hero, DamageSource source, float amount)
     {
         if (entity instanceof PlayerEntity && SHData.SCALE.get(entity) <= hero.getFuncFloat(entity, FUNC_MIN_SIZE, 0.5F))
         {
@@ -166,7 +166,7 @@ public class AbilitySizeManipulation extends Ability
     }
 
     @Override
-    public float damageDealt(EntityLivingBase entity, EntityLivingBase target, Hero hero, DamageSource source, float amount, float originalAmount)
+    public float damageDealt(LivingEntity entity, LivingEntity target, Hero hero, DamageSource source, float amount, float originalAmount)
     {
         amount = super.damageDealt(entity, target, hero, source, amount, originalAmount);
 

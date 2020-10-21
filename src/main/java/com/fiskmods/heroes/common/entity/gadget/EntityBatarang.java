@@ -4,7 +4,7 @@ import com.fiskmods.heroes.common.config.Rule;
 import com.fiskmods.heroes.common.damagesource.ModDamageSources;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
@@ -21,7 +21,7 @@ public class EntityBatarang extends EntityProjectile
         super(world, x, y, z);
     }
 
-    public EntityBatarang(World world, EntityLivingBase shooter)
+    public EntityBatarang(World world, LivingEntity shooter)
     {
         super(world, shooter);
     }

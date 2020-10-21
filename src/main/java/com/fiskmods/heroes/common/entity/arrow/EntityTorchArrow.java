@@ -3,7 +3,7 @@ package com.fiskmods.heroes.common.entity.arrow;
 import com.fiskmods.heroes.util.FiskServerUtils;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
@@ -21,12 +21,12 @@ public class EntityTorchArrow extends EntityTrickArrow
         super(world, x, y, z);
     }
 
-    public EntityTorchArrow(World world, EntityLivingBase shooter, float velocity)
+    public EntityTorchArrow(World world, LivingEntity shooter, float velocity)
     {
         super(world, shooter, velocity);
     }
 
-    public EntityTorchArrow(World world, EntityLivingBase shooter, float velocity, boolean horizontal)
+    public EntityTorchArrow(World world, LivingEntity shooter, float velocity, boolean horizontal)
     {
         super(world, shooter, velocity, horizontal);
     }

@@ -66,7 +66,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityHanging;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.IInventory;
@@ -220,7 +220,7 @@ public enum CommonEventHandler
     @SubscribeEvent
     public void onEntityConstruct(EntityConstructing event)
     {
-        if (event.entity instanceof EntityLivingBase)
+        if (event.entity instanceof LivingEntity)
         {
             event.entity.registerExtendedProperties(SHEntityData.IDENTIFIER, new SHEntityData());
         }
@@ -866,7 +866,7 @@ public enum CommonEventHandler
         }
     }
 
-    protected void onSwitchArmor(EntityLivingBase entity, Hero from, Hero to)
+    protected void onSwitchArmor(LivingEntity entity, Hero from, Hero to)
     {
         if (from != null)
         {
@@ -905,10 +905,10 @@ public enum CommonEventHandler
 
             for (Entity entity : list)
             {
-                if (entity instanceof EntityLivingBase && player.canEntityBeSeen(entity))
+                if (entity instanceof LivingEntity && player.canEntityBeSeen(entity))
                 {
                     entity.attackEntityFrom(DamageSource.causePlayerDamage(player), 1.0F);
-                    SHHelper.knockbackWithoutNotify((EntityLivingBase) entity, player, 0.5F);
+                    SHHelper.knockbackWithoutNotify((LivingEntity) entity, player, 0.5F);
                 }
             }
         }
@@ -917,7 +917,7 @@ public enum CommonEventHandler
     @SubscribeEvent
     public void onLivingUpdate(LivingUpdateEvent event)
     {
-        EntityLivingBase entity = event.entityLiving;
+        LivingEntity entity = event.entityLiving;
         SHEntityData data = SHEntityData.getData(entity);
 
         data.onUpdate();
@@ -1057,12 +1057,12 @@ public enum CommonEventHandler
     @SubscribeEvent
     public void onLivingDeath(LivingDeathEvent event)
     {
-        EntityLivingBase entity = event.entityLiving;
-        EntityLivingBase attacker = null;
+        LivingEntity entity = event.entityLiving;
+        LivingEntity attacker = null;
 
-        if (event.source.getEntity() instanceof EntityLivingBase)
+        if (event.source.getEntity() instanceof LivingEntity)
         {
-            attacker = (EntityLivingBase) event.source.getEntity();
+            attacker = (LivingEntity) event.source.getEntity();
         }
 
         if (attacker instanceof PlayerEntity && ArmorTracker.isTracking(entity) && ArmorTracker.isTracking(attacker))
@@ -1093,11 +1093,11 @@ public enum CommonEventHandler
     @SubscribeEvent
     public void onLivingAttack(LivingAttackEvent event)
     {
-        EntityLivingBase attacker = null;
+        LivingEntity attacker = null;
 
-        if (event.source.getEntity() instanceof EntityLivingBase)
+        if (event.source.getEntity() instanceof LivingEntity)
         {
-            attacker = (EntityLivingBase) event.source.getEntity();
+            attacker = (LivingEntity) event.source.getEntity();
 
             if (ArmorTracker.isTracking(attacker))
             {
@@ -1124,7 +1124,7 @@ public enum CommonEventHandler
             }
         }
 
-        EntityLivingBase entity = event.entityLiving;
+        LivingEntity entity = event.entityLiving;
 
         if (ArmorTracker.isTracking(entity))
         {
@@ -1171,14 +1171,14 @@ public enum CommonEventHandler
     @SubscribeEvent
     public void onLivingHurt(LivingHurtEvent event)
     {
-        EntityLivingBase attacker = null;
+        LivingEntity attacker = null;
 
-        if (event.source.getEntity() instanceof EntityLivingBase)
+        if (event.source.getEntity() instanceof LivingEntity)
         {
-            attacker = (EntityLivingBase) event.source.getEntity();
+            attacker = (LivingEntity) event.source.getEntity();
         }
 
-        EntityLivingBase entity = event.entityLiving;
+        LivingEntity entity = event.entityLiving;
         Hero hero = null;
 
         float mult = SHHelper.getDamageMult(entity, event.source);
@@ -1202,7 +1202,7 @@ public enum CommonEventHandler
             {
                 int i = 0;
 
-                if (entity instanceof EntityLivingBase)
+                if (entity instanceof LivingEntity)
                 {
                     i += EnchantmentHelper.getKnockbackModifier(attacker, entity);
                 }
@@ -1266,7 +1266,7 @@ public enum CommonEventHandler
     @SubscribeEvent
     public void onLivingJump(LivingJumpEvent event)
     {
-        EntityLivingBase entity = event.entityLiving;
+        LivingEntity entity = event.entityLiving;
 
         if (ArmorTracker.isTracking(entity))
         {
@@ -1287,7 +1287,7 @@ public enum CommonEventHandler
     @SubscribeEvent
     public void onLivingFall(LivingFallEvent event)
     {
-        EntityLivingBase entity = event.entityLiving;
+        LivingEntity entity = event.entityLiving;
 
         if (ArmorTracker.isTracking(entity))
         {

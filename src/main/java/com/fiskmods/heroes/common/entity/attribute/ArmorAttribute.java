@@ -9,7 +9,7 @@ import java.util.UUID;
 import com.fiskmods.heroes.common.hero.Hero;
 import com.google.common.collect.ImmutableList;
 
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.BaseAttribute;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.player.PlayerEntity;
@@ -100,22 +100,22 @@ public class ArmorAttribute extends BaseAttribute
         return isAdditive;
     }
 
-    public double get(EntityLivingBase entity, double baseValue)
+    public double get(LivingEntity entity, double baseValue)
     {
         return SHAttributes.getModifier(entity, this, baseValue);
     }
 
-    public float get(EntityLivingBase entity, float baseValue)
+    public float get(LivingEntity entity, float baseValue)
     {
         return SHAttributes.getModifier(entity, this, baseValue);
     }
 
-    public double get(EntityLivingBase entity, Hero hero, double baseValue)
+    public double get(LivingEntity entity, Hero hero, double baseValue)
     {
         return SHAttributes.getModifier(entity, hero, this, baseValue);
     }
 
-    public float get(EntityLivingBase entity, Hero hero, float baseValue)
+    public float get(LivingEntity entity, Hero hero, float baseValue)
     {
         return SHAttributes.getModifier(entity, hero, this, baseValue);
     }

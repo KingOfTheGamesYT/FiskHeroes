@@ -11,7 +11,7 @@ public class CTGuiInventory extends ClassTransformerMethodProcess
 {
     public CTGuiInventory()
     {
-        super("net.minecraft.client.gui.inventory.GuiInventory", "a", "func_147046_a", "(IIIFFLsv;)V", "(IIIFFLnet/minecraft/entity/EntityLivingBase;)V");
+        super("net.minecraft.client.gui.inventory.GuiInventory", "a", "func_147046_a", "(IIIFFLsv;)V", "(IIIFFLnet/minecraft/entity/LivingEntity;)V");
     }
 
     @Override

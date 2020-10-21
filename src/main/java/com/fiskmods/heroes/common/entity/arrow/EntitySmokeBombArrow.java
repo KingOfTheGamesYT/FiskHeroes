@@ -4,7 +4,7 @@ import com.fiskmods.heroes.util.SHHelper;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
@@ -20,12 +20,12 @@ public class EntitySmokeBombArrow extends EntityTrickArrow
         super(world, x, y, z);
     }
 
-    public EntitySmokeBombArrow(World world, EntityLivingBase shooter, float velocity)
+    public EntitySmokeBombArrow(World world, LivingEntity shooter, float velocity)
     {
         super(world, shooter, velocity);
     }
 
-    public EntitySmokeBombArrow(World world, EntityLivingBase shooter, float velocity, boolean horizontal)
+    public EntitySmokeBombArrow(World world, LivingEntity shooter, float velocity, boolean horizontal)
     {
         super(world, shooter, velocity, horizontal);
     }
@@ -38,7 +38,7 @@ public class EntitySmokeBombArrow extends EntityTrickArrow
     }
 
     @Override
-    public boolean onCaught(EntityLivingBase entity)
+    public boolean onCaught(LivingEntity entity)
     {
         if (super.onCaught(entity))
         {

@@ -13,7 +13,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
@@ -47,9 +47,9 @@ public class RenderCactus extends RenderLiving
             float f3 = interpolateRotation(entity.prevRotationYawHead, entity.rotationYawHead, partialTicks);
             float f4;
 
-            if (entity.isRiding() && entity.ridingEntity instanceof EntityLivingBase)
+            if (entity.isRiding() && entity.ridingEntity instanceof LivingEntity)
             {
-                EntityLivingBase entitylivingbase1 = (EntityLivingBase) entity.ridingEntity;
+                LivingEntity entitylivingbase1 = (LivingEntity) entity.ridingEntity;
                 f2 = interpolateRotation(entitylivingbase1.prevRenderYawOffset, entitylivingbase1.renderYawOffset, partialTicks);
                 f4 = MathHelper.wrapAngleTo180_float(f3 - f2);
 
@@ -166,7 +166,7 @@ public class RenderCactus extends RenderLiving
     }
 
     @Override
-    protected void rotateCorpse(EntityLivingBase entity, float x, float y, float z)
+    protected void rotateCorpse(LivingEntity entity, float x, float y, float z)
     {
         rotateCorpse((EntityCactus) entity, x, y, z);
     }

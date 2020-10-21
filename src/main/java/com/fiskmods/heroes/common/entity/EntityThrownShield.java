@@ -17,7 +17,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.EntityThrowable;
@@ -34,7 +34,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 public class EntityThrownShield extends EntityThrowable implements IEntityAdditionalSpawnData
 {
-    private EntityLivingBase thrower;
+    private LivingEntity thrower;
     private String throwerName;
 
     private ItemStack shieldItem;
@@ -48,7 +48,7 @@ public class EntityThrownShield extends EntityThrowable implements IEntityAdditi
         setSize(0.95F, 0.09375F);
     }
 
-    public EntityThrownShield(World world, EntityLivingBase entity, ItemStack itemstack)
+    public EntityThrownShield(World world, LivingEntity entity, ItemStack itemstack)
     {
         super(world, entity);
         thrower = entity;
@@ -425,7 +425,7 @@ public class EntityThrownShield extends EntityThrowable implements IEntityAdditi
     }
 
     @Override
-    public EntityLivingBase getThrower()
+    public LivingEntity getThrower()
     {
         if (thrower == null && throwerName != null && throwerName.length() > 0)
         {
@@ -440,9 +440,9 @@ public class EntityThrownShield extends EntityThrowable implements IEntityAdditi
     {
         Entity entity = world.getEntityByID(buf.readInt());
 
-        if (entity instanceof EntityLivingBase)
+        if (entity instanceof LivingEntity)
         {
-            thrower = (EntityLivingBase) entity;
+            thrower = (LivingEntity) entity;
         }
 
         if (buf.readBoolean())

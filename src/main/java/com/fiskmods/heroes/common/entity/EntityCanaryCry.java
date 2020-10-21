@@ -11,7 +11,7 @@ import com.fiskmods.heroes.util.SHHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.EntityThrowable;
@@ -27,7 +27,7 @@ public class EntityCanaryCry extends EntityThrowable
         super(world);
     }
 
-    public EntityCanaryCry(World world, EntityLivingBase entity)
+    public EntityCanaryCry(World world, LivingEntity entity)
     {
         super(world, entity);
         setSize(0.25F, 0.25F);
@@ -148,7 +148,7 @@ public class EntityCanaryCry extends EntityThrowable
                         {
                             boolean flag = false;
 
-                            if (entity instanceof EntityLivingBase)
+                            if (entity instanceof LivingEntity)
                             {
                                 if (entity != getThrower())
                                 {

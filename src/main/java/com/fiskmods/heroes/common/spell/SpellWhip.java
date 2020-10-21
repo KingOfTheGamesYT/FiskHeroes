@@ -4,7 +4,7 @@ import com.fiskmods.heroes.common.data.Cooldowns.Cooldown;
 import com.fiskmods.heroes.common.entity.EntitySpellWhip;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 
 public class SpellWhip extends Spell
 {
@@ -14,7 +14,7 @@ public class SpellWhip extends Spell
     }
 
     @Override
-    public void onTrigger(EntityLivingBase caster)
+    public void onTrigger(LivingEntity caster)
     {
         if (!caster.world.isRemote)
         {

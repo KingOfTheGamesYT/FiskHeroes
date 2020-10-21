@@ -8,7 +8,7 @@ import com.fiskmods.heroes.common.data.SHData;
 import com.fiskmods.heroes.common.hero.HeroIteration;
 import com.fiskmods.heroes.util.VectorHelper;
 
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Vec3;
 
 public enum FlightParticlesIronMan implements FlightParticleRenderer
@@ -16,7 +16,7 @@ public enum FlightParticlesIronMan implements FlightParticleRenderer
     INSTANCE;
 
     @Override
-    public void doParticles(EntityLivingBase entity, HeroIteration iter, HeroRenderer renderer, Random rand, Vec3 pos, double d, double d1, double yaw, float scale, boolean clientPlayer, boolean firstPerson)
+    public void doParticles(LivingEntity entity, HeroIteration iter, HeroRenderer renderer, Random rand, Vec3 pos, double d, double d1, double yaw, float scale, boolean clientPlayer, boolean firstPerson)
     {
         boolean hovering = SHData.HOVERING.get(entity);
 

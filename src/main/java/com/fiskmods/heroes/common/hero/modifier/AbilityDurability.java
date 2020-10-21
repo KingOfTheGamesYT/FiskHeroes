@@ -4,7 +4,7 @@ import com.fiskmods.heroes.common.entity.IPiercingProjectile;
 import com.fiskmods.heroes.common.hero.Hero;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.util.DamageSource;
 
@@ -16,7 +16,7 @@ public class AbilityDurability extends Ability
     }
 
     @Override
-    public boolean canTakeDamage(EntityLivingBase entity, EntityLivingBase attacker, Hero hero, DamageSource source, float amount)
+    public boolean canTakeDamage(LivingEntity entity, LivingEntity attacker, Hero hero, DamageSource source, float amount)
     {
         Entity projectile = source.getSourceOfDamage();
 

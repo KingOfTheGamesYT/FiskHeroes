@@ -8,7 +8,7 @@ import com.fiskmods.heroes.common.data.SHEntityData;
 import com.fiskmods.heroes.common.data.effect.StatusEffect;
 
 import io.netty.buffer.ByteBuf;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 
 public class MessageUpdateEffects extends AbstractMessage<MessageUpdateEffects>
 {
@@ -19,7 +19,7 @@ public class MessageUpdateEffects extends AbstractMessage<MessageUpdateEffects>
     {
     }
 
-    public MessageUpdateEffects(EntityLivingBase entity, List<StatusEffect> list)
+    public MessageUpdateEffects(LivingEntity entity, List<StatusEffect> list)
     {
         id = entity.getEntityId();
         activeEffects = list;
@@ -58,7 +58,7 @@ public class MessageUpdateEffects extends AbstractMessage<MessageUpdateEffects>
     @Override
     public void receive() throws MessageException
     {
-        SHEntityData.getData(getEntity(EntityLivingBase.class, id)).activeEffects = activeEffects;
+        SHEntityData.getData(getEntity(LivingEntity.class, id)).activeEffects = activeEffects;
 
         if (!activeEffects.isEmpty())
         {

@@ -3,7 +3,7 @@ package com.fiskmods.heroes.common.hero.modifier;
 import com.fiskmods.heroes.common.data.SHData;
 import com.fiskmods.heroes.common.hero.Hero;
 
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.DamageSource;
 
 public class AbilityFireImmunity extends Ability
@@ -14,7 +14,7 @@ public class AbilityFireImmunity extends Ability
     }
 
     @Override
-    public boolean canTakeDamage(EntityLivingBase entity, EntityLivingBase attacker, Hero hero, DamageSource source, float amount)
+    public boolean canTakeDamage(LivingEntity entity, LivingEntity attacker, Hero hero, DamageSource source, float amount)
     {
         if (source.isFireDamage() && isActive(entity))
         {
@@ -26,7 +26,7 @@ public class AbilityFireImmunity extends Ability
     }
 
     @Override
-    public boolean isActive(EntityLivingBase entity)
+    public boolean isActive(LivingEntity entity)
     {
         return SHData.METAL_HEAT_COOLDOWN.get(entity) <= 0;
     }

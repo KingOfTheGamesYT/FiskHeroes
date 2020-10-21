@@ -2,7 +2,7 @@ package com.fiskmods.heroes.common.entity.arrow;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.potion.Potion;
@@ -24,12 +24,12 @@ public class EntitySlimeArrow extends EntityTrickArrow
         super(world, x, y, z);
     }
 
-    public EntitySlimeArrow(World world, EntityLivingBase shooter, float velocity)
+    public EntitySlimeArrow(World world, LivingEntity shooter, float velocity)
     {
         super(world, shooter, velocity);
     }
 
-    public EntitySlimeArrow(World world, EntityLivingBase shooter, float velocity, boolean horizontal)
+    public EntitySlimeArrow(World world, LivingEntity shooter, float velocity, boolean horizontal)
     {
         super(world, shooter, velocity, horizontal);
     }
@@ -52,7 +52,7 @@ public class EntitySlimeArrow extends EntityTrickArrow
     }
 
     @Override
-    protected void handlePostDamageEffects(EntityLivingBase entityHit)
+    protected void handlePostDamageEffects(LivingEntity entityHit)
     {
         super.handlePostDamageEffects(entityHit);
 

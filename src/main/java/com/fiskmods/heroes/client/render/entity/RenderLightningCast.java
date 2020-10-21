@@ -17,7 +17,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Vec3;
@@ -65,9 +65,9 @@ public class RenderLightningCast extends Render
             Vec3 src;
             Vec3 dst = Vec3.createVectorHelper(entityX, entityY, entityZ);
 
-            if (anchor instanceof EntityLivingBase)
+            if (anchor instanceof LivingEntity)
             {
-                src = VectorHelper.getOffsetCoords((EntityLivingBase) anchor, -0.4, -0.6, 0.4, partialTicks);
+                src = VectorHelper.getOffsetCoords((LivingEntity) anchor, -0.4, -0.6, 0.4, partialTicks);
             }
             else
             {

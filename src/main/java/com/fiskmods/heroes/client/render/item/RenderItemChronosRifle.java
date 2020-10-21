@@ -10,7 +10,7 @@ import com.fiskmods.heroes.util.FiskMath;
 import com.fiskmods.heroes.util.SHRenderHelper;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
@@ -40,11 +40,11 @@ public enum RenderItemChronosRifle implements IItemRenderer
     @Override
     public void renderItem(ItemRenderType type, ItemStack stack, Object... data)
     {
-        EntityLivingBase entity = null;
+        LivingEntity entity = null;
 
-        if (data.length > 1 && data[1] instanceof EntityLivingBase)
+        if (data.length > 1 && data[1] instanceof LivingEntity)
         {
-            entity = (EntityLivingBase) data[1];
+            entity = (LivingEntity) data[1];
         }
 
         if (type == ItemRenderType.EQUIPPED_FIRST_PERSON)

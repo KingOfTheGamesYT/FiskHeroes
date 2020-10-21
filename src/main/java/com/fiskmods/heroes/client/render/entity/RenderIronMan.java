@@ -9,7 +9,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.entity.RenderBiped;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.ResourceLocation;
 
 @SideOnly(Side.CLIENT)
@@ -21,7 +21,7 @@ public class RenderIronMan extends RenderBiped
     }
 
     @Override
-    protected void preRenderCallback(EntityLivingBase entity, float partialTicks)
+    protected void preRenderCallback(LivingEntity entity, float partialTicks)
     {
         float f1 = 0.9375F;
         GL11.glScalef(f1, f1, f1);

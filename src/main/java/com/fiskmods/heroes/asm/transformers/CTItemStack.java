@@ -12,7 +12,7 @@ public class CTItemStack extends ClassTransformerMethodProcess
 {
     public CTItemStack()
     {
-        super("net.minecraft.item.ItemStack", "c", "readFromNBT", "(Ldh;)V", "(Lnet/minecraft/nbt/NBTTagCompound;)V");
+        super("net.minecraft.item.ItemStack", "c", "readFromNBT", "(Ldh;)V", "(Lnet/minecraft/nbt/CompoundNBT;)V");
     }
 
     @Override
@@ -28,7 +28,7 @@ public class CTItemStack extends ClassTransformerMethodProcess
                 success = true;
                 list.add(new VarInsnNode(ALOAD, 0));
                 list.add(new VarInsnNode(ALOAD, 1));
-                list.add(new MethodInsnNode(INVOKESTATIC, ASMHOOKS, "readFromNBT", SHTranslator.getMappedName("(Ladd;Ldh;)V", "(Lnet/minecraft/item/ItemStack;Lnet/minecraft/nbt/NBTTagCompound;)V"), false));
+                list.add(new MethodInsnNode(INVOKESTATIC, ASMHOOKS, "readFromNBT", SHTranslator.getMappedName("(Ladd;Ldh;)V", "(Lnet/minecraft/item/ItemStack;Lnet/minecraft/nbt/CompoundNBT;)V"), false));
             }
 
             list.add(node);

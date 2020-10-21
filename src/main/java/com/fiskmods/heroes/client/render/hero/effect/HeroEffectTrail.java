@@ -25,7 +25,7 @@ import cpw.mods.fml.common.gameevent.TickEvent.Phase;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Vec3;
@@ -162,7 +162,7 @@ public class HeroEffectTrail extends HeroEffect
         type.load(manager, textureManager);
     }
 
-    public JsonTrail getType(EntityLivingBase entity)
+    public JsonTrail getType(LivingEntity entity)
     {
         return type;
     }

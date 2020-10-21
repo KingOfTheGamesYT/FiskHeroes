@@ -9,7 +9,7 @@ import com.fiskmods.heroes.util.SpeedsterHelper;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -17,7 +17,7 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
 @SideOnly(Side.CLIENT)
-public class EntitySpeedBlur extends EntityLivingBase
+public class EntitySpeedBlur extends LivingEntity
 {
     public PlayerEntity anchorEntity;
     public JsonTrail trail;

@@ -11,10 +11,10 @@ import com.fiskmods.heroes.common.registry.FiskSimpleRegistry;
 import com.fiskmods.heroes.util.SHHelper;
 
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.StatCollector;
 
-public class Weakness extends FiskRegistryEntry<Weakness> implements HeroModifier, Comparable<Weakness>, Predicate<EntityLivingBase>
+public class Weakness extends FiskRegistryEntry<Weakness> implements HeroModifier, Comparable<Weakness>, Predicate<LivingEntity>
 {
     public static final FiskSimpleRegistry<Weakness> REGISTRY = new FiskSimpleRegistry(FiskHeroes.MODID, null);
 
@@ -51,7 +51,7 @@ public class Weakness extends FiskRegistryEntry<Weakness> implements HeroModifie
         return StatCollector.translateToLocal(getUnlocalizedName() + ".name");
     }
 
-    public void onUpdateGlobal(EntityLivingBase entity, Hero hero, Phase phase, boolean hasWeakness)
+    public void onUpdateGlobal(LivingEntity entity, Hero hero, Phase phase, boolean hasWeakness)
     {
     }
 
@@ -68,7 +68,7 @@ public class Weakness extends FiskRegistryEntry<Weakness> implements HeroModifie
     }
 
     @Override
-    public boolean test(EntityLivingBase input)
+    public boolean test(LivingEntity input)
     {
         return SHHelper.hasEnabledModifier(input, this);
     }
