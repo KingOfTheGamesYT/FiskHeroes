@@ -45,7 +45,7 @@ public class EntityCactus extends EntityGolem implements IEntitySelector
         tasks.addTask(2, new EntityAIMoveTowardsTarget(this, 0.9, 32));
         tasks.addTask(4, new EntityAIMoveTowardsRestriction(this, 1));
         tasks.addTask(6, new EntityAIWander(this, 0.6));
-        tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 6));
+        tasks.addTask(7, new EntityAIWatchClosest(this, PlayerEntity.class, 6));
         tasks.addTask(8, new EntityAILookIdle(this));
         targetTasks.addTask(2, new EntityAIHurtByTarget(this, false));
         targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, LivingEntity.class, 0, false, true, this));
@@ -79,7 +79,7 @@ public class EntityCactus extends EntityGolem implements IEntitySelector
         {
             return false;
         }
-        else if (entity instanceof PlayerEntity && ((EntityPlayer) entity).capabilities.isCreativeMode)
+        else if (entity instanceof PlayerEntity && ((PlayerEntity) entity).capabilities.isCreativeMode)
         {
             return false;
         }

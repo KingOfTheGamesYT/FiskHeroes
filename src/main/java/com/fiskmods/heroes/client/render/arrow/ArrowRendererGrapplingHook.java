@@ -47,9 +47,9 @@ public class ArrowRendererGrapplingHook extends ArrowRenderer
         Tessellator tessellator = Tessellator.instance;
         RenderManager renderManager = RenderManager.instance;
 
-        if (arrow.getShooter() instanceof EntityPlayer)
+        if (arrow.getShooter() instanceof PlayerEntity)
         {
-            PlayerEntity shooter = (EntityPlayer) arrow.getShooter();
+            PlayerEntity shooter = (PlayerEntity) arrow.getShooter();
 
             if (arrow instanceof EntityGrappleArrow && !((EntityGrappleArrow) arrow).getIsCableCut())
             {

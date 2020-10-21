@@ -111,7 +111,7 @@ public class TileEntityParticleCore extends TileEntityContainer implements ISide
 
                             if (!world.isRemote)
                             {
-                                stack.setItemDamage(stack.getItemDamage() + 1);
+                                stack.setItemDamage(stack.getDamage() + 1);
                                 gravity -= 1F / SHConstants.MAX_SUBATOMIC_RECHARGE;
                             }
                             else

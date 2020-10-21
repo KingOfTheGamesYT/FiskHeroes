@@ -34,7 +34,7 @@ public class ItemSubatomicBattery extends Item implements IItemListEntry
 
     public static float getCharge(ItemStack itemstack)
     {
-        return (float) itemstack.getItemDamage() / SHConstants.MAX_SUBATOMIC_CHARGE;
+        return (float) itemstack.getDamage() / SHConstants.MAX_SUBATOMIC_CHARGE;
     }
 
     @Override

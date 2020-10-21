@@ -112,9 +112,9 @@ public class ModelFalconWings extends ModelBase
     {
         resetAngles();
 
-        if (entity instanceof EntityPlayer)
+        if (entity instanceof PlayerEntity)
         {
-            PlayerEntity player = (EntityPlayer) entity;
+            PlayerEntity player = (PlayerEntity) entity;
             float f = 1 - wings * wings;
             float f1 = -0.261799F;
             float f2 = 1;

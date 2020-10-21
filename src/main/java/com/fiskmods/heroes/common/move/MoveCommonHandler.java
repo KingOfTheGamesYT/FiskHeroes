@@ -173,7 +173,7 @@
 //                CrashReportCategory category = report.makeCategory("Item being added");
 //
 //                category.addCrashSection("Item ID", Item.getIdFromItem(pickup.getItem()));
-//                category.addCrashSection("Item data", pickup.getItemDamage());
+//                category.addCrashSection("Item data", pickup.getDamage());
 //                category.addCrashSectionCallable("Item name", () -> pickup.getDisplayName());
 //
 //                throw new ReportedException(report);
@@ -227,7 +227,7 @@
 //
 //                if (stack == null)
 //                {
-//                    stack = new ItemStack(item, 0, pickup.getItemDamage());
+//                    stack = new ItemStack(item, 0, pickup.getDamage());
 //
 //                    if (pickup.hasTag())
 //                    {
@@ -281,7 +281,7 @@
 //
 //    private boolean canMergeStacks(PlayerInventory inventory, ItemStack stack, ItemStack pickup)
 //    {
-//        return stack.getItem() == pickup.getItem() && stack.isStackable() && stack.stackSize < stack.getMaxStackSize() && stack.stackSize < inventory.getInventoryStackLimit() && (!stack.getHasSubtypes() || stack.getItemDamage() == pickup.getItemDamage()) && ItemStack.areItemStackTagsEqual(stack, pickup);
+//        return stack.getItem() == pickup.getItem() && stack.isStackable() && stack.stackSize < stack.getMaxStackSize() && stack.stackSize < inventory.getInventoryStackLimit() && (!stack.getHasSubtypes() || stack.getDamage() == pickup.getDamage()) && ItemStack.areItemStackTagsEqual(stack, pickup);
 //    }
 //
 //    @SubscribeEvent

@@ -61,7 +61,7 @@ public class ItemCactusJournal extends ItemMetahumanLog
             }
         }
 
-//        list.add(StatCollector.translateToLocalFormatted(getUnlocalizedName() + ".desc", stack.getItemDamage()));
+//        list.add(StatCollector.translateToLocalFormatted(getUnlocalizedName() + ".desc", stack.getDamage()));
     }
 
     public static Book getBook(ItemStack stack)

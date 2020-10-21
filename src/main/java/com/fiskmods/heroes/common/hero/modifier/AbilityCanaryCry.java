@@ -30,7 +30,7 @@ public class AbilityCanaryCry extends Ability
                     entity.world.spawnEntityInWorld(new EntityCanaryCry(entity.world, entity));
                 }
 
-                if (!(entity instanceof PlayerEntity && ((EntityPlayer) entity).capabilities.isFlying))
+                if (!(entity instanceof PlayerEntity && ((PlayerEntity) entity).capabilities.isFlying))
                 {
                     float f = Math.max(entity.rotationPitch - 45, 0) / 45;
                     entity.fallDistance = Math.max(entity.fallDistance - 0.4F * f, 0);

@@ -20,9 +20,9 @@ public class ModelMartianManhunter extends ModelBipedMultiLayer
     @Override
     public void renderBody(Entity entity, int pass, float f, float f1, float f2, float f3, float f4, float f5)
     {
-        if (entity instanceof EntityPlayer)
+        if (entity instanceof PlayerEntity)
         {
-            PlayerEntity player = (EntityPlayer) entity;
+            PlayerEntity player = (PlayerEntity) entity;
             float opacity = SHHelper.getInvisibility(player, mc.thePlayer);
             float t = SHData.SHAPE_SHIFT_TIMER.get(player);
 

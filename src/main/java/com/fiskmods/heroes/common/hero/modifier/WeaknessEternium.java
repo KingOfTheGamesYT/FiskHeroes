@@ -25,9 +25,9 @@ public class WeaknessEternium extends Weakness
             boolean flag = false;
             float radius;
 
-            if (entity instanceof EntityPlayer)
+            if (entity instanceof PlayerEntity)
             {
-                PlayerEntity player = (EntityPlayer) entity;
+                PlayerEntity player = (PlayerEntity) entity;
 
                 for (ItemStack element : player.inventory.mainInventory)
                 {

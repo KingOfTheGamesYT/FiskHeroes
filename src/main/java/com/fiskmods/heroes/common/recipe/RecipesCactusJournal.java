@@ -36,7 +36,7 @@ public class RecipesCactusJournal implements IRecipe
             }
         }
 
-        return slots == 2 && journal != null && entry != null && !ItemCactusJournal.hasEntry(journal, entry.getItemDamage());
+        return slots == 2 && journal != null && entry != null && !ItemCactusJournal.hasEntry(journal, entry.getDamage());
     }
 
     @Override
@@ -68,7 +68,7 @@ public class RecipesCactusJournal implements IRecipe
             byte[] data = new byte[entries.length + 1];
 
             System.arraycopy(entries, 0, data, 0, entries.length);
-            data[entries.length] = (byte) entry.getItemDamage();
+            data[entries.length] = (byte) entry.getDamage();
 
             return ItemCactusJournal.setEntries(journal.copy(), data);
         }

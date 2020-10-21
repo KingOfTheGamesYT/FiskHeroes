@@ -221,7 +221,7 @@ public class ArrowType<T extends EntityTrickArrow> extends FiskRegistryEntry<Arr
             entity.setHero(iter != null ? iter.getName() : null);
             entity.setDamage(SHAttributes.ARROW_DAMAGE.get(shooter, entity.getDamage() * Rule.DMGMULT_ARROW.get(shooter, iter)));
 
-            if (shooter instanceof PlayerEntity && ((EntityPlayer) shooter).capabilities.isCreativeMode)
+            if (shooter instanceof PlayerEntity && ((PlayerEntity) shooter).capabilities.isCreativeMode)
             {
                 entity.canBePickedUp = 2;
             }
@@ -292,7 +292,7 @@ public class ArrowType<T extends EntityTrickArrow> extends FiskRegistryEntry<Arr
 
     public boolean matches(ItemStack stack)
     {
-        return stack.getItem() == ModItems.trickArrow && stack.getItemDamage() == getIdFromArrow(this);
+        return stack.getItem() == ModItems.trickArrow && stack.getDamage() == getIdFromArrow(this);
     }
 
     public boolean canDispense(IBlockSource blockSource, ItemStack itemstack)

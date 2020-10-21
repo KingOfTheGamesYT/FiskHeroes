@@ -47,7 +47,7 @@ public class ArmorTracker
     //
     // wornArmor.put(entity.getUniqueID(), curr = updateArmorIndex(entity));
     //
-    // if (curr != prev && !(entity instanceof EntityPlayer))
+    // if (curr != prev && !(entity instanceof PlayerEntity))
     // {
     // prevWornArmor.put(entity.getUniqueID(), curr);
     // }

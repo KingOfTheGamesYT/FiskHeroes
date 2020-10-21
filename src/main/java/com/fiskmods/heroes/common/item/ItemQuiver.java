@@ -54,16 +54,16 @@ public class ItemQuiver extends Item implements IEquipmentItem
     @Override
     public void onUpdate(ItemStack itemstack, World world, Entity entity, int slot, boolean currentlyHeld)
     {
-        if (entity instanceof EntityPlayer)
+        if (entity instanceof PlayerEntity)
         {
-            PlayerEntity player = (EntityPlayer) entity;
+            PlayerEntity player = (PlayerEntity) entity;
 
             if (!itemstack.hasTag())
             {
                 itemstack.setTag(new CompoundNBT());
             }
 
-            if (itemstack.getItemDamage() == 1 && player.ticksExisted % 8 == 0 && !player.world.isRemote && !(player.openContainer instanceof ContainerQuiver) && !currentlyHeld)
+            if (itemstack.getDamage() == 1 && player.ticksExisted % 8 == 0 && !player.world.isRemote && !(player.openContainer instanceof ContainerQuiver) && !currentlyHeld)
             {
                 InventoryQuiver quiver = new InventoryQuiver(player, slot);
 
@@ -106,7 +106,7 @@ public class ItemQuiver extends Item implements IEquipmentItem
     @Override
     public String getUnlocalizedName(ItemStack itemstack)
     {
-        int i = MathHelper.clamp_int(itemstack.getItemDamage(), 0, NAMES.length);
+        int i = MathHelper.clamp_int(itemstack.getDamage(), 0, NAMES.length);
         return "item." + NAMES[i] + "quiver";
     }
 

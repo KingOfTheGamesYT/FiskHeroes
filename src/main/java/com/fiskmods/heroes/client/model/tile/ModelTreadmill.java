@@ -458,9 +458,9 @@ public class ModelTreadmill extends ModelBase
         {
             World world = tileentity.getWorldObj();
 
-            if (world.getEntityByID(id) instanceof EntityPlayer)
+            if (world.getEntityByID(id) instanceof PlayerEntity)
             {
-                PlayerEntity player = (EntityPlayer) world.getEntityByID(id);
+                PlayerEntity player = (PlayerEntity) world.getEntityByID(id);
                 speed = ModelHelper.getLimbSwingSpeed(null, SHData.TREADMILL_LIMB_PROGRESS.interpolate(player) / 2, 0, 0, 0, 0, 0, player);
             }
         }

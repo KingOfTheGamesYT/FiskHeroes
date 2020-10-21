@@ -84,9 +84,9 @@
 //    {
 //        resetAngles();
 //
-//        if (entity instanceof EntityPlayer)
+//        if (entity instanceof PlayerEntity)
 //        {
-//            PlayerEntity player = (EntityPlayer) entity;
+//            PlayerEntity player = (PlayerEntity) entity;
 //            float f = wings * wings * 0.8F;
 //            float f1 = -0.261799F;
 //            float f2 = 1;

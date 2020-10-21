@@ -64,7 +64,7 @@ public class CommandSuit extends CommandBase
         }
         else
         {
-            EntityPlayerMP player = args.length >= 2 ? getPlayer(sender, args[1]) : getCommandSenderAsPlayer(sender);
+            PlayerEntityMP player = args.length >= 2 ? getPlayer(sender, args[1]) : getCommandSenderAsPlayer(sender);
             CompoundNBT compound = new CompoundNBT();
             String tagString = "{}";
 

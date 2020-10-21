@@ -27,9 +27,9 @@ public class AbilityArchery extends Ability
     {
         if (phase == Phase.END)
         {
-            if (entity.world.isRemote && FiskHeroes.proxy.isClientPlayer(entity) && entity instanceof EntityPlayer)
+            if (entity.world.isRemote && FiskHeroes.proxy.isClientPlayer(entity) && entity instanceof PlayerEntity)
             {
-                SHData.HORIZONTAL_BOW.set(entity, SHData.HORIZONTAL_BOW.get(entity) && ((EntityPlayer) entity).isUsingItem() || hero.isKeyPressed(entity, KEY_HORIZONTAL));
+                SHData.HORIZONTAL_BOW.set(entity, SHData.HORIZONTAL_BOW.get(entity) && ((PlayerEntity) entity).isUsingItem() || hero.isKeyPressed(entity, KEY_HORIZONTAL));
             }
         }
     }

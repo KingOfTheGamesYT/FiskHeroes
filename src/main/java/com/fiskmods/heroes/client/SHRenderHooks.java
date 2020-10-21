@@ -275,7 +275,7 @@ public class SHRenderHooks extends SHRenderHelper
 
                 if (heldItem.getItem().requiresMultipleRenderPasses())
                 {
-                    for (int i = 1; i < heldItem.getItem().getRenderPasses(heldItem.getItemDamage()); i++)
+                    for (int i = 1; i < heldItem.getItem().getRenderPasses(heldItem.getDamage()); i++)
                     {
                         applyColorFromItemStack(heldItem, i);
                         itemRenderer.renderItem(player, heldItem, i, SHEnumHelper.EQUIPPED_FIRST_PERSON_OFFHAND);
@@ -373,7 +373,7 @@ public class SHRenderHooks extends SHRenderHelper
     {
         if (itemstack.getItem().requiresMultipleRenderPasses())
         {
-            for (int i = 0; i < itemstack.getItem().getRenderPasses(itemstack.getItemDamage()); ++i)
+            for (int i = 0; i < itemstack.getItem().getRenderPasses(itemstack.getDamage()); ++i)
             {
                 applyColorFromItemStack(itemstack, i);
                 RenderManager.instance.itemRenderer.renderItem(entity, itemstack, i, ItemRenderType.EQUIPPED);

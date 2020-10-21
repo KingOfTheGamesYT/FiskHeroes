@@ -40,9 +40,9 @@ public enum RenderItemBlackCanarysTonfas implements IItemRenderer
         PlayerEntity player = null;
         float f = type == SHEnumHelper.EQUIPPED_FIRST_PERSON_OFFHAND || type == SHEnumHelper.EQUIPPED_OFFHAND ? -1 : 1;
 
-        if (data.length > 1 && data[1] instanceof EntityPlayer)
+        if (data.length > 1 && data[1] instanceof PlayerEntity)
         {
-            player = (EntityPlayer) data[1];
+            player = (PlayerEntity) data[1];
         }
 
         if (type == ItemRenderType.EQUIPPED_FIRST_PERSON || type == SHEnumHelper.EQUIPPED_FIRST_PERSON_OFFHAND)

@@ -37,7 +37,7 @@ public class RenderParticleCore extends TileEntitySpecialRenderer
             {
                 Minecraft mc = Minecraft.getInstance();
                 Tessellator tessellator = Tessellator.instance;
-                int passes = stack.getItem().requiresMultipleRenderPasses() ? stack.getItem().getRenderPasses(stack.getItemDamage()) : 1;
+                int passes = stack.getItem().requiresMultipleRenderPasses() ? stack.getItem().getRenderPasses(stack.getDamage()) : 1;
 
                 mc.getTextureManager().bindTexture(TextureMap.locationItemsTexture);
                 TextureUtil.func_152777_a(false, false, 1.0F);

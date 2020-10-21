@@ -165,9 +165,9 @@ public enum CommonEventHandler
     {
         Entity entity = event.entity;
 
-        if (entity instanceof EntityPlayer)
+        if (entity instanceof PlayerEntity)
         {
-            PlayerEntity player = (EntityPlayer) entity;
+            PlayerEntity player = (PlayerEntity) entity;
 
             if (!entity.world.isRemote)
             {
@@ -183,12 +183,12 @@ public enum CommonEventHandler
 
         if (player != null && !player.world.isRemote)
         {
-            if (event.target instanceof EntityPlayer)
+            if (event.target instanceof PlayerEntity)
             {
-                PlayerEntity beingTracked = (EntityPlayer) event.target;
+                PlayerEntity beingTracked = (PlayerEntity) event.target;
 
-                EntityPlayerMP playerMP = (EntityPlayerMP) player;
-                EntityPlayerMP beingTrackedMP = (EntityPlayerMP) beingTracked;
+                PlayerEntityMP playerMP = (EntityPlayerMP) player;
+                PlayerEntityMP beingTrackedMP = (EntityPlayerMP) beingTracked;
 
                 SHNetworkManager.wrapper.sendTo(new MessageBroadcastState(player), beingTrackedMP);
                 SHNetworkManager.wrapper.sendTo(new MessageBroadcastState(beingTracked), playerMP);
@@ -225,7 +225,7 @@ public enum CommonEventHandler
             event.entity.registerExtendedProperties(SHEntityData.IDENTIFIER, new SHEntityData());
         }
 
-        if (event.entity instanceof EntityPlayer)
+        if (event.entity instanceof PlayerEntity)
         {
             event.entity.registerExtendedProperties(SHPlayerData.IDENTIFIER, new SHPlayerData());
         }
@@ -667,9 +667,9 @@ public enum CommonEventHandler
             SHData.PREV_GLIDING.setWithoutNotify(player, SHData.GLIDING.get(player));
             SHData.PREV_SHADOWFORM.setWithoutNotify(player, SHData.SHADOWFORM.get(player));
 
-            if (player instanceof EntityPlayerMP)
+            if (player instanceof PlayerEntityMP)
             {
-                EntityPlayerMP entityplayermp = (EntityPlayerMP) player;
+                PlayerEntityMP entityplayermp = (EntityPlayerMP) player;
 
                 if (SHHelper.shouldOverrideReachDistance(player))
                 {
@@ -848,7 +848,7 @@ public enum CommonEventHandler
             double y = event.y + 0.5;
             double z = event.z + 0.5;
 
-            if (player instanceof EntityPlayerMP)
+            if (player instanceof PlayerEntityMP)
             {
                 double dx = x - player.posX;
                 double dy = y - player.boundingBox.minY;
@@ -922,9 +922,9 @@ public enum CommonEventHandler
 
         data.onUpdate();
 
-        if (entity instanceof EntityPlayer)
+        if (entity instanceof PlayerEntity)
         {
-            PlayerEntity player = (EntityPlayer) entity;
+            PlayerEntity player = (PlayerEntity) entity;
 
             if (!player.world.isRemote)
             {
@@ -983,9 +983,9 @@ public enum CommonEventHandler
         {
             entity.fallDistance = 0;
 
-            if (entity instanceof EntityPlayerMP)
+            if (entity instanceof PlayerEntityMP)
             {
-                EntityPlayerMP player = (EntityPlayerMP) entity;
+                PlayerEntityMP player = (EntityPlayerMP) entity;
 
                 if (entity.posY < 0)
                 {
@@ -1008,7 +1008,7 @@ public enum CommonEventHandler
                 }
             }
 
-            if (!(entity instanceof PlayerEntity && ((EntityPlayer) entity).capabilities.isFlying))
+            if (!(entity instanceof PlayerEntity && ((PlayerEntity) entity).capabilities.isFlying))
             {
                 entity.motionY += 0.075F;
             }
@@ -1069,13 +1069,13 @@ public enum CommonEventHandler
         {
             if (SHHelper.getHero(entity) == Heroes.deadpool_xmen && SHHelper.getHero(attacker) == Heroes.captain_america)
             {
-                ((EntityPlayer) attacker).triggerAchievement(SHAchievements.KILL_DEADPOOL);
+                ((PlayerEntity) attacker).triggerAchievement(SHAchievements.KILL_DEADPOOL);
             }
         }
 
-        if (entity instanceof EntityPlayer)
+        if (entity instanceof PlayerEntity)
         {
-            PlayerEntity player = (EntityPlayer) event.entity;
+            PlayerEntity player = (PlayerEntity) event.entity;
 
             if (event.source == DamageSource.fall || event.source == ModDamageSources.FLY_INTO_WALL)
             {
@@ -1417,9 +1417,9 @@ public enum CommonEventHandler
                 }
             }
         }
-        else if (stack.getItem() == ModItems.trickArrow && player instanceof EntityPlayerMP && !((EntityPlayerMP) player).func_147099_x().hasAchievementUnlocked(SHAchievements.ALL_ARROWS))
+        else if (stack.getItem() == ModItems.trickArrow && player instanceof PlayerEntityMP && !((EntityPlayerMP) player).func_147099_x().hasAchievementUnlocked(SHAchievements.ALL_ARROWS))
         {
-            ArrowType arrow = ArrowType.getArrowById(stack.getItemDamage());
+            ArrowType arrow = ArrowType.getArrowById(stack.getDamage());
 
             if (arrow != null)
             {

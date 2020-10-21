@@ -225,7 +225,7 @@ public class RenderDisplayMannequin extends RenderPlayer
                     }
                 }
 
-                TileEntitySkullRenderer.field_147536_b.func_152674_a(-0.5F, 0, -0.5F, 1, 180, helmet.getItemDamage(), profile);
+                TileEntitySkullRenderer.field_147536_b.func_152674_a(-0.5F, 0, -0.5F, 1, 180, helmet.getDamage(), profile);
             }
 
             GL11.glPopMatrix();
@@ -301,7 +301,7 @@ public class RenderDisplayMannequin extends RenderPlayer
 
             if (heldItem.getItem().requiresMultipleRenderPasses())
             {
-                for (int pass = 0; pass < heldItem.getItem().getRenderPasses(heldItem.getItemDamage()); ++pass)
+                for (int pass = 0; pass < heldItem.getItem().getRenderPasses(heldItem.getDamage()); ++pass)
                 {
                     int color = heldItem.getItem().getColorFromItemStack(heldItem, pass);
                     float r = (color >> 16 & 255) / 255;
@@ -366,7 +366,7 @@ public class RenderDisplayMannequin extends RenderPlayer
         GL11.glRotatef(180 - f1, 0, 1, 0);
         String s = EnumChatFormatting.getTextWithoutFormattingCodes(entity.getCommandSenderName());
 
-        if ((s.equals("Dinnerbone") || s.equals("Grumm")) && !(entity instanceof PlayerEntity && ((EntityPlayer) entity).getHideCape()))
+        if ((s.equals("Dinnerbone") || s.equals("Grumm")) && !(entity instanceof PlayerEntity && ((PlayerEntity) entity).getHideCape()))
         {
             GL11.glTranslatef(0, entity.height + 0.1F, 0);
             GL11.glRotatef(180, 0, 0, 1);

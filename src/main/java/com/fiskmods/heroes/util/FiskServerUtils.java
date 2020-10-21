@@ -164,9 +164,9 @@ public class FiskServerUtils
 
     public static boolean canEntityEdit(Entity entity, int x, int y, int z, int side, ItemStack heldItem)
     {
-        if (entity instanceof EntityPlayer)
+        if (entity instanceof PlayerEntity)
         {
-            return ((EntityPlayer) entity).canPlayerEdit(x, y, z, side, heldItem);
+            return ((PlayerEntity) entity).canPlayerEdit(x, y, z, side, heldItem);
         }
         else if (entity instanceof LivingEntity)
         {
@@ -283,7 +283,7 @@ public class FiskServerUtils
                         }
 
                         itemstack.stackSize -= j;
-                        EntityItem entityitem = new EntityItem(world, x + f, y + f1, z + f2, new ItemStack(itemstack.getItem(), j, itemstack.getItemDamage()));
+                        EntityItem entityitem = new EntityItem(world, x + f, y + f1, z + f2, new ItemStack(itemstack.getItem(), j, itemstack.getDamage()));
 
                         if (itemstack.hasTag())
                         {

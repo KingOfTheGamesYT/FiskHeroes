@@ -18,7 +18,7 @@ public class ItemJournalEntry extends Item
     @Override
     public void addInformation(ItemStack stack, PlayerEntity player, List list, boolean flag)
     {
-        list.add(StatCollector.translateToLocalFormatted(getUnlocalizedName() + ".desc", stack.getItemDamage()));
+        list.add(StatCollector.translateToLocalFormatted(getUnlocalizedName() + ".desc", stack.getDamage()));
     }
 
     @Override

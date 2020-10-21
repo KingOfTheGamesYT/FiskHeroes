@@ -35,7 +35,7 @@ public class CommandSeeMartians extends CommandBase
     {
         if (args.length > 0)
         {
-            EntityPlayerMP player = args.length >= 2 ? getPlayer(commandSender, args[1]) : getCommandSenderAsPlayer(commandSender);
+            PlayerEntityMP player = args.length >= 2 ? getPlayer(commandSender, args[1]) : getCommandSenderAsPlayer(commandSender);
             boolean flag = parseBoolean(commandSender, args[0]);
 
             SHData.PENETRATE_MARTIAN_INVIS.set(player, flag);

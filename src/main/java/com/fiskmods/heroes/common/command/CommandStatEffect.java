@@ -43,7 +43,7 @@ public class CommandStatEffect extends CommandBase
         }
         else
         {
-            EntityPlayerMP player = getPlayer(sender, args[0]);
+            PlayerEntityMP player = getPlayer(sender, args[0]);
 
             if (args[1].equals("clear"))
             {

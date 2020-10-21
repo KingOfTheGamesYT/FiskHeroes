@@ -241,7 +241,7 @@ public class SHHelper
         }
 
         ItemStack heldItem = entity.getHeldItem();
-        return entity instanceof PlayerEntity && heldItem != null && heldItem.getItem() == ModItems.captainAmericasShield && ((EntityPlayer) entity).isUsingItem() ? 2 : 0;
+        return entity instanceof PlayerEntity && heldItem != null && heldItem.getItem() == ModItems.captainAmericasShield && ((PlayerEntity) entity).isUsingItem() ? 2 : 0;
     }
 
     public static boolean canShieldBlock(LivingEntity entity, DamageSource source, int blockingType)
@@ -482,9 +482,9 @@ public class SHHelper
 
     public static void setInQuantumRealm(PlayerEntity player)
     {
-        if (player instanceof EntityPlayerMP && !player.world.isRemote)
+        if (player instanceof PlayerEntityMP && !player.world.isRemote)
         {
-            EntityPlayerMP playerMP = (EntityPlayerMP) player;
+            PlayerEntityMP playerMP = (EntityPlayerMP) player;
             DimensionalCoords coords = SHData.QR_ORIGIN.get(player);
 
             SHData.QR_ORIGIN.set(player, new DimensionalCoords(MathHelper.floor_double(player.posX), MathHelper.floor_double(player.boundingBox.minY), MathHelper.floor_double(player.posZ), player.dimension));

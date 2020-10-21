@@ -68,9 +68,9 @@ public class HeroEffectCape extends HeroEffect
         float f13 = capeLength / 32F;
         float f14 = texWidth / 64F;
 
-        if (entity instanceof EntityPlayer)
+        if (entity instanceof PlayerEntity)
         {
-            PlayerEntity player = (EntityPlayer) entity;
+            PlayerEntity player = (PlayerEntity) entity;
 
             if (!SHClientUtils.isInanimate(player))
             {

@@ -122,7 +122,7 @@ public class QuiverHelper
                 }
             }
 
-            setMetadata(quiver.getItemDamage());
+            setMetadata(quiver.getDamage());
             setEnchanted(quiver.isItemEnchanted());
         }
 

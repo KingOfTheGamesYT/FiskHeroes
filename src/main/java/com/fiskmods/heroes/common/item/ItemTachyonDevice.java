@@ -63,7 +63,7 @@ public class ItemTachyonDevice extends ItemUntextured implements ITachyonCharged
         {
             if (itemstack.getItem() instanceof ItemTachyonDevice && (!itemstack.hasTag() || !itemstack.getTag().hasKey("TachyonCharge", NBT.TAG_INT)))
             {
-                setCharge(itemstack, getMaxCharge(itemstack) - itemstack.getItemDamage());
+                setCharge(itemstack, getMaxCharge(itemstack) - itemstack.getDamage());
                 itemstack.setItemDamage(0);
             }
 

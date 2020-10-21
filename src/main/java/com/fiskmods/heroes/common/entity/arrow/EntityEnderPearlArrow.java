@@ -63,9 +63,9 @@ public class EntityEnderPearlArrow extends EntityTrickArrow
             }
             else
             {
-                if (getShooter() instanceof EntityPlayerMP)
+                if (getShooter() instanceof PlayerEntityMP)
                 {
-                    EntityPlayerMP player = (EntityPlayerMP) getShooter();
+                    PlayerEntityMP player = (EntityPlayerMP) getShooter();
 
                     if (player.playerNetServerHandler.func_147362_b().isChannelOpen() && player.world == world)
                     {

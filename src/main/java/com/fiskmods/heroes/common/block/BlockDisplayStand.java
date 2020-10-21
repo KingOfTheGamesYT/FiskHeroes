@@ -345,7 +345,7 @@ public class BlockDisplayStand extends BlockContainer
             }
             else if (heldItem != null && heldItem.getItem() == Items.dye)
             {
-                if (!world.isRemote && tile.setColor(15 - heldItem.getItemDamage()))
+                if (!world.isRemote && tile.setColor(15 - heldItem.getDamage()))
                 {
                     tile.markDirty();
 
@@ -550,7 +550,7 @@ public class BlockDisplayStand extends BlockContainer
 
             if (tile != null)
             {
-                tile.setColor(itemstack.getItemDamage());
+                tile.setColor(itemstack.getDamage());
                 GameProfile profile = null;
 
                 if (itemstack.hasTag())

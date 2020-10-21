@@ -29,9 +29,9 @@ public enum EffectTrail implements Effect
     {
         try
         {
-            if (anchor instanceof EntityPlayer)
+            if (anchor instanceof PlayerEntity)
             {
-                PlayerEntity player = (EntityPlayer) anchor;
+                PlayerEntity player = (PlayerEntity) anchor;
                 JsonTrail trail = SpeedsterHelper.getJsonTrail(player);
 
                 if (trail != null)
@@ -181,9 +181,9 @@ public enum EffectTrail implements Effect
     {
         PlayerEntity player;
 
-        if (anchor instanceof EntityPlayer)
+        if (anchor instanceof PlayerEntity)
         {
-            player = (EntityPlayer) anchor;
+            player = (PlayerEntity) anchor;
         }
         else
         {

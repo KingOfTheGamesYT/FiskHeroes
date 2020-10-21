@@ -36,7 +36,7 @@ public class ItemDisc extends Item implements IItemListEntry
     @Override
     public String getUnlocalizedName(ItemStack itemstack)
     {
-        int i = MathHelper.clamp_int(itemstack.getItemDamage(), 0, NAMES.length - 1);
+        int i = MathHelper.clamp_int(itemstack.getDamage(), 0, NAMES.length - 1);
         return super.getUnlocalizedName() + "_" + NAMES[i];
     }
 

@@ -28,7 +28,7 @@ public class ItemDisplayStand extends ItemBlock implements IItemListEntry
     public String getUnlocalizedName(ItemStack itemstack)
     {
         int i = ItemDye.field_150923_a.length - 1;
-        return super.getUnlocalizedName() + "." + ItemDye.field_150923_a[MathHelper.clamp_int(i - itemstack.getItemDamage(), 0, i)];
+        return super.getUnlocalizedName() + "." + ItemDye.field_150923_a[MathHelper.clamp_int(i - itemstack.getDamage(), 0, i)];
     }
 
     @Override

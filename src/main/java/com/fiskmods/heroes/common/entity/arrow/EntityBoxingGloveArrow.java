@@ -103,7 +103,7 @@ public class EntityBoxingGloveArrow extends EntityTrickArrow
                         {
                             handlePostDamageEffects((LivingEntity) mop.entityHit);
 
-                            if (shootingEntity instanceof EntityPlayerMP && mop.entityHit != shootingEntity && mop.entityHit instanceof EntityPlayer)
+                            if (shootingEntity instanceof PlayerEntityMP && mop.entityHit != shootingEntity && mop.entityHit instanceof PlayerEntity)
                             {
                                 ((EntityPlayerMP) shootingEntity).playerNetServerHandler.sendPacket(new S2BPacketChangeGameState(6, 0.0F));
                             }

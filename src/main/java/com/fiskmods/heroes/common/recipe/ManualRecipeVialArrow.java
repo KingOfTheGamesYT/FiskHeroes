@@ -20,7 +20,7 @@ public enum ManualRecipeVialArrow implements IManualRecipe
         stacks[1].setStackDisplayName(I18n.format("book.metahumanLog.potionAny"));
 
         ItemStack potion = stacks[1].copy();
-        potion.setItemDamage(potion.getItemDamage() | 16384);
+        potion.setItemDamage(potion.getDamage() | 16384);
 
         ItemTrickArrow.setItem(output, potion);
     }

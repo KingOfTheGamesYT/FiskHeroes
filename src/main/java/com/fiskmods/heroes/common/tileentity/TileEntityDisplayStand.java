@@ -282,9 +282,9 @@ public class TileEntityDisplayStand extends TileEntityContainer implements IMult
 
     public void setOwner(LivingEntity entity)
     {
-        if (entity instanceof EntityPlayer)
+        if (entity instanceof PlayerEntity)
         {
-            GameProfile profile = ((EntityPlayer) entity).getGameProfile();
+            GameProfile profile = ((PlayerEntity) entity).getGameProfile();
 
             if (profile != null && profile.getId() != null)
             {
@@ -304,9 +304,9 @@ public class TileEntityDisplayStand extends TileEntityContainer implements IMult
             return false;
         }
 
-        if (entity instanceof EntityPlayer)
+        if (entity instanceof PlayerEntity)
         {
-            GameProfile profile = ((EntityPlayer) entity).getGameProfile();
+            GameProfile profile = ((PlayerEntity) entity).getGameProfile();
 
             if (profile != null && profile.getId() != null)
             {

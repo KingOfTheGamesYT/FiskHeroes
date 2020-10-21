@@ -115,9 +115,9 @@ public class BlockSubatomicCore extends BlockContainer
     @Override
     public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity)
     {
-        if (entity instanceof EntityPlayerMP)
+        if (entity instanceof PlayerEntityMP)
         {
-            EntityPlayerMP player = (EntityPlayerMP) entity;
+            PlayerEntityMP player = (EntityPlayerMP) entity;
             CoreType type = CoreType.get(world.getBlockMetadata(x, y, z));
 
             switch (type)

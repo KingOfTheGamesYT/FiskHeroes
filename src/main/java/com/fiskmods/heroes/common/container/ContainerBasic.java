@@ -92,7 +92,7 @@ public class ContainerBasic<T extends TileEntity> extends Container
                 slot = (Slot) inventorySlots.get(id);
                 dstStack = slot.getStack();
 
-                if ((!check || slot.isItemValid(stackToMove)) && dstStack != null && dstStack.getItem() == stackToMove.getItem() && (!stackToMove.getHasSubtypes() || stackToMove.getItemDamage() == dstStack.getItemDamage()) && ItemStack.areItemStackTagsEqual(stackToMove, dstStack))
+                if ((!check || slot.isItemValid(stackToMove)) && dstStack != null && dstStack.getItem() == stackToMove.getItem() && (!stackToMove.getHasSubtypes() || stackToMove.getDamage() == dstStack.getDamage()) && ItemStack.areItemStackTagsEqual(stackToMove, dstStack))
                 {
                     int maxStackSize = Math.min(slot.inventory.getInventoryStackLimit(), Math.min(dstStack.getMaxStackSize(), slot.getSlotStackLimit()));
                     int combinedStackSize = dstStack.stackSize + stackToMove.stackSize;

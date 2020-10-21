@@ -940,9 +940,9 @@ public enum ClientEventHandler
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public void onRenderLivingSpecialsPre(RenderLivingEvent.Specials.Pre event)
     {
-        if (event.entity instanceof EntityPlayer)
+        if (event.entity instanceof PlayerEntity)
         {
-            PlayerEntity player = (EntityPlayer) event.entity;
+            PlayerEntity player = (PlayerEntity) event.entity;
             Hero hero = SHHelper.getHero(player);
 
             if (hero != null && hero.hasEnabledModifier(player, Ability.SHAPE_SHIFTING))

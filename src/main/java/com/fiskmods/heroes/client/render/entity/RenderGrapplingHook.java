@@ -32,9 +32,9 @@ public class RenderGrapplingHook extends Render
         Tessellator tessellator = Tessellator.instance;
         RenderManager renderManager = RenderManager.instance;
 
-        if (entity.getShooter() instanceof EntityPlayer)
+        if (entity.getShooter() instanceof PlayerEntity)
         {
-            PlayerEntity shooter = (EntityPlayer) entity.getShooter();
+            PlayerEntity shooter = (PlayerEntity) entity.getShooter();
 
             float f9 = shooter.getSwingProgress(partialTicks);
             float f10 = MathHelper.sin(MathHelper.sqrt_float(f9) * (float) Math.PI);

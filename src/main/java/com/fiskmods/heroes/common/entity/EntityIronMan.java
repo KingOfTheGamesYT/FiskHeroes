@@ -121,9 +121,9 @@ public class EntityIronMan extends EntityCreature implements IEntityOwnable, IDa
                 double dist = 0.25;
                 AxisAlignedBB aabb = boundingBox.expand(dist, dist, dist);
 
-                if (owner instanceof EntityPlayer)
+                if (owner instanceof PlayerEntity)
                 {
-                    PlayerEntity player = (EntityPlayer) owner;
+                    PlayerEntity player = (PlayerEntity) owner;
 
                     if (player.isEntityAlive() && FiskMath.containsAABB(aabb, player.boundingBox))
                     {

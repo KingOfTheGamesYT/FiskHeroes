@@ -45,7 +45,7 @@ public class ItemBoStaff extends ItemUntextured implements IPunchWeapon
             {
                 ItemStack stack = attacker.getHeldItem();
 
-                if (attacker instanceof PlayerEntity && stack != null && stack.getItem().onLeftClickEntity(stack, (EntityPlayer) attacker, entity))
+                if (attacker instanceof PlayerEntity && stack != null && stack.getItem().onLeftClickEntity(stack, (PlayerEntity) attacker, entity))
                 {
                     continue;
                 }
@@ -83,7 +83,7 @@ public class ItemBoStaff extends ItemUntextured implements IPunchWeapon
                                 entity.setFire(1);
                             }
 
-                            boolean success = entity.attackEntityFrom(attacker instanceof PlayerEntity ? DamageSource.causePlayerDamage((EntityPlayer) attacker) : DamageSource.causeMobDamage(attacker), attackDamage);
+                            boolean success = entity.attackEntityFrom(attacker instanceof PlayerEntity ? DamageSource.causePlayerDamage((PlayerEntity) attacker) : DamageSource.causeMobDamage(attacker), attackDamage);
 
                             if (success)
                             {
@@ -121,9 +121,9 @@ public class ItemBoStaff extends ItemUntextured implements IPunchWeapon
                                     attacker.setSprinting(false);
                                 }
 
-                                if (attacker instanceof EntityPlayer)
+                                if (attacker instanceof PlayerEntity)
                                 {
-                                    PlayerEntity player = (EntityPlayer) attacker;
+                                    PlayerEntity player = (PlayerEntity) attacker;
 
                                     if (crit)
                                     {

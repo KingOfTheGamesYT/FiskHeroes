@@ -149,7 +149,7 @@ public class ItemHeroArmor extends ItemArmor implements ISpecialArmor, ITachyonC
     @Override
     public ArmorProperties getProperties(LivingEntity player, ItemStack armor, DamageSource source, double damage, int slot)
     {
-        return new ArmorProperties(0, 1F / 100, armor.getMaxDamage() + 1 - armor.getItemDamage());
+        return new ArmorProperties(0, 1F / 100, armor.getMaxDamage() + 1 - armor.getDamage());
     }
 
     @Override
@@ -361,9 +361,9 @@ public class ItemHeroArmor extends ItemArmor implements ISpecialArmor, ITachyonC
             model.heldItemRight = heldItem != null ? 1 : 0;
             model.heldItemLeft = heldItem != null && heldItem.getItem() instanceof IDualItem ? 1 : 0;
 
-            if (entity instanceof EntityPlayer)
+            if (entity instanceof PlayerEntity)
             {
-                PlayerEntity player = (EntityPlayer) entity;
+                PlayerEntity player = (PlayerEntity) entity;
                 boolean usingItem = heldItem != null && player.getItemInUseDuration() > 0;
 
                 model.aimedBow = usingItem && heldItem.getItemUseAction() == EnumAction.bow;

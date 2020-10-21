@@ -85,7 +85,7 @@ public class Spell extends FiskRegistryEntry<Spell>
             {
                 SHNetworkManager.wrapper.sendToAllAround(new MessageTriggerSpell(player, this), target);
             }
-            else if (player instanceof EntityPlayerMP)
+            else if (player instanceof PlayerEntityMP)
             {
                 SHNetworkManager.wrapper.sendTo(new MessageTriggerSpell(player, this), (EntityPlayerMP) player);
             }

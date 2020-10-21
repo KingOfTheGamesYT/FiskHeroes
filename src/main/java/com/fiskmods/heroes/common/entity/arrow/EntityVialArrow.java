@@ -105,7 +105,7 @@ public class EntityVialArrow extends EntityTrickArrow
                         }
                     }
 
-                    world.playAuxSFX(2002, (int) Math.round(posX), (int) Math.round(posY), (int) Math.round(posZ), potionDamage.getItemDamage());
+                    world.playAuxSFX(2002, (int) Math.round(posX), (int) Math.round(posY), (int) Math.round(posZ), potionDamage.getDamage());
                 }
             }
         }

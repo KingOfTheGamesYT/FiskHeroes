@@ -83,7 +83,7 @@ public class EntityTrickArrow extends ArrowEntity implements IEntityAdditionalSp
         shootingEntity = shooter;
         horizontal = horizontalBow;
 
-        if (shooter instanceof EntityPlayer)
+        if (shooter instanceof PlayerEntity)
         {
             canBePickedUp = 1;
         }
@@ -163,7 +163,7 @@ public class EntityTrickArrow extends ArrowEntity implements IEntityAdditionalSp
 
     public EntityTrickArrow setArrowId(int id)
     {
-        if (arrowItem != null && arrowItem.getItemDamage() != id)
+        if (arrowItem != null && arrowItem.getDamage() != id)
         {
             arrowItem.setItemDamage(id);
             setArrowItem(arrowItem);
@@ -470,11 +470,11 @@ public class EntityTrickArrow extends ArrowEntity implements IEntityAdditionalSp
             mop = new MovingObjectPosition(target);
         }
 
-        if (mop != null && mop.entityHit instanceof EntityPlayer)
+        if (mop != null && mop.entityHit instanceof PlayerEntity)
         {
-            PlayerEntity player = (EntityPlayer) mop.entityHit;
+            PlayerEntity player = (PlayerEntity) mop.entityHit;
 
-            if (player.capabilities.disableDamage || shooter instanceof PlayerEntity && !((EntityPlayer) shooter).canAttackPlayer(player))
+            if (player.capabilities.disableDamage || shooter instanceof PlayerEntity && !((PlayerEntity) shooter).canAttackPlayer(player))
             {
                 mop = null;
             }
@@ -565,7 +565,7 @@ public class EntityTrickArrow extends ArrowEntity implements IEntityAdditionalSp
                     {
                         handlePostDamageEffects((LivingEntity) mop.entityHit);
 
-                        if (shootingEntity instanceof EntityPlayerMP && mop.entityHit != shootingEntity && mop.entityHit instanceof EntityPlayer)
+                        if (shootingEntity instanceof PlayerEntityMP && mop.entityHit != shootingEntity && mop.entityHit instanceof PlayerEntity)
                         {
                             ((EntityPlayerMP) shootingEntity).playerNetServerHandler.sendPacket(new S2BPacketChangeGameState(6, 0.0F));
                         }
@@ -750,7 +750,7 @@ public class EntityTrickArrow extends ArrowEntity implements IEntityAdditionalSp
         compound.setDouble("damage", getDamage());
         compound.setString("hero", getHero());
 
-        if ((shooterName == null || shooterName.length() == 0) && shootingEntity instanceof EntityPlayer)
+        if ((shooterName == null || shooterName.length() == 0) && shootingEntity instanceof PlayerEntity)
         {
             shooterName = shootingEntity.getCommandSenderName();
         }

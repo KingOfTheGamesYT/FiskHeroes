@@ -32,7 +32,7 @@ public class ItemTrickArrow extends ItemFood implements IItemListEntry
 
     public static ArrowType getType(ItemStack itemstack)
     {
-        return ArrowType.getArrowById(itemstack.getItemDamage());
+        return ArrowType.getArrowById(itemstack.getDamage());
     }
 
     public static ItemStack getItem(ItemStack itemstack)

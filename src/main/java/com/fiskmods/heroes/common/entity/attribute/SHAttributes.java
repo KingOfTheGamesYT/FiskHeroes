@@ -95,7 +95,7 @@ public class SHAttributes
                 {
                     if (itemstack != null)
                     {
-                        durability += (float) (itemstack.getMaxDamage() - itemstack.getItemDamage()) / itemstack.getMaxDamage();
+                        durability += (float) (itemstack.getMaxDamage() - itemstack.getDamage()) / itemstack.getMaxDamage();
                     }
                 }
 

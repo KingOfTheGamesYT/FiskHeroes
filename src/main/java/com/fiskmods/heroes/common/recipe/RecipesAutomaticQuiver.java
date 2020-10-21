@@ -22,7 +22,7 @@ public class RecipesAutomaticQuiver implements IRecipe
 
             if (stack != null)
             {
-                if (stack.getItem() == ModItems.quiver && stack.getItemDamage() == 0)
+                if (stack.getItem() == ModItems.quiver && stack.getDamage() == 0)
                 {
                     ++quiver;
                 }

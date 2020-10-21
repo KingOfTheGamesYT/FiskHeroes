@@ -105,7 +105,7 @@ public class ASMHooks
 
         for (Object element : world.playerEntities)
         {
-            PlayerEntity player = (EntityPlayer) element;
+            PlayerEntity player = (PlayerEntity) element;
 
             if (!player.capabilities.disableDamage && player.isEntityAlive())
             {
@@ -215,7 +215,7 @@ public class ASMHooks
             result *= getModifiedEntityScale(entity) / getStrengthScale(entity);
         }
 
-        if (entity instanceof PlayerEntity && SpeedsterHelper.canPlayerRun((EntityPlayer) entity))
+        if (entity instanceof PlayerEntity && SpeedsterHelper.canPlayerRun((PlayerEntity) entity))
         {
             result /= 2;
         }
@@ -239,9 +239,9 @@ public class ASMHooks
     {
         AxisAlignedBB aabb1 = block.getCollisionBoundingBoxFromPool(world, x, y, z);
 
-        if (aabb1 == null && block == Blocks.water && !(world.getBlock(x, y + 1, z) instanceof BlockLiquid) && entity instanceof EntityPlayer)
+        if (aabb1 == null && block == Blocks.water && !(world.getBlock(x, y + 1, z) instanceof BlockLiquid) && entity instanceof PlayerEntity)
         {
-            PlayerEntity player = (EntityPlayer) entity;
+            PlayerEntity player = (PlayerEntity) entity;
 
             if (SpeedsterHelper.canPlayerRunOnWater(player))
             {
@@ -265,9 +265,9 @@ public class ASMHooks
     {
         boolean flag = false;
 
-        if (entity instanceof EntityPlayer)
+        if (entity instanceof PlayerEntity)
         {
-            PlayerEntity player = (EntityPlayer) entity;
+            PlayerEntity player = (PlayerEntity) entity;
             Hero hero = SHHelper.getHero(player);
 
             if (hero != null && SHData.INTANGIBLE.get(player) && (hero.hasEnabledModifier(player, Ability.INTANGIBILITY) && Ability.INTANGIBILITY.isActive(player) || hero.hasEnabledModifier(player, Ability.ABSOLUTE_INTANGIBILITY) && Ability.ABSOLUTE_INTANGIBILITY.isActive(player)))
@@ -296,7 +296,7 @@ public class ASMHooks
         double d7 = offsetY;
         double d8 = offsetZ;
         AxisAlignedBB axisalignedbb = entity.boundingBox.copy();
-        boolean flag1 = entity.onGround && entity.isSneaking() && entity instanceof EntityPlayer;
+        boolean flag1 = entity.onGround && entity.isSneaking() && entity instanceof PlayerEntity;
 
         if (flag1)
         {
@@ -606,9 +606,9 @@ public class ASMHooks
 
     public static boolean moveEntityWithHeading(LivingEntity entity, float strafe, float forward)
     {
-        if (entity instanceof EntityPlayer)
+        if (entity instanceof PlayerEntity)
         {
-            PlayerEntity player = (EntityPlayer) entity;
+            PlayerEntity player = (PlayerEntity) entity;
 
             if (player.isClientWorld() && !player.isInWater() && !player.handleLavaMovement() && player.world.provider.dimensionId != ModDimensions.QUANTUM_REALM_ID && SHData.GLIDING.get(player))
             {

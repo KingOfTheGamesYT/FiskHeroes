@@ -32,9 +32,9 @@ public class AbilitySizeManipulation extends Ability
     @Override
     public void onUpdate(LivingEntity entity, Hero hero, Phase phase, boolean enabled)
     {
-        if (phase == Phase.END && enabled && entity instanceof EntityPlayer)
+        if (phase == Phase.END && enabled && entity instanceof PlayerEntity)
         {
-            PlayerEntity player = (EntityPlayer) entity;
+            PlayerEntity player = (PlayerEntity) entity;
             float scale = SHData.SCALE.get(player);
             float min = hero.getFuncFloat(player, FUNC_MIN_SIZE, 0.5F);
             float max = hero.getFuncFloat(player, FUNC_MAX_SIZE, 1);
@@ -151,7 +151,7 @@ public class AbilitySizeManipulation extends Ability
     {
         if (entity instanceof PlayerEntity && SHData.SCALE.get(entity) <= hero.getFuncFloat(entity, FUNC_MIN_SIZE, 0.5F))
         {
-            if (!(attacker instanceof EntityPlayer) && FiskServerUtils.isMeleeDamage(source) && rand.nextInt(3) != 0)
+            if (!(attacker instanceof PlayerEntity) && FiskServerUtils.isMeleeDamage(source) && rand.nextInt(3) != 0)
             {
                 if (entity.hurtResistantTime == 0)
                 {
@@ -172,7 +172,7 @@ public class AbilitySizeManipulation extends Ability
 
         if (entity instanceof PlayerEntity && FiskServerUtils.isMeleeDamage(source))
         {
-            PlayerEntity player = (EntityPlayer) entity;
+            PlayerEntity player = (PlayerEntity) entity;
             float scale = SHData.SCALE.get(entity);
 
             if (scale < 1)

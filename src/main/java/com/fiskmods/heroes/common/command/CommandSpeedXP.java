@@ -55,7 +55,7 @@ public class CommandSpeedXP extends CommandBase
                 amount *= -1;
             }
 
-            EntityPlayerMP player;
+            PlayerEntityMP player;
 
             if (args.length > 1)
             {

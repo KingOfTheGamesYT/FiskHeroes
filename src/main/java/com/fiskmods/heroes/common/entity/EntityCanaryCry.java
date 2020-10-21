@@ -93,7 +93,7 @@ public class EntityCanaryCry extends EntityThrowable
 
                                 if (block.getMaterial() == Material.glass)
                                 {
-                                    if (getThrower() instanceof PlayerEntity && !((EntityPlayer) getThrower()).canPlayerEdit(x, y, z, 0, null) || !Rule.GRIEF_CANARYCRY.get(world, x, z))
+                                    if (getThrower() instanceof PlayerEntity && !((PlayerEntity) getThrower()).canPlayerEdit(x, y, z, 0, null) || !Rule.GRIEF_CANARYCRY.get(world, x, z))
                                     {
                                         continue;
                                     }

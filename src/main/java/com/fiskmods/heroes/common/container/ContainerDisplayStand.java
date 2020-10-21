@@ -86,7 +86,7 @@ public class ContainerDisplayStand extends ContainerBasic<TileEntityDisplayStand
 
                     for (ItemStack equipment : equipmentStacks)
                     {
-                        if (itemstack1.getItem() == equipment.getItem() && (equipment.isItemStackDamageable() || itemstack1.getItemDamage() == equipment.getItemDamage()))
+                        if (itemstack1.getItem() == equipment.getItem() && (equipment.isItemStackDamageable() || itemstack1.getDamage() == equipment.getDamage()))
                         {
                             if (mergeItemStack(itemstack1, HAND, HAND + 1, false))
                             {

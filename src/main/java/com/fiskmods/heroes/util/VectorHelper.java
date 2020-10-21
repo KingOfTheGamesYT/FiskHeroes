@@ -134,7 +134,7 @@ public class VectorHelper
 
         if (entity instanceof PlayerEntity && entity.world.isRemote)
         {
-            yOffset -= ((EntityPlayer) entity).getDefaultEyeHeight();
+            yOffset -= ((PlayerEntity) entity).getDefaultEyeHeight();
 
             if (!FiskHeroes.proxy.isClientPlayer(entity))
             {

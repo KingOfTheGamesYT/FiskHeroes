@@ -349,9 +349,9 @@ public class SHData<T> extends FiskRegistryEntry<SHData<?>>
         {
             return setWithoutNotify(entity, value);
         }
-        else if (entity instanceof EntityPlayer)
+        else if (entity instanceof PlayerEntity)
         {
-            return set((EntityPlayer) entity, value);
+            return set((PlayerEntity) entity, value);
         }
 
         return false;
@@ -371,9 +371,9 @@ public class SHData<T> extends FiskRegistryEntry<SHData<?>>
                 ((IDataHolder) entity).set(this, value);
                 onValueChanged(entity, value);
             }
-            else if (entity instanceof EntityPlayer)
+            else if (entity instanceof PlayerEntity)
             {
-                SHPlayerData.getData((EntityPlayer) entity).putData(this, value);
+                SHPlayerData.getData((PlayerEntity) entity).putData(this, value);
                 onValueChanged(entity, value);
             }
 
@@ -394,9 +394,9 @@ public class SHData<T> extends FiskRegistryEntry<SHData<?>>
         {
             return incrWithoutNotify(entity, value);
         }
-        else if (entity instanceof EntityPlayer)
+        else if (entity instanceof PlayerEntity)
         {
-            return incr((EntityPlayer) entity, value);
+            return incr((PlayerEntity) entity, value);
         }
 
         return false;
@@ -442,9 +442,9 @@ public class SHData<T> extends FiskRegistryEntry<SHData<?>>
         {
             return clampWithoutNotify(entity, min, max);
         }
-        else if (entity instanceof EntityPlayer)
+        else if (entity instanceof PlayerEntity)
         {
-            return clamp((EntityPlayer) entity, min, max);
+            return clamp((PlayerEntity) entity, min, max);
         }
 
         return false;
@@ -487,9 +487,9 @@ public class SHData<T> extends FiskRegistryEntry<SHData<?>>
         {
             return ((IDataHolder) entity).get(this);
         }
-        else if (entity instanceof EntityPlayer)
+        else if (entity instanceof PlayerEntity)
         {
-            return SHPlayerData.getData((EntityPlayer) entity).getData(this);
+            return SHPlayerData.getData((PlayerEntity) entity).getData(this);
         }
 
         return getDefault();

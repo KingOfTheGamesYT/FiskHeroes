@@ -108,7 +108,7 @@ public class EntityThrownShield extends EntityThrowable implements IEntityAdditi
             nbt.setTag("ShieldItem", shieldItem.writeToNBT(new CompoundNBT()));
         }
 
-        if ((throwerName == null || throwerName.length() == 0) && thrower != null && thrower instanceof EntityPlayer)
+        if ((throwerName == null || throwerName.length() == 0) && thrower != null && thrower instanceof PlayerEntity)
         {
             throwerName = thrower.getCommandSenderName();
         }
@@ -144,9 +144,9 @@ public class EntityThrownShield extends EntityThrowable implements IEntityAdditi
             setDead();
         }
 
-        if (isEntityAlive() && getShouldReturn() && getThrower() instanceof EntityPlayer)
+        if (isEntityAlive() && getShouldReturn() && getThrower() instanceof PlayerEntity)
         {
-            PlayerEntity player = (EntityPlayer) getThrower();
+            PlayerEntity player = (PlayerEntity) getThrower();
             double dist = getDistanceToEntity(player);
 
             if (electroMagnetic && ticksExisted > 50)
@@ -393,9 +393,9 @@ public class EntityThrownShield extends EntityThrowable implements IEntityAdditi
     {
         if (!world.isRemote && shieldItem != null && !isDead)
         {
-            if (getThrower() instanceof EntityPlayer)
+            if (getThrower() instanceof PlayerEntity)
             {
-                PlayerEntity player = (EntityPlayer) getThrower();
+                PlayerEntity player = (PlayerEntity) getThrower();
 
                 if (getDistanceToEntity(player) <= 5)
                 {

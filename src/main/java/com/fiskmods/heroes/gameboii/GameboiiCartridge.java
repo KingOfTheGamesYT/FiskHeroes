@@ -33,6 +33,6 @@ public enum GameboiiCartridge
 
     public static GameboiiCartridge get(ItemStack stack)
     {
-        return stack != null ? get(stack.getItemDamage()) : null;
+        return stack != null ? get(stack.getDamage()) : null;
     }
 }

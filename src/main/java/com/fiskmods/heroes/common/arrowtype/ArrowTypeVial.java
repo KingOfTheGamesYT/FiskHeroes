@@ -39,10 +39,10 @@ public class ArrowTypeVial<T extends EntityTrickArrow> extends ArrowType<T>
 
         for (ItemStack potion : subItems)
         {
-            if (!ItemPotion.isSplash(potion.getItemDamage()))
+            if (!ItemPotion.isSplash(potion.getDamage()))
             {
                 ItemStack itemstack = makeItem();
-                potion.setItemDamage(potion.getItemDamage() & ~8192 | 16384);
+                potion.setItemDamage(potion.getDamage() & ~8192 | 16384);
 
                 ItemTrickArrow.setItem(itemstack, potion);
                 list.add(itemstack);
@@ -137,7 +137,7 @@ public class ArrowTypeVial<T extends EntityTrickArrow> extends ArrowType<T>
 
             if (potion != null)
             {
-                return Items.potionitem.getColorFromDamage(potion.getItemDamage());
+                return Items.potionitem.getColorFromDamage(potion.getDamage());
             }
         }
 

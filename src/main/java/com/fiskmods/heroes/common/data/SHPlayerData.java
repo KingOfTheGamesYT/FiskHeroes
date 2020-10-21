@@ -59,7 +59,7 @@ public class SHPlayerData implements IExtendedEntityProperties
                 arrowsNeedUpdate = false;
             }
 
-            if (player instanceof EntityPlayerMP && !SHData.SPODERMEN.get(player) && ((EntityPlayerMP) player).func_147099_x().hasAchievementUnlocked(SHAchievements.SPODERMEN))
+            if (player instanceof PlayerEntityMP && !SHData.SPODERMEN.get(player) && ((EntityPlayerMP) player).func_147099_x().hasAchievementUnlocked(SHAchievements.SPODERMEN))
             {
                 SHData.SPODERMEN.set(player, true);
             }
@@ -216,9 +216,9 @@ public class SHPlayerData implements IExtendedEntityProperties
     @Override
     public void init(Entity entity, World world)
     {
-        if (entity instanceof EntityPlayer)
+        if (entity instanceof PlayerEntity)
         {
-            player = (EntityPlayer) entity;
+            player = (PlayerEntity) entity;
 
             if (player.getAttributeMap().getAttributeInstanceByName(SHAttributes.STEP_HEIGHT.getAttributeUnlocalizedName()) == null)
             {

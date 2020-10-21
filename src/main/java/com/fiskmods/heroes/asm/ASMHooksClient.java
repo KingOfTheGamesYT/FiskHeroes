@@ -99,7 +99,7 @@ public class ASMHooksClient
         return dist / ASMHooks.getModifiedEntityScale(entity);
     }
 
-    public static float getScaledWalkSpeedForFOV(PlayerCapabilities capabilities, EntityPlayerSP player)
+    public static float getScaledWalkSpeedForFOV(PlayerCapabilities capabilities, PlayerEntitySP player)
     {
         return capabilities.getWalkSpeed() * ASMHooks.getStrengthScale(player);
     }

@@ -63,7 +63,7 @@ public abstract class AbstractMessage<REQ extends AbstractMessage> implements IM
 
     public PlayerEntity getPlayer(World world, int id) throws MessageException
     {
-        return getEntity(world, EntityPlayer.class, id);
+        return getEntity(world, PlayerEntity.class, id);
     }
 
     public PlayerEntity getPlayer(int id) throws MessageException

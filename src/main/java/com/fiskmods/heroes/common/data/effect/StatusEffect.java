@@ -104,7 +104,7 @@ public class StatusEffect implements Comparable<StatusEffect>
                 }
             }
 
-            if (entity instanceof EntityPlayer)
+            if (entity instanceof PlayerEntity)
             {
                 boolean flag = true;
 
@@ -119,7 +119,7 @@ public class StatusEffect implements Comparable<StatusEffect>
 
                 if (flag)
                 {
-                    ((EntityPlayer) entity).triggerAchievement(SHAchievements.ALL_DEBUFFS);
+                    ((PlayerEntity) entity).triggerAchievement(SHAchievements.ALL_DEBUFFS);
                 }
             }
 

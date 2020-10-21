@@ -129,7 +129,7 @@ public class EntityProjectile extends EntityTrickArrow
                     {
                         handlePostDamageEffects((LivingEntity) mop.entityHit);
 
-                        if (shootingEntity instanceof EntityPlayerMP && mop.entityHit != shootingEntity && mop.entityHit instanceof EntityPlayer)
+                        if (shootingEntity instanceof PlayerEntityMP && mop.entityHit != shootingEntity && mop.entityHit instanceof PlayerEntity)
                         {
                             ((EntityPlayerMP) shootingEntity).playerNetServerHandler.sendPacket(new S2BPacketChangeGameState(6, 0.0F));
                         }
@@ -199,7 +199,7 @@ public class EntityProjectile extends EntityTrickArrow
         compound.setByte("inGround", (byte) (inGround ? 1 : 0));
         compound.setDouble("damage", getDamage());
 
-        if ((shooterName == null || shooterName.length() == 0) && shootingEntity instanceof EntityPlayer)
+        if ((shooterName == null || shooterName.length() == 0) && shootingEntity instanceof PlayerEntity)
         {
             shooterName = shootingEntity.getCommandSenderName();
         }

@@ -51,9 +51,9 @@ public enum RenderItemCompoundBow implements IItemRenderer
 
         if (data.length > 1 && data[1] instanceof Entity)
         {
-            if (data[1] instanceof EntityPlayer)
+            if (data[1] instanceof PlayerEntity)
             {
-                player = (EntityPlayer) data[1];
+                player = (PlayerEntity) data[1];
 
                 if (player.isUsingItem())
                 {

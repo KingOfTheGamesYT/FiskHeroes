@@ -16,7 +16,7 @@ public class FiskPredicates
     public static final Map<Class, Map<String, Predicate>> METHODS = new HashMap<>();
     public static final String AND = " && ";
 
-    public static final Predicate<Entity> IS_FLYING = t -> t instanceof PlayerEntity && ((EntityPlayer) t).capabilities.isFlying;
+    public static final Predicate<Entity> IS_FLYING = t -> t instanceof PlayerEntity && ((PlayerEntity) t).capabilities.isFlying;
 
     public static <T> Predicate<T> forInput(Class<T> clazz, String input)
     {

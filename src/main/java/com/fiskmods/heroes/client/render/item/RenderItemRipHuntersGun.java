@@ -43,9 +43,9 @@ public enum RenderItemRipHuntersGun implements IItemRenderer
     {
         PlayerEntity player = null;
 
-        if (data.length > 1 && data[1] instanceof EntityPlayer)
+        if (data.length > 1 && data[1] instanceof PlayerEntity)
         {
-            player = (EntityPlayer) data[1];
+            player = (PlayerEntity) data[1];
         }
 
         if (type == ItemRenderType.EQUIPPED_FIRST_PERSON)

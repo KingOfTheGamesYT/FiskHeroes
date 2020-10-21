@@ -174,7 +174,7 @@ public class InventoryQuiver implements IInventory
                 CrashReport crash = CrashReport.makeCrashReport(throwable, "Adding item to quiver");
                 CrashReportCategory category = crash.makeCategory("Item being added");
                 category.addCrashSection("Item ID", Item.getIdFromItem(itemstack.getItem()));
-                category.addCrashSection("Item data", itemstack.getItemDamage());
+                category.addCrashSection("Item data", itemstack.getDamage());
                 category.addCrashSectionCallable("Item name", () -> itemstack.getDisplayName());
                 throw new ReportedException(crash);
             }
@@ -233,7 +233,7 @@ public class InventoryQuiver implements IInventory
 
         if (itemstacks[slot] == null)
         {
-            itemstacks[slot] = new ItemStack(item, 0, itemstack.getItemDamage());
+            itemstacks[slot] = new ItemStack(item, 0, itemstack.getDamage());
 
             if (itemstack.hasTag())
             {
@@ -268,7 +268,7 @@ public class InventoryQuiver implements IInventory
     {
         for (int i = 0; i < itemstacks.length; ++i)
         {
-            if (itemstacks[i] != null && itemstacks[i].getItem() == itemstack.getItem() && itemstacks[i].isStackable() && itemstacks[i].stackSize < itemstacks[i].getMaxStackSize() && itemstacks[i].stackSize < getInventoryStackLimit() && (!itemstacks[i].getHasSubtypes() || itemstacks[i].getItemDamage() == itemstack.getItemDamage()) && ItemStack.areItemStackTagsEqual(itemstacks[i], itemstack))
+            if (itemstacks[i] != null && itemstacks[i].getItem() == itemstack.getItem() && itemstacks[i].isStackable() && itemstacks[i].stackSize < itemstacks[i].getMaxStackSize() && itemstacks[i].stackSize < getInventoryStackLimit() && (!itemstacks[i].getHasSubtypes() || itemstacks[i].getDamage() == itemstack.getDamage()) && ItemStack.areItemStackTagsEqual(itemstacks[i], itemstack))
             {
                 return i;
             }

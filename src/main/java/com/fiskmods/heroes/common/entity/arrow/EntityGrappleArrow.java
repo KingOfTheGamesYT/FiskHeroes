@@ -72,7 +72,7 @@ public class EntityGrappleArrow extends EntityTrickArrow
             {
                 handlePostDamageEffects((LivingEntity) mop.entityHit);
 
-                if (shootingEntity instanceof EntityPlayerMP && mop.entityHit != shootingEntity && mop.entityHit instanceof EntityPlayer)
+                if (shootingEntity instanceof PlayerEntityMP && mop.entityHit != shootingEntity && mop.entityHit instanceof PlayerEntity)
                 {
                     ((EntityPlayerMP) shootingEntity).playerNetServerHandler.sendPacket(new S2BPacketChangeGameState(6, 0.0F));
                 }
@@ -92,9 +92,9 @@ public class EntityGrappleArrow extends EntityTrickArrow
     {
         super.onUpdate();
 
-        // if (getShooter() instanceof EntityPlayer)
+        // if (getShooter() instanceof PlayerEntity)
         // {
-        // PlayerEntity shooter = (EntityPlayer) getShooter();
+        // PlayerEntity shooter = (PlayerEntity) getShooter();
         // double side = 0.3D;
         // double forward = 0.3D;
         // double d = MathHelper.sin(shooter.renderYawOffset * (float) Math.PI / 180);
@@ -143,9 +143,9 @@ public class EntityGrappleArrow extends EntityTrickArrow
     {
         super.inEntityUpdate(living);
 
-        if (getShooter() instanceof EntityPlayer)
+        if (getShooter() instanceof PlayerEntity)
         {
-            PlayerEntity player = (EntityPlayer) getShooter();
+            PlayerEntity player = (PlayerEntity) getShooter();
 
             if (!getIsCableCut())
             {

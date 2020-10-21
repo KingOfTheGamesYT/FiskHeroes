@@ -26,9 +26,9 @@ public class AbilityGliding extends Ability
         {
             boolean flag = shouldDisable(entity);
 
-            if (entity.world.isRemote && FiskHeroes.proxy.isClientPlayer(entity) && entity instanceof EntityPlayerSP)
+            if (entity.world.isRemote && FiskHeroes.proxy.isClientPlayer(entity) && entity instanceof PlayerEntitySP)
             {
-                EntityPlayerSP player = (EntityPlayerSP) entity;
+                PlayerEntitySP player = (EntityPlayerSP) entity;
 
                 if (flag)
                 {
@@ -53,9 +53,9 @@ public class AbilityGliding extends Ability
 
     public boolean shouldDisable(LivingEntity entity)
     {
-        if (entity instanceof EntityPlayer)
+        if (entity instanceof PlayerEntity)
         {
-            PlayerEntity player = (EntityPlayer) entity;
+            PlayerEntity player = (PlayerEntity) entity;
 
             if (player.capabilities.isFlying)
             {
