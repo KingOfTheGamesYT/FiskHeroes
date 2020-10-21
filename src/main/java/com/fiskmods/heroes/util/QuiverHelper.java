@@ -15,7 +15,7 @@ import com.fiskmods.heroes.util.NBTHelper.INBTSavedObject;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTBase.NBTPrimitive;
@@ -25,7 +25,7 @@ public class QuiverHelper
 {
     public static byte locateEquippedQuiver(EntityPlayer player)
     {
-        InventoryPlayer inventory = player.inventory;
+        PlayerInventory inventory = player.inventory;
         byte slot = -1;
 
         for (byte b = 0; b < inventory.mainInventory.length; ++b)

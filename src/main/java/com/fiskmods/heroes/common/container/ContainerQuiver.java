@@ -4,7 +4,7 @@ import com.fiskmods.heroes.common.item.ItemQuiver;
 import com.fiskmods.heroes.common.item.ModItems;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
@@ -12,7 +12,7 @@ public class ContainerQuiver extends ContainerBasic
 {
     public final InventoryQuiver inventory;
 
-    public ContainerQuiver(InventoryPlayer inventoryPlayer, InventoryQuiver inventoryQuiver)
+    public ContainerQuiver(PlayerInventory inventoryPlayer, InventoryQuiver inventoryQuiver)
     {
         super(inventoryPlayer.player.worldObj);
         inventory = inventoryQuiver;
@@ -33,7 +33,7 @@ public class ContainerQuiver extends ContainerBasic
     }
 
     @Override
-    public Slot makeInventorySlot(InventoryPlayer inventoryPlayer, int index, int x, int y)
+    public Slot makeInventorySlot(PlayerInventory inventoryPlayer, int index, int x, int y)
     {
         if (inventory.quiverItem == null && index == inventory.itemSlot)
         {

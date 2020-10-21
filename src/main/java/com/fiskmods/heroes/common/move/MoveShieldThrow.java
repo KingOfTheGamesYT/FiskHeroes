@@ -7,7 +7,7 @@ import com.fiskmods.heroes.common.item.ModItems;
 import com.google.common.collect.ImmutableMap;
 
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MovingObjectPosition;
 
@@ -58,7 +58,7 @@ public class MoveShieldThrow extends Move
     }
 
     @Override
-    public boolean canPickupItem(InventoryPlayer inventory, ItemStack stack, MoveSet set)
+    public boolean canPickupItem(PlayerInventory inventory, ItemStack stack, MoveSet set)
     {
         return stack.getItem() == ModItems.captainAmericasShield;
     }

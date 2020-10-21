@@ -11,7 +11,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
 
 @SideOnly(Side.CLIENT)
@@ -19,7 +19,7 @@ public class GuiDisplayStand extends GuiContainer
 {
     private static final ResourceLocation guiTextures = new ResourceLocation(FiskHeroes.MODID, "textures/gui/container/display_stand.png");
 
-    public GuiDisplayStand(InventoryPlayer inventoryPlayer, TileEntityDisplayStand tile)
+    public GuiDisplayStand(PlayerInventory inventoryPlayer, TileEntityDisplayStand tile)
     {
         super(new ContainerDisplayStand(inventoryPlayer, tile));
     }

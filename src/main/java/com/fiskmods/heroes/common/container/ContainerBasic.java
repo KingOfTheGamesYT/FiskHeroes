@@ -1,7 +1,7 @@
 package com.fiskmods.heroes.common.container;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
@@ -26,7 +26,7 @@ public class ContainerBasic<T extends TileEntity> extends Container
         worldObj = world;
     }
 
-    public void addPlayerInventory(InventoryPlayer inventoryPlayer, int yOffset)
+    public void addPlayerInventory(PlayerInventory inventoryPlayer, int yOffset)
     {
         int i;
         int j;
@@ -45,7 +45,7 @@ public class ContainerBasic<T extends TileEntity> extends Container
         }
     }
 
-    public Slot makeInventorySlot(InventoryPlayer inventoryPlayer, int index, int x, int y)
+    public Slot makeInventorySlot(PlayerInventory inventoryPlayer, int index, int x, int y)
     {
         return new Slot(inventoryPlayer, index, x, y);
     }

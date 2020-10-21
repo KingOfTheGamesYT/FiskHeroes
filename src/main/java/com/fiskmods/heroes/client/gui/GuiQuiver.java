@@ -1,5 +1,6 @@
 package com.fiskmods.heroes.client.gui;
 
+import net.minecraft.entity.player.PlayerInventory;
 import org.lwjgl.opengl.GL11;
 
 import com.fiskmods.heroes.FiskHeroes;
@@ -10,7 +11,6 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
@@ -21,7 +21,7 @@ public class GuiQuiver extends GuiContainer
     private static final ResourceLocation guiTextures = new ResourceLocation(FiskHeroes.MODID, "textures/gui/container/quiver.png");
     public ItemStack quiverItem;
 
-    public GuiQuiver(InventoryPlayer inventoryPlayer, InventoryQuiver inventoryQuiver)
+    public GuiQuiver(PlayerInventory inventoryPlayer, InventoryQuiver inventoryQuiver)
     {
         super(new ContainerQuiver(inventoryPlayer, inventoryQuiver));
         ySize = 133;

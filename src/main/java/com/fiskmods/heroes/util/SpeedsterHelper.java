@@ -21,7 +21,7 @@ import com.fiskmods.heroes.common.tileentity.TileEntityTreadmill;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
@@ -239,7 +239,7 @@ public class SpeedsterHelper
 
     public static byte locateEquippedTachyonDevice(EntityPlayer player)
     {
-        InventoryPlayer inventory = player.inventory;
+        PlayerInventory inventory = player.inventory;
         byte slot = -1;
 
         for (byte b = 0; b < inventory.mainInventory.length; ++b)

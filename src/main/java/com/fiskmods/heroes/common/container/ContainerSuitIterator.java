@@ -13,7 +13,7 @@ import com.fiskmods.heroes.util.SHHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.IInvBasic;
 import net.minecraft.inventory.IInventory;
@@ -32,7 +32,7 @@ public class ContainerSuitIterator extends ContainerBasic implements ITileContai
 
     public int iterationId = -1;
 
-    public ContainerSuitIterator(InventoryPlayer inventory, World world, int x, int y, int z)
+    public ContainerSuitIterator(PlayerInventory inventory, World world, int x, int y, int z)
     {
         super(world);
         posX = x;

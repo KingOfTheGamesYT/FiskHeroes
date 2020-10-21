@@ -3,6 +3,7 @@ package com.fiskmods.heroes.client.gui;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.entity.player.PlayerInventory;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
@@ -23,7 +24,7 @@ import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.item.ItemStack;
@@ -39,7 +40,7 @@ public class GuiSuitIterator extends GuiContainer implements IGuiStringList, ICr
     private final List<HeroIteration> iterations = new ArrayList<>();
     private GuiStringList iterationList;
 
-    public GuiSuitIterator(InventoryPlayer inventory, World world, int x, int y, int z)
+    public GuiSuitIterator(PlayerInventory inventory, World world, int x, int y, int z)
     {
         super(new ContainerSuitIterator(inventory, world, x, y, z));
         container = (ContainerSuitIterator) inventorySlots;

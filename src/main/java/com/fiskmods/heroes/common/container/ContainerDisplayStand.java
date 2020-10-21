@@ -10,14 +10,14 @@ import com.fiskmods.heroes.util.SHHelper;
 import com.google.common.base.Predicate;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
 public class ContainerDisplayStand extends ContainerBasic<TileEntityDisplayStand>
 {
-    public ContainerDisplayStand(InventoryPlayer inventoryPlayer, TileEntityDisplayStand tile)
+    public ContainerDisplayStand(PlayerInventory inventoryPlayer, TileEntityDisplayStand tile)
     {
         super(tile);
 

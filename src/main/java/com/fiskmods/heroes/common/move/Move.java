@@ -17,7 +17,7 @@ import cpw.mods.fml.common.gameevent.TickEvent.Phase;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MovingObjectPosition;
@@ -112,7 +112,7 @@ public abstract class Move extends FiskRegistryEntry<Move> implements Comparable
 
     public abstract boolean onActivated(EntityLivingBase entity, Hero hero, MovingObjectPosition mop, MoveActivation activation, ImmutableMap<String, Number> modifiers, float focus);
 
-    public boolean canPickupItem(InventoryPlayer inventory, ItemStack stack, MoveSet set)
+    public boolean canPickupItem(PlayerInventory inventory, ItemStack stack, MoveSet set)
     {
         return false;
     }

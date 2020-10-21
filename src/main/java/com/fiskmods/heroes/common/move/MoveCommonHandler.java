@@ -19,7 +19,7 @@
 //import net.minecraft.entity.Entity;
 //import net.minecraft.entity.EntityLivingBase;
 //import net.minecraft.entity.player.EntityPlayer;
-//import net.minecraft.entity.player.InventoryPlayer;
+//import net.minecraft.entity.player.PlayerInventory;
 //import net.minecraft.init.Blocks;
 //import net.minecraft.init.Items;
 //import net.minecraft.item.Item;
@@ -105,7 +105,7 @@
 //        }
 //    }
 //
-//    private boolean pickupItem(InventoryPlayer inventory, ItemStack pickup, MoveEntry e)
+//    private boolean pickupItem(PlayerInventory inventory, ItemStack pickup, MoveEntry e)
 //    {
 //        if (pickup != null && pickup.stackSize != 0 && pickup.getItem() != null)
 //        {
@@ -185,7 +185,7 @@
 //        }
 //    }
 //
-//    private int storePartialItemStack(InventoryPlayer inventory, ItemStack pickup)
+//    private int storePartialItemStack(PlayerInventory inventory, ItemStack pickup)
 //    {
 //        Item item = pickup.getItem();
 //        int count = pickup.stackSize;
@@ -264,7 +264,7 @@
 //        }
 //    }
 //
-//    private int getFirstEmptyStack(InventoryPlayer inventory, ItemStack pickup)
+//    private int getFirstEmptyStack(PlayerInventory inventory, ItemStack pickup)
 //    {
 //        for (int i = 9; i < inventory.mainInventory.length; ++i)
 //        {
@@ -279,7 +279,7 @@
 //        return -1;
 //    }
 //
-//    private boolean canMergeStacks(InventoryPlayer inventory, ItemStack stack, ItemStack pickup)
+//    private boolean canMergeStacks(PlayerInventory inventory, ItemStack stack, ItemStack pickup)
 //    {
 //        return stack.getItem() == pickup.getItem() && stack.isStackable() && stack.stackSize < stack.getMaxStackSize() && stack.stackSize < inventory.getInventoryStackLimit() && (!stack.getHasSubtypes() || stack.getItemDamage() == pickup.getItemDamage()) && ItemStack.areItemStackTagsEqual(stack, pickup);
 //    }
