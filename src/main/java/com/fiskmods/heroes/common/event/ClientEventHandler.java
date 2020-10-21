@@ -441,7 +441,7 @@ public enum ClientEventHandler
             event.newfov += 0.5F;
         }
 
-        if (SHData.GLIDING.get(player) && mc.gameSettings.keyBindForward.getIsKeyPressed() && SHHelper.hasEnabledModifier(player, Ability.GLIDING_FLIGHT))
+        if (SHData.GLIDING.get(player) && mc.gameSettings.keyBindForward.isPressed() && SHHelper.hasEnabledModifier(player, Ability.GLIDING_FLIGHT))
         {
             event.newfov += 0.2F;
         }

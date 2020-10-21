@@ -190,7 +190,7 @@ public class HUDElementTreadmill extends HUDElement
     {
         if (SpeedsterHelper.isOnTreadmill(mc.thePlayer))
         {
-            if (mc.gameSettings.keyBindLeft.getIsKeyPressed())
+            if (mc.gameSettings.keyBindLeft.isPressed())
             {
                 if (!keyLeftPressed)
                 {
@@ -203,7 +203,7 @@ public class HUDElementTreadmill extends HUDElement
                 keyLeftPressed = false;
             }
 
-            if (mc.gameSettings.keyBindRight.getIsKeyPressed())
+            if (mc.gameSettings.keyBindRight.isPressed())
             {
                 if (!keyRightPressed)
                 {

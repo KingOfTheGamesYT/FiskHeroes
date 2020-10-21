@@ -60,7 +60,7 @@ public class KeySequence
                 {
                     KeyBinding keyBind = key.get();
 
-                    if (keyBind.getIsKeyPressed())
+                    if (keyBind.isPressed())
                     {
                         if (!keyPressed[key.ordinal()])
                         {

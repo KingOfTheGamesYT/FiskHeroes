@@ -28,7 +28,7 @@ public enum SHKeyHandler
 
             for (int i = 0; i < SHKeyBinds.ABILITY_KEYS.size(); ++i)
             {
-                if (SHKeyBinds.ABILITY_KEYS.get(i).getIsKeyPressed())
+                if (SHKeyBinds.ABILITY_KEYS.get(i).isPressed())
                 {
                     pressed |= 1 << i;
                 }
@@ -53,7 +53,7 @@ public enum SHKeyHandler
 
             for (int i = 0; i < SHKeyBinds.ABILITY_KEYS.size(); ++i)
             {
-                if (SHKeyBinds.ABILITY_KEYS.get(i).getIsKeyPressed())
+                if (SHKeyBinds.ABILITY_KEYS.get(i).isPressed())
                 {
                     if (++timePressed[i] == 10)
                     {

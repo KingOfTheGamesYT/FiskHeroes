@@ -38,7 +38,7 @@ public abstract class KeyPressBase extends InteractionBase
     public boolean clientRequirements(EntityPlayer player, InteractionType type, int x, int y, int z)
     {
         KeyBinding key;
-        return (key = getKey(player, SHHelper.getHero(player))) != null && key.getIsKeyPressed();
+        return (key = getKey(player, SHHelper.getHero(player))) != null && key.isPressed();
     }
 
     @SideOnly(Side.CLIENT)

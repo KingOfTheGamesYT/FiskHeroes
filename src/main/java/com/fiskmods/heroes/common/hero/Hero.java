@@ -241,7 +241,7 @@ public abstract class Hero implements Comparable<Hero>, Predicate<Entity>, INBTS
     public final boolean isKeyPressed(EntityLivingBase entity, String key)
     {
         KeyBinding keybind = getKey(entity, key);
-        return keybind != null && keybind.getIsKeyPressed();
+        return keybind != null && keybind.isPressed();
     }
 
     public String getVersion()

@@ -14,9 +14,9 @@ public class KeyBindingHero extends SHKeyBinding
     }
 
     @Override
-    public boolean getIsKeyPressed()
+    public boolean isPressed()
     {
-        return super.getIsKeyPressed() && !ClientEventHandler.blockKeyPresses;
+        return super.isPressed() && !ClientEventHandler.blockKeyPresses;
     }
 
     @Override

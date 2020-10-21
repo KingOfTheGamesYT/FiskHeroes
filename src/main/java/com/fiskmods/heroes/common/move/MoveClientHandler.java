@@ -102,11 +102,11 @@
 //                {
 //                    moveEntry = MoveCommonHandler.getMove(mc.thePlayer);
 //
-//                    if (mc.gameSettings.keyBindAttack.getIsKeyPressed())
+//                    if (mc.gameSettings.keyBindAttack.isPressed())
 //                    {
 //                        activate(MouseAction.LEFT_CLICK);
 //                    }
-//                    else if (mc.gameSettings.keyBindUseItem.getIsKeyPressed())
+//                    else if (mc.gameSettings.keyBindUseItem.isPressed())
 //                    {
 //                        activate(MouseAction.RIGHT_CLICK);
 //                    }
