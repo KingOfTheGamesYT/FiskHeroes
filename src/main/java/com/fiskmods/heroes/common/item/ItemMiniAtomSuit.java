@@ -11,7 +11,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants.NBT;
 
@@ -24,26 +24,26 @@ public class ItemMiniAtomSuit extends ItemFlashRing
     {
 //        if (!world.isRemote)
         {
-            if (!itemstack.hasTagCompound())
+            if (!itemstack.hasTag())
             {
                 Hero hero = Hero.REGISTRY.getValues().stream().filter(PREDICATE).findFirst().orElse(null);
-                itemstack.setTagCompound(new NBTTagCompound());
+                itemstack.setTag(new CompoundNBT());
 
                 if (hero != null)
                 {
                     setContainedArmor(itemstack, hero.getDefault().createArmorStacks());
                 }
             }
-            else if (itemstack.getTagCompound().hasKey("Suit", NBT.TAG_STRING))
+            else if (itemstack.getTag().hasKey("Suit", NBT.TAG_STRING))
             {
-                HeroIteration iter = HeroIteration.lookup(itemstack.getTagCompound().getString("Suit"));
+                HeroIteration iter = HeroIteration.lookup(itemstack.getTag().getString("Suit"));
 
                 if (iter != null)
                 {
                     setContainedArmor(itemstack, iter.createArmorStacks());
                 }
 
-                itemstack.getTagCompound().removeTag("Suit");
+                itemstack.getTag().removeTag("Suit");
             }
 
             ItemStack[] armorFromNBT = getArmorFromNBT(itemstack);

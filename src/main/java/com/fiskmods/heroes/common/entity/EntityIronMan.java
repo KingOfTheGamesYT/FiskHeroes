@@ -30,7 +30,7 @@ import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.scoreboard.Team;
 import net.minecraft.server.management.PreYggdrasilConverter;
 import net.minecraft.util.AxisAlignedBB;
@@ -479,7 +479,7 @@ public class EntityIronMan extends EntityCreature implements IEntityOwnable, IDa
     }
 
     @Override
-    public void readEntityFromNBT(NBTTagCompound nbt)
+    public void readEntityFromNBT(CompoundNBT nbt)
     {
         super.readEntityFromNBT(nbt);
         set(SHData.SUIT_OPEN, nbt.getBoolean("SuitOpen"));
@@ -506,7 +506,7 @@ public class EntityIronMan extends EntityCreature implements IEntityOwnable, IDa
     }
 
     @Override
-    public void writeEntityToNBT(NBTTagCompound nbt)
+    public void writeEntityToNBT(CompoundNBT nbt)
     {
         super.writeEntityToNBT(nbt);
         nbt.setBoolean("SuitOpen", get(SHData.SUIT_OPEN));

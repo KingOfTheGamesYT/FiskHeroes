@@ -14,7 +14,7 @@ import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryBasic;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.AxisAlignedBB;
 
 public class TileEntitySuitFabricator extends TileEntityContainer implements ITileDataCallback
@@ -74,7 +74,7 @@ public class TileEntitySuitFabricator extends TileEntityContainer implements ITi
     }
 
     @Override
-    public void readCustomNBT(NBTTagCompound nbt)
+    public void readCustomNBT(CompoundNBT nbt)
     {
         super.readCustomNBT(nbt);
         energy = nbt.getInteger("MaterialEnergy");
@@ -86,7 +86,7 @@ public class TileEntitySuitFabricator extends TileEntityContainer implements ITi
     }
 
     @Override
-    public void writeCustomNBT(NBTTagCompound nbt)
+    public void writeCustomNBT(CompoundNBT nbt)
     {
         super.writeCustomNBT(nbt);
         nbt.setInteger("MaterialEnergy", energy);

@@ -11,7 +11,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 
 public class KeyPressMiniaturizeSuit extends KeyPressBase
 {
@@ -36,7 +36,7 @@ public class KeyPressMiniaturizeSuit extends KeyPressBase
         if (side.isServer())
         {
             ItemStack itemstack = new ItemStack(ModItems.miniATOMSuit);
-            itemstack.setTagCompound(new NBTTagCompound());
+            itemstack.setTag(new CompoundNBT());
             ItemFlashRing.setContainedArmor(itemstack, sender.getEquipmentInSlot(4), sender.getEquipmentInSlot(3), sender.getEquipmentInSlot(2), sender.getEquipmentInSlot(1));
 
             for (int i = 0; i < sender.inventory.armorInventory.length; ++i)

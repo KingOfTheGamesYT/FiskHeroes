@@ -24,7 +24,7 @@
 //import net.minecraft.init.Items;
 //import net.minecraft.item.Item;
 //import net.minecraft.item.ItemStack;
-//import net.minecraft.nbt.NBTTagCompound;
+//import net.minecraft.nbt.CompoundNBT;
 //import net.minecraft.stats.AchievementList;
 //import net.minecraft.util.ReportedException;
 //import net.minecraftforge.event.entity.player.AttackEntityEvent;
@@ -229,9 +229,9 @@
 //                {
 //                    stack = new ItemStack(item, 0, pickup.getItemDamage());
 //
-//                    if (pickup.hasTagCompound())
+//                    if (pickup.hasTag())
 //                    {
-//                        stack.setTagCompound((NBTTagCompound) pickup.getTagCompound().copy());
+//                        stack.setTag((CompoundNBT) pickup.getTag().copy());
 //                    }
 //                }
 //

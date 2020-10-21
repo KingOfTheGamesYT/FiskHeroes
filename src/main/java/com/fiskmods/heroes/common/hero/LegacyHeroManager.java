@@ -10,7 +10,7 @@ import com.fiskmods.heroes.pack.JSHeroesEngine;
 import cpw.mods.fml.common.event.FMLMissingMappingsEvent;
 import cpw.mods.fml.common.event.FMLMissingMappingsEvent.MissingMapping;
 import cpw.mods.fml.common.registry.GameRegistry;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.util.Constants.NBT;
 
@@ -250,7 +250,7 @@ public enum LegacyHeroManager
         map.put("fiskheroes:" + oldName, Pair.of(FiskHeroes.MODID + ":" + id, armorType));
     }
 
-    public void readFromNBT(NBTTagCompound nbt)
+    public void readFromNBT(CompoundNBT nbt)
     {
         if (!dirty)
         {
@@ -263,7 +263,7 @@ public enum LegacyHeroManager
 
             for (int i = 0; i < list.tagCount(); ++i)
             {
-                NBTTagCompound tag = list.getCompoundTagAt(i);
+                CompoundNBT tag = list.getCompoundTagAt(i);
                 idMap.put(tag.getInteger("K"), Pair.of(tag.getString("V"), (int) tag.getByte("i")));
             }
         }
@@ -271,7 +271,7 @@ public enum LegacyHeroManager
         dirty = false;
     }
 
-    public void writeToNBT(NBTTagCompound nbt)
+    public void writeToNBT(CompoundNBT nbt)
     {
         if (!idMap.isEmpty())
         {
@@ -279,7 +279,7 @@ public enum LegacyHeroManager
 
             for (Map.Entry<Integer, Pair<String, Integer>> e : idMap.entrySet())
             {
-                NBTTagCompound tag = new NBTTagCompound();
+                CompoundNBT tag = new CompoundNBT();
                 tag.setByte("i", e.getValue().getValue().byteValue());
                 tag.setString("V", e.getValue().getKey());
                 tag.setInteger("K", e.getKey());

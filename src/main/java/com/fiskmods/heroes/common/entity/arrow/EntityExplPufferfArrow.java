@@ -4,7 +4,7 @@ import com.fiskmods.heroes.client.sound.SHSounds;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants.NBT;
 
@@ -67,7 +67,7 @@ public class EntityExplPufferfArrow extends EntityPufferfishArrow
     }
 
     @Override
-    public void readEntityFromNBT(NBTTagCompound compound)
+    public void readEntityFromNBT(CompoundNBT compound)
     {
         super.readEntityFromNBT(compound);
 
@@ -78,7 +78,7 @@ public class EntityExplPufferfArrow extends EntityPufferfishArrow
     }
 
     @Override
-    public void writeEntityToNBT(NBTTagCompound compound)
+    public void writeEntityToNBT(CompoundNBT compound)
     {
         super.writeEntityToNBT(compound);
         compound.setShort("Fuse", (short) fuse);

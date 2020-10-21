@@ -33,9 +33,9 @@ public class ItemMetahumanLog extends Item
 
     public static Book getBook(ItemStack itemstack)
     {
-        if (itemstack.hasTagCompound() && itemstack.getTagCompound().hasKey("Book", NBT.TAG_STRING))
+        if (itemstack.hasTag() && itemstack.getTag().hasKey("Book", NBT.TAG_STRING))
         {
-            String key = itemstack.getTagCompound().getString("Book");
+            String key = itemstack.getTag().getString("Book");
 
             for (Map.Entry<String, BookContainer> e : BookHandler.INSTANCE.books.entrySet())
             {

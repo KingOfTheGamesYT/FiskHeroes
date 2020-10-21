@@ -12,7 +12,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
@@ -197,18 +197,18 @@ public class EntitySpeedBlur extends EntityLivingBase
     }
 
     @Override
-    public boolean writeToNBTOptional(NBTTagCompound nbttagcompound)
+    public boolean writeToNBTOptional(CompoundNBT nbttagcompound)
     {
         return false;
     }
 
     @Override
-    public void readEntityFromNBT(NBTTagCompound nbttagcompound)
+    public void readEntityFromNBT(CompoundNBT nbttagcompound)
     {
     }
 
     @Override
-    public void writeEntityToNBT(NBTTagCompound nbttagcompound)
+    public void writeEntityToNBT(CompoundNBT nbttagcompound)
     {
     }
 

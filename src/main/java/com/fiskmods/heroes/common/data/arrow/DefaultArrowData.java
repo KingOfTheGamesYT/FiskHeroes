@@ -4,7 +4,7 @@ import com.fiskmods.heroes.common.arrowtype.ArrowType;
 import com.fiskmods.heroes.common.entity.arrow.EntityTrickArrow;
 
 import io.netty.buffer.ByteBuf;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.world.World;
 
 public class DefaultArrowData implements IArrowData
@@ -48,12 +48,12 @@ public class DefaultArrowData implements IArrowData
     }
 
     @Override
-    public void readFromNBT(NBTTagCompound nbt)
+    public void readFromNBT(CompoundNBT nbt)
     {
     }
 
     @Override
-    public void writeToNBT(NBTTagCompound nbt)
+    public void writeToNBT(CompoundNBT nbt)
     {
     }
 

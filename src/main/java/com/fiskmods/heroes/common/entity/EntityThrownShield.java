@@ -23,7 +23,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
@@ -98,14 +98,14 @@ public class EntityThrownShield extends EntityThrowable implements IEntityAdditi
     }
 
     @Override
-    public void writeEntityToNBT(NBTTagCompound nbt)
+    public void writeEntityToNBT(CompoundNBT nbt)
     {
         super.writeEntityToNBT(nbt);
         nbt.setBoolean("ShouldReturn", getShouldReturn());
 
         if (shieldItem != null)
         {
-            nbt.setTag("ShieldItem", shieldItem.writeToNBT(new NBTTagCompound()));
+            nbt.setTag("ShieldItem", shieldItem.writeToNBT(new CompoundNBT()));
         }
 
         if ((throwerName == null || throwerName.length() == 0) && thrower != null && thrower instanceof EntityPlayer)
@@ -117,7 +117,7 @@ public class EntityThrownShield extends EntityThrowable implements IEntityAdditi
     }
 
     @Override
-    public void readEntityFromNBT(NBTTagCompound nbt)
+    public void readEntityFromNBT(CompoundNBT nbt)
     {
         super.readEntityFromNBT(nbt);
         setShouldReturn(nbt.getBoolean("ShouldReturn"));

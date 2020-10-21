@@ -34,16 +34,16 @@ public class ItemDisplayStand extends ItemBlock implements IItemListEntry
     @Override
     public String getItemStackDisplayName(ItemStack itemstack)
     {
-        if (itemstack.hasTagCompound())
+        if (itemstack.hasTag())
         {
-            if (itemstack.getTagCompound().hasKey("Username", NBT.TAG_COMPOUND))
+            if (itemstack.getTag().hasKey("Username", NBT.TAG_COMPOUND))
             {
-                return StatCollector.translateToLocalFormatted(super.getUnlocalizedName() + ".player.name", NBTUtil.func_152459_a(itemstack.getTagCompound().getCompoundTag("Username")).getName());
+                return StatCollector.translateToLocalFormatted(super.getUnlocalizedName() + ".player.name", NBTUtil.func_152459_a(itemstack.getTag().getCompoundTag("Username")).getName());
             }
 
-            if (itemstack.getTagCompound().hasKey("Username", NBT.TAG_STRING))
+            if (itemstack.getTag().hasKey("Username", NBT.TAG_STRING))
             {
-                return StatCollector.translateToLocalFormatted(super.getUnlocalizedName() + ".player.name", itemstack.getTagCompound().getString("Username"));
+                return StatCollector.translateToLocalFormatted(super.getUnlocalizedName() + ".player.name", itemstack.getTag().getString("Username"));
             }
         }
 

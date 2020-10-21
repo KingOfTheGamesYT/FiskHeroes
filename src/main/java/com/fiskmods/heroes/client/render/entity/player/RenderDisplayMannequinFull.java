@@ -31,7 +31,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.scoreboard.Score;
 import net.minecraft.scoreboard.ScoreObjective;
@@ -463,9 +463,9 @@ public class RenderDisplayMannequinFull extends RenderPlayer
                 GL11.glScalef(f1, -f1, -f1);
                 GameProfile gameprofile = null;
 
-                if (itemstack.hasTagCompound())
+                if (itemstack.hasTag())
                 {
-                    NBTTagCompound nbttagcompound = itemstack.getTagCompound();
+                    CompoundNBT nbttagcompound = itemstack.getTag();
 
                     if (nbttagcompound.hasKey("SkullOwner", 10))
                     {

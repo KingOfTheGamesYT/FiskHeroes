@@ -27,7 +27,7 @@ public class AbilityArchery extends Ability
     {
         if (phase == Phase.END)
         {
-            if (entity.worldObj.isRemote && FiskHeroes.proxy.isClientPlayer(entity) && entity instanceof EntityPlayer)
+            if (entity.world.isRemote && FiskHeroes.proxy.isClientPlayer(entity) && entity instanceof EntityPlayer)
             {
                 SHData.HORIZONTAL_BOW.set(entity, SHData.HORIZONTAL_BOW.get(entity) && ((EntityPlayer) entity).isUsingItem() || hero.isKeyPressed(entity, KEY_HORIZONTAL));
             }
@@ -39,14 +39,14 @@ public class AbilityArchery extends Ability
     {
         amount = super.damageTaken(entity, attacker, hero, source, amount, originalAmount);
 
-        if (!entity.worldObj.isRemote && DamageType.SHURIKEN.isPresent(source) && SHData.HORIZONTAL_BOW_TIMER.get(entity) > 0)
+        if (!entity.world.isRemote && DamageType.SHURIKEN.isPresent(source) && SHData.HORIZONTAL_BOW_TIMER.get(entity) > 0)
         {
             ItemStack heldItem = entity.getHeldItem();
 
             if (heldItem != null && heldItem.getItem() == ModItems.compoundBow)
             {
                 ItemCompoundBow.setBroken(heldItem, true);
-                entity.worldObj.playSoundAtEntity(entity, "random.break", 0.8F, 0.8F + rand.nextFloat() * 0.4F);
+                entity.world.playSoundAtEntity(entity, "random.break", 0.8F, 0.8F + rand.nextFloat() * 0.4F);
             }
         }
 

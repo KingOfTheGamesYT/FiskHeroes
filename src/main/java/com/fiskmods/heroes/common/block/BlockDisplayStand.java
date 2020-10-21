@@ -36,7 +36,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
@@ -553,9 +553,9 @@ public class BlockDisplayStand extends BlockContainer
                 tile.setColor(itemstack.getItemDamage());
                 GameProfile profile = null;
 
-                if (itemstack.hasTagCompound())
+                if (itemstack.hasTag())
                 {
-                    NBTTagCompound nbt = itemstack.getTagCompound();
+                    CompoundNBT nbt = itemstack.getTag();
 
                     if (nbt.hasKey("Username", NBT.TAG_COMPOUND))
                     {
@@ -599,15 +599,15 @@ public class BlockDisplayStand extends BlockContainer
 
         if (tile.hasCustomInventoryName())
         {
-            if (!itemstack.hasTagCompound())
+            if (!itemstack.hasTag())
             {
-                itemstack.setTagCompound(new NBTTagCompound());
+                itemstack.setTag(new CompoundNBT());
             }
 
-            NBTTagCompound compound = new NBTTagCompound();
+            CompoundNBT compound = new CompoundNBT();
             NBTUtil.func_152460_a(compound, tile.getUsername());
 
-            itemstack.getTagCompound().setTag("Username", compound);
+            itemstack.getTag().setTag("Username", compound);
         }
     }
 

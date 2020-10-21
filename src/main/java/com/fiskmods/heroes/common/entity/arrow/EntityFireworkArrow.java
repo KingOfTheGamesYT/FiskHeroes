@@ -16,7 +16,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
@@ -71,7 +71,7 @@ public class EntityFireworkArrow extends EntityTrickArrow
 
         if (flag)
         {
-            NBTTagCompound firework = getFireworksTag();
+            CompoundNBT firework = getFireworksTag();
             List<Integer> types = new ArrayList<>();
             boolean flicker = false;
             boolean trail = false;
@@ -87,7 +87,7 @@ public class EntityFireworkArrow extends EntityTrickArrow
 
                     for (int i = 0; i < explosions.tagCount(); ++i)
                     {
-                        NBTTagCompound tag = explosions.getCompoundTagAt(i);
+                        CompoundNBT tag = explosions.getCompoundTagAt(i);
                         flicker |= tag.getBoolean("Flicker");
                         trail |= tag.getBoolean("Trail");
                         types.add((int) tag.getByte("Type"));
@@ -167,7 +167,7 @@ public class EntityFireworkArrow extends EntityTrickArrow
     {
         if (b == 17 && world.isRemote && getArrowItem() != null)
         {
-            NBTTagCompound firework = getFireworksTag();
+            CompoundNBT firework = getFireworksTag();
 
             if (firework != null)
             {
@@ -212,27 +212,27 @@ public class EntityFireworkArrow extends EntityTrickArrow
         }
     }
 
-    public NBTTagCompound getFireworksTag()
+    public CompoundNBT getFireworksTag()
     {
-        NBTTagCompound nbttagcompound = null;
+        CompoundNBT nbttagcompound = null;
         ItemStack itemstack = ItemTrickArrow.getItem(getArrowItem());
 
         if (itemstack == null)
         {
             itemstack = new ItemStack(Items.fireworks);
-            itemstack.setTagCompound(new NBTTagCompound());
+            itemstack.setTag(new CompoundNBT());
         }
 
-        if (itemstack != null && itemstack.hasTagCompound())
+        if (itemstack != null && itemstack.hasTag())
         {
-            nbttagcompound = itemstack.getTagCompound().getCompoundTag("Fireworks");
+            nbttagcompound = itemstack.getTag().getCompoundTag("Fireworks");
         }
 
         return nbttagcompound;
     }
 
     @Override
-    public void writeEntityToNBT(NBTTagCompound compound)
+    public void writeEntityToNBT(CompoundNBT compound)
     {
         super.writeEntityToNBT(compound);
         compound.setInteger("Life", fireworkAge);
@@ -242,7 +242,7 @@ public class EntityFireworkArrow extends EntityTrickArrow
     }
 
     @Override
-    public void readEntityFromNBT(NBTTagCompound compound)
+    public void readEntityFromNBT(CompoundNBT compound)
     {
         super.readEntityFromNBT(compound);
         fireworkAge = compound.hasKey("Life", NBT.TAG_INT) ? compound.getInteger("Life") : fireworkAge;

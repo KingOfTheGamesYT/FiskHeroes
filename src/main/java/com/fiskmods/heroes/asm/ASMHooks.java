@@ -37,7 +37,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetHandlerPlayServer;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
@@ -730,7 +730,7 @@ public class ASMHooks
         return result || SHMapData.get(world).getPower(world, x, y, z) > 0;
     }
 
-    public static void readFromNBT(ItemStack stack, NBTTagCompound nbt)
+    public static void readFromNBT(ItemStack stack, CompoundNBT nbt)
     {
         if (stack.getItem() == null)
         {
@@ -752,25 +752,25 @@ public class ASMHooks
                 stack.func_150996_a(ModItems.heroArmor[p.getValue()]);
                 nbt.setShort("id", (short) Item.getIdFromItem(stack.getItem()));
 
-                if (!stack.hasTagCompound())
+                if (!stack.hasTag())
                 {
-                    stack.setTagCompound(new NBTTagCompound());
+                    stack.setTag(new CompoundNBT());
                 }
 
-                if (!stack.getTagCompound().hasKey(ItemHeroArmor.TAG_HERO, NBT.TAG_STRING))
+                if (!stack.getTag().hasKey(ItemHeroArmor.TAG_HERO, NBT.TAG_STRING))
                 {
-                    stack.getTagCompound().setString(ItemHeroArmor.TAG_HERO, p.getKey());
+                    stack.getTag().setString(ItemHeroArmor.TAG_HERO, p.getKey());
                 }
             }
         }
-        else if (stack.getItem() instanceof ItemHeroArmor && stack.hasTagCompound() && stack.getTagCompound().hasKey(ItemHeroArmor.TAG_HERO, NBT.TAG_STRING))
+        else if (stack.getItem() instanceof ItemHeroArmor && stack.hasTag() && stack.getTag().hasKey(ItemHeroArmor.TAG_HERO, NBT.TAG_STRING))
         {
-            String s = stack.getTagCompound().getString(ItemHeroArmor.TAG_HERO);
+            String s = stack.getTag().getString(ItemHeroArmor.TAG_HERO);
             String s1 = Hero.REGISTRY.getRemap(s);
 
             if (!s.equals(s1) && !StringUtils.isNullOrEmpty(s1))
             {
-                stack.getTagCompound().setString(ItemHeroArmor.TAG_HERO, s1);
+                stack.getTag().setString(ItemHeroArmor.TAG_HERO, s1);
             }
         }
     }

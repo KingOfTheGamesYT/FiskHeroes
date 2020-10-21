@@ -113,9 +113,9 @@ public class EntityVialArrow extends EntityTrickArrow
         ItemTrickArrow.setItem(getArrowItem(), null);
         setArrowId(0);
 
-        if (getArrowItem().hasTagCompound() && getArrowItem().getTagCompound().hasNoTags())
+        if (getArrowItem().hasTag() && getArrowItem().getTag().hasNoTags())
         {
-            getArrowItem().setTagCompound(null);
+            getArrowItem().setTag(null);
         }
 
         super.onImpact(mop);

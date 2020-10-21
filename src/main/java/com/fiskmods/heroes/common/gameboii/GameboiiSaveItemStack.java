@@ -5,7 +5,7 @@ import com.fiskmods.heroes.gameboii.GameboiiSave;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 
 public class GameboiiSaveItemStack extends GameboiiSave
 {
@@ -23,12 +23,12 @@ public class GameboiiSaveItemStack extends GameboiiSave
 
         if (stack != null)
         {
-            if (!stack.hasTagCompound())
+            if (!stack.hasTag())
             {
-                stack.setTagCompound(new NBTTagCompound());
+                stack.setTag(new CompoundNBT());
             }
 
-            stack.getTagCompound().setByteArray(cartridge.id, data);
+            stack.getTag().setByteArray(cartridge.id, data);
         }
     }
 
@@ -37,9 +37,9 @@ public class GameboiiSaveItemStack extends GameboiiSave
     {
         ItemStack stack = player.getHeldItem();
 
-        if (stack != null && stack.hasTagCompound())
+        if (stack != null && stack.hasTag())
         {
-            NBTTagCompound compound = stack.getTagCompound();
+            CompoundNBT compound = stack.getTag();
             return compound.getByteArray(cartridge.id);
         }
 

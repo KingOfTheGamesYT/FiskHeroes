@@ -22,7 +22,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiIngameMenu;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
@@ -101,13 +101,13 @@ public class SHGuiHandler implements IGuiHandler
 
                             if (file != null && file.isFile() && file.exists())
                             {
-                                if (!heldItem.hasTagCompound())
+                                if (!heldItem.hasTag())
                                 {
-                                    heldItem.setTagCompound(new NBTTagCompound());
+                                    heldItem.setTag(new CompoundNBT());
                                 }
 
-                                heldItem.getTagCompound().setString("Path", file.getPath());
-                                SHNetworkManager.wrapper.sendToServer(new MessageUpdateBook(heldItem.getTagCompound()));
+                                heldItem.getTag().setString("Path", file.getPath());
+                                SHNetworkManager.wrapper.sendToServer(new MessageUpdateBook(heldItem.getTag()));
                             }
                         }
                     }).start();

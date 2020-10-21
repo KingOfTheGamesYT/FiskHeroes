@@ -232,7 +232,7 @@ public class ArrowType<T extends EntityTrickArrow> extends FiskRegistryEntry<Arr
             entity.canBePickedUp = 1;
         }
 
-        if (arrow.hasTagCompound() && arrow.getTagCompound().getBoolean(ItemTrickArrow.NO_ENTITY))
+        if (arrow.hasTag() && arrow.getTag().getBoolean(ItemTrickArrow.NO_ENTITY))
         {
             entity.setNoEntity();
         }

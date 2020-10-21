@@ -30,7 +30,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import net.minecraft.util.StringUtils;
@@ -294,7 +294,7 @@ public class JSHero
         private final String id;
         private final int metadata;
 
-        private final NBTTagCompound nbt;
+        private final CompoundNBT nbt;
 
         public Equipment(String id, int metadata, String nbt)
         {
@@ -313,7 +313,7 @@ public class JSHero
 
                 if (nbt != null && !nbt.hasNoTags())
                 {
-                    stack.setTagCompound(nbt);
+                    stack.setTag(nbt);
                 }
 
                 return stack;

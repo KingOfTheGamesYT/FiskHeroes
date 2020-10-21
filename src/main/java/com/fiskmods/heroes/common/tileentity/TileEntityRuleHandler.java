@@ -7,7 +7,7 @@ import com.fiskmods.heroes.common.network.MessageTileTrigger.ITileDataCallback;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.StringUtils;
 import net.minecraftforge.common.util.Constants.NBT;
 
@@ -68,7 +68,7 @@ public class TileEntityRuleHandler extends TileEntitySH implements ITileDataCall
     }
 
     @Override
-    public void readCustomNBT(NBTTagCompound nbt)
+    public void readCustomNBT(CompoundNBT nbt)
     {
         chunkRadius = nbt.getByte("ChunkRadius") & 0xFF;
 
@@ -79,7 +79,7 @@ public class TileEntityRuleHandler extends TileEntitySH implements ITileDataCall
     }
 
     @Override
-    public void writeCustomNBT(NBTTagCompound nbt)
+    public void writeCustomNBT(CompoundNBT nbt)
     {
         nbt.setByte("ChunkRadius", (byte) chunkRadius);
 

@@ -28,7 +28,7 @@ import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
@@ -211,7 +211,7 @@ public class EntityCactus extends EntityGolem implements IEntitySelector
     }
 
     @Override
-    public void writeEntityToNBT(NBTTagCompound nbttagcompound)
+    public void writeEntityToNBT(CompoundNBT nbttagcompound)
     {
         super.writeEntityToNBT(nbttagcompound);
         nbttagcompound.setInteger("Size", getCactusSize());
@@ -220,7 +220,7 @@ public class EntityCactus extends EntityGolem implements IEntitySelector
     }
 
     @Override
-    public void readEntityFromNBT(NBTTagCompound nbttagcompound)
+    public void readEntityFromNBT(CompoundNBT nbttagcompound)
     {
         super.readEntityFromNBT(nbttagcompound);
         setCactusSize(nbttagcompound.getInteger("Size"));

@@ -15,7 +15,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
@@ -58,9 +58,9 @@ public class ItemQuiver extends Item implements IEquipmentItem
         {
             PlayerEntity player = (EntityPlayer) entity;
 
-            if (!itemstack.hasTagCompound())
+            if (!itemstack.hasTag())
             {
-                itemstack.setTagCompound(new NBTTagCompound());
+                itemstack.setTag(new CompoundNBT());
             }
 
             if (itemstack.getItemDamage() == 1 && player.ticksExisted % 8 == 0 && !player.world.isRemote && !(player.openContainer instanceof ContainerQuiver) && !currentlyHeld)
@@ -94,9 +94,9 @@ public class ItemQuiver extends Item implements IEquipmentItem
     @Override
     public ItemStack onItemRightClick(ItemStack itemstack, World world, PlayerEntity player)
     {
-        if (!itemstack.hasTagCompound())
+        if (!itemstack.hasTag())
         {
-            itemstack.setTagCompound(new NBTTagCompound());
+            itemstack.setTag(new CompoundNBT());
         }
 
         player.openGui(FiskHeroes.MODID, 0, world, player.inventory.currentItem, 0, 0);

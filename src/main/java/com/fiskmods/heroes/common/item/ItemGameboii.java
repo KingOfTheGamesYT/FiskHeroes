@@ -10,7 +10,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.ChatStyle;
 import net.minecraft.util.EnumChatFormatting;
@@ -89,28 +89,28 @@ public class ItemGameboii extends ItemUntextured
 
     public static GameboiiCartridge get(ItemStack stack)
     {
-        return stack.hasTagCompound() && stack.getTagCompound().hasKey(TAG_CARTRIDGE, NBT.TAG_ANY_NUMERIC) ? GameboiiCartridge.get(stack.getTagCompound().getByte(TAG_CARTRIDGE)) : null;
+        return stack.hasTag() && stack.getTag().hasKey(TAG_CARTRIDGE, NBT.TAG_ANY_NUMERIC) ? GameboiiCartridge.get(stack.getTag().getByte(TAG_CARTRIDGE)) : null;
     }
 
     public static ItemStack set(ItemStack stack, GameboiiCartridge cartridge)
     {
-        if (!stack.hasTagCompound())
+        if (!stack.hasTag())
         {
             if (cartridge == null)
             {
                 return stack;
             }
 
-            stack.setTagCompound(new NBTTagCompound());
+            stack.setTag(new CompoundNBT());
         }
 
         if (cartridge != null)
         {
-            stack.getTagCompound().setByte(TAG_CARTRIDGE, (byte) cartridge.ordinal());
+            stack.getTag().setByte(TAG_CARTRIDGE, (byte) cartridge.ordinal());
         }
         else
         {
-            stack.getTagCompound().removeTag(TAG_CARTRIDGE);
+            stack.getTag().removeTag(TAG_CARTRIDGE);
         }
 
         return stack;

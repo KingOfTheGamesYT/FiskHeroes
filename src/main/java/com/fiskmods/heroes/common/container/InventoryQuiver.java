@@ -12,7 +12,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.ReportedException;
 import net.minecraftforge.common.util.Constants.NBT;
@@ -35,12 +35,12 @@ public class InventoryQuiver implements IInventory
 
         if (itemstack != null)
         {
-            if (!itemstack.hasTagCompound())
+            if (!itemstack.hasTag())
             {
-                itemstack.setTagCompound(new NBTTagCompound());
+                itemstack.setTag(new CompoundNBT());
             }
 
-            readFromNBT(itemstack.getTagCompound());
+            readFromNBT(itemstack.getTag());
         }
     }
 
@@ -235,9 +235,9 @@ public class InventoryQuiver implements IInventory
         {
             itemstacks[slot] = new ItemStack(item, 0, itemstack.getItemDamage());
 
-            if (itemstack.hasTagCompound())
+            if (itemstack.hasTag())
             {
-                itemstacks[slot].setTagCompound((NBTTagCompound) itemstack.getTagCompound().copy());
+                itemstacks[slot].setTag((CompoundNBT) itemstack.getTag().copy());
             }
         }
 
@@ -277,7 +277,7 @@ public class InventoryQuiver implements IInventory
         return -1;
     }
 
-    public void readFromNBT(NBTTagCompound nbt)
+    public void readFromNBT(CompoundNBT nbt)
     {
         NBTTagList nbttaglist = nbt.getTagList("Slots", NBT.TAG_COMPOUND);
         boolean flag = false;
@@ -288,7 +288,7 @@ public class InventoryQuiver implements IInventory
         {
             if (nbt.hasKey("ext" + i, NBT.TAG_COMPOUND))
             {
-                NBTTagCompound tag = nbt.getCompoundTag("ext" + i);
+                CompoundNBT tag = nbt.getCompoundTag("ext" + i);
                 tag.setByte("Slot", (byte) i);
 
                 nbttaglist.appendTag(tag);
@@ -299,7 +299,7 @@ public class InventoryQuiver implements IInventory
 
         for (int i = 0; i < Math.min(nbttaglist.tagCount(), getSizeInventory()); ++i)
         {
-            NBTTagCompound tag = nbttaglist.getCompoundTagAt(i);
+            CompoundNBT tag = nbttaglist.getCompoundTagAt(i);
             itemstacks[tag.getByte("Slot")] = ItemStack.loadItemStackFromNBT(tag);
         }
 
@@ -309,7 +309,7 @@ public class InventoryQuiver implements IInventory
         }
     }
 
-    public NBTTagCompound writeToNBT(NBTTagCompound nbt)
+    public CompoundNBT writeToNBT(CompoundNBT nbt)
     {
         NBTTagList nbttaglist = new NBTTagList();
 
@@ -317,7 +317,7 @@ public class InventoryQuiver implements IInventory
         {
             if (itemstacks[i] != null)
             {
-                NBTTagCompound tag = itemstacks[i].writeToNBT(new NBTTagCompound());
+                CompoundNBT tag = itemstacks[i].writeToNBT(new CompoundNBT());
                 tag.setByte("Slot", (byte) i);
 
                 nbttaglist.appendTag(tag);
@@ -416,7 +416,7 @@ public class InventoryQuiver implements IInventory
 
         if (quiver != null && !thePlayer.world.isRemote)
         {
-            writeToNBT(quiver.getTagCompound());
+            writeToNBT(quiver.getTag());
         }
     }
 

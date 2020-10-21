@@ -5,7 +5,7 @@ import java.util.Random;
 import com.fiskmods.heroes.common.block.ModBlocks;
 import com.fiskmods.heroes.util.TemperatureHelper;
 
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.world.EnumSkyBlock;
 import net.minecraftforge.common.util.ForgeDirection;
 
@@ -52,14 +52,14 @@ public class TileEntityIceLayer extends TileEntitySH
     }
 
     @Override
-    public void readCustomNBT(NBTTagCompound nbt)
+    public void readCustomNBT(CompoundNBT nbt)
     {
         thickness = nbt.getInteger("Thickness");
         thawTicks = nbt.getInteger("ThawTicks");
     }
 
     @Override
-    public void writeCustomNBT(NBTTagCompound nbt)
+    public void writeCustomNBT(CompoundNBT nbt)
     {
         nbt.setInteger("Thickness", thickness);
         nbt.setInteger("ThawTicks", thawTicks);

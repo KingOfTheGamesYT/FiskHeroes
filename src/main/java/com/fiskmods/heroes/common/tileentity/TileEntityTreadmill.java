@@ -9,7 +9,7 @@ import com.fiskmods.heroes.util.SHHelper;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.block.BlockDirectional;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
 
@@ -83,12 +83,12 @@ public class TileEntityTreadmill extends TileEntitySH implements IMultiTile, ITi
     }
 
     @Override
-    protected void writeCustomNBT(NBTTagCompound nbt)
+    protected void writeCustomNBT(CompoundNBT nbt)
     {
     }
 
     @Override
-    protected void readCustomNBT(NBTTagCompound nbt)
+    protected void readCustomNBT(CompoundNBT nbt)
     {
     }
 

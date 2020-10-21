@@ -17,7 +17,7 @@ import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.nbt.NBTBase;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.util.Constants.NBT;
 
@@ -65,7 +65,7 @@ public class Cooldowns implements INBTSavedObject<Cooldowns>
 
         for (Map.Entry<Cooldown, Integer> e : values.entrySet())
         {
-            NBTTagCompound tag = new NBTTagCompound();
+            CompoundNBT tag = new CompoundNBT();
             tag.setString("K", e.getKey().name());
             tag.setInteger("V", e.getValue());
             nbttaglist.appendTag(tag);
@@ -103,7 +103,7 @@ public class Cooldowns implements INBTSavedObject<Cooldowns>
 
                         for (int i = 0; i < nbttaglist.tagCount(); ++i)
                         {
-                            NBTTagCompound nbt = nbttaglist.getCompoundTagAt(i);
+                            CompoundNBT nbt = nbttaglist.getCompoundTagAt(i);
                             Cooldown key = Cooldown.find(nbt.getString("K"));
 
                             if (key != null)

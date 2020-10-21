@@ -62,7 +62,7 @@ public class JSItemAccessor implements JSAccessor<JSItemAccessor>
 
     public JSNBTAccessor nbt()
     {
-        return JSNBTAccessor.wrap(stack.getTagCompound());
+        return JSNBTAccessor.wrap(stack.getTag());
     }
 
     @Override

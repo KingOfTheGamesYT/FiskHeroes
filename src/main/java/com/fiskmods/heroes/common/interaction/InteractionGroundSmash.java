@@ -19,7 +19,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityFallingBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Blocks;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.EntityDamageSource;
 import net.minecraft.util.Vec3;
 
@@ -74,7 +74,7 @@ public class InteractionGroundSmash extends InteractionBase
                                 entity.field_145812_b = -100;
                                 entity.field_145813_c = false;
 
-                                NBTTagCompound nbt = new NBTTagCompound();
+                                CompoundNBT nbt = new CompoundNBT();
                                 entity.writeToNBT(nbt);
                                 nbt.setFloat("FallHurtAmount", 100);
                                 nbt.setInteger("FallHurtMax", 100);

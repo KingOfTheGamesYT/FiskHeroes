@@ -20,7 +20,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IExtendedEntityProperties;
 import net.minecraftforge.common.util.Constants.NBT;
@@ -148,11 +148,11 @@ public class SHPlayerData implements IExtendedEntityProperties
     }
 
     @Override
-    public void saveNBTData(NBTTagCompound nbt)
+    public void saveNBTData(CompoundNBT nbt)
     {
-        NBTTagCompound compound = new NBTTagCompound();
-        NBTTagCompound suits = new NBTTagCompound();
-        NBTTagCompound arrows = new NBTTagCompound();
+        CompoundNBT compound = new CompoundNBT();
+        CompoundNBT suits = new CompoundNBT();
+        CompoundNBT arrows = new CompoundNBT();
 
         compound.setBoolean("Saved", true);
         SHData.writeToNBT(compound, data);
@@ -173,9 +173,9 @@ public class SHPlayerData implements IExtendedEntityProperties
     }
 
     @Override
-    public void loadNBTData(NBTTagCompound nbt)
+    public void loadNBTData(CompoundNBT nbt)
     {
-        NBTTagCompound compound = nbt.getCompoundTag(IDENTIFIER);
+        CompoundNBT compound = nbt.getCompoundTag(IDENTIFIER);
 
         if (compound.getBoolean("Saved"))
         {
@@ -183,7 +183,7 @@ public class SHPlayerData implements IExtendedEntityProperties
 
             if (compound.hasKey("HeroCollection", NBT.TAG_COMPOUND))
             {
-                NBTTagCompound tag = compound.getCompoundTag("HeroCollection");
+                CompoundNBT tag = compound.getCompoundTag("HeroCollection");
 
                 for (String s : (Set<String>) tag.func_150296_c())
                 {
@@ -198,7 +198,7 @@ public class SHPlayerData implements IExtendedEntityProperties
 
             if (compound.hasKey("ArrowCollection", NBT.TAG_COMPOUND))
             {
-                NBTTagCompound tag = compound.getCompoundTag("ArrowCollection");
+                CompoundNBT tag = compound.getCompoundTag("ArrowCollection");
 
                 for (String s : (Set<String>) tag.func_150296_c())
                 {

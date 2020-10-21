@@ -15,7 +15,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants.NBT;
@@ -46,35 +46,35 @@ public class ItemFlashRing extends ItemUntextured implements IItemListEntry
     {
 //        if (!world.isRemote)
         {
-            if (itemstack.hasTagCompound())
+            if (itemstack.hasTag())
             {
-                if (itemstack.getTagCompound().hasKey("Suit", NBT.TAG_STRING))
+                if (itemstack.getTag().hasKey("Suit", NBT.TAG_STRING))
                 {
-                    HeroIteration iter = HeroIteration.lookup(itemstack.getTagCompound().getString("Suit"));
+                    HeroIteration iter = HeroIteration.lookup(itemstack.getTag().getString("Suit"));
 
                     if (iter != null)
                     {
                         setContainedArmor(itemstack, iter.createArmorStacks());
                     }
 
-                    itemstack.getTagCompound().removeTag("Suit");
+                    itemstack.getTag().removeTag("Suit");
                 }
 
-                if (itemstack.getTagCompound().getBoolean("Dispensed"))
+                if (itemstack.getTag().getBoolean("Dispensed"))
                 {
-                    itemstack.getTagCompound().removeTag("Items");
+                    itemstack.getTag().removeTag("Items");
                 }
 
-                if (itemstack.getTagCompound().hasKey("Dispensed"))
+                if (itemstack.getTag().hasKey("Dispensed"))
                 {
-                    itemstack.getTagCompound().removeTag("Dispensed");
+                    itemstack.getTag().removeTag("Dispensed");
                 }
             }
 
             ItemStack[] equipment = SHHelper.getEquipment(player);
             HeroIteration iter = SHHelper.getHeroIter(equipment);
 
-            if (itemstack.hasTagCompound() && itemstack.getTagCompound().hasKey("Items", NBT.TAG_LIST))
+            if (itemstack.hasTag() && itemstack.getTag().hasKey("Items", NBT.TAG_LIST))
             {
                 ItemStack[] armorFromNBT = getArmorFromNBT(itemstack);
 
@@ -100,7 +100,7 @@ public class ItemFlashRing extends ItemUntextured implements IItemListEntry
                         }
                     }
 
-                    itemstack.getTagCompound().removeTag("Items");
+                    itemstack.getTag().removeTag("Items");
                 }
             }
             else if (iter != null && PREDICATE.test(iter.hero))
@@ -113,9 +113,9 @@ public class ItemFlashRing extends ItemUntextured implements IItemListEntry
                 }
             }
 
-            if (itemstack.hasTagCompound() && itemstack.getTagCompound().hasNoTags())
+            if (itemstack.hasTag() && itemstack.getTag().hasNoTags())
             {
-                itemstack.setTagCompound(null);
+                itemstack.setTag(null);
             }
         }
 
@@ -174,30 +174,30 @@ public class ItemFlashRing extends ItemUntextured implements IItemListEntry
         {
             if (armor[i] != null)
             {
-                NBTTagCompound itemTag = new NBTTagCompound();
+                CompoundNBT itemTag = new CompoundNBT();
                 itemTag.setByte("Slot", (byte) i);
                 itemsList.appendTag(armor[i].writeToNBT(itemTag));
             }
         }
 
-        if (!itemstack.hasTagCompound())
+        if (!itemstack.hasTag())
         {
-            itemstack.setTagCompound(new NBTTagCompound());
+            itemstack.setTag(new CompoundNBT());
         }
 
-        itemstack.getTagCompound().setTag("Items", itemsList);
+        itemstack.getTag().setTag("Items", itemsList);
     }
 
     public static ItemStack[] getArmorFromNBT(ItemStack itemstack)
     {
-        if (itemstack.hasTagCompound() && itemstack.getTagCompound().hasKey("Items"))
+        if (itemstack.hasTag() && itemstack.getTag().hasKey("Items"))
         {
-            NBTTagList nbtItems = itemstack.getTagCompound().getTagList("Items", NBT.TAG_COMPOUND);
+            NBTTagList nbtItems = itemstack.getTag().getTagList("Items", NBT.TAG_COMPOUND);
             ItemStack[] items = new ItemStack[4];
 
             for (int i = 0; i < nbtItems.tagCount(); ++i)
             {
-                NBTTagCompound item = nbtItems.getCompoundTagAt(i);
+                CompoundNBT item = nbtItems.getCompoundTagAt(i);
                 byte slot = item.getByte("Slot");
 
                 if (slot >= 0 && slot < items.length)
@@ -214,15 +214,15 @@ public class ItemFlashRing extends ItemUntextured implements IItemListEntry
 
     public static HeroIteration getContainedHero(ItemStack itemstack)
     {
-        if (itemstack.hasTagCompound())
+        if (itemstack.hasTag())
         {
-            if (itemstack.getTagCompound().hasKey("Items", NBT.TAG_LIST) && !itemstack.getTagCompound().getBoolean("Dispensed"))
+            if (itemstack.getTag().hasKey("Items", NBT.TAG_LIST) && !itemstack.getTag().getBoolean("Dispensed"))
             {
                 return SHHelper.getHeroIterFromArmor(FiskServerUtils.nonNull(getArmorFromNBT(itemstack)));
             }
-            else if (itemstack.getTagCompound().hasKey("Suit", NBT.TAG_STRING))
+            else if (itemstack.getTag().hasKey("Suit", NBT.TAG_STRING))
             {
-                return HeroIteration.lookup(itemstack.getTagCompound().getString("Suit"));
+                return HeroIteration.lookup(itemstack.getTag().getString("Suit"));
             }
         }
 
@@ -232,8 +232,8 @@ public class ItemFlashRing extends ItemUntextured implements IItemListEntry
     public static ItemStack create(Item item, HeroIteration iter)
     {
         ItemStack itemstack = new ItemStack(item);
-        itemstack.setTagCompound(new NBTTagCompound());
-        itemstack.getTagCompound().setString("Suit", iter.toString());
+        itemstack.setTag(new CompoundNBT());
+        itemstack.getTag().setString("Suit", iter.toString());
 
         return itemstack;
     }

@@ -11,7 +11,7 @@ import com.fiskmods.heroes.common.hero.modifier.Weakness;
 import com.fiskmods.heroes.util.NBTHelper;
 import com.google.common.collect.Iterables;
 
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.util.Constants.NBT;
 
@@ -24,14 +24,14 @@ public class HeroSelector
     public final List<Ability> abilityWlist, abilityBlist;
     public final List<Weakness> weaknessWlist, weaknessBlist;
 
-    public HeroSelector(NBTTagCompound compound)
+    public HeroSelector(CompoundNBT compound)
     {
         minTier = Math.max(compound.getByte("MinTier"), 1);
         maxTier = compound.hasKey("MaxTier", NBT.TAG_ANY_NUMERIC) ? Math.min(compound.getByte("MaxTier"), 5) : 5;
 
         if (compound.hasKey("Mod", NBT.TAG_COMPOUND))
         {
-            NBTTagCompound modTag = compound.getCompoundTag("Mod");
+            CompoundNBT modTag = compound.getCompoundTag("Mod");
             modWlist = readNBTList(modTag, "Whitelist");
             modBlist = readNBTList(modTag, "Blacklist");
         }
@@ -42,7 +42,7 @@ public class HeroSelector
 
         if (compound.hasKey("Abilities", NBT.TAG_COMPOUND))
         {
-            NBTTagCompound abilityTag = compound.getCompoundTag("Abilities");
+            CompoundNBT abilityTag = compound.getCompoundTag("Abilities");
             abilityWlist = NBTHelper.readNBTList(abilityTag, "Whitelist", Ability.REGISTRY);
             abilityBlist = NBTHelper.readNBTList(abilityTag, "Blacklist", Ability.REGISTRY);
         }
@@ -53,7 +53,7 @@ public class HeroSelector
 
         if (compound.hasKey("Weaknesses", NBT.TAG_COMPOUND))
         {
-            NBTTagCompound weaknessTag = compound.getCompoundTag("Weaknesses");
+            CompoundNBT weaknessTag = compound.getCompoundTag("Weaknesses");
             weaknessWlist = NBTHelper.readNBTList(weaknessTag, "Whitelist", Weakness.REGISTRY);
             weaknessBlist = NBTHelper.readNBTList(weaknessTag, "Blacklist", Weakness.REGISTRY);
         }
@@ -63,7 +63,7 @@ public class HeroSelector
         }
     }
 
-    public static List<String> readNBTList(NBTTagCompound compound, String name)
+    public static List<String> readNBTList(CompoundNBT compound, String name)
     {
         List<String> list = null;
 
@@ -81,7 +81,7 @@ public class HeroSelector
         return list;
     }
 
-    public static Predicate<Hero> selector(NBTTagCompound compound)
+    public static Predicate<Hero> selector(CompoundNBT compound)
     {
         return new HeroSelector(compound).predicate;
     }

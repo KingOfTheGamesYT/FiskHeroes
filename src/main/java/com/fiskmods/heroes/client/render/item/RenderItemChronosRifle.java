@@ -12,7 +12,7 @@ import com.fiskmods.heroes.util.SHRenderHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;
 import net.minecraftforge.common.util.Constants.NBT;
@@ -113,9 +113,9 @@ public enum RenderItemChronosRifle implements IItemRenderer
     {
         ResourceLocation texture = TEXTURE;
 
-        if (stack.hasTagCompound() && stack.getTagCompound().hasKey("fisktag", NBT.TAG_COMPOUND))
+        if (stack.hasTag() && stack.getTag().hasKey("fisktag", NBT.TAG_COMPOUND))
         {
-            NBTTagCompound tag = stack.getTagCompound().getCompoundTag("fisktag");
+            CompoundNBT tag = stack.getTag().getCompoundTag("fisktag");
             MODEL.shape25.isHidden = tag.hasKey("Scope", NBT.TAG_ANY_NUMERIC) && !tag.getBoolean("Scope");
 
             if (tag.hasKey("Texture", NBT.TAG_STRING))

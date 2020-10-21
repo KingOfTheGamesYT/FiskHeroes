@@ -277,9 +277,9 @@ public class SpeedsterHelper
         {
             ItemStack itemstack = player.getCurrentArmor(i);
 
-            if (itemstack != null && itemstack.hasTagCompound())
+            if (itemstack != null && itemstack.hasTag())
             {
-                f += itemstack.getTagCompound().getInteger("TachyonCharge");
+                f += itemstack.getTag().getInteger("TachyonCharge");
             }
         }
 

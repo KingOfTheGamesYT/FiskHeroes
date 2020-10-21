@@ -23,7 +23,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
@@ -271,7 +271,7 @@ public class TileEntityParticleCore extends TileEntityContainer implements ISide
     }
 
     @Override
-    public void readCustomNBT(NBTTagCompound nbt)
+    public void readCustomNBT(CompoundNBT nbt)
     {
         super.readCustomNBT(nbt);
         radius = nbt.getByte("Range");
@@ -285,7 +285,7 @@ public class TileEntityParticleCore extends TileEntityContainer implements ISide
     }
 
     @Override
-    public void writeCustomNBT(NBTTagCompound nbt)
+    public void writeCustomNBT(CompoundNBT nbt)
     {
         super.writeCustomNBT(nbt);
         nbt.setByte("Range", (byte) radius);

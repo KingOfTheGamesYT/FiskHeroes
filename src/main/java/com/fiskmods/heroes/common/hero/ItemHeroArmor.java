@@ -42,7 +42,7 @@ import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
@@ -268,7 +268,7 @@ public class ItemHeroArmor extends ItemArmor implements ISpecialArmor, ITachyonC
         }
         else if (advanced)
         {
-            list.add(EnumChatFormatting.DARK_GRAY + (itemstack.hasTagCompound() ? itemstack.getTagCompound().getString(TAG_HERO) : null));
+            list.add(EnumChatFormatting.DARK_GRAY + (itemstack.hasTag() ? itemstack.getTag().getString(TAG_HERO) : null));
         }
     }
 
@@ -492,22 +492,22 @@ public class ItemHeroArmor extends ItemArmor implements ISpecialArmor, ITachyonC
 
     public static HeroIteration get(ItemStack stack)
     {
-        if (stack.hasTagCompound())
+        if (stack.hasTag())
         {
-            if (stack.getTagCompound().hasKey(TAG_ID_TEMP, NBT.TAG_ANY_NUMERIC))
+            if (stack.getTag().hasKey(TAG_ID_TEMP, NBT.TAG_ANY_NUMERIC))
             {
-                String s = HeroIteration.getName(stack.getTagCompound().getInteger(TAG_ID_TEMP));
-                stack.getTagCompound().removeTag(TAG_ID_TEMP);
+                String s = HeroIteration.getName(stack.getTag().getInteger(TAG_ID_TEMP));
+                stack.getTag().removeTag(TAG_ID_TEMP);
 
                 if (!StringUtils.isNullOrEmpty(s))
                 {
-                    stack.getTagCompound().setString(TAG_HERO, s);
+                    stack.getTag().setString(TAG_HERO, s);
                     return HeroIteration.lookup(s);
                 }
             }
-            else if (stack.getTagCompound().hasKey(TAG_HERO, NBT.TAG_STRING))
+            else if (stack.getTag().hasKey(TAG_HERO, NBT.TAG_STRING))
             {
-                return HeroIteration.lookup(stack.getTagCompound().getString(TAG_HERO));
+                return HeroIteration.lookup(stack.getTag().getString(TAG_HERO));
             }
         }
 
@@ -516,18 +516,18 @@ public class ItemHeroArmor extends ItemArmor implements ISpecialArmor, ITachyonC
 
     public static ItemStack set(ItemStack stack, HeroIteration iter, boolean creative)
     {
-        if (!stack.hasTagCompound())
+        if (!stack.hasTag())
         {
-            stack.setTagCompound(new NBTTagCompound());
+            stack.setTag(new CompoundNBT());
         }
 
         if (creative)
         {
-            stack.getTagCompound().setInteger(TAG_ID_TEMP, HeroIteration.indexOf(iter.getName()));
+            stack.getTag().setInteger(TAG_ID_TEMP, HeroIteration.indexOf(iter.getName()));
         }
         else
         {
-            stack.getTagCompound().setString(TAG_HERO, iter.getName());
+            stack.getTag().setString(TAG_HERO, iter.getName());
         }
 
         return stack;

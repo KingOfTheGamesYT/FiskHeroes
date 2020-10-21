@@ -13,7 +13,7 @@ import com.google.common.primitives.Doubles;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.MathHelper;
 
 public class StatusEffect implements Comparable<StatusEffect>
@@ -50,7 +50,7 @@ public class StatusEffect implements Comparable<StatusEffect>
         buf.writeByte(amplifier);
     }
 
-    public static StatusEffect readFromNBT(NBTTagCompound tag)
+    public static StatusEffect readFromNBT(CompoundNBT tag)
     {
         StatEffect effect = StatEffect.getEffectFromName(tag.getString("Id"));
 
@@ -62,9 +62,9 @@ public class StatusEffect implements Comparable<StatusEffect>
         return null;
     }
 
-    public NBTTagCompound writeToNBT()
+    public CompoundNBT writeToNBT()
     {
-        NBTTagCompound nbt = new NBTTagCompound();
+        CompoundNBT nbt = new CompoundNBT();
         nbt.setString("Id", effect.delegate.name());
         nbt.setShort("Duration", (short) duration);
         nbt.setByte("Amplifier", (byte) amplifier);

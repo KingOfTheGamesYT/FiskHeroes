@@ -14,7 +14,7 @@ import com.fiskmods.heroes.common.config.RuleSet;
 import com.fiskmods.heroes.common.tileentity.TileEntityRuleHandler;
 
 import net.minecraft.block.Block;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -121,7 +121,7 @@ public class SHMapData extends WorldSavedData
     }
 
     @Override
-    public void readFromNBT(NBTTagCompound nbt)
+    public void readFromNBT(CompoundNBT nbt)
     {
         if (nbt.hasKey("OreGen", NBT.TAG_LIST))
         {
@@ -129,7 +129,7 @@ public class SHMapData extends WorldSavedData
 
             for (int i = 0; i < list.tagCount(); ++i)
             {
-                NBTTagCompound oreGen = list.getCompoundTagAt(i);
+                CompoundNBT oreGen = list.getCompoundTagAt(i);
                 BlockStack target = BlockStack.fromString(oreGen.getString("Target"));
 
                 if (target != null)
@@ -139,7 +139,7 @@ public class SHMapData extends WorldSavedData
 
                     for (int j = 0; j < ores.tagCount(); ++j)
                     {
-                        NBTTagCompound tag = ores.getCompoundTagAt(j);
+                        CompoundNBT tag = ores.getCompoundTagAt(j);
                         BlockStack ore = BlockStack.fromString(tag.getString("id"));
 
                         if (ore != null)
@@ -193,7 +193,7 @@ public class SHMapData extends WorldSavedData
     }
 
     @Override
-    public void writeToNBT(NBTTagCompound nbt)
+    public void writeToNBT(CompoundNBT nbt)
     {
         if (!ores.isEmpty())
         {
@@ -201,12 +201,12 @@ public class SHMapData extends WorldSavedData
 
             for (Map.Entry<Block, Map<BlockStack, Integer>> e : ores.entrySet())
             {
-                NBTTagCompound oreGen = new NBTTagCompound();
+                CompoundNBT oreGen = new CompoundNBT();
                 NBTTagList ores = new NBTTagList();
 
                 for (Map.Entry<BlockStack, Integer> e1 : e.getValue().entrySet())
                 {
-                    NBTTagCompound tag = new NBTTagCompound();
+                    CompoundNBT tag = new CompoundNBT();
                     tag.setString("id", BlockStack.toStringSafe(e1.getKey()));
                     tag.setInteger("size", e1.getValue());
                     ores.appendTag(tag);

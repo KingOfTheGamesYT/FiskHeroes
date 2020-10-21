@@ -3,7 +3,7 @@ package com.fiskmods.heroes.common.config;
 import java.io.File;
 import java.io.IOException;
 
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 
 public class ImmutableRuleSet extends RuleSet
 {
@@ -31,14 +31,14 @@ public class ImmutableRuleSet extends RuleSet
 
     @Override
     @Deprecated
-    public NBTTagCompound writeToNBT(NBTTagCompound compound)
+    public CompoundNBT writeToNBT(CompoundNBT compound)
     {
         throw new UnsupportedOperationException();
     }
 
     @Override
     @Deprecated
-    public RuleSet readFromNBT(NBTTagCompound compound)
+    public RuleSet readFromNBT(CompoundNBT compound)
     {
         throw new UnsupportedOperationException();
     }

@@ -25,7 +25,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
@@ -163,17 +163,17 @@ public class ItemCapsShield extends ItemUntextured implements IPunchWeapon, IBat
 
     public static boolean isStealth(ItemStack stack)
     {
-        return stack.hasTagCompound() && stack.getTagCompound().getBoolean(TAG_STEALTH);
+        return stack.hasTag() && stack.getTag().getBoolean(TAG_STEALTH);
     }
 
     public static ItemStack setStealth(ItemStack stack, boolean stealth)
     {
-        if (!stack.hasTagCompound())
+        if (!stack.hasTag())
         {
-            stack.setTagCompound(new NBTTagCompound());
+            stack.setTag(new CompoundNBT());
         }
 
-        stack.getTagCompound().setBoolean(TAG_STEALTH, stealth);
+        stack.getTag().setBoolean(TAG_STEALTH, stealth);
         return stack;
     }
 }

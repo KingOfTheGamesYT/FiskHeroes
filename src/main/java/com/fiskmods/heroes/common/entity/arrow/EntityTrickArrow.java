@@ -25,7 +25,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.projectile.ArrowEntity;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.play.server.S2BPacketChangeGameState;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
@@ -734,7 +734,7 @@ public class EntityTrickArrow extends ArrowEntity implements IEntityAdditionalSp
     }
 
     @Override
-    public void writeEntityToNBT(NBTTagCompound compound)
+    public void writeEntityToNBT(CompoundNBT compound)
     {
         compound.setShort("xTile", (short) xTile);
         compound.setShort("yTile", (short) yTile);
@@ -758,7 +758,7 @@ public class EntityTrickArrow extends ArrowEntity implements IEntityAdditionalSp
         compound.setString("shooter", shooterName == null ? "" : shooterName);
         compound.setInteger("arrowId", arrowId);
 
-        NBTTagCompound nbttagcompound = new NBTTagCompound();
+        CompoundNBT nbttagcompound = new CompoundNBT();
 
         if (arrowItem != null)
         {
@@ -769,7 +769,7 @@ public class EntityTrickArrow extends ArrowEntity implements IEntityAdditionalSp
     }
 
     @Override
-    public void readEntityFromNBT(NBTTagCompound compound)
+    public void readEntityFromNBT(CompoundNBT compound)
     {
         xTile = compound.getShort("xTile");
         yTile = compound.getShort("yTile");

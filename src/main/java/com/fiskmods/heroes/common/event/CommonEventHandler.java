@@ -438,11 +438,11 @@ public enum CommonEventHandler
 
                                     if (itemstack1 != null)
                                     {
-                                        int charge = itemstack1.getTagCompound().getInteger("TachyonCharge");
+                                        int charge = itemstack1.getTag().getInteger("TachyonCharge");
 
                                         if (charge > 0)
                                         {
-                                            itemstack1.getTagCompound().setInteger("TachyonCharge", --charge);
+                                            itemstack1.getTag().setInteger("TachyonCharge", --charge);
                                         }
                                     }
                                 }

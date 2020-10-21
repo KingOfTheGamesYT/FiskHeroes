@@ -2,7 +2,7 @@ package com.fiskmods.heroes.common.tileentity;
 
 import com.fiskmods.heroes.util.SHTileHelper;
 
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
@@ -11,14 +11,14 @@ import net.minecraft.tileentity.TileEntity;
 public abstract class TileEntitySH extends TileEntity
 {
     @Override
-    public final void readFromNBT(NBTTagCompound nbt)
+    public final void readFromNBT(CompoundNBT nbt)
     {
         super.readFromNBT(nbt);
         readCustomNBT(nbt);
     }
 
     @Override
-    public final void writeToNBT(NBTTagCompound nbt)
+    public final void writeToNBT(CompoundNBT nbt)
     {
         super.writeToNBT(nbt);
         writeCustomNBT(nbt);
@@ -32,7 +32,7 @@ public abstract class TileEntitySH extends TileEntity
     @Override
     public Packet getDescriptionPacket()
     {
-        NBTTagCompound tag = new NBTTagCompound();
+        CompoundNBT tag = new CompoundNBT();
         writeCustomNBT(tag);
         return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 1, tag);
     }
@@ -66,7 +66,7 @@ public abstract class TileEntitySH extends TileEntity
         markBlockForUpdate();
     }
 
-    protected abstract void writeCustomNBT(NBTTagCompound nbt);
+    protected abstract void writeCustomNBT(CompoundNBT nbt);
 
-    protected abstract void readCustomNBT(NBTTagCompound nbt);
+    protected abstract void readCustomNBT(CompoundNBT nbt);
 }

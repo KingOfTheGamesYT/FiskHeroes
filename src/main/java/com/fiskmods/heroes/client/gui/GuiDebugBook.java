@@ -27,9 +27,9 @@ public class GuiDebugBook extends GuiSuperheroesBook
         super(player, itemstack, new Book(null).addPage(new Page("\\n\\n\\n\\n\\n       #c#lInvalid book")));
         String path = "";
 
-        if (itemstack.hasTagCompound() && itemstack.getTagCompound().hasKey("Path", NBT.TAG_STRING))
+        if (itemstack.hasTag() && itemstack.getTag().hasKey("Path", NBT.TAG_STRING))
         {
-            path = itemstack.getTagCompound().getString("Path");
+            path = itemstack.getTag().getString("Path");
         }
 
         bookFile = new File(path);

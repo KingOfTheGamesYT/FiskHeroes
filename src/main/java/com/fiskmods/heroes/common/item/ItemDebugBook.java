@@ -17,9 +17,9 @@ public class ItemDebugBook extends ItemMetahumanLog
     @Override
     public void addInformation(ItemStack itemstack, PlayerEntity player, List list, boolean flag)
     {
-        if (itemstack.hasTagCompound() && itemstack.getTagCompound().hasKey("Path", NBT.TAG_STRING))
+        if (itemstack.hasTag() && itemstack.getTag().hasKey("Path", NBT.TAG_STRING))
         {
-            String s = itemstack.getTagCompound().getString("Path");
+            String s = itemstack.getTag().getString("Path");
             File file = new File(s);
 
             String[] astring = s.split("\\\\");
@@ -56,7 +56,7 @@ public class ItemDebugBook extends ItemMetahumanLog
     @Override
     public ItemStack onItemRightClick(ItemStack itemstack, World world, PlayerEntity player)
     {
-        player.openGui(FiskHeroes.MODID, 4, world, 1, itemstack.hasTagCompound() && itemstack.getTagCompound().hasKey("Path", NBT.TAG_STRING) ? 1 : 0, 0);
+        player.openGui(FiskHeroes.MODID, 4, world, 1, itemstack.hasTag() && itemstack.getTag().hasKey("Path", NBT.TAG_STRING) ? 1 : 0, 0);
         return itemstack;
     }
 }

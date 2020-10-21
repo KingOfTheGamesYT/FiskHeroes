@@ -32,7 +32,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.AxisAlignedBB;
@@ -346,7 +346,7 @@ public class TileEntityDisplayStand extends TileEntityContainer implements IMult
     }
 
     @Override
-    public void readCustomNBT(NBTTagCompound nbt)
+    public void readCustomNBT(CompoundNBT nbt)
     {
         super.readCustomNBT(nbt);
         displayColor = nbt.getByte("Color");
@@ -359,7 +359,7 @@ public class TileEntityDisplayStand extends TileEntityContainer implements IMult
 
         if (nbt.hasKey("Owner", NBT.TAG_COMPOUND))
         {
-            NBTTagCompound compound = nbt.getCompoundTag("Owner");
+            CompoundNBT compound = nbt.getCompoundTag("Owner");
 
             if (compound.hasKey("UUIDMost", NBT.TAG_LONG) && compound.hasKey("UUIDLeast", NBT.TAG_LONG))
             {
@@ -369,7 +369,7 @@ public class TileEntityDisplayStand extends TileEntityContainer implements IMult
     }
 
     @Override
-    public void writeCustomNBT(NBTTagCompound nbt)
+    public void writeCustomNBT(CompoundNBT nbt)
     {
         super.writeCustomNBT(nbt);
         nbt.setByte("Color", (byte) displayColor);
@@ -377,14 +377,14 @@ public class TileEntityDisplayStand extends TileEntityContainer implements IMult
 
         if (displayProfile != null)
         {
-            NBTTagCompound tag = new NBTTagCompound();
+            CompoundNBT tag = new CompoundNBT();
             NBTUtil.func_152460_a(tag, displayProfile);
             nbt.setTag("Username", tag);
         }
 
         if (owner != null)
         {
-            NBTTagCompound compound = new NBTTagCompound();
+            CompoundNBT compound = new CompoundNBT();
             compound.setLong("UUIDMost", owner.getMostSignificantBits());
             compound.setLong("UUIDLeast", owner.getLeastSignificantBits());
             nbt.setTag("Owner", compound);

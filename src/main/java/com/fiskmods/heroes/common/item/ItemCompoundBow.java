@@ -24,7 +24,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemBow;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
@@ -179,18 +179,18 @@ public class ItemCompoundBow extends ItemBow implements IPunchWeapon, IBattlegea
 
     public static ItemStack setBroken(ItemStack itemstack, boolean broken)
     {
-        if (!itemstack.hasTagCompound())
+        if (!itemstack.hasTag())
         {
-            itemstack.setTagCompound(new NBTTagCompound());
+            itemstack.setTag(new CompoundNBT());
         }
 
-        itemstack.getTagCompound().setBoolean("Broken", broken);
+        itemstack.getTag().setBoolean("Broken", broken);
 
         return itemstack;
     }
 
     public static boolean isBroken(ItemStack itemstack)
     {
-        return itemstack.hasTagCompound() && itemstack.getTagCompound().getBoolean("Broken");
+        return itemstack.hasTag() && itemstack.getTag().getBoolean("Broken");
     }
 }

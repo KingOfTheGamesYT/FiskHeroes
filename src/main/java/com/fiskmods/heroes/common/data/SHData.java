@@ -40,7 +40,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.MathHelper;
 
 public class SHData<T> extends FiskRegistryEntry<SHData<?>>
@@ -529,9 +529,9 @@ public class SHData<T> extends FiskRegistryEntry<SHData<?>>
         return clampWithoutNotify(player, min, max) && sync(player);
     }
 
-    public static NBTTagCompound writeToNBT(NBTTagCompound nbt, Map<SHData, Object> data)
+    public static CompoundNBT writeToNBT(CompoundNBT nbt, Map<SHData, Object> data)
     {
-        NBTTagCompound nbttagcompound = new NBTTagCompound();
+        CompoundNBT nbttagcompound = new CompoundNBT();
 
         for (Map.Entry<SHData, Object> e : data.entrySet())
         {
@@ -551,9 +551,9 @@ public class SHData<T> extends FiskRegistryEntry<SHData<?>>
         return nbt;
     }
 
-    public static Map<SHData, Object> readFromNBT(NBTTagCompound nbt, Map<SHData, Object> data)
+    public static Map<SHData, Object> readFromNBT(CompoundNBT nbt, Map<SHData, Object> data)
     {
-        NBTTagCompound nbttagcompound = nbt.getCompoundTag("DataArray");
+        CompoundNBT nbttagcompound = nbt.getCompoundTag("DataArray");
 
         for (SHData type : SHData.REGISTRY)
         {
