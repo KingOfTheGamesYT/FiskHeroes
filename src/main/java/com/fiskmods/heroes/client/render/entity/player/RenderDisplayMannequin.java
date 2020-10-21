@@ -18,7 +18,7 @@ import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.client.renderer.tileentity.TileEntitySkullRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemBlock;
@@ -366,7 +366,7 @@ public class RenderDisplayMannequin extends RenderPlayer
         GL11.glRotatef(180 - f1, 0, 1, 0);
         String s = EnumChatFormatting.getTextWithoutFormattingCodes(entity.getCommandSenderName());
 
-        if ((s.equals("Dinnerbone") || s.equals("Grumm")) && !(entity instanceof EntityPlayer && ((EntityPlayer) entity).getHideCape()))
+        if ((s.equals("Dinnerbone") || s.equals("Grumm")) && !(entity instanceof PlayerEntity && ((EntityPlayer) entity).getHideCape()))
         {
             GL11.glTranslatef(0, entity.height + 0.1F, 0);
             GL11.glRotatef(180, 0, 0, 1);

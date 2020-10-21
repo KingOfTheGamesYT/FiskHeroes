@@ -9,7 +9,7 @@ import com.fiskmods.heroes.util.RewardHelper;
 import com.fiskmods.heroes.util.VectorHelper;
 
 import cpw.mods.fml.relauncher.Side;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
@@ -25,19 +25,19 @@ public class InteractionCactusSummon extends InteractionBase
     }
 
     @Override
-    public boolean serverRequirements(EntityPlayer player, InteractionType type, int x, int y, int z)
+    public boolean serverRequirements(PlayerEntity player, InteractionType type, int x, int y, int z)
     {
         return (player.worldObj.getBlock(x, y, z) == Blocks.cactus || type != InteractionType.RIGHT_CLICK_BLOCK) && SHData.AIMING.get(player) && !player.isSneaking();
     }
 
     @Override
-    public boolean clientRequirements(EntityPlayer player, InteractionType type, int x, int y, int z)
+    public boolean clientRequirements(PlayerEntity player, InteractionType type, int x, int y, int z)
     {
         return Cooldown.SUMMON_CACTUS.available(player);
     }
 
     @Override
-    public void receive(EntityPlayer sender, EntityPlayer clientPlayer, InteractionType type, Side side, int x, int y, int z)
+    public void receive(PlayerEntity sender, PlayerEntity clientPlayer, InteractionType type, Side side, int x, int y, int z)
     {
         double range = Rule.RANGE_CACTUSSUMMON.getHero(sender);
         Vec3 src = VectorHelper.getOffsetCoords(sender, -0.3, -0.4, 0.6);

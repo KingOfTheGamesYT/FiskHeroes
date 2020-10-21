@@ -10,7 +10,7 @@ import com.fiskmods.heroes.util.SHHelper;
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 
 public class AbilityGliding extends Ability
 {
@@ -55,7 +55,7 @@ public class AbilityGliding extends Ability
     {
         if (entity instanceof EntityPlayer)
         {
-            EntityPlayer player = (EntityPlayer) entity;
+            PlayerEntity player = (EntityPlayer) entity;
 
             if (player.capabilities.isFlying)
             {

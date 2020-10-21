@@ -16,7 +16,7 @@ import com.fiskmods.heroes.util.VectorHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.settings.KeyBinding;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.MovingObjectPosition.MovingObjectType;
@@ -30,20 +30,20 @@ public class KeyPressTeleport extends KeyPressBase
     }
 
     @Override
-    public boolean serverRequirements(EntityPlayer player, InteractionType type, int x, int y, int z)
+    public boolean serverRequirements(PlayerEntity player, InteractionType type, int x, int y, int z)
     {
         return SHData.TELEPORT_DELAY.get(player) <= 0 && !SHHelper.isEarthCrackTarget(player);
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public KeyBinding getKey(EntityPlayer player, Hero hero)
+    public KeyBinding getKey(PlayerEntity player, Hero hero)
     {
         return hero.getKey(player, AbilityTeleportation.KEY_TELEPORT);
     }
 
     @Override
-    public void receive(EntityPlayer sender, EntityPlayer clientPlayer, InteractionType type, Side side, int x, int y, int z)
+    public void receive(PlayerEntity sender, PlayerEntity clientPlayer, InteractionType type, Side side, int x, int y, int z)
     {
         if (side.isServer())
         {

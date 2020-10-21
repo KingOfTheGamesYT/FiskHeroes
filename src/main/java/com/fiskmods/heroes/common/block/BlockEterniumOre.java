@@ -3,7 +3,7 @@ package com.fiskmods.heroes.common.block;
 import com.fiskmods.heroes.common.item.ModItems;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
@@ -33,7 +33,7 @@ public class BlockEterniumOre extends BlockOreSH
     }
 
     @Override
-    public void onBlockClicked(World world, int x, int y, int z, EntityPlayer player)
+    public void onBlockClicked(World world, int x, int y, int z, PlayerEntity player)
     {
         super.onBlockClicked(world, x, y, z, player);
     }

@@ -7,7 +7,7 @@ import com.fiskmods.heroes.common.data.SHData;
 import com.fiskmods.heroes.common.equipment.EnumEquipment;
 import com.google.common.collect.ImmutableList;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 
 public class AbilityEquipment extends Ability
 {
@@ -38,7 +38,7 @@ public class AbilityEquipment extends Ability
     }
 
     @Override
-    public boolean renderIcon(EntityPlayer player)
+    public boolean renderIcon(PlayerEntity player)
     {
         return SHData.UTILITY_BELT_TYPE.get(player) > -1;
     }

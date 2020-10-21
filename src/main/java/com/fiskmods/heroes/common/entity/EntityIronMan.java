@@ -28,7 +28,7 @@ import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.monster.IMob;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.scoreboard.Team;
@@ -123,7 +123,7 @@ public class EntityIronMan extends EntityCreature implements IEntityOwnable, IDa
 
                 if (owner instanceof EntityPlayer)
                 {
-                    EntityPlayer player = (EntityPlayer) owner;
+                    PlayerEntity player = (EntityPlayer) owner;
 
                     if (player.isEntityAlive() && FiskMath.containsAABB(aabb, player.boundingBox))
                     {
@@ -255,7 +255,7 @@ public class EntityIronMan extends EntityCreature implements IEntityOwnable, IDa
     }
 
     @Override
-    protected boolean interact(EntityPlayer player)
+    protected boolean interact(PlayerEntity player)
     {
         if (isOwner(player))
         {

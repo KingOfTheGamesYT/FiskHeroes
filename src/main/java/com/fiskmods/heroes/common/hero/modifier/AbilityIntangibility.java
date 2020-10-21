@@ -11,7 +11,7 @@ import com.fiskmods.heroes.util.SHHelper;
 
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.DamageSource;
 
 public class AbilityIntangibility extends Ability
@@ -72,7 +72,7 @@ public class AbilityIntangibility extends Ability
     }
 
     @Override
-    public boolean renderIcon(EntityPlayer player)
+    public boolean renderIcon(PlayerEntity player)
     {
         return SHData.INTANGIBLE.get(player);
     }

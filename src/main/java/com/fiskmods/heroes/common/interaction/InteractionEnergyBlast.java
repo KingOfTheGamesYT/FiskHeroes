@@ -11,7 +11,7 @@ import com.fiskmods.heroes.util.VectorHelper;
 
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import cpw.mods.fml.relauncher.Side;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Vec3;
 
 public class InteractionEnergyBlast extends InteractionBase
@@ -22,19 +22,19 @@ public class InteractionEnergyBlast extends InteractionBase
     }
 
     @Override
-    public boolean serverRequirements(EntityPlayer player, InteractionType type, int x, int y, int z)
+    public boolean serverRequirements(PlayerEntity player, InteractionType type, int x, int y, int z)
     {
         return SHData.AIMING.get(player);
     }
 
     @Override
-    public boolean clientRequirements(EntityPlayer player, InteractionType type, int x, int y, int z)
+    public boolean clientRequirements(PlayerEntity player, InteractionType type, int x, int y, int z)
     {
         return Cooldown.ENERGY_BLAST.available(player);
     }
 
     @Override
-    public void receive(EntityPlayer sender, EntityPlayer clientPlayer, InteractionType type, Side side, int x, int y, int z)
+    public void receive(PlayerEntity sender, PlayerEntity clientPlayer, InteractionType type, Side side, int x, int y, int z)
     {
         if (side.isServer())
         {
@@ -55,7 +55,7 @@ public class InteractionEnergyBlast extends InteractionBase
     }
 
     @Override
-    public TargetPoint getTargetPoint(EntityPlayer player, int x, int y, int z)
+    public TargetPoint getTargetPoint(PlayerEntity player, int x, int y, int z)
     {
         return TARGET_NONE;
     }

@@ -8,7 +8,7 @@ import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.ModContainer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 
 public class FiskPredicates
@@ -16,7 +16,7 @@ public class FiskPredicates
     public static final Map<Class, Map<String, Predicate>> METHODS = new HashMap<>();
     public static final String AND = " && ";
 
-    public static final Predicate<Entity> IS_FLYING = t -> t instanceof EntityPlayer && ((EntityPlayer) t).capabilities.isFlying;
+    public static final Predicate<Entity> IS_FLYING = t -> t instanceof PlayerEntity && ((EntityPlayer) t).capabilities.isFlying;
 
     public static <T> Predicate<T> forInput(Class<T> clazz, String input)
     {

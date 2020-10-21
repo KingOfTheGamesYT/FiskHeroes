@@ -8,7 +8,7 @@ import com.fiskmods.heroes.util.SHHelper;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraft.block.BlockDirectional;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
@@ -22,7 +22,7 @@ public class TileEntityTreadmill extends TileEntitySH implements IMultiTile, ITi
     @Override
     public void updateEntity()
     {
-        EntityPlayer player = getPlayer();
+        PlayerEntity player = getPlayer();
         int metadata = getBlockMetadata();
         int direction = BlockDirectional.getDirection(metadata);
 
@@ -49,7 +49,7 @@ public class TileEntityTreadmill extends TileEntitySH implements IMultiTile, ITi
         // animationTimer = MathHelper.clamp_float(animationTimer, 0, 1);
     }
 
-    public void setPlayer(EntityPlayer player)
+    public void setPlayer(PlayerEntity player)
     {
         if (player == null)
         {
@@ -66,7 +66,7 @@ public class TileEntityTreadmill extends TileEntitySH implements IMultiTile, ITi
         }
     }
 
-    public EntityPlayer getPlayer()
+    public PlayerEntity getPlayer()
     {
         if (playerId >= 0 && worldObj.getEntityByID(playerId) instanceof EntityPlayer)
         {
@@ -106,7 +106,7 @@ public class TileEntityTreadmill extends TileEntitySH implements IMultiTile, ITi
     }
 
     @Override
-    public void receive(EntityPlayer sender, ByteBuf buf)
+    public void receive(PlayerEntity sender, ByteBuf buf)
     {
         setPlayer(sender);
     }

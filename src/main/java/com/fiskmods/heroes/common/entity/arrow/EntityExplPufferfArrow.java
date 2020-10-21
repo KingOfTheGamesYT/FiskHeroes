@@ -3,7 +3,7 @@ package com.fiskmods.heroes.common.entity.arrow;
 import com.fiskmods.heroes.client.sound.SHSounds;
 
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants.NBT;
@@ -85,7 +85,7 @@ public class EntityExplPufferfArrow extends EntityPufferfishArrow
     }
 
     @Override
-    public void onCollideWithPlayer(EntityPlayer player)
+    public void onCollideWithPlayer(PlayerEntity player)
     {
         if (player == getShooter())
         {

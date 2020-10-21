@@ -7,7 +7,7 @@ import com.fiskmods.heroes.gameboii.GameboiiCartridge;
 import com.fiskmods.heroes.gameboii.GameboiiColor;
 
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -29,7 +29,7 @@ public class ItemGameboii extends ItemUntextured
     }
 
     @Override
-    public void addInformation(ItemStack itemstack, EntityPlayer player, List list, boolean advanced)
+    public void addInformation(ItemStack itemstack, PlayerEntity player, List list, boolean advanced)
     {
 //        list.add(StatCollector.translateToLocalFormatted("item.gameboii.desc1"));
 //        list.add(StatCollector.translateToLocalFormatted("item.gameboii.desc2"));
@@ -43,7 +43,7 @@ public class ItemGameboii extends ItemUntextured
     }
 
     @Override
-    public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer player)
+    public ItemStack onItemRightClick(ItemStack itemstack, World world, PlayerEntity player)
     {
         GameboiiCartridge cartridge = get(itemstack);
 

@@ -10,7 +10,7 @@ import com.fiskmods.heroes.common.event.ClientEventHandler;
 import com.fiskmods.heroes.util.SHEnumHelper;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;
@@ -37,7 +37,7 @@ public enum RenderItemBlackCanarysTonfas implements IItemRenderer
     @Override
     public void renderItem(ItemRenderType type, ItemStack item, Object... data)
     {
-        EntityPlayer player = null;
+        PlayerEntity player = null;
         float f = type == SHEnumHelper.EQUIPPED_FIRST_PERSON_OFFHAND || type == SHEnumHelper.EQUIPPED_OFFHAND ? -1 : 1;
 
         if (data.length > 1 && data[1] instanceof EntityPlayer)

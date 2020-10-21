@@ -16,7 +16,7 @@ import com.fiskmods.heroes.util.SHHelper;
 import com.google.common.collect.Lists;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
@@ -37,9 +37,9 @@ public class SHPlayerData implements IExtendedEntityProperties
     public int maxTier;
 
     public Set<Hero> heroesCollected = new HashSet<>();
-    public EntityPlayer player;
+    public PlayerEntity player;
 
-    public static SHPlayerData getData(EntityPlayer player)
+    public static SHPlayerData getData(PlayerEntity player)
     {
         return (SHPlayerData) player.getExtendedProperties(IDENTIFIER);
     }

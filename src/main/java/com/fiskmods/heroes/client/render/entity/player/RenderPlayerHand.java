@@ -19,7 +19,7 @@ import com.fiskmods.heroes.util.SHRenderHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.entity.RenderPlayer;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
@@ -30,7 +30,7 @@ public class RenderPlayerHand extends RenderPlayer
     public RenderPlayer parent;
 
     @Override
-    public void renderFirstPersonArm(EntityPlayer player)
+    public void renderFirstPersonArm(PlayerEntity player)
     {
         float aiming = SHData.AIMING_TIMER.interpolate(player);
         float blocking = SHData.SHIELD_BLOCKING_TIMER.interpolate(player);

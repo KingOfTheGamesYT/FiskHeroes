@@ -21,9 +21,9 @@ public class GuiQuiver extends GuiContainer
     private static final ResourceLocation guiTextures = new ResourceLocation(FiskHeroes.MODID, "textures/gui/container/quiver.png");
     public ItemStack quiverItem;
 
-    public GuiQuiver(PlayerInventory inventoryPlayer, InventoryQuiver inventoryQuiver)
+    public GuiQuiver(PlayerInventory playerInventory, InventoryQuiver inventoryQuiver)
     {
-        super(new ContainerQuiver(inventoryPlayer, inventoryQuiver));
+        super(new ContainerQuiver(playerInventory, inventoryQuiver));
         ySize = 133;
         quiverItem = inventoryQuiver.quiverItem;
     }

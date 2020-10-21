@@ -15,8 +15,8 @@ import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.StatCollector;
 
 public class Spell extends FiskRegistryEntry<Spell>
@@ -71,7 +71,7 @@ public class Spell extends FiskRegistryEntry<Spell>
         return true;
     }
 
-    public void trigger(EntityPlayer player)
+    public void trigger(PlayerEntity player)
     {
         if (!player.worldObj.isRemote)
         {
@@ -111,7 +111,7 @@ public class Spell extends FiskRegistryEntry<Spell>
         return Interaction.TARGET_NONE;
     }
 
-    public boolean renderIcon(EntityPlayer player)
+    public boolean renderIcon(PlayerEntity player)
     {
         return false;
     }

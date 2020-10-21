@@ -8,7 +8,7 @@ import com.fiskmods.heroes.util.FiskServerUtils;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -19,13 +19,13 @@ import net.minecraftforge.common.util.Constants.NBT;
 
 public class InventoryQuiver implements IInventory
 {
-    public final EntityPlayer thePlayer;
+    public final PlayerEntity thePlayer;
     public final ItemStack quiverItem;
     public final int itemSlot;
 
     private ItemStack[] itemstacks = new ItemStack[5];
 
-    private InventoryQuiver(EntityPlayer player, ItemStack itemstack, int slot)
+    private InventoryQuiver(PlayerEntity player, ItemStack itemstack, int slot)
     {
         thePlayer = player;
         quiverItem = itemstack;
@@ -44,12 +44,12 @@ public class InventoryQuiver implements IInventory
         }
     }
 
-    public InventoryQuiver(EntityPlayer player, ItemStack itemstack)
+    public InventoryQuiver(PlayerEntity player, ItemStack itemstack)
     {
         this(player, itemstack, -1);
     }
 
-    public InventoryQuiver(EntityPlayer player, int slot)
+    public InventoryQuiver(PlayerEntity player, int slot)
     {
         this(player, null, slot);
     }
@@ -421,7 +421,7 @@ public class InventoryQuiver implements IInventory
     }
 
     @Override
-    public boolean isUseableByPlayer(EntityPlayer player)
+    public boolean isUseableByPlayer(PlayerEntity player)
     {
         if (quiverItem == null)
         {

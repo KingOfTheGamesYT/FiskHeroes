@@ -12,7 +12,7 @@ import com.fiskmods.heroes.util.SHHelper;
 import com.google.common.collect.Iterables;
 
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -31,7 +31,7 @@ public class ItemFlashRing extends ItemUntextured implements IItemListEntry
     }
 
     @Override
-    public void addInformation(ItemStack itemstack, EntityPlayer player, List list, boolean advanced)
+    public void addInformation(ItemStack itemstack, PlayerEntity player, List list, boolean advanced)
     {
         HeroIteration iter = getContainedHero(itemstack);
 
@@ -42,7 +42,7 @@ public class ItemFlashRing extends ItemUntextured implements IItemListEntry
     }
 
     @Override
-    public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer player)
+    public ItemStack onItemRightClick(ItemStack itemstack, World world, PlayerEntity player)
     {
 //        if (!world.isRemote)
         {
@@ -122,7 +122,7 @@ public class ItemFlashRing extends ItemUntextured implements IItemListEntry
         return itemstack;
     }
 
-    public void swapArmor(EntityPlayer player, ItemStack itemstack, int slot)
+    public void swapArmor(PlayerEntity player, ItemStack itemstack, int slot)
     {
         if (itemstack != null)
         {

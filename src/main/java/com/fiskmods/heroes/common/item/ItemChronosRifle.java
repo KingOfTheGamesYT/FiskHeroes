@@ -14,7 +14,7 @@ import com.fiskmods.heroes.util.SHHelper;
 import com.fiskmods.heroes.util.VectorHelper;
 
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.MovingObjectPosition;
@@ -29,7 +29,7 @@ public class ItemChronosRifle extends ItemUntextured implements IReloadWeapon, I
     }
 
     @Override
-    public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
+    public ItemStack onItemRightClick(ItemStack stack, World world, PlayerEntity player)
     {
         HeroIteration iter;
 
@@ -49,7 +49,7 @@ public class ItemChronosRifle extends ItemUntextured implements IReloadWeapon, I
     }
 
     @Override
-    public void onUsingTick(ItemStack stack, EntityPlayer player, int count)
+    public void onUsingTick(ItemStack stack, PlayerEntity player, int count)
     {
         int rate = 3;
         float windup = 5;
@@ -87,7 +87,7 @@ public class ItemChronosRifle extends ItemUntextured implements IReloadWeapon, I
         }
     }
 
-    public void shoot(ItemStack stack, EntityPlayer player, HeroIteration iter)
+    public void shoot(ItemStack stack, PlayerEntity player, HeroIteration iter)
     {
         if (!player.worldObj.isRemote)
         {
@@ -147,7 +147,7 @@ public class ItemChronosRifle extends ItemUntextured implements IReloadWeapon, I
         SHData.RELOAD_TIMER.setWithoutNotify(player, 1.0F);
     }
 
-    private void shoot(EntityPlayer player, Type type, HeroIteration iter, boolean flag, float mX, float mY, float mZ)
+    private void shoot(PlayerEntity player, Type type, HeroIteration iter, boolean flag, float mX, float mY, float mZ)
     {
         if (flag)
         {
@@ -207,7 +207,7 @@ public class ItemChronosRifle extends ItemUntextured implements IReloadWeapon, I
     }
 
     @Override
-    public int getReloadTime(ItemStack stack, EntityPlayer player, Hero hero)
+    public int getReloadTime(ItemStack stack, PlayerEntity player, Hero hero)
     {
         int i = Rule.COOLDOWN_CHRONOSRIFLE.get(player, hero);
 

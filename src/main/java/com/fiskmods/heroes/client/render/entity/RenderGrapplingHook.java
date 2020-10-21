@@ -15,7 +15,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Vec3;
@@ -34,7 +34,7 @@ public class RenderGrapplingHook extends Render
 
         if (entity.getShooter() instanceof EntityPlayer)
         {
-            EntityPlayer shooter = (EntityPlayer) entity.getShooter();
+            PlayerEntity shooter = (EntityPlayer) entity.getShooter();
 
             float f9 = shooter.getSwingProgress(partialTicks);
             float f10 = MathHelper.sin(MathHelper.sqrt_float(f9) * (float) Math.PI);

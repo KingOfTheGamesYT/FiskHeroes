@@ -10,7 +10,7 @@ import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItemFrame;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
@@ -30,7 +30,7 @@ public class SHEntityRenderer extends EntityRenderer
     @Override
     public void updateCameraAndRender(float partialTicks)
     {
-        EntityPlayer player = mc.thePlayer;
+        PlayerEntity player = mc.thePlayer;
 
         if (player == null || player.isPlayerSleeping())
         {

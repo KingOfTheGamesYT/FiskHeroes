@@ -7,7 +7,7 @@ import com.fiskmods.heroes.common.item.ModItems;
 import com.fiskmods.heroes.util.SHHelper;
 
 import io.netty.buffer.ByteBuf;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 
 public class MessageThrowShield extends AbstractMessage<MessageThrowShield>
@@ -29,7 +29,7 @@ public class MessageThrowShield extends AbstractMessage<MessageThrowShield>
     @Override
     public void receive() throws MessageException
     {
-        EntityPlayer player = getPlayer();
+        PlayerEntity player = getPlayer();
         ItemStack heldItem = player.getHeldItem();
 
         if (heldItem != null && heldItem.getItem() == ModItems.captainAmericasShield && player.isSneaking() && SHHelper.hasPermission(player, Permission.THROW_SHIELD))

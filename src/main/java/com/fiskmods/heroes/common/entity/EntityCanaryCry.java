@@ -13,7 +13,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
@@ -93,7 +93,7 @@ public class EntityCanaryCry extends EntityThrowable
 
                                 if (block.getMaterial() == Material.glass)
                                 {
-                                    if (getThrower() instanceof EntityPlayer && !((EntityPlayer) getThrower()).canPlayerEdit(x, y, z, 0, null) || !Rule.GRIEF_CANARYCRY.get(worldObj, x, z))
+                                    if (getThrower() instanceof PlayerEntity && !((EntityPlayer) getThrower()).canPlayerEdit(x, y, z, 0, null) || !Rule.GRIEF_CANARYCRY.get(worldObj, x, z))
                                     {
                                         continue;
                                     }

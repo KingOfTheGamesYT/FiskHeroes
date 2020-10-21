@@ -24,7 +24,7 @@ import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderItem;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
@@ -260,7 +260,7 @@ public class SHRenderHelper
         }
     }
 
-    public static void doLightningAura(EntityPlayer player, Vec3 color, int density, float spread, float length)
+    public static void doLightningAura(PlayerEntity player, Vec3 color, int density, float spread, float length)
     {
         float scale = SHData.SCALE.interpolate(player);
 
@@ -282,7 +282,7 @@ public class SHRenderHelper
         }
     }
 
-    public static void doLightningAura(EntityPlayer player, JsonTrail trail)
+    public static void doLightningAura(PlayerEntity player, JsonTrail trail)
     {
         if (trail.flicker != null)
         {
@@ -291,12 +291,12 @@ public class SHRenderHelper
         }
     }
 
-    public static boolean shouldOverrideView(EntityPlayer player)
+    public static boolean shouldOverrideView(PlayerEntity player)
     {
         return SHData.SCALE.get(player) != 1 || SHHelper.getSideStandingOn(player) != 1 || SHData.GLIDING.get(player) || SHData.SHADOWFORM_TIMER.get(player) > 0;
     }
 
-    public static boolean shouldOverrideThirdPersonDistance(EntityPlayer player)
+    public static boolean shouldOverrideThirdPersonDistance(PlayerEntity player)
     {
         return SHHelper.getHero(player) != null || SHHelper.getPrevHero(player) != null;
     }
@@ -473,12 +473,12 @@ public class SHRenderHelper
         }
     }
 
-    public static void updatePrevMotion(EntityPlayer player)
+    public static void updatePrevMotion(PlayerEntity player)
     {
         prevMotion.put(player, player == mc.thePlayer ? Vec3.createVectorHelper(player.motionX, player.motionY, player.motionZ) : Vec3.createVectorHelper(player.posX - player.prevPosX, player.posY - player.prevPosY, player.posZ - player.prevPosZ));
     }
 
-    public static Vec3 getMotion(EntityPlayer player)
+    public static Vec3 getMotion(PlayerEntity player)
     {
         Vec3 curr = player == mc.thePlayer ? Vec3.createVectorHelper(player.motionX, player.motionY, player.motionZ) : Vec3.createVectorHelper(player.posX - player.prevPosX, player.posY - player.prevPosY, player.posZ - player.prevPosZ);
         Vec3 prev = prevMotion.containsKey(player) ? prevMotion.get(player) : curr;

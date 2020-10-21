@@ -6,7 +6,7 @@ import com.fiskmods.heroes.FiskHeroes;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
@@ -132,7 +132,7 @@ public class VectorHelper
     {
         double yOffset = entity.getEyeHeight();
 
-        if (entity instanceof EntityPlayer && entity.worldObj.isRemote)
+        if (entity instanceof PlayerEntity && entity.worldObj.isRemote)
         {
             yOffset -= ((EntityPlayer) entity).getDefaultEyeHeight();
 

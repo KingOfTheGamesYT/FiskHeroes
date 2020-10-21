@@ -28,7 +28,7 @@ import net.minecraft.dispenser.IPosition;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -221,7 +221,7 @@ public class ArrowType<T extends EntityTrickArrow> extends FiskRegistryEntry<Arr
             entity.setHero(iter != null ? iter.getName() : null);
             entity.setDamage(SHAttributes.ARROW_DAMAGE.get(shooter, entity.getDamage() * Rule.DMGMULT_ARROW.get(shooter, iter)));
 
-            if (shooter instanceof EntityPlayer && ((EntityPlayer) shooter).capabilities.isCreativeMode)
+            if (shooter instanceof PlayerEntity && ((EntityPlayer) shooter).capabilities.isCreativeMode)
             {
                 entity.canBePickedUp = 2;
             }
@@ -310,12 +310,12 @@ public class ArrowType<T extends EntityTrickArrow> extends FiskRegistryEntry<Arr
         return getDomain() + ":arrows/" + getRegistryName().getResourcePath() + "_arrow";
     }
 
-    public ItemStack[] onEaten(ItemStack itemstack, World world, EntityPlayer player)
+    public ItemStack[] onEaten(ItemStack itemstack, World world, PlayerEntity player)
     {
         return new ItemStack[0];
     }
 
-    public boolean isEdible(ItemStack itemstack, EntityPlayer player)
+    public boolean isEdible(ItemStack itemstack, PlayerEntity player)
     {
         return false;
     }
@@ -341,7 +341,7 @@ public class ArrowType<T extends EntityTrickArrow> extends FiskRegistryEntry<Arr
     }
 
     @SideOnly(Side.CLIENT)
-    public void addInformation(ItemStack itemstack, EntityPlayer player, List list, boolean flag)
+    public void addInformation(ItemStack itemstack, PlayerEntity player, List list, boolean flag)
     {
         ItemStack itemstack1 = ItemTrickArrow.getItem(itemstack);
 

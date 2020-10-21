@@ -72,7 +72,7 @@ public class AbilityFlight extends Ability
 
             if (this == Ability.PROPELLED_FLIGHT)
             {
-                SHData.JETPACKING.set(entity, mc.gameSettings.keyBindJump.getIsKeyPressed() && !mc.thePlayer.capabilities.isFlying);
+                SHData.JETPACKING.set(entity, mc.gameSettings.keyBindJump.isPressed() && !mc.thePlayer.capabilities.isFlying);
             }
             else if (!mc.thePlayer.capabilities.isFlying && !mc.thePlayer.onGround)
             {
@@ -129,12 +129,12 @@ public class AbilityFlight extends Ability
                 mc.thePlayer.moveFlying(mc.thePlayer.moveStrafing, mc.thePlayer.moveForward, 0.075F * f);
                 f = 1 + (f - 1) / 3;
 
-                if (mc.gameSettings.keyBindJump.getIsKeyPressed())
+                if (mc.gameSettings.keyBindJump.isPressed())
                 {
                     mc.thePlayer.motionY += (mc.thePlayer.dimension == ModDimensions.QUANTUM_REALM_ID ? 0.1F : hovering ? 0.2F : 0.125F) * f;
                 }
 
-                if (mc.gameSettings.keyBindSneak.getIsKeyPressed())
+                if (mc.gameSettings.keyBindSneak.isPressed())
                 {
                     mc.thePlayer.motionY -= (mc.thePlayer.dimension == ModDimensions.QUANTUM_REALM_ID ? 0.1F : hovering ? 0.125F : 0.075F) * f;
                 }

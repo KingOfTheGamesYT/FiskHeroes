@@ -23,7 +23,7 @@ import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
@@ -139,7 +139,7 @@ public class GuiSuitIterator extends GuiContainer implements IGuiStringList, ICr
 
         if (iter != null)
         {
-            EntityPlayer player = RenderItemMiniAtomSuit.fakePlayer;
+            PlayerEntity player = RenderItemMiniAtomSuit.fakePlayer;
 
             if (player != null)
             {

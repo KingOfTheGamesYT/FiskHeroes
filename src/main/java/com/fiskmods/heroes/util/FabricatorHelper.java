@@ -10,7 +10,7 @@ import com.fiskmods.heroes.common.tileentity.TileEntityCosmicFabricator;
 import com.fiskmods.heroes.common.tileentity.TileEntitySuitFabricator;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -119,7 +119,7 @@ public class FabricatorHelper
         return factor * attribute.get(null, hero, baseValue) / baseValue - factor;
     }
 
-    public static int getMaxTier(EntityPlayer player)
+    public static int getMaxTier(PlayerEntity player)
     {
         return SHPlayerData.getData(player).maxTier;
     }

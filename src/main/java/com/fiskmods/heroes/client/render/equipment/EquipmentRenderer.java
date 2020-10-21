@@ -10,7 +10,7 @@ import com.fiskmods.heroes.common.hero.HeroIteration;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.common.MinecraftForge;
 
 public interface EquipmentRenderer extends Predicate<EntityPlayer>
@@ -29,12 +29,12 @@ public interface EquipmentRenderer extends Predicate<EntityPlayer>
         REGISTRY.add(TachyonPrototypeRenderer.INSTANCE);
     }
 
-    public static void render(EntityPlayer player, HeroIteration iter, ModelBiped model, float partialTicks)
+    public static void render(PlayerEntity player, HeroIteration iter, ModelBiped model, float partialTicks)
     {
         REGISTRY.forEach(t -> render(t, player, iter, model, partialTicks));
     }
 
-    public static void render(EquipmentRenderer renderer, EntityPlayer player, HeroIteration iter, ModelBiped model, float partialTicks)
+    public static void render(EquipmentRenderer renderer, PlayerEntity player, HeroIteration iter, ModelBiped model, float partialTicks)
     {
         if (renderer.test(player))
         {
@@ -50,7 +50,7 @@ public interface EquipmentRenderer extends Predicate<EntityPlayer>
         }
     }
 
-    float[] getOffset(EntityPlayer player, HeroIteration iter, ModelBiped model, float partialTicks);
+    float[] getOffset(PlayerEntity player, HeroIteration iter, ModelBiped model, float partialTicks);
 
-    void render(EntityPlayer player, HeroIteration iter, ModelBiped model, RenderEquipmentEvent event, float partialTicks);
+    void render(PlayerEntity player, HeroIteration iter, ModelBiped model, RenderEquipmentEvent event, float partialTicks);
 }

@@ -19,7 +19,7 @@ import net.minecraft.block.BlockLiquid;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityFallingBlock;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
@@ -72,7 +72,7 @@ public class TileEntityParticleCore extends TileEntityContainer implements ISide
 
                     if (lastInteraction != null)
                     {
-                        EntityPlayer player = worldObj.getPlayerEntityByName(lastInteraction);
+                        PlayerEntity player = worldObj.getPlayerEntityByName(lastInteraction);
 
                         if (player != null)
                         {

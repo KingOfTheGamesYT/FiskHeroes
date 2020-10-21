@@ -14,7 +14,7 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 
 public class HeroEffectInvisibility extends HeroEffect
@@ -31,7 +31,7 @@ public class HeroEffectInvisibility extends HeroEffect
     }
 
     @Override
-    public boolean shouldRenderDefaultModel(ModelBipedMultiLayer model, EntityPlayer player, HeroIteration iter, boolean body)
+    public boolean shouldRenderDefaultModel(ModelBipedMultiLayer model, PlayerEntity player, HeroIteration iter, boolean body)
     {
         return !conditionals.evaluate(player);
     }
@@ -43,7 +43,7 @@ public class HeroEffectInvisibility extends HeroEffect
     }
 
     @Override
-    public boolean preRenderArm(ModelBipedMultiLayer model, EntityPlayer player, ItemStack itemstack, HeroIteration iter, int pass)
+    public boolean preRenderArm(ModelBipedMultiLayer model, PlayerEntity player, ItemStack itemstack, HeroIteration iter, int pass)
     {
         return preRender(model, player, itemstack, pass);
     }

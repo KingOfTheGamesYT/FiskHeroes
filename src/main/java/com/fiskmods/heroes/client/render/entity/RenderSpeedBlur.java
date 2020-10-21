@@ -13,7 +13,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
 
 @SideOnly(Side.CLIENT)
@@ -23,7 +23,7 @@ public class RenderSpeedBlur extends Render
 
     public void doRender(EntitySpeedBlur entity, double x, double y, double z, float entityYaw, float partialTicks)
     {
-        EntityPlayer player = entity.anchorEntity;
+        PlayerEntity player = entity.anchorEntity;
 
         if (player != null && entity.trail != null && entity.trail.blur != null)
         {

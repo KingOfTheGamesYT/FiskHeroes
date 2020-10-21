@@ -30,7 +30,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTUtil;
@@ -55,7 +55,7 @@ public class TileEntityDisplayStand extends TileEntityContainer implements IMult
     public boolean fixHatLayer;
 
     private final GameProfile internalProfile;
-    public EntityPlayer fakePlayer;
+    public PlayerEntity fakePlayer;
 
     public TileEntityDisplayStand()
     {

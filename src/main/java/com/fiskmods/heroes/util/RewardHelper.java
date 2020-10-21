@@ -14,7 +14,7 @@ import com.google.gson.annotations.SerializedName;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.IIcon;
 
 public class RewardHelper
@@ -55,74 +55,74 @@ public class RewardHelper
     }
 
     @SideOnly(Side.CLIENT)
-    public static boolean hasRewardClient(EntityPlayer player)
+    public static boolean hasRewardClient(PlayerEntity player)
     {
         return isDonatorClient(player) || isPatronClient(player) || isCollaboratorClient(player);
     }
 
-    public static boolean hasReward(EntityPlayer player)
+    public static boolean hasReward(PlayerEntity player)
     {
         return isDonator(player) || isPatron(player) || isCollaborator(player);
     }
 
     @SideOnly(Side.CLIENT)
-    public static boolean isCollaboratorClient(EntityPlayer player)
+    public static boolean isCollaboratorClient(PlayerEntity player)
     {
         return !SHClientUtils.isInanimate(player) && COLLABORATORS.contains(SHClientUtils.getDisguisedUUID(player));
     }
 
-    public static boolean isCollaborator(EntityPlayer player)
+    public static boolean isCollaborator(PlayerEntity player)
     {
         return COLLABORATORS.contains(player.getUniqueID().toString());
     }
 
     @SideOnly(Side.CLIENT)
-    public static boolean isDonatorClient(EntityPlayer player)
+    public static boolean isDonatorClient(PlayerEntity player)
     {
         return stats != null && !SHClientUtils.isInanimate(player) && stats.originalDonators.contains(SHClientUtils.getDisguisedUUID(player));
     }
 
-    public static boolean isDonator(EntityPlayer player)
+    public static boolean isDonator(PlayerEntity player)
     {
         return stats != null && stats.originalDonators.contains(player.getUniqueID().toString());
     }
 
     @SideOnly(Side.CLIENT)
-    public static boolean isPatronClient(EntityPlayer player)
+    public static boolean isPatronClient(PlayerEntity player)
     {
         return stats != null && !SHClientUtils.isInanimate(player) && stats.patreonDonators.contains(SHClientUtils.getDisguisedUUID(player));
     }
 
-    public static boolean isPatron(EntityPlayer player)
+    public static boolean isPatron(PlayerEntity player)
     {
         return stats != null && stats.patreonDonators.contains(player.getUniqueID().toString());
     }
 
     @SideOnly(Side.CLIENT)
-    public static boolean inPatreonClubClient(EntityPlayer player)
+    public static boolean inPatreonClubClient(PlayerEntity player)
     {
         return stats != null && !SHClientUtils.isInanimate(player) && stats.patreonClub.contains(SHClientUtils.getDisguisedUUID(player));
     }
 
-    public static boolean inPatreonClub(EntityPlayer player)
+    public static boolean inPatreonClub(PlayerEntity player)
     {
         return stats != null && stats.patreonClub.contains(player.getUniqueID().toString());
     }
 
     @SideOnly(Side.CLIENT)
-    public static boolean isConquestTop(EntityPlayer player)
+    public static boolean isConquestTop(PlayerEntity player)
     {
         return stats != null && !SHClientUtils.isInanimate(player) && stats.conquestTop.equals(SHClientUtils.getDisguisedUUID(player));
     }
 
     @SideOnly(Side.CLIENT)
-    public static int getConquestRanking(EntityPlayer player, Ranking ranking)
+    public static int getConquestRanking(PlayerEntity player, Ranking ranking)
     {
         return stats != null && !SHClientUtils.isInanimate(player) ? stats.getConquestRanking(SHClientUtils.getDisguisedUUID(player), ranking) : 0;
     }
 
     @SideOnly(Side.CLIENT)
-    public static boolean hasConquestRanking(EntityPlayer player)
+    public static boolean hasConquestRanking(PlayerEntity player)
     {
         return stats != null && !SHClientUtils.isInanimate(player) && stats.hasConquestRanking(SHClientUtils.getDisguisedUUID(player));
     }

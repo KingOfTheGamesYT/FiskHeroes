@@ -20,7 +20,7 @@ import com.google.gson.Gson;
 
 import cpw.mods.fml.common.network.ByteBufUtils;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 
 public class MessagePlayerJoin extends MessageSyncBase<MessagePlayerJoin>
 {
@@ -34,7 +34,7 @@ public class MessagePlayerJoin extends MessageSyncBase<MessagePlayerJoin>
     {
     }
 
-    public MessagePlayerJoin(EntityPlayer player)
+    public MessagePlayerJoin(PlayerEntity player)
     {
         super(player);
         config = SHConfig.get();
@@ -102,7 +102,7 @@ public class MessagePlayerJoin extends MessageSyncBase<MessagePlayerJoin>
     @Override
     public void receive() throws MessageException
     {
-        EntityPlayer player = getPlayer();
+        PlayerEntity player = getPlayer();
 
         SHConfig.get().set(config);
         DataManager.serverArrows = serverArrows;

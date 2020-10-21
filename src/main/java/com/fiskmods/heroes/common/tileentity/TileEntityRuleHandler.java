@@ -6,7 +6,7 @@ import com.fiskmods.heroes.common.data.world.SHMapData;
 import com.fiskmods.heroes.common.network.MessageTileTrigger.ITileDataCallback;
 
 import io.netty.buffer.ByteBuf;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.StringUtils;
 import net.minecraftforge.common.util.Constants.NBT;
@@ -90,7 +90,7 @@ public class TileEntityRuleHandler extends TileEntitySH implements ITileDataCall
     }
 
     @Override
-    public void receive(EntityPlayer sender, ByteBuf buf)
+    public void receive(PlayerEntity sender, ByteBuf buf)
     {
         chunkRadius = buf.readByte();
     }

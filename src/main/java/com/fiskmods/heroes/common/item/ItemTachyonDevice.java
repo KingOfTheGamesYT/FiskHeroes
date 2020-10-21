@@ -5,7 +5,7 @@ import java.util.List;
 import com.fiskmods.heroes.SHConstants;
 import com.fiskmods.heroes.common.tileentity.TileEntityDisplayStand;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.MathHelper;
@@ -44,7 +44,7 @@ public class ItemTachyonDevice extends ItemUntextured implements ITachyonCharged
     }
 
     @Override
-    public void addInformation(ItemStack itemstack, EntityPlayer player, List list, boolean b)
+    public void addInformation(ItemStack itemstack, PlayerEntity player, List list, boolean b)
     {
         if (renderTachyonBar(itemstack))
         {

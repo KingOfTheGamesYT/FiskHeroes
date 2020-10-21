@@ -8,7 +8,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
@@ -25,7 +25,7 @@ public class ItemGameboiiCartridge extends Item
     }
 
     @Override
-    public void addInformation(ItemStack itemstack, EntityPlayer player, List list, boolean advanced)
+    public void addInformation(ItemStack itemstack, PlayerEntity player, List list, boolean advanced)
     {
         GameboiiCartridge cartridge = GameboiiCartridge.get(itemstack);
         list.add(StatCollector.translateToLocalFormatted("gameboii.cartridge." + cartridge.id));

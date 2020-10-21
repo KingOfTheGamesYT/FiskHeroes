@@ -1,7 +1,7 @@
 package com.fiskmods.heroes.common.entity.arrow;
 
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
@@ -67,7 +67,7 @@ public class EntityDetonatorArrow extends EntityTrickArrow
     }
 
     @Override
-    public void onCollideWithPlayer(EntityPlayer player)
+    public void onCollideWithPlayer(PlayerEntity player)
     {
         if (player == getShooter())
         {

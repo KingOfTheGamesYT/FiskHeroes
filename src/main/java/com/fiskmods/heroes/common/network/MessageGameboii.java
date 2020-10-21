@@ -5,7 +5,7 @@ import com.fiskmods.heroes.gameboii.Gameboii;
 import com.fiskmods.heroes.gameboii.GameboiiCartridge;
 
 import io.netty.buffer.ByteBuf;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.EntityPlayerMP;
 
 public class MessageGameboii
@@ -42,7 +42,7 @@ public class MessageGameboii
         @Override
         public void receive() throws MessageException
         {
-            EntityPlayer player = context.getServerHandler().playerEntity;
+            PlayerEntity player = context.getServerHandler().playerEntity;
 
             try
             {
@@ -148,7 +148,7 @@ public class MessageGameboii
         @Override
         public void receive() throws MessageException
         {
-            EntityPlayer player = context.getServerHandler().playerEntity;
+            PlayerEntity player = context.getServerHandler().playerEntity;
 
             try
             {

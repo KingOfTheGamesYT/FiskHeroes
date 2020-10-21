@@ -2,7 +2,7 @@ package com.fiskmods.heroes.common.container;
 
 import com.fiskmods.heroes.common.tileentity.TileEntitySuitFabricator;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
@@ -27,7 +27,7 @@ public class ContainerSuitFabricator extends ContainerBasic<TileEntitySuitFabric
     }
 
     @Override
-    public ItemStack transferStackInSlot(EntityPlayer player, int slotId)
+    public ItemStack transferStackInSlot(PlayerEntity player, int slotId)
     {
         ItemStack itemstack = null;
         Slot slot = (Slot) inventorySlots.get(slotId);

@@ -12,7 +12,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -56,7 +56,7 @@ public class ItemQuiver extends Item implements IEquipmentItem
     {
         if (entity instanceof EntityPlayer)
         {
-            EntityPlayer player = (EntityPlayer) entity;
+            PlayerEntity player = (EntityPlayer) entity;
 
             if (!itemstack.hasTagCompound())
             {
@@ -92,7 +92,7 @@ public class ItemQuiver extends Item implements IEquipmentItem
     }
 
     @Override
-    public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer player)
+    public ItemStack onItemRightClick(ItemStack itemstack, World world, PlayerEntity player)
     {
         if (!itemstack.hasTagCompound())
         {

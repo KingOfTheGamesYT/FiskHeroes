@@ -20,7 +20,7 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityEnderman;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.projectile.ArrowEntity;
 import net.minecraft.entity.projectile.EntityArrow;
@@ -234,7 +234,7 @@ public class EntityTrickArrow extends ArrowEntity implements IEntityAdditionalSp
     }
 
     @Override
-    public void onCollideWithPlayer(EntityPlayer player)
+    public void onCollideWithPlayer(PlayerEntity player)
     {
         if (!worldObj.isRemote && inGround && arrowShake <= 0)
         {
@@ -472,9 +472,9 @@ public class EntityTrickArrow extends ArrowEntity implements IEntityAdditionalSp
 
         if (mop != null && mop.entityHit instanceof EntityPlayer)
         {
-            EntityPlayer player = (EntityPlayer) mop.entityHit;
+            PlayerEntity player = (EntityPlayer) mop.entityHit;
 
-            if (player.capabilities.disableDamage || shooter instanceof EntityPlayer && !((EntityPlayer) shooter).canAttackPlayer(player))
+            if (player.capabilities.disableDamage || shooter instanceof PlayerEntity && !((EntityPlayer) shooter).canAttackPlayer(player))
             {
                 mop = null;
             }

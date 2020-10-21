@@ -19,7 +19,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
@@ -37,7 +37,7 @@ public class ItemColdGun extends ItemUntextured
     }
 
     @Override
-    public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
+    public ItemStack onItemRightClick(ItemStack stack, World world, PlayerEntity player)
     {
         if (SHData.AIMING_TIMER.get(player) >= 1 && SHHelper.hasPermission(player, Permission.USE_COLD_GUN))
         {
@@ -48,7 +48,7 @@ public class ItemColdGun extends ItemUntextured
     }
 
     @Override
-    public void onUsingTick(ItemStack itemstack, EntityPlayer player, int count)
+    public void onUsingTick(ItemStack itemstack, PlayerEntity player, int count)
     {
         World world = player.worldObj;
         Hero hero;

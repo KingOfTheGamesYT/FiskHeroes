@@ -21,7 +21,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -44,7 +44,7 @@ public class ItemCapsShield extends ItemUntextured implements IPunchWeapon, IBat
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void addInformation(ItemStack itemstack, EntityPlayer player, List list, boolean advanced)
+    public void addInformation(ItemStack itemstack, PlayerEntity player, List list, boolean advanced)
     {
         if (isStealth(itemstack))
         {
@@ -67,7 +67,7 @@ public class ItemCapsShield extends ItemUntextured implements IPunchWeapon, IBat
     }
 
     @Override
-    public boolean isOffhandWieldable(ItemStack itemstack, EntityPlayer player)
+    public boolean isOffhandWieldable(ItemStack itemstack, PlayerEntity player)
     {
         return false;
     }
@@ -91,7 +91,7 @@ public class ItemCapsShield extends ItemUntextured implements IPunchWeapon, IBat
     }
 
     @Override
-    public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer player)
+    public ItemStack onItemRightClick(ItemStack itemstack, World world, PlayerEntity player)
     {
         if (SHHelper.hasPermission(player, Permission.USE_SHIELD))
         {

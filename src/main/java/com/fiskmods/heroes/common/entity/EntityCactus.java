@@ -25,7 +25,7 @@ import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.monster.EntityGolem;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.passive.EntityAnimal;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
@@ -79,7 +79,7 @@ public class EntityCactus extends EntityGolem implements IEntitySelector
         {
             return false;
         }
-        else if (entity instanceof EntityPlayer && ((EntityPlayer) entity).capabilities.isCreativeMode)
+        else if (entity instanceof PlayerEntity && ((EntityPlayer) entity).capabilities.isCreativeMode)
         {
             return false;
         }

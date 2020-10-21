@@ -13,7 +13,7 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
@@ -27,7 +27,7 @@ public class ItemBlackCanarysTonfas extends ItemUntextured implements IDualItem,
     }
 
     @Override
-    public float getSwingProgress(EntityPlayer player, float partialTicks)
+    public float getSwingProgress(PlayerEntity player, float partialTicks)
     {
         return SHRenderHooks.getSwingProgress(player, partialTicks);
     }
@@ -40,14 +40,14 @@ public class ItemBlackCanarysTonfas extends ItemUntextured implements IDualItem,
     }
 
     @Override
-    public boolean onEntitySwingOffHand(EntityPlayer player, ItemStack itemstack)
+    public boolean onEntitySwingOffHand(PlayerEntity player, ItemStack itemstack)
     {
         SHData.LEFT_TONFA_STATE.setWithoutNotify(player, !SHData.LEFT_TONFA_STATE.get(player));
         return false;
     }
 
     @Override
-    public boolean onSwingEnd(EntityPlayer player, ItemStack itemstack, boolean right)
+    public boolean onSwingEnd(PlayerEntity player, ItemStack itemstack, boolean right)
     {
         return false;
     }
@@ -98,7 +98,7 @@ public class ItemBlackCanarysTonfas extends ItemUntextured implements IDualItem,
     }
 
     @Override
-    public boolean isOffhandWieldable(ItemStack itemstack, EntityPlayer player)
+    public boolean isOffhandWieldable(ItemStack itemstack, PlayerEntity player)
     {
         return false;
     }

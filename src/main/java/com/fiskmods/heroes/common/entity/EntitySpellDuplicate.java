@@ -19,7 +19,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityOwnable;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.scoreboard.Team;
@@ -407,7 +407,7 @@ public class EntitySpellDuplicate extends EntityLivingBase implements IEntityOwn
 
     @Override
     @SideOnly(Side.CLIENT)
-    public boolean isInvisibleToPlayer(EntityPlayer player)
+    public boolean isInvisibleToPlayer(PlayerEntity player)
     {
         EntityLivingBase owner = getOwner();
         return owner != player && (owner != null ? owner.isInvisibleToPlayer(player) : super.isInvisibleToPlayer(player));

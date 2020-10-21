@@ -6,7 +6,7 @@ import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
 
@@ -32,9 +32,9 @@ public abstract class AbstractMessage<REQ extends AbstractMessage> implements IM
 
     public abstract void receive() throws MessageException;
 
-    public EntityPlayer getPlayer() throws MessageException
+    public PlayerEntity getPlayer() throws MessageException
     {
-        EntityPlayer player = context.side.isClient() ? FiskHeroes.proxy.getPlayer() : context.getServerHandler().playerEntity;
+        PlayerEntity player = context.side.isClient() ? FiskHeroes.proxy.getPlayer() : context.getServerHandler().playerEntity;
 
         if (player != null)
         {
@@ -61,22 +61,22 @@ public abstract class AbstractMessage<REQ extends AbstractMessage> implements IM
         return getEntity(getWorld(), type, id);
     }
 
-    public EntityPlayer getPlayer(World world, int id) throws MessageException
+    public PlayerEntity getPlayer(World world, int id) throws MessageException
     {
         return getEntity(world, EntityPlayer.class, id);
     }
 
-    public EntityPlayer getPlayer(int id) throws MessageException
+    public PlayerEntity getPlayer(int id) throws MessageException
     {
         return getPlayer(getWorld(), id);
     }
 
-    public EntityPlayer getSender(World world, int id) throws MessageException
+    public PlayerEntity getSender(World world, int id) throws MessageException
     {
         return context.side.isServer() ? context.getServerHandler().playerEntity : getPlayer(world, id);
     }
 
-    public EntityPlayer getSender(int id) throws MessageException
+    public PlayerEntity getSender(int id) throws MessageException
     {
         return getSender(getWorld(), id);
     }

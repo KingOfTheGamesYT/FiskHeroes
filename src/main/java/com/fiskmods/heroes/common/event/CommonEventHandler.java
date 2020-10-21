@@ -67,7 +67,7 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityHanging;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
@@ -167,7 +167,7 @@ public enum CommonEventHandler
 
         if (entity instanceof EntityPlayer)
         {
-            EntityPlayer player = (EntityPlayer) entity;
+            PlayerEntity player = (EntityPlayer) entity;
 
             if (!entity.worldObj.isRemote)
             {
@@ -179,13 +179,13 @@ public enum CommonEventHandler
     @SubscribeEvent
     public void onStartTracking(StartTracking event)
     {
-        EntityPlayer player = event.entityPlayer;
+        PlayerEntity player = event.entityPlayer;
 
         if (player != null && !player.worldObj.isRemote)
         {
             if (event.target instanceof EntityPlayer)
             {
-                EntityPlayer beingTracked = (EntityPlayer) event.target;
+                PlayerEntity beingTracked = (EntityPlayer) event.target;
 
                 EntityPlayerMP playerMP = (EntityPlayerMP) player;
                 EntityPlayerMP beingTrackedMP = (EntityPlayerMP) beingTracked;
@@ -199,7 +199,7 @@ public enum CommonEventHandler
     @SubscribeEvent
     public void onEntityInteract(EntityInteractEvent event)
     {
-        EntityPlayer player = event.entityPlayer;
+        PlayerEntity player = event.entityPlayer;
         ItemStack itemstack = player.getHeldItem();
 
         if (SHData.SHIELD.get(player) || SHData.SHADOWFORM.get(player) || SHData.INTANGIBLE.get(player) && SHHelper.hasEnabledModifier(player, Ability.ABSOLUTE_INTANGIBILITY) && Ability.ABSOLUTE_INTANGIBILITY.isActive(player))
@@ -241,7 +241,7 @@ public enum CommonEventHandler
     @SubscribeEvent
     public void onPlayerTick(TickEvent.PlayerTickEvent event)
     {
-        EntityPlayer player = event.player;
+        PlayerEntity player = event.player;
         Hero hero = SHHelper.getHero(player);
 
         if (event.phase == TickEvent.Phase.END)
@@ -721,7 +721,7 @@ public enum CommonEventHandler
         }
     }
 
-    private void handleMaskOpen(EntityPlayer player, Hero hero)
+    private void handleMaskOpen(PlayerEntity player, Hero hero)
     {
         byte maskOpenTimer = SHData.MASK_OPEN_TIMER.get(player);
         boolean isMaskOpen = SHData.MASK_OPEN.get(player);
@@ -790,7 +790,7 @@ public enum CommonEventHandler
         }
     }
 
-    private Number getHasItem(EntityPlayer player, Item item)
+    private Number getHasItem(PlayerEntity player, Item item)
     {
         for (ItemStack stack : player.inventory.mainInventory)
         {
@@ -813,7 +813,7 @@ public enum CommonEventHandler
     @SubscribeEvent
     public void onPlayerBreakBlock(PlayerEvent.BreakSpeed event)
     {
-        EntityPlayer player = event.entityPlayer;
+        PlayerEntity player = event.entityPlayer;
 
         if (SHHelper.hasLeftClickKey(player, SHHelper.getHero(player)))
         {
@@ -832,7 +832,7 @@ public enum CommonEventHandler
     @SubscribeEvent
     public void onBreakBlock(BlockEvent.BreakEvent event)
     {
-        EntityPlayer player = event.getPlayer();
+        PlayerEntity player = event.getPlayer();
         ItemStack itemstack = player.getHeldItem();
 
         if (player.capabilities.isCreativeMode)
@@ -876,7 +876,7 @@ public enum CommonEventHandler
         SHData.SHOOTING.set(entity, false);
     }
 
-    protected void updateArmSwingProgress(EntityPlayer player)
+    protected void updateArmSwingProgress(PlayerEntity player)
     {
         int i = SHReflection.getArmSwingAnimationEnd(player);
 
@@ -924,7 +924,7 @@ public enum CommonEventHandler
 
         if (entity instanceof EntityPlayer)
         {
-            EntityPlayer player = (EntityPlayer) entity;
+            PlayerEntity player = (EntityPlayer) entity;
 
             if (!player.worldObj.isRemote)
             {
@@ -1008,7 +1008,7 @@ public enum CommonEventHandler
                 }
             }
 
-            if (!(entity instanceof EntityPlayer && ((EntityPlayer) entity).capabilities.isFlying))
+            if (!(entity instanceof PlayerEntity && ((EntityPlayer) entity).capabilities.isFlying))
             {
                 entity.motionY += 0.075F;
             }
@@ -1065,7 +1065,7 @@ public enum CommonEventHandler
             attacker = (EntityLivingBase) event.source.getEntity();
         }
 
-        if (attacker instanceof EntityPlayer && ArmorTracker.isTracking(entity) && ArmorTracker.isTracking(attacker))
+        if (attacker instanceof PlayerEntity && ArmorTracker.isTracking(entity) && ArmorTracker.isTracking(attacker))
         {
             if (SHHelper.getHero(entity) == Heroes.deadpool_xmen && SHHelper.getHero(attacker) == Heroes.captain_america)
             {
@@ -1075,7 +1075,7 @@ public enum CommonEventHandler
 
         if (entity instanceof EntityPlayer)
         {
-            EntityPlayer player = (EntityPlayer) event.entity;
+            PlayerEntity player = (EntityPlayer) event.entity;
 
             if (event.source == DamageSource.fall || event.source == ModDamageSources.FLY_INTO_WALL)
             {
@@ -1230,7 +1230,7 @@ public enum CommonEventHandler
                     event.ammount = SHAttributes.PUNCH_DAMAGE.get(attacker, hero1, event.ammount);
                 }
 
-                if (attacker instanceof EntityPlayer && SpeedsterHelper.hasSuperSpeed(attacker))
+                if (attacker instanceof PlayerEntity && SpeedsterHelper.hasSuperSpeed(attacker))
                 {
                     entity.hurtResistantTime = 0;
                 }
@@ -1307,7 +1307,7 @@ public enum CommonEventHandler
                 event.distance /= scale;
             }
 
-            if (!entity.worldObj.isRemote && event.distance > 0 && entity instanceof EntityPlayer && hero == Heroes.deadpool_xmen)
+            if (!entity.worldObj.isRemote && event.distance > 0 && entity instanceof PlayerEntity && hero == Heroes.deadpool_xmen)
             {
                 SHData.SUPERHERO_LANDING.setWithoutNotify(entity, true);
             }
@@ -1345,7 +1345,7 @@ public enum CommonEventHandler
     @SubscribeEvent
     public void onItemCrafted(ItemCraftedEvent event)
     {
-        EntityPlayer player = event.player;
+        PlayerEntity player = event.player;
         ItemStack stack = event.crafting;
 
         if (stack.getItem() == Item.getItemFromBlock(ModBlocks.suitFabricator))
@@ -1440,7 +1440,7 @@ public enum CommonEventHandler
     @SubscribeEvent
     public void onServerChat(ServerChatEvent event)
     {
-        EntityPlayer player = event.player;
+        PlayerEntity player = event.player;
 
         if (event.message.equalsIgnoreCase("m'lady") && SHHelper.getHero(player) == Heroes.senor_cactus)
         {

@@ -9,7 +9,7 @@ import com.fiskmods.heroes.common.hero.HeroIteration;
 import com.fiskmods.heroes.util.TextureHelper;
 
 import net.minecraft.client.model.ModelBiped;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 
 public class HeroRendererMartianManhunter extends HeroRenderer
@@ -22,13 +22,13 @@ public class HeroRendererMartianManhunter extends HeroRenderer
     }
 
     @Override
-    public boolean shouldRenderDefaultModel(EntityPlayer player, HeroIteration iter, boolean body)
+    public boolean shouldRenderDefaultModel(PlayerEntity player, HeroIteration iter, boolean body)
     {
         return false;
     }
 
     @Override
-    public boolean preRenderArm(EntityPlayer player, ItemStack itemstack, HeroIteration iter, int pass)
+    public boolean preRenderArm(PlayerEntity player, ItemStack itemstack, HeroIteration iter, int pass)
     {
         String disguise = SHData.DISGUISE.get(player);
 

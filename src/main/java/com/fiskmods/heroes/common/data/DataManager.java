@@ -12,7 +12,7 @@ import com.fiskmods.heroes.common.network.MessagePlayerJoin;
 import com.fiskmods.heroes.common.network.SHNetworkManager;
 
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.MathHelper;
 
@@ -20,7 +20,7 @@ public class DataManager
 {
     public static int serverArrows = ArrowType.REGISTRY.getKeys().size();
 
-    public static double getVelocity(EntityPlayer player)
+    public static double getVelocity(PlayerEntity player)
     {
         if (player.ticksExisted == 0)
         {
@@ -73,7 +73,7 @@ public class DataManager
 //        }
     }
 
-    public static void addSpeedExperience(EntityPlayer player, int amount)
+    public static void addSpeedExperience(PlayerEntity player, int amount)
     {
         byte speedExperienceLevel = SHData.SPEED_EXPERIENCE_LEVEL.get(player);
         int speedExperienceTotal = SHData.SPEED_EXPERIENCE_TOTAL.get(player);
@@ -101,7 +101,7 @@ public class DataManager
         SHData.SPEED_EXPERIENCE_BAR.set(player, speedExperience);
     }
 
-    public static void addSpeedExperienceLevel(EntityPlayer player, int amount)
+    public static void addSpeedExperienceLevel(PlayerEntity player, int amount)
     {
         byte speedExperienceLevel = SHData.SPEED_EXPERIENCE_LEVEL.get(player);
         int speedExperienceTotal = SHData.SPEED_EXPERIENCE_TOTAL.get(player);
@@ -131,23 +131,23 @@ public class DataManager
         SHData.SPEED_EXPERIENCE_BAR.set(player, speedExperience);
     }
 
-    public static void setHeroCollection(EntityPlayer player, Map<Hero, Byte> map)
+    public static void setHeroCollection(PlayerEntity player, Map<Hero, Byte> map)
     {
         SHPlayerData.getData(player).heroCollection = map;
         SHPlayerData.getData(player).maxTier = 0;
     }
 
-    public static void setArrowCollection(EntityPlayer player, Map<ArrowType, Integer> map)
+    public static void setArrowCollection(PlayerEntity player, Map<ArrowType, Integer> map)
     {
         SHPlayerData.getData(player).arrowCollection = map;
     }
 
-    public static int getArrowsCollected(EntityPlayer player)
+    public static int getArrowsCollected(PlayerEntity player)
     {
         return (int) SHPlayerData.getData(player).arrowCollection.entrySet().stream().filter(e -> e.getValue() >= 32).count();
     }
 
-    public static void updatePlayerWithServerInfo(EntityPlayer player)
+    public static void updatePlayerWithServerInfo(PlayerEntity player)
     {
         if (!player.worldObj.isRemote)
         {

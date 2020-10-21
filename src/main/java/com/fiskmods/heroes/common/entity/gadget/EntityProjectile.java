@@ -8,7 +8,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityHanging;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -182,7 +182,7 @@ public class EntityProjectile extends EntityTrickArrow
     }
 
     @Override
-    public void onCollideWithPlayer(EntityPlayer player)
+    public void onCollideWithPlayer(PlayerEntity player)
     {
     }
 

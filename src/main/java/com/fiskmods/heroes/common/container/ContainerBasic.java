@@ -1,6 +1,6 @@
 package com.fiskmods.heroes.common.container;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
@@ -26,7 +26,7 @@ public class ContainerBasic<T extends TileEntity> extends Container
         worldObj = world;
     }
 
-    public void addPlayerInventory(PlayerInventory inventoryPlayer, int yOffset)
+    public void addPlayerInventory(PlayerInventory playerInventory, int yOffset)
     {
         int i;
         int j;
@@ -35,23 +35,23 @@ public class ContainerBasic<T extends TileEntity> extends Container
         {
             for (j = 0; j < 9; ++j)
             {
-                addSlotToContainer(makeInventorySlot(inventoryPlayer, j + i * 9 + 9, 8 + j * 18, 84 + yOffset + i * 18));
+                addSlotToContainer(makeInventorySlot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + yOffset + i * 18));
             }
         }
 
         for (i = 0; i < 9; ++i)
         {
-            addSlotToContainer(makeInventorySlot(inventoryPlayer, i, 8 + i * 18, 142 + yOffset));
+            addSlotToContainer(makeInventorySlot(playerInventory, i, 8 + i * 18, 142 + yOffset));
         }
     }
 
-    public Slot makeInventorySlot(PlayerInventory inventoryPlayer, int index, int x, int y)
+    public Slot makeInventorySlot(PlayerInventory playerInventory, int index, int x, int y)
     {
-        return new Slot(inventoryPlayer, index, x, y);
+        return new Slot(playerInventory, index, x, y);
     }
 
     @Override
-    public boolean canInteractWith(EntityPlayer player)
+    public boolean canInteractWith(PlayerEntity player)
     {
         if (tileentity != null)
         {

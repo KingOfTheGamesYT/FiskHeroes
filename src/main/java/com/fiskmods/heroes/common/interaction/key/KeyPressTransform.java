@@ -8,7 +8,7 @@ import com.fiskmods.heroes.common.interaction.InteractionType;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.settings.KeyBinding;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 
 public class KeyPressTransform extends KeyPressBase
 {
@@ -19,13 +19,13 @@ public class KeyPressTransform extends KeyPressBase
 
     @Override
     @SideOnly(Side.CLIENT)
-    public KeyBinding getKey(EntityPlayer player, Hero hero)
+    public KeyBinding getKey(PlayerEntity player, Hero hero)
     {
         return hero.getKey(player, Ability.KEY_TRANSFORM);
     }
 
     @Override
-    public void receive(EntityPlayer sender, EntityPlayer clientPlayer, InteractionType type, Side side, int x, int y, int z)
+    public void receive(PlayerEntity sender, PlayerEntity clientPlayer, InteractionType type, Side side, int x, int y, int z)
     {
         if (side.isClient())
         {

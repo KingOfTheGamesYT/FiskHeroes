@@ -37,7 +37,7 @@ import cpw.mods.fml.relauncher.Side;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
@@ -495,7 +495,7 @@ public class SHData<T> extends FiskRegistryEntry<SHData<?>>
         return getDefault();
     }
 
-    public boolean sync(EntityPlayer player)
+    public boolean sync(PlayerEntity player)
     {
         if (hasPerms(player.worldObj.isRemote ? Side.CLIENT : Side.SERVER) && legalUpdate(player))
         {
@@ -514,17 +514,17 @@ public class SHData<T> extends FiskRegistryEntry<SHData<?>>
         return false;
     }
 
-    public boolean set(EntityPlayer player, T value)
+    public boolean set(PlayerEntity player, T value)
     {
         return setWithoutNotify(player, value) && sync(player);
     }
 
-    public boolean incr(EntityPlayer player, T value)
+    public boolean incr(PlayerEntity player, T value)
     {
         return incrWithoutNotify(player, value) && sync(player);
     }
 
-    public boolean clamp(EntityPlayer player, T min, T max)
+    public boolean clamp(PlayerEntity player, T min, T max)
     {
         return clampWithoutNotify(player, min, max) && sync(player);
     }
@@ -675,7 +675,7 @@ public class SHData<T> extends FiskRegistryEntry<SHData<?>>
 
     public static boolean isTracking(Entity entity)
     {
-        return entity instanceof EntityPlayer || entity instanceof IDataHolder;
+        return entity instanceof PlayerEntity || entity instanceof IDataHolder;
     }
 
     protected void init(Field field, String name) throws ClassNotFoundException

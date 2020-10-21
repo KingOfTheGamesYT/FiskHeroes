@@ -8,7 +8,7 @@ import java.util.Map;
 import com.fiskmods.heroes.common.BlockStack;
 
 import net.minecraft.block.material.Material;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -24,7 +24,7 @@ public class ItemDisplayCase extends ItemUntextured
     }
 
     @Override
-    public void addInformation(ItemStack itemstack, EntityPlayer player, List list, boolean flag)
+    public void addInformation(ItemStack itemstack, PlayerEntity player, List list, boolean flag)
     {
         DisplayCase casing = getCasing(itemstack);
 

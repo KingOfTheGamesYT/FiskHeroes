@@ -45,7 +45,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagString;
@@ -431,7 +431,7 @@ public abstract class Hero implements Comparable<Hero>, Predicate<Entity>, INBTS
         return rule.defaultValue;
     }
 
-    public float getDefaultScale(EntityPlayer player)
+    public float getDefaultScale(PlayerEntity player)
     {
         return 1.0F;
     }

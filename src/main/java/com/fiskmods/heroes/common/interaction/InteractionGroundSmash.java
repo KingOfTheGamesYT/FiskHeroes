@@ -17,7 +17,7 @@ import cpw.mods.fml.relauncher.Side;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityFallingBlock;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EntityDamageSource;
@@ -34,19 +34,19 @@ public class InteractionGroundSmash extends InteractionBase
     }
 
     @Override
-    public boolean serverRequirements(EntityPlayer player, InteractionType type, int x, int y, int z)
+    public boolean serverRequirements(PlayerEntity player, InteractionType type, int x, int y, int z)
     {
         return true;
     }
 
     @Override
-    public boolean clientRequirements(EntityPlayer player, InteractionType type, int x, int y, int z)
+    public boolean clientRequirements(PlayerEntity player, InteractionType type, int x, int y, int z)
     {
         return Cooldown.GROUND_SMASH.available(player) && SHHelper.getHero(player).isKeyPressed(player, KEY_GROUND_SMASH);
     }
 
     @Override
-    public void receive(EntityPlayer sender, EntityPlayer clientPlayer, InteractionType type, Side side, int x, int y, int z)
+    public void receive(PlayerEntity sender, PlayerEntity clientPlayer, InteractionType type, Side side, int x, int y, int z)
     {
         if (side.isServer())
         {
@@ -114,7 +114,7 @@ public class InteractionGroundSmash extends InteractionBase
     }
 
     @Override
-    public TargetPoint getTargetPoint(EntityPlayer player, int x, int y, int z)
+    public TargetPoint getTargetPoint(PlayerEntity player, int x, int y, int z)
     {
         return TARGET_NONE;
     }

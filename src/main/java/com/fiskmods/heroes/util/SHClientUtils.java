@@ -15,7 +15,7 @@ import com.mojang.authlib.GameProfile;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -106,7 +106,7 @@ public class SHClientUtils
         return entity instanceof EntityBookPlayer || entity instanceof EntityDisplayMannequin || entity instanceof EntityRenderItemPlayer;
     }
 
-    public static String getDisguisedUUID(EntityPlayer player)
+    public static String getDisguisedUUID(PlayerEntity player)
     {
         String disguise = SHData.DISGUISE.get(player);
 

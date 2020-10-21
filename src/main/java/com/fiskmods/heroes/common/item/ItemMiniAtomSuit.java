@@ -8,7 +8,7 @@ import com.fiskmods.heroes.common.hero.HeroIteration;
 import com.fiskmods.heroes.common.interaction.key.KeyPressMiniaturizeSuit;
 
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -20,7 +20,7 @@ public class ItemMiniAtomSuit extends ItemFlashRing
     private static final Predicate<Hero> PREDICATE = t -> !t.isHidden() && t.getKeyBinding(KeyPressMiniaturizeSuit.KEY_MINIATURIZE_SUIT) > 0;
 
     @Override
-    public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer player)
+    public ItemStack onItemRightClick(ItemStack itemstack, World world, PlayerEntity player)
     {
 //        if (!world.isRemote)
         {

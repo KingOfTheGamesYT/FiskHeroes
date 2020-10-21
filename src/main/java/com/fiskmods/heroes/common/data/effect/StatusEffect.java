@@ -12,7 +12,7 @@ import com.google.common.primitives.Doubles;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.MathHelper;
 

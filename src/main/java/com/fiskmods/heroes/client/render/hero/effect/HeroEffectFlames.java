@@ -16,7 +16,7 @@ import com.google.gson.stream.JsonToken;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 
 public class HeroEffectFlames extends HeroEffect
@@ -76,7 +76,7 @@ public class HeroEffectFlames extends HeroEffect
     }
 
     @Override
-    public void postRenderArm(ModelBipedMultiLayer model, EntityPlayer player, ItemStack itemstack, HeroIteration iter, int pass)
+    public void postRenderArm(ModelBipedMultiLayer model, PlayerEntity player, ItemStack itemstack, HeroIteration iter, int pass)
     {
         if (scaleRatio != 0 && (!fullSuit || SHHelper.isHero(player)) && conditionals.evaluate(player))
         {

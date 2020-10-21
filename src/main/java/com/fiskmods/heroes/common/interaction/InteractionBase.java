@@ -8,7 +8,7 @@ import com.fiskmods.heroes.util.SHHelper;
 import com.google.common.collect.ImmutableList;
 
 import cpw.mods.fml.relauncher.Side;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 
 public abstract class InteractionBase extends Interaction
 {
@@ -37,7 +37,7 @@ public abstract class InteractionBase extends Interaction
     }
 
     @Override
-    public boolean listen(EntityPlayer sender, EntityPlayer clientPlayer, InteractionType type, Side side, int x, int y, int z)
+    public boolean listen(PlayerEntity sender, PlayerEntity clientPlayer, InteractionType type, Side side, int x, int y, int z)
     {
         if (!reqTypes.contains(type) || !predicate.test(sender, SHHelper.getHero(sender)))
         {
@@ -55,7 +55,7 @@ public abstract class InteractionBase extends Interaction
         return serverRequirements(sender, type, x, y, z);
     }
 
-    public abstract boolean serverRequirements(EntityPlayer player, InteractionType type, int x, int y, int z);
+    public abstract boolean serverRequirements(PlayerEntity player, InteractionType type, int x, int y, int z);
 
-    public abstract boolean clientRequirements(EntityPlayer player, InteractionType type, int x, int y, int z);
+    public abstract boolean clientRequirements(PlayerEntity player, InteractionType type, int x, int y, int z);
 }

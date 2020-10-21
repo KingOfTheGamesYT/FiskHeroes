@@ -11,7 +11,7 @@ import com.fiskmods.heroes.common.network.SHNetworkManager;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
@@ -97,7 +97,7 @@ public class EntityVineArrow extends EntityGrappleArrow
     }
 
     @Override
-    public EntityGrapplingHookCable makeCable(EntityLivingBase living, EntityPlayer player)
+    public EntityGrapplingHookCable makeCable(EntityLivingBase living, PlayerEntity player)
     {
         return super.makeCable(living, player).setColor(0x364D23, 0x293C1B);
     }

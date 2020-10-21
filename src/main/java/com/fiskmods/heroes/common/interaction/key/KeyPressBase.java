@@ -8,7 +8,7 @@ import com.fiskmods.heroes.util.SHHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.settings.KeyBinding;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 
 public abstract class KeyPressBase extends InteractionBase
 {
@@ -29,18 +29,18 @@ public abstract class KeyPressBase extends InteractionBase
     }
 
     @Override
-    public boolean serverRequirements(EntityPlayer player, InteractionType type, int x, int y, int z)
+    public boolean serverRequirements(PlayerEntity player, InteractionType type, int x, int y, int z)
     {
         return true;
     }
 
     @Override
-    public boolean clientRequirements(EntityPlayer player, InteractionType type, int x, int y, int z)
+    public boolean clientRequirements(PlayerEntity player, InteractionType type, int x, int y, int z)
     {
         KeyBinding key;
         return (key = getKey(player, SHHelper.getHero(player))) != null && key.isPressed();
     }
 
     @SideOnly(Side.CLIENT)
-    public abstract KeyBinding getKey(EntityPlayer player, Hero hero);
+    public abstract KeyBinding getKey(PlayerEntity player, Hero hero);
 }

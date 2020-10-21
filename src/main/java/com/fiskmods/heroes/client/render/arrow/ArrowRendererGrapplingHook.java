@@ -10,7 +10,7 @@ import com.fiskmods.heroes.util.VectorHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
@@ -49,7 +49,7 @@ public class ArrowRendererGrapplingHook extends ArrowRenderer
 
         if (arrow.getShooter() instanceof EntityPlayer)
         {
-            EntityPlayer shooter = (EntityPlayer) arrow.getShooter();
+            PlayerEntity shooter = (EntityPlayer) arrow.getShooter();
 
             if (arrow instanceof EntityGrappleArrow && !((EntityGrappleArrow) arrow).getIsCableCut())
             {

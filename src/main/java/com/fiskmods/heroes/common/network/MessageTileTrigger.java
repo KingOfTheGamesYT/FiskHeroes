@@ -10,7 +10,7 @@ import com.fiskmods.heroes.util.NBTHelper;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.tileentity.TileEntity;
 
 public class MessageTileTrigger extends AbstractMessage<MessageTileTrigger>
@@ -23,7 +23,7 @@ public class MessageTileTrigger extends AbstractMessage<MessageTileTrigger>
     {
     }
 
-    private MessageTileTrigger(DimensionalCoords coords, @Nonnull EntityPlayer player, byte[] data)
+    private MessageTileTrigger(DimensionalCoords coords, @Nonnull PlayerEntity player, byte[] data)
     {
         this.coords = coords;
         this.data = data;
@@ -52,7 +52,7 @@ public class MessageTileTrigger extends AbstractMessage<MessageTileTrigger>
     @Override
     public void receive() throws MessageException
     {
-        EntityPlayer sender = getSender(id);
+        PlayerEntity sender = getSender(id);
 
         if (context.side.isClient() && sender == FiskHeroes.proxy.getPlayer())
         {
@@ -80,7 +80,7 @@ public class MessageTileTrigger extends AbstractMessage<MessageTileTrigger>
          * @param sender The player who triggered it
          * @param buf A buffer containing the byte data
          */
-        void receive(EntityPlayer sender, ByteBuf buf);
+        void receive(PlayerEntity sender, ByteBuf buf);
 
         default void sendToServer(Consumer<ByteBuf> c)
         {
@@ -88,7 +88,7 @@ public class MessageTileTrigger extends AbstractMessage<MessageTileTrigger>
 
             if (tile.getWorldObj().isRemote)
             {
-                EntityPlayer from = FiskHeroes.proxy.getPlayer();
+                PlayerEntity from = FiskHeroes.proxy.getPlayer();
                 ByteBuf buf = Unpooled.buffer();
                 c.accept(buf);
 

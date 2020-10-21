@@ -16,7 +16,7 @@ import com.fiskmods.heroes.util.VectorHelper;
 
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Vec3;
 
@@ -129,7 +129,7 @@ public class AbilityUmbrakinesis extends Ability
     }
 
     @Override
-    public boolean renderIcon(EntityPlayer player)
+    public boolean renderIcon(PlayerEntity player)
     {
         return SHData.SHADOWFORM.get(player);
     }

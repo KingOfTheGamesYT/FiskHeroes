@@ -9,7 +9,7 @@ import com.fiskmods.heroes.util.SHHelper;
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
@@ -27,7 +27,7 @@ public class WeaknessEternium extends Weakness
 
             if (entity instanceof EntityPlayer)
             {
-                EntityPlayer player = (EntityPlayer) entity;
+                PlayerEntity player = (EntityPlayer) entity;
 
                 for (ItemStack element : player.inventory.mainInventory)
                 {

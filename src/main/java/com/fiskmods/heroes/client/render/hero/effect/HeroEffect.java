@@ -25,7 +25,7 @@ import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
@@ -71,7 +71,7 @@ public abstract class HeroEffect implements Pass
 
     public abstract boolean shouldRenderPass(ModelBipedMultiLayer model, Entity entity, int pass);
 
-    public boolean shouldRenderDefaultModel(ModelBipedMultiLayer model, EntityPlayer player, HeroIteration iter, boolean body)
+    public boolean shouldRenderDefaultModel(ModelBipedMultiLayer model, PlayerEntity player, HeroIteration iter, boolean body)
     {
         return true;
     }
@@ -81,7 +81,7 @@ public abstract class HeroEffect implements Pass
         return true;
     }
 
-    public boolean preRenderArm(ModelBipedMultiLayer model, EntityPlayer player, ItemStack itemstack, HeroIteration iter, int pass)
+    public boolean preRenderArm(ModelBipedMultiLayer model, PlayerEntity player, ItemStack itemstack, HeroIteration iter, int pass)
     {
         return true;
     }
@@ -90,11 +90,11 @@ public abstract class HeroEffect implements Pass
     {
     }
 
-    public void postRenderArm(ModelBipedMultiLayer model, EntityPlayer player, ItemStack itemstack, HeroIteration iter, int pass)
+    public void postRenderArm(ModelBipedMultiLayer model, PlayerEntity player, ItemStack itemstack, HeroIteration iter, int pass)
     {
     }
 
-    public void onClientTick(EntityPlayer player, HeroIteration iter, Phase phase)
+    public void onClientTick(PlayerEntity player, HeroIteration iter, Phase phase)
     {
     }
 

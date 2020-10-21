@@ -12,7 +12,7 @@ import com.google.common.collect.ImmutableList;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.attributes.BaseAttribute;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 
 public class ArmorAttribute extends BaseAttribute
 {
@@ -30,7 +30,7 @@ public class ArmorAttribute extends BaseAttribute
         this(unlocalizedName, 0, additive);
     }
 
-    public void clean(EntityPlayer player, IAttributeInstance instance, List<UUID> validated)
+    public void clean(PlayerEntity player, IAttributeInstance instance, List<UUID> validated)
     {
         Map<AttributePair, UUID> map = getGlobalUUIDs(player);
         Map<AttributePair, UUID> map1 = new HashMap<>(map);
@@ -55,12 +55,12 @@ public class ArmorAttribute extends BaseAttribute
         }
     }
 
-    public void reset(EntityPlayer player, IAttributeInstance instance, UUID uuid)
+    public void reset(PlayerEntity player, IAttributeInstance instance, UUID uuid)
     {
         SHAttributes.removeModifier(instance, uuid);
     }
 
-    public UUID createUUID(EntityPlayer player, AttributePair pair)
+    public UUID createUUID(PlayerEntity player, AttributePair pair)
     {
         Map<AttributePair, UUID> map = getGlobalUUIDs(player);
 
@@ -75,12 +75,12 @@ public class ArmorAttribute extends BaseAttribute
         return uuid;
     }
 
-    public UUID createUUID(EntityPlayer player, double amount, int operation)
+    public UUID createUUID(PlayerEntity player, double amount, int operation)
     {
         return createUUID(player, new AttributePair(amount, operation));
     }
 
-    private Map<AttributePair, UUID> getGlobalUUIDs(EntityPlayer player)
+    private Map<AttributePair, UUID> getGlobalUUIDs(PlayerEntity player)
     {
         UUID uuid = player.getUniqueID();
 

@@ -7,7 +7,7 @@ import com.fiskmods.heroes.common.network.MessageInteraction;
 import com.fiskmods.heroes.common.network.SHNetworkManager;
 
 import cpw.mods.fml.relauncher.Side;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 
 public enum InteractionType
@@ -20,7 +20,7 @@ public enum InteractionType
 
     static final Set<Interaction> LISTENERS = new HashSet<>();
 
-    public boolean interact(EntityPlayer player, int x, int y, int z, boolean queued)
+    public boolean interact(PlayerEntity player, int x, int y, int z, boolean queued)
     {
         boolean flag = false;
 

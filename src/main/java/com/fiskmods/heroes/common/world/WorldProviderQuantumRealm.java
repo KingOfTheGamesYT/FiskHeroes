@@ -5,7 +5,7 @@ import com.fiskmods.heroes.common.world.biome.ModBiomes;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.WorldProvider;
 import net.minecraft.world.chunk.IChunkProvider;
@@ -73,7 +73,7 @@ public class WorldProviderQuantumRealm extends WorldProvider
     }
 
     @Override
-    public boolean canMineBlock(EntityPlayer player, int x, int y, int z)
+    public boolean canMineBlock(PlayerEntity player, int x, int y, int z)
     {
         return false;
     }

@@ -7,14 +7,14 @@ import com.fiskmods.heroes.common.achievement.SHAchievements;
 
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import cpw.mods.fml.relauncher.Side;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntitySign;
 
 public class InteractionBatfish extends Interaction
 {
     @Override
-    public boolean listen(EntityPlayer sender, EntityPlayer clientPlayer, InteractionType type, Side side, int x, int y, int z)
+    public boolean listen(PlayerEntity sender, PlayerEntity clientPlayer, InteractionType type, Side side, int x, int y, int z)
     {
         if (type == InteractionType.RIGHT_CLICK_BLOCK)
         {
@@ -38,7 +38,7 @@ public class InteractionBatfish extends Interaction
     }
 
     @Override
-    public void receive(EntityPlayer sender, EntityPlayer clientPlayer, InteractionType type, Side side, int x, int y, int z)
+    public void receive(PlayerEntity sender, PlayerEntity clientPlayer, InteractionType type, Side side, int x, int y, int z)
     {
         if (side.isServer())
         {
@@ -63,7 +63,7 @@ public class InteractionBatfish extends Interaction
     }
 
     @Override
-    public TargetPoint getTargetPoint(EntityPlayer player, int x, int y, int z)
+    public TargetPoint getTargetPoint(PlayerEntity player, int x, int y, int z)
     {
         return TARGET_NONE;
     }

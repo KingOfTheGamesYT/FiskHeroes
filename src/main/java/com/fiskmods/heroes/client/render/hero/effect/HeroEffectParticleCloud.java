@@ -13,7 +13,7 @@ import com.google.gson.stream.JsonToken;
 
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
 
 public class HeroEffectParticleCloud extends HeroEffect
@@ -27,7 +27,7 @@ public class HeroEffectParticleCloud extends HeroEffect
     }
 
     @Override
-    public void onClientTick(EntityPlayer player, HeroIteration iter, Phase phase)
+    public void onClientTick(PlayerEntity player, HeroIteration iter, Phase phase)
     {
         if (phase == Phase.END && particles != null && particles.color != null && conditionals.evaluate(player))
         {

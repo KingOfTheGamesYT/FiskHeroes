@@ -12,7 +12,7 @@ import com.fiskmods.heroes.util.SpeedsterHelper;
 
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
 
 public enum TachyonDeviceRenderer implements EquipmentRenderer
@@ -22,19 +22,19 @@ public enum TachyonDeviceRenderer implements EquipmentRenderer
     private final ResourceLocation glow = new ResourceLocation(FiskHeroes.MODID, "textures/models/tachyon_device_glow.png");
 
     @Override
-    public boolean test(EntityPlayer player)
+    public boolean test(PlayerEntity player)
     {
         return SpeedsterHelper.hasTachyonDevice(player);
     }
 
     @Override
-    public float[] getOffset(EntityPlayer player, HeroIteration iter, ModelBiped model, float partialTicks)
+    public float[] getOffset(PlayerEntity player, HeroIteration iter, ModelBiped model, float partialTicks)
     {
         return new float[] {0, 0.225F, -0.175F - (SHHelper.getHeroFromArmor(player, 2) != null ? 0.025F : player.getCurrentArmor(2) != null ? 0.05F : 0)};
     }
 
     @Override
-    public void render(EntityPlayer player, HeroIteration iter, ModelBiped model, RenderEquipmentEvent event, float partialTicks)
+    public void render(PlayerEntity player, HeroIteration iter, ModelBiped model, RenderEquipmentEvent event, float partialTicks)
     {
         model.bipedBody.postRender(0.0625F);
         GL11.glTranslatef(event.xOffset, event.yOffset, event.zOffset);

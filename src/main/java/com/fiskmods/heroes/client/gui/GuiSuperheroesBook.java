@@ -61,7 +61,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -98,7 +98,7 @@ public class GuiSuperheroesBook extends GuiScreen
     private boolean rightMouseDown;
     private boolean chestOpen;
 
-    public GuiSuperheroesBook(EntityPlayer player, ItemStack itemstack, Book book)
+    public GuiSuperheroesBook(PlayerEntity player, ItemStack itemstack, Book book)
     {
         bookStack = itemstack;
         this.book = book;

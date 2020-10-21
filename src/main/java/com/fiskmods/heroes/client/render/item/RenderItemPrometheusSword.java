@@ -7,7 +7,7 @@ import com.fiskmods.heroes.client.SHRenderHooks;
 import com.fiskmods.heroes.client.model.item.ModelKatana;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;
@@ -34,7 +34,7 @@ public enum RenderItemPrometheusSword implements IItemRenderer
     @Override
     public void renderItem(ItemRenderType type, ItemStack item, Object... data)
     {
-        EntityPlayer player = null;
+        PlayerEntity player = null;
 
         if (data.length > 1 && data[1] instanceof EntityPlayer)
         {

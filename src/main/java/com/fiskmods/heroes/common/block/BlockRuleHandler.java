@@ -7,7 +7,7 @@ import com.fiskmods.heroes.common.tileentity.TileEntityRuleHandler;
 
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
@@ -19,7 +19,7 @@ public class BlockRuleHandler extends BlockContainer
     }
 
     @Override
-    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ)
+    public boolean onBlockActivated(World world, int x, int y, int z, PlayerEntity player, int side, float hitX, float hitY, float hitZ)
     {
         if (!world.isRemote && player.canPlayerEdit(x, y, z, side, player.getHeldItem()))
         {

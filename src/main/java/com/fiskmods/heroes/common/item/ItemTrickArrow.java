@@ -9,7 +9,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
@@ -77,7 +77,7 @@ public class ItemTrickArrow extends ItemFood implements IItemListEntry
     }
 
     @Override
-    public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer player)
+    public ItemStack onItemRightClick(ItemStack itemstack, World world, PlayerEntity player)
     {
         if (getType(itemstack).isEdible(itemstack, player))
         {
@@ -88,7 +88,7 @@ public class ItemTrickArrow extends ItemFood implements IItemListEntry
     }
 
     @Override
-    public ItemStack onEaten(ItemStack itemstack, World world, EntityPlayer player)
+    public ItemStack onEaten(ItemStack itemstack, World world, PlayerEntity player)
     {
         ArrowType type = getType(itemstack);
 
@@ -152,7 +152,7 @@ public class ItemTrickArrow extends ItemFood implements IItemListEntry
     }
 
     @Override
-    public void addInformation(ItemStack itemstack, EntityPlayer player, List list, boolean flag)
+    public void addInformation(ItemStack itemstack, PlayerEntity player, List list, boolean flag)
     {
         getType(itemstack).addInformation(itemstack, player, list, flag);
 

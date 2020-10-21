@@ -13,7 +13,7 @@ import com.fiskmods.heroes.util.SHHelper;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.StatCollector;
 
@@ -116,7 +116,7 @@ public class Ability extends FiskRegistryEntry<Ability> implements HeroModifier,
         return true;
     }
 
-    public boolean renderIcon(EntityPlayer player)
+    public boolean renderIcon(PlayerEntity player)
     {
         return false;
     }

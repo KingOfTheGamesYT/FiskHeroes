@@ -16,7 +16,7 @@ import com.google.common.collect.ImmutableMap;
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
@@ -140,7 +140,7 @@ public abstract class Move extends FiskRegistryEntry<Move> implements Comparable
         return amount;
     }
 
-    public boolean attackEntity(EntityPlayer player, Entity target, Hero hero, ImmutableMap<String, Number> modifiers, float focus)
+    public boolean attackEntity(PlayerEntity player, Entity target, Hero hero, ImmutableMap<String, Number> modifiers, float focus)
     {
         return true;
     }

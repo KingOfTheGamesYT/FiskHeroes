@@ -9,14 +9,14 @@ import org.apache.commons.io.IOUtils;
 import com.fiskmods.heroes.gameboii.GameboiiCartridge;
 import com.fiskmods.heroes.gameboii.GameboiiSave;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.common.DimensionManager;
 
 public class GameboiiSaveFile extends GameboiiSave
 {
-    public final EntityPlayer player;
+    public final PlayerEntity player;
 
-    public GameboiiSaveFile(EntityPlayer player)
+    public GameboiiSaveFile(PlayerEntity player)
     {
         this.player = player;
     }

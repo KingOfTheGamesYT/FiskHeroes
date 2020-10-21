@@ -26,7 +26,7 @@ import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Vec3;
 
@@ -46,7 +46,7 @@ public class HeroEffectTrail extends HeroEffect
     }
 
     @Override
-    public void onClientTick(EntityPlayer player, HeroIteration iter, Phase phase)
+    public void onClientTick(PlayerEntity player, HeroIteration iter, Phase phase)
     {
         super.onClientTick(player, iter, phase);
 
@@ -67,7 +67,7 @@ public class HeroEffectTrail extends HeroEffect
         tick(player, type, phase, shouldTick(player, phase));
     }
 
-    public static void tick(EntityPlayer player, JsonTrail type, Phase phase, boolean variables)
+    public static void tick(PlayerEntity player, JsonTrail type, Phase phase, boolean variables)
     {
         if (phase == Phase.START)
         {
@@ -120,17 +120,17 @@ public class HeroEffectTrail extends HeroEffect
         }
     }
 
-    public boolean shouldTick(EntityPlayer player, Phase phase)
+    public boolean shouldTick(PlayerEntity player, Phase phase)
     {
         return phase == Phase.START && conditionals.evaluate(player);
     }
 
-    public static LinkedList<EntitySpeedBlur> getTrail(EntityPlayer player)
+    public static LinkedList<EntitySpeedBlur> getTrail(PlayerEntity player)
     {
         return trailData.computeIfAbsent(player, k -> new LinkedList<>());
     }
 
-    public static void addLightningData(EntityPlayer player, LightningData data)
+    public static void addLightningData(PlayerEntity player, LightningData data)
     {
         LinkedList<LightningData> list = getLightningData(player);
         list.add(data);
@@ -138,7 +138,7 @@ public class HeroEffectTrail extends HeroEffect
         lightningData.put(player, list);
     }
 
-    public static LinkedList<LightningData> getLightningData(EntityPlayer player)
+    public static LinkedList<LightningData> getLightningData(PlayerEntity player)
     {
         return lightningData.computeIfAbsent(player, k -> new LinkedList<>());
     }

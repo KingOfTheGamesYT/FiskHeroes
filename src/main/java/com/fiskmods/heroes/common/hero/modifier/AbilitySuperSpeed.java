@@ -5,7 +5,7 @@ import com.fiskmods.heroes.common.data.effect.StatEffect;
 import com.fiskmods.heroes.common.data.effect.StatusEffect;
 
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 
 public class AbilitySuperSpeed extends Ability
 {
@@ -25,7 +25,7 @@ public class AbilitySuperSpeed extends Ability
     }
 
     @Override
-    public boolean renderIcon(EntityPlayer player)
+    public boolean renderIcon(PlayerEntity player)
     {
         return SHData.SPEEDING.get(player);
     }

@@ -18,7 +18,7 @@ import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.texture.TextureUtil;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 
@@ -27,19 +27,19 @@ public enum RewardGemRenderer implements EquipmentRenderer
     INSTANCE;
 
     @Override
-    public boolean test(EntityPlayer player)
+    public boolean test(PlayerEntity player)
     {
         return !player.getHideCape() && !player.isInvisibleToPlayer(mc.thePlayer) && (RewardHelper.hasRewardClient(player) || RewardHelper.isConquestTop(player));
     }
 
     @Override
-    public float[] getOffset(EntityPlayer player, HeroIteration iter, ModelBiped model, float partialTicks)
+    public float[] getOffset(PlayerEntity player, HeroIteration iter, ModelBiped model, float partialTicks)
     {
         return new float[] {-0.5F, -0.25F, 0.084375F / 2};
     }
 
     @Override
-    public void render(EntityPlayer player, HeroIteration iter, ModelBiped model, RenderEquipmentEvent event, float partialTicks)
+    public void render(PlayerEntity player, HeroIteration iter, ModelBiped model, RenderEquipmentEvent event, float partialTicks)
     {
         float f = MathHelper.sin((player.ticksExisted + partialTicks) / 10) * 0.1F + 0.1F;
         float f1 = (player.ticksExisted + partialTicks) / 20 * (180F / (float) Math.PI);

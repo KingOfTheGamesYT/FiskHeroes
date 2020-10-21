@@ -19,9 +19,9 @@ public class GuiDisplayStand extends GuiContainer
 {
     private static final ResourceLocation guiTextures = new ResourceLocation(FiskHeroes.MODID, "textures/gui/container/display_stand.png");
 
-    public GuiDisplayStand(PlayerInventory inventoryPlayer, TileEntityDisplayStand tile)
+    public GuiDisplayStand(PlayerInventory playerInventory, TileEntityDisplayStand tile)
     {
-        super(new ContainerDisplayStand(inventoryPlayer, tile));
+        super(new ContainerDisplayStand(playerInventory, tile));
     }
 
     @Override

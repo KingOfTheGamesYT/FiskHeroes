@@ -31,7 +31,7 @@ import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
@@ -64,7 +64,7 @@ public class ModelHelper
     {
         if (entity1 instanceof EntityPlayer)
         {
-            EntityPlayer player = (EntityPlayer) entity1;
+            PlayerEntity player = (EntityPlayer) entity1;
 
             if (SHClientUtils.isInanimate(player))
             {
@@ -212,7 +212,7 @@ public class ModelHelper
 
             if (heldItem != null && entity instanceof EntityPlayer)
             {
-                EntityPlayer player = (EntityPlayer) entity;
+                PlayerEntity player = (EntityPlayer) entity;
 
                 if (player.isUsingItem() && heldItem.getItem() == ModItems.captainAmericasShield)
                 {
@@ -373,7 +373,7 @@ public class ModelHelper
         }
     }
 
-    public static void rotateCorpse(EntityPlayer player, float partialTicks)
+    public static void rotateCorpse(PlayerEntity player, float partialTicks)
     {
         float f = SHClientUtils.getGlidingProgress(player, partialTicks);
 
@@ -399,7 +399,7 @@ public class ModelHelper
     {
         if (entity instanceof EntityPlayer)
         {
-            EntityPlayer player = (EntityPlayer) entity;
+            PlayerEntity player = (EntityPlayer) entity;
             Hero hero = SHHelper.getHero(player);
 
             if (SpeedsterHelper.hasSuperSpeed(player) && (SpeedsterHelper.isOnTreadmill(player) || SHData.SPEEDING.get(player)))
@@ -416,7 +416,7 @@ public class ModelHelper
     {
         if (entity instanceof EntityPlayer)
         {
-            EntityPlayer player = (EntityPlayer) entity;
+            PlayerEntity player = (EntityPlayer) entity;
 
             if (SHData.TICKS_GLIDING.get(player) > 4)
             {

@@ -5,7 +5,7 @@ import com.fiskmods.heroes.common.data.effect.StatEffect;
 import com.fiskmods.heroes.common.data.effect.StatusEffect;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
@@ -22,7 +22,7 @@ public class ItemVel9 extends Item
     }
 
     @Override
-    public ItemStack onEaten(ItemStack itemstack, World world, EntityPlayer player)
+    public ItemStack onEaten(ItemStack itemstack, World world, PlayerEntity player)
     {
         if (!player.capabilities.isCreativeMode)
         {
@@ -75,7 +75,7 @@ public class ItemVel9 extends Item
     }
 
     @Override
-    public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer player)
+    public ItemStack onItemRightClick(ItemStack itemstack, World world, PlayerEntity player)
     {
         player.setItemInUse(itemstack, getMaxItemUseDuration(itemstack));
         return itemstack;

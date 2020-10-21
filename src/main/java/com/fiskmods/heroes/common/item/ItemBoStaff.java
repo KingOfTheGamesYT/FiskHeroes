@@ -12,7 +12,7 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
@@ -45,7 +45,7 @@ public class ItemBoStaff extends ItemUntextured implements IPunchWeapon
             {
                 ItemStack stack = attacker.getHeldItem();
 
-                if (attacker instanceof EntityPlayer && stack != null && stack.getItem().onLeftClickEntity(stack, (EntityPlayer) attacker, entity))
+                if (attacker instanceof PlayerEntity && stack != null && stack.getItem().onLeftClickEntity(stack, (EntityPlayer) attacker, entity))
                 {
                     continue;
                 }
@@ -83,7 +83,7 @@ public class ItemBoStaff extends ItemUntextured implements IPunchWeapon
                                 entity.setFire(1);
                             }
 
-                            boolean success = entity.attackEntityFrom(attacker instanceof EntityPlayer ? DamageSource.causePlayerDamage((EntityPlayer) attacker) : DamageSource.causeMobDamage(attacker), attackDamage);
+                            boolean success = entity.attackEntityFrom(attacker instanceof PlayerEntity ? DamageSource.causePlayerDamage((EntityPlayer) attacker) : DamageSource.causeMobDamage(attacker), attackDamage);
 
                             if (success)
                             {
@@ -123,7 +123,7 @@ public class ItemBoStaff extends ItemUntextured implements IPunchWeapon
 
                                 if (attacker instanceof EntityPlayer)
                                 {
-                                    EntityPlayer player = (EntityPlayer) attacker;
+                                    PlayerEntity player = (EntityPlayer) attacker;
 
                                     if (crit)
                                     {

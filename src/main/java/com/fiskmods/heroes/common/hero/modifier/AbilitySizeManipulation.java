@@ -11,7 +11,7 @@ import com.fiskmods.heroes.util.FiskServerUtils;
 
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
 
@@ -34,7 +34,7 @@ public class AbilitySizeManipulation extends Ability
     {
         if (phase == Phase.END && enabled && entity instanceof EntityPlayer)
         {
-            EntityPlayer player = (EntityPlayer) entity;
+            PlayerEntity player = (EntityPlayer) entity;
             float scale = SHData.SCALE.get(player);
             float min = hero.getFuncFloat(player, FUNC_MIN_SIZE, 0.5F);
             float max = hero.getFuncFloat(player, FUNC_MAX_SIZE, 1);
@@ -149,7 +149,7 @@ public class AbilitySizeManipulation extends Ability
     @Override
     public boolean canTakeDamage(EntityLivingBase entity, EntityLivingBase attacker, Hero hero, DamageSource source, float amount)
     {
-        if (entity instanceof EntityPlayer && SHData.SCALE.get(entity) <= hero.getFuncFloat(entity, FUNC_MIN_SIZE, 0.5F))
+        if (entity instanceof PlayerEntity && SHData.SCALE.get(entity) <= hero.getFuncFloat(entity, FUNC_MIN_SIZE, 0.5F))
         {
             if (!(attacker instanceof EntityPlayer) && FiskServerUtils.isMeleeDamage(source) && rand.nextInt(3) != 0)
             {
@@ -170,9 +170,9 @@ public class AbilitySizeManipulation extends Ability
     {
         amount = super.damageDealt(entity, target, hero, source, amount, originalAmount);
 
-        if (entity instanceof EntityPlayer && FiskServerUtils.isMeleeDamage(source))
+        if (entity instanceof PlayerEntity && FiskServerUtils.isMeleeDamage(source))
         {
-            EntityPlayer player = (EntityPlayer) entity;
+            PlayerEntity player = (EntityPlayer) entity;
             float scale = SHData.SCALE.get(entity);
 
             if (scale < 1)

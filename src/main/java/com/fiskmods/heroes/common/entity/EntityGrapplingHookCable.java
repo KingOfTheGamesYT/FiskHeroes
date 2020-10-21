@@ -2,14 +2,14 @@ package com.fiskmods.heroes.common.entity;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
 public class EntityGrapplingHookCable extends Entity
 {
     public EntityLivingBase entity;
-    public EntityPlayer player;
+    public PlayerEntity player;
 
     public int primaryColor = 0x7F664C;
     public int secondaryColor = 0x5A4736;
@@ -24,7 +24,7 @@ public class EntityGrapplingHookCable extends Entity
         setSize(0.1F, 0.1F);
     }
 
-    public EntityGrapplingHookCable(World world, EntityLivingBase entity, EntityPlayer player)
+    public EntityGrapplingHookCable(World world, EntityLivingBase entity, PlayerEntity player)
     {
         this(world);
         this.entity = entity;

@@ -15,7 +15,7 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 
 public class HeroEffectWings extends HeroEffect
@@ -56,7 +56,7 @@ public class HeroEffectWings extends HeroEffect
     }
 
     @Override
-    public void postRenderArm(ModelBipedMultiLayer model, EntityPlayer player, ItemStack itemstack, HeroIteration iter, int pass)
+    public void postRenderArm(ModelBipedMultiLayer model, PlayerEntity player, ItemStack itemstack, HeroIteration iter, int pass)
     {
         if (conditionals.evaluate(player))
         {

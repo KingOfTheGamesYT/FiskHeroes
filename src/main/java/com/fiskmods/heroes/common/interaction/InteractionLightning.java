@@ -16,7 +16,7 @@ import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import cpw.mods.fml.relauncher.Side;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.MovingObjectPosition.MovingObjectType;
@@ -30,19 +30,19 @@ public class InteractionLightning extends InteractionBase
     }
 
     @Override
-    public boolean serverRequirements(EntityPlayer player, InteractionType type, int x, int y, int z)
+    public boolean serverRequirements(PlayerEntity player, InteractionType type, int x, int y, int z)
     {
         return !SHData.AIMING.get(player) && player.getHeldItem() == null && !player.isSneaking();
     }
 
     @Override
-    public boolean clientRequirements(EntityPlayer player, InteractionType type, int x, int y, int z)
+    public boolean clientRequirements(PlayerEntity player, InteractionType type, int x, int y, int z)
     {
         return Cooldown.LIGHTNING.available(player);
     }
 
     @Override
-    public void receive(EntityPlayer sender, EntityPlayer clientPlayer, InteractionType type, Side side, int x, int y, int z)
+    public void receive(PlayerEntity sender, PlayerEntity clientPlayer, InteractionType type, Side side, int x, int y, int z)
     {
         Hero hero = SHHelper.getHero(sender);
         float range = Rule.RANGE_LIGHTNINGCAST.get(sender, hero);
@@ -117,7 +117,7 @@ public class InteractionLightning extends InteractionBase
     }
 
     @Override
-    public TargetPoint getTargetPoint(EntityPlayer player, int x, int y, int z)
+    public TargetPoint getTargetPoint(PlayerEntity player, int x, int y, int z)
     {
         return TARGET_NONE;
     }

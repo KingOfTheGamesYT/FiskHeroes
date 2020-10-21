@@ -12,7 +12,7 @@ import com.fiskmods.heroes.util.SHHelper;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.IInvBasic;
@@ -115,7 +115,7 @@ public class ContainerSuitIterator extends ContainerBasic implements ITileContai
     }
 
     @Override
-    public void onContainerClosed(EntityPlayer player)
+    public void onContainerClosed(PlayerEntity player)
     {
         super.onContainerClosed(player);
 
@@ -139,13 +139,13 @@ public class ContainerSuitIterator extends ContainerBasic implements ITileContai
     }
 
     @Override
-    public boolean canInteractWith(EntityPlayer player)
+    public boolean canInteractWith(PlayerEntity player)
     {
         return worldObj.getBlock(posX, posY, posZ) == ModBlocks.suitIterator && player.getDistanceSq(posX + 0.5, posY + 0.5, posZ + 0.5) <= 64;
     }
 
     @Override
-    public ItemStack transferStackInSlot(EntityPlayer player, int slotId)
+    public ItemStack transferStackInSlot(PlayerEntity player, int slotId)
     {
         ItemStack itemstack = null;
         Slot slot = (Slot) inventorySlots.get(slotId);

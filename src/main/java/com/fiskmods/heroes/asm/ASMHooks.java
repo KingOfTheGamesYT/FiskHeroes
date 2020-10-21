@@ -32,7 +32,7 @@ import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -97,15 +97,15 @@ public class ASMHooks
         return list;
     }
 
-    public static EntityPlayer getClosestVulnerablePlayer(Entity entity, double x, double y, double z, double radius)
+    public static PlayerEntity getClosestVulnerablePlayer(Entity entity, double x, double y, double z, double radius)
     {
         World world = entity.worldObj;
         double d = -1.0D;
-        EntityPlayer entityplayer = null;
+        PlayerEntity PlayerEntity = null;
 
         for (Object element : world.playerEntities)
         {
-            EntityPlayer player = (EntityPlayer) element;
+            PlayerEntity player = (EntityPlayer) element;
 
             if (!player.capabilities.disableDamage && player.isEntityAlive())
             {
@@ -142,7 +142,7 @@ public class ASMHooks
                 if ((radius < 0.0D || d1 < d2 * d2) && (d == -1.0D || d1 < d))
                 {
                     d = d1;
-                    entityplayer = player;
+                    PlayerEntity = player;
                 }
             }
         }
@@ -150,12 +150,12 @@ public class ASMHooks
         return entityplayer;
     }
 
-    public static float getDrawbackTime(EntityPlayer player)
+    public static float getDrawbackTime(PlayerEntity player)
     {
         return SHAttributes.BOW_DRAWBACK.get(player, 20);
     }
 
-    public static int getBowIconTime(EntityPlayer player, int time)
+    public static int getBowIconTime(PlayerEntity player, int time)
     {
         return (int) (getDrawbackTime(player) * 20F / time);
     }
@@ -196,7 +196,7 @@ public class ASMHooks
         return baseName + "_" + SHData.SCALE.get(entity);
     }
 
-    public static float getArmorVisibilityMultiplier(EntityPlayer player)
+    public static float getArmorVisibilityMultiplier(PlayerEntity player)
     {
         Hero hero = SHHelper.getHero(player);
 
@@ -215,7 +215,7 @@ public class ASMHooks
             result *= getModifiedEntityScale(entity) / getStrengthScale(entity);
         }
 
-        if (entity instanceof EntityPlayer && SpeedsterHelper.canPlayerRun((EntityPlayer) entity))
+        if (entity instanceof PlayerEntity && SpeedsterHelper.canPlayerRun((EntityPlayer) entity))
         {
             result /= 2;
         }
@@ -223,7 +223,7 @@ public class ASMHooks
         return result;
     }
 
-    public static int getHealRate(EntityPlayer player, int rate)
+    public static int getHealRate(PlayerEntity player, int rate)
     {
         Hero hero = SHHelper.getHero(player);
 
@@ -241,7 +241,7 @@ public class ASMHooks
 
         if (aabb1 == null && block == Blocks.water && !(world.getBlock(x, y + 1, z) instanceof BlockLiquid) && entity instanceof EntityPlayer)
         {
-            EntityPlayer player = (EntityPlayer) entity;
+            PlayerEntity player = (EntityPlayer) entity;
 
             if (SpeedsterHelper.canPlayerRunOnWater(player))
             {
@@ -267,7 +267,7 @@ public class ASMHooks
 
         if (entity instanceof EntityPlayer)
         {
-            EntityPlayer player = (EntityPlayer) entity;
+            PlayerEntity player = (EntityPlayer) entity;
             Hero hero = SHHelper.getHero(player);
 
             if (hero != null && SHData.INTANGIBLE.get(player) && (hero.hasEnabledModifier(player, Ability.INTANGIBILITY) && Ability.INTANGIBILITY.isActive(player) || hero.hasEnabledModifier(player, Ability.ABSOLUTE_INTANGIBILITY) && Ability.ABSOLUTE_INTANGIBILITY.isActive(player)))
@@ -608,7 +608,7 @@ public class ASMHooks
     {
         if (entity instanceof EntityPlayer)
         {
-            EntityPlayer player = (EntityPlayer) entity;
+            PlayerEntity player = (EntityPlayer) entity;
 
             if (player.isClientWorld() && !player.isInWater() && !player.handleLavaMovement() && player.worldObj.provider.dimensionId != ModDimensions.QUANTUM_REALM_ID && SHData.GLIDING.get(player))
             {

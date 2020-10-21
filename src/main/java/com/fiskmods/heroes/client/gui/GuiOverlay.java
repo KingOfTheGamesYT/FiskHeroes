@@ -44,7 +44,7 @@ import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
@@ -107,7 +107,7 @@ public class GuiOverlay extends HUDLayout
         }
     }
 
-    public void renderIcons(RenderGameOverlayEvent.Post event, int width, int height, EntityPlayer player)
+    public void renderIcons(RenderGameOverlayEvent.Post event, int width, int height, PlayerEntity player)
     {
         GL11.glColor4f(1, 1, 1, 1);
         Hero hero = SHHelper.getHero(player);
@@ -438,7 +438,7 @@ public class GuiOverlay extends HUDLayout
         drawTexturedModalRect(x, y, 22, 223, 11, 11);
     }
 
-    public void renderArmorProtection(RenderGameOverlayEvent.Post event, int width, int height, EntityPlayer player)
+    public void renderArmorProtection(RenderGameOverlayEvent.Post event, int width, int height, PlayerEntity player)
     {
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glColor4f(1, 1, 1, 1);
@@ -495,7 +495,7 @@ public class GuiOverlay extends HUDLayout
         GL11.glDisable(GL11.GL_BLEND);
     }
 
-    public void renderCryokinesis(RenderGameOverlayEvent.Post event, int width, int height, EntityPlayer player, boolean flag)
+    public void renderCryokinesis(RenderGameOverlayEvent.Post event, int width, int height, PlayerEntity player, boolean flag)
     {
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glColor4f(1, 1, 1, 1);
@@ -534,7 +534,7 @@ public class GuiOverlay extends HUDLayout
         GL11.glDisable(GL11.GL_BLEND);
     }
 
-    public void renderShrinkCooldown(RenderGameOverlayEvent.Post event, int width, int height, EntityPlayer player, boolean flag)
+    public void renderShrinkCooldown(RenderGameOverlayEvent.Post event, int width, int height, PlayerEntity player, boolean flag)
     {
         GL11.glEnable(GL11.GL_BLEND);
         OpenGlHelper.glBlendFunc(770, 771, 1, 0);
@@ -605,7 +605,7 @@ public class GuiOverlay extends HUDLayout
         GL11.glDisable(GL11.GL_BLEND);
     }
 
-    public void renderCooldown(Predicate<Entity> p, int u, int v, float t, int width, int height, EntityPlayer player, boolean flag)
+    public void renderCooldown(Predicate<Entity> p, int u, int v, float t, int width, int height, PlayerEntity player, boolean flag)
     {
         if (t > 0 && p.test(player))
         {
@@ -642,7 +642,7 @@ public class GuiOverlay extends HUDLayout
         }
     }
 
-    public void renderTemperature(RenderGameOverlayEvent.Post event, int width, int height, EntityPlayer player)
+    public void renderTemperature(RenderGameOverlayEvent.Post event, int width, int height, PlayerEntity player)
     {
         GL11.glEnable(GL11.GL_BLEND);
         int amount = TemperatureHelper.getTemperatureForGui();

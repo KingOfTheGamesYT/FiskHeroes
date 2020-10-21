@@ -14,7 +14,7 @@ import mods.battlegear2.api.IOffhandWield;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 
@@ -28,19 +28,19 @@ public class ItemDeadpoolsSwords extends ItemSword implements IDualItem, IOffhan
     }
 
     @Override
-    public float getSwingProgress(EntityPlayer player, float partialTicks)
+    public float getSwingProgress(PlayerEntity player, float partialTicks)
     {
         return SHRenderHooks.getSwingProgress(player, partialTicks);
     }
 
     @Override
-    public boolean onEntitySwingOffHand(EntityPlayer player, ItemStack itemstack)
+    public boolean onEntitySwingOffHand(PlayerEntity player, ItemStack itemstack)
     {
         return false;
     }
 
     @Override
-    public boolean onSwingEnd(EntityPlayer player, ItemStack itemstack, boolean right)
+    public boolean onSwingEnd(PlayerEntity player, ItemStack itemstack, boolean right)
     {
         return false;
     }
@@ -66,7 +66,7 @@ public class ItemDeadpoolsSwords extends ItemSword implements IDualItem, IOffhan
     }
 
     @Override
-    public boolean isOffhandWieldable(ItemStack itemstack, EntityPlayer player)
+    public boolean isOffhandWieldable(ItemStack itemstack, PlayerEntity player)
     {
         return false;
     }

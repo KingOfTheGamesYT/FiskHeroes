@@ -9,7 +9,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -38,7 +38,7 @@ public class TemperatureHelper
     @SideOnly(Side.CLIENT)
     public static int getTemperatureForGui()
     {
-        EntityPlayer player = Minecraft.getInstance().thePlayer;
+        PlayerEntity player = Minecraft.getInstance().thePlayer;
         float temp = getCurrentBodyTemperature(player);
 
         if (temp != DEFAULT_BODY_TEMPERATURE)

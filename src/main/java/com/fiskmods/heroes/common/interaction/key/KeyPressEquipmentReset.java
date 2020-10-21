@@ -14,12 +14,12 @@ import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.settings.KeyBinding;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 
 public class KeyPressEquipmentReset extends KeyPressBase
 {
     @Override
-    public boolean serverRequirements(EntityPlayer player, InteractionType type, int x, int y, int z)
+    public boolean serverRequirements(PlayerEntity player, InteractionType type, int x, int y, int z)
     {
         Hero hero = SHHelper.getHero(player);
 
@@ -39,13 +39,13 @@ public class KeyPressEquipmentReset extends KeyPressBase
 
     @Override
     @SideOnly(Side.CLIENT)
-    public KeyBinding getKey(EntityPlayer player, Hero hero)
+    public KeyBinding getKey(PlayerEntity player, Hero hero)
     {
         return hero.getKey(player, AbilityEquipment.KEY_RESET);
     }
 
     @Override
-    public void receive(EntityPlayer sender, EntityPlayer clientPlayer, InteractionType type, Side side, int x, int y, int z)
+    public void receive(PlayerEntity sender, PlayerEntity clientPlayer, InteractionType type, Side side, int x, int y, int z)
     {
         byte b = SHData.UTILITY_BELT_TYPE.get(sender);
         SHData.PREV_UTILITY_BELT_TYPE.clampWithoutNotify(sender, (byte) 0, (byte) EnumEquipment.values().length);
@@ -74,7 +74,7 @@ public class KeyPressEquipmentReset extends KeyPressBase
     }
 
     @Override
-    public TargetPoint getTargetPoint(EntityPlayer player, int x, int y, int z)
+    public TargetPoint getTargetPoint(PlayerEntity player, int x, int y, int z)
     {
         return TARGET_NONE;
     }

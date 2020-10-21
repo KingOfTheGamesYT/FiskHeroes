@@ -5,7 +5,7 @@ import com.fiskmods.heroes.common.entity.gadget.EntityGrapplingHook;
 import com.fiskmods.heroes.common.hero.Hero.Permission;
 import com.fiskmods.heroes.util.SHHelper;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
@@ -18,7 +18,7 @@ public class ItemGrapplingGun extends ItemUntextured
     }
 
     @Override
-    public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer player)
+    public ItemStack onItemRightClick(ItemStack itemstack, World world, PlayerEntity player)
     {
         if (SHHelper.hasPermission(player, Permission.USE_GRAPPLING_GUN))
         {

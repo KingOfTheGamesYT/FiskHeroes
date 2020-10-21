@@ -11,7 +11,7 @@ import com.fiskmods.heroes.common.hero.HeroIteration;
 import com.fiskmods.heroes.util.SHHelper;
 
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
@@ -23,7 +23,7 @@ public class ItemRipHuntersGun extends ItemUntextured implements IReloadWeapon, 
     }
 
     @Override
-    public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
+    public ItemStack onItemRightClick(ItemStack stack, World world, PlayerEntity player)
     {
         HeroIteration iter;
 
@@ -48,7 +48,7 @@ public class ItemRipHuntersGun extends ItemUntextured implements IReloadWeapon, 
     }
 
     @Override
-    public int getReloadTime(ItemStack stack, EntityPlayer player, Hero hero)
+    public int getReloadTime(ItemStack stack, PlayerEntity player, Hero hero)
     {
         return Rule.COOLDOWN_RIPSGUN.get(player, hero);
     }

@@ -4,7 +4,7 @@ import com.fiskmods.heroes.common.achievement.SHAchievements;
 import com.fiskmods.heroes.common.data.SHData;
 
 import io.netty.buffer.ByteBuf;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 
 public class MessageBatfish extends AbstractMessage<MessageBatfish>
 {
@@ -34,7 +34,7 @@ public class MessageBatfish extends AbstractMessage<MessageBatfish>
     @Override
     public void receive() throws MessageException
     {
-        EntityPlayer player = getPlayer();
+        PlayerEntity player = getPlayer();
 
         switch (action)
         {

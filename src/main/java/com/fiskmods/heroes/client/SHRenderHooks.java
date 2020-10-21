@@ -25,7 +25,7 @@ import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumAction;
@@ -290,7 +290,7 @@ public class SHRenderHooks extends SHRenderHelper
         }
     }
 
-    public static void renderItemIn3rdPerson(EntityPlayer player, ModelBiped model, float partialTicks)
+    public static void renderItemIn3rdPerson(PlayerEntity player, ModelBiped model, float partialTicks)
     {
         ItemStack itemstack = player.getHeldItem();
 

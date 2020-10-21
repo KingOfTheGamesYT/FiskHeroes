@@ -7,7 +7,7 @@ import cpw.mods.fml.common.network.ByteBufUtils;
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import cpw.mods.fml.relauncher.Side;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 
 public class MessageInteraction extends AbstractMessage<MessageInteraction>
 {
@@ -19,7 +19,7 @@ public class MessageInteraction extends AbstractMessage<MessageInteraction>
     {
     }
 
-    public MessageInteraction(EntityPlayer player, Interaction interaction, InteractionType type, int x, int y, int z)
+    public MessageInteraction(PlayerEntity player, Interaction interaction, InteractionType type, int x, int y, int z)
     {
         id = player.getEntityId();
         this.interaction = interaction;
@@ -56,8 +56,8 @@ public class MessageInteraction extends AbstractMessage<MessageInteraction>
     {
         if (interaction != null)
         {
-            EntityPlayer sender = getSender(id);
-            EntityPlayer clientPlayer = getPlayer();
+            PlayerEntity sender = getSender(id);
+            PlayerEntity clientPlayer = getPlayer();
 
             if (context.side.isClient())
             {

@@ -13,7 +13,7 @@ import com.fiskmods.heroes.util.SHHelper;
 import com.fiskmods.heroes.util.VectorHelper;
 
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MovingObjectPosition;
@@ -30,7 +30,7 @@ public class ItemHeatGun extends ItemUntextured
     }
 
     @Override
-    public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
+    public ItemStack onItemRightClick(ItemStack stack, World world, PlayerEntity player)
     {
         if (SHData.AIMING_TIMER.get(player) >= 1 && SHHelper.hasPermission(player, Permission.USE_HEAT_GUN))
         {
@@ -41,7 +41,7 @@ public class ItemHeatGun extends ItemUntextured
     }
 
     @Override
-    public void onUsingTick(ItemStack itemstack, EntityPlayer player, int count)
+    public void onUsingTick(ItemStack itemstack, PlayerEntity player, int count)
     {
         World world = player.worldObj;
         Hero hero;

@@ -17,7 +17,7 @@ import com.google.gson.stream.JsonToken;
 
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
 
@@ -70,7 +70,7 @@ public class HeroEffectCape extends HeroEffect
 
         if (entity instanceof EntityPlayer)
         {
-            EntityPlayer player = (EntityPlayer) entity;
+            PlayerEntity player = (EntityPlayer) entity;
 
             if (!SHClientUtils.isInanimate(player))
             {

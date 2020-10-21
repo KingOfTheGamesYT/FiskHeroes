@@ -18,7 +18,7 @@ import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
@@ -155,7 +155,7 @@ public class ModelBipedMultiLayer extends ModelBiped
         });
     }
 
-    public void renderArm(EntityPlayer player, ItemStack itemstack, HeroIteration iter, int pass, float scale)
+    public void renderArm(PlayerEntity player, ItemStack itemstack, HeroIteration iter, int pass, float scale)
     {
         renderParts(player, anim ->
         {

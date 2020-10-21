@@ -18,7 +18,7 @@
 //import net.minecraft.crash.CrashReportCategory;
 //import net.minecraft.entity.Entity;
 //import net.minecraft.entity.EntityLivingBase;
-//import net.minecraft.entity.player.EntityPlayer;
+//import net.minecraft.entity.player.PlayerEntity;
 //import net.minecraft.entity.player.PlayerInventory;
 //import net.minecraft.init.Blocks;
 //import net.minecraft.init.Items;
@@ -42,7 +42,7 @@
 //    @SubscribeEvent
 //    public void onEntityItemPickup(EntityItemPickupEvent event)
 //    {
-//        EntityPlayer player = event.entityPlayer;
+//        PlayerEntity player = event.entityPlayer;
 //        MoveEntry e = getMove(player);
 //
 //        if (e != null)
@@ -83,7 +83,7 @@
 //
 //                    if (stack.getItem() == Items.diamond && event.item.func_145800_j() != null)
 //                    {
-//                        EntityPlayer thrower = event.item.worldObj.getPlayerEntityByName(event.item.func_145800_j());
+//                        PlayerEntity thrower = event.item.worldObj.getPlayerEntityByName(event.item.func_145800_j());
 //
 //                        if (thrower != null && thrower != player)
 //                        {
@@ -287,7 +287,7 @@
 //    @SubscribeEvent
 //    public void onPlayerTick(PlayerTickEvent event)
 //    {
-//        EntityPlayer player = event.player;
+//        PlayerEntity player = event.player;
 //
 //        if (event.phase == TickEvent.Phase.END)
 //        {
@@ -386,7 +386,7 @@
 ////    @SubscribeEvent
 ////    public void onAttackEntity(AttackEntityEvent event)
 ////    {
-////        EntityPlayer player = event.entityPlayer;
+////        PlayerEntity player = event.entityPlayer;
 ////        Hero hero = SHHelper.getHero(player);
 ////        MoveEntry e = getMove(player, hero);
 ////
@@ -437,12 +437,12 @@
 //        return entity.isSneaking() && SHData.COMBAT_MODE.get(entity) && entity instanceof EntityLivingBase && hasMoveSet((EntityLivingBase) entity);
 //    }
 //
-//    public static float getMaxFocus(EntityPlayer player)
+//    public static float getMaxFocus(PlayerEntity player)
 //    {
 //        return 1.5F;
 //    }
 //
-//    public static float getFocusRate(EntityPlayer player)
+//    public static float getFocusRate(PlayerEntity player)
 //    {
 //        return 1F / 20;
 //    }

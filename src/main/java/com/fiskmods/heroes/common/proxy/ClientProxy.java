@@ -121,7 +121,7 @@ import mods.battlegear2.api.core.BattlegearUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
@@ -261,7 +261,7 @@ public class ClientProxy extends CommonProxy
     }
 
     @Override
-    public EntityPlayer getPlayer()
+    public PlayerEntity getPlayer()
     {
         return mc.thePlayer;
     }

@@ -19,7 +19,7 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -146,7 +146,7 @@ public class EntityThrownShield extends EntityThrowable implements IEntityAdditi
 
         if (isEntityAlive() && getShouldReturn() && getThrower() instanceof EntityPlayer)
         {
-            EntityPlayer player = (EntityPlayer) getThrower();
+            PlayerEntity player = (EntityPlayer) getThrower();
             double dist = getDistanceToEntity(player);
 
             if (electroMagnetic && ticksExisted > 50)
@@ -395,7 +395,7 @@ public class EntityThrownShield extends EntityThrowable implements IEntityAdditi
         {
             if (getThrower() instanceof EntityPlayer)
             {
-                EntityPlayer player = (EntityPlayer) getThrower();
+                PlayerEntity player = (EntityPlayer) getThrower();
 
                 if (getDistanceToEntity(player) <= 5)
                 {

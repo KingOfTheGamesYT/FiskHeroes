@@ -7,7 +7,7 @@ import com.fiskmods.heroes.util.SHHelper;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityEnderman;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.play.server.S2BPacketChangeGameState;
@@ -48,7 +48,7 @@ public class EntityGrappleArrow extends EntityTrickArrow
     }
 
     @Override
-    public void onCollideWithPlayer(EntityPlayer player)
+    public void onCollideWithPlayer(PlayerEntity player)
     {
         if (getIsCableCut())
         {
@@ -94,7 +94,7 @@ public class EntityGrappleArrow extends EntityTrickArrow
 
         // if (getShooter() instanceof EntityPlayer)
         // {
-        // EntityPlayer shooter = (EntityPlayer) getShooter();
+        // PlayerEntity shooter = (EntityPlayer) getShooter();
         // double side = 0.3D;
         // double forward = 0.3D;
         // double d = MathHelper.sin(shooter.renderYawOffset * (float) Math.PI / 180);
@@ -145,7 +145,7 @@ public class EntityGrappleArrow extends EntityTrickArrow
 
         if (getShooter() instanceof EntityPlayer)
         {
-            EntityPlayer player = (EntityPlayer) getShooter();
+            PlayerEntity player = (EntityPlayer) getShooter();
 
             if (!getIsCableCut())
             {
@@ -176,7 +176,7 @@ public class EntityGrappleArrow extends EntityTrickArrow
         }
     }
 
-    public EntityGrapplingHookCable makeCable(EntityLivingBase living, EntityPlayer player)
+    public EntityGrapplingHookCable makeCable(EntityLivingBase living, PlayerEntity player)
     {
         return new EntityGrapplingHookCable(worldObj, living, player);
     }

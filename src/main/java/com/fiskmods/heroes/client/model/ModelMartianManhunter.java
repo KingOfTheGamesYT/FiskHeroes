@@ -10,7 +10,7 @@ import com.fiskmods.heroes.util.TextureHelper;
 
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.StringUtils;
 
 public class ModelMartianManhunter extends ModelBipedMultiLayer
@@ -22,7 +22,7 @@ public class ModelMartianManhunter extends ModelBipedMultiLayer
     {
         if (entity instanceof EntityPlayer)
         {
-            EntityPlayer player = (EntityPlayer) entity;
+            PlayerEntity player = (EntityPlayer) entity;
             float opacity = SHHelper.getInvisibility(player, mc.thePlayer);
             float t = SHData.SHAPE_SHIFT_TIMER.get(player);
 
@@ -57,7 +57,7 @@ public class ModelMartianManhunter extends ModelBipedMultiLayer
         super.renderBody(entity, pass, f, f1, f2, f3, f4, f5);
     }
 
-    private void renderNormal(EntityPlayer player, int pass, float f, float f1, float f2, float f3, float f4, float f5)
+    private void renderNormal(PlayerEntity player, int pass, float f, float f1, float f2, float f3, float f4, float f5)
     {
         if (pass == Pass.ENCHANTMENT)
         {

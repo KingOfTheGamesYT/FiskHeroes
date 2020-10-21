@@ -29,7 +29,7 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.PlayerTickEvent;
 import cpw.mods.fml.relauncher.Side;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ResourceLocation;
@@ -220,7 +220,7 @@ public enum JSHeroesEngine
     {
         if (event.entity instanceof EntityPlayer)
         {
-            EntityPlayer player = (EntityPlayer) event.entity;
+            PlayerEntity player = (EntityPlayer) event.entity;
 
             if (!player.worldObj.isRemote)
             {

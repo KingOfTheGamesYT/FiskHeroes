@@ -4,7 +4,7 @@ import java.util.function.Function;
 
 import com.fiskmods.heroes.gameboii.GameboiiSave;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 
 public enum GameboiiSaveType
 {
@@ -18,7 +18,7 @@ public enum GameboiiSaveType
         this.func = func;
     }
 
-    public GameboiiSave load(EntityPlayer player)
+    public GameboiiSave load(PlayerEntity player)
     {
         return func.apply(player);
     }

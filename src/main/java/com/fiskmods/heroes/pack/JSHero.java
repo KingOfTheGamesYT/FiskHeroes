@@ -27,7 +27,7 @@ import com.fiskmods.heroes.util.NBTHelper;
 import com.google.common.base.Preconditions;
 
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -443,7 +443,7 @@ public class JSHero
         }
 
         @Override
-        public float getDefaultScale(EntityPlayer player)
+        public float getDefaultScale(PlayerEntity player)
         {
             return (float) (defaultScale != null ? defaultScale.apply(JSEntityAccessor.wrap(player)) : 1);
         }

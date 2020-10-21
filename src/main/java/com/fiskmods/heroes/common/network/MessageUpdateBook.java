@@ -4,7 +4,7 @@ import com.fiskmods.heroes.common.item.ItemMetahumanLog;
 
 import cpw.mods.fml.common.network.ByteBufUtils;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -36,7 +36,7 @@ public class MessageUpdateBook extends AbstractMessage<MessageUpdateBook>
     @Override
     public void receive() throws MessageException
     {
-        EntityPlayer player = getPlayer();
+        PlayerEntity player = getPlayer();
         ItemStack heldItem = player.getHeldItem();
 
         if (heldItem != null && heldItem.getItem() instanceof ItemMetahumanLog)

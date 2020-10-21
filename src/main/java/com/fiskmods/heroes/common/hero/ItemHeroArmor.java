@@ -29,7 +29,7 @@ import com.google.common.collect.Multimap;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import mods.battlegear2.api.core.IBattlePlayer;
-import mods.battlegear2.api.core.InventoryPlayerBattle;
+import mods.battlegear2.api.core.playerInventoryBattle;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.client.resources.I18n;
@@ -37,7 +37,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
@@ -153,7 +153,7 @@ public class ItemHeroArmor extends ItemArmor implements ISpecialArmor, ITachyonC
     }
 
     @Override
-    public int getArmorDisplay(EntityPlayer player, ItemStack armor, int slot)
+    public int getArmorDisplay(PlayerEntity player, ItemStack armor, int slot)
     {
         return 0;
     }
@@ -195,7 +195,7 @@ public class ItemHeroArmor extends ItemArmor implements ISpecialArmor, ITachyonC
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void addInformation(ItemStack itemstack, EntityPlayer player, List list, boolean advanced)
+    public void addInformation(ItemStack itemstack, PlayerEntity player, List list, boolean advanced)
     {
         HeroIteration iter = get(itemstack);
 
@@ -363,7 +363,7 @@ public class ItemHeroArmor extends ItemArmor implements ISpecialArmor, ITachyonC
 
             if (entity instanceof EntityPlayer)
             {
-                EntityPlayer player = (EntityPlayer) entity;
+                PlayerEntity player = (EntityPlayer) entity;
                 boolean usingItem = heldItem != null && player.getItemInUseDuration() > 0;
 
                 model.aimedBow = usingItem && heldItem.getItemUseAction() == EnumAction.bow;
@@ -372,7 +372,7 @@ public class ItemHeroArmor extends ItemArmor implements ISpecialArmor, ITachyonC
 
                 if (FiskHeroes.isBattlegearLoaded)
                 {
-                    ItemStack offhand = ((InventoryPlayerBattle) player.inventory).getCurrentOffhandWeapon();
+                    ItemStack offhand = ((playerInventoryBattle) player.inventory).getCurrentOffhandWeapon();
 
                     if (offhand != null)
                     {

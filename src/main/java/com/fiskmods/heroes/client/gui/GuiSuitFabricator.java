@@ -39,16 +39,16 @@ public class GuiSuitFabricator extends GuiContainer implements IGuiStringList
     private GuiStringList heroList;
     private List<Hero> heroes;
 
-    protected GuiSuitFabricator(Container container, PlayerInventory inventoryPlayer, TileEntitySuitFabricator tileentity)
+    protected GuiSuitFabricator(Container container, PlayerInventory playerInventory, TileEntitySuitFabricator tileentity)
     {
         super(container);
         tile = tileentity;
         ySize = 210;
     }
 
-    public GuiSuitFabricator(PlayerInventory inventoryPlayer, TileEntitySuitFabricator tileentity)
+    public GuiSuitFabricator(PlayerInventory playerInventory, TileEntitySuitFabricator tileentity)
     {
-        this(new ContainerSuitFabricator(inventoryPlayer, tileentity), inventoryPlayer, tileentity);
+        this(new ContainerSuitFabricator(playerInventory, tileentity), playerInventory, tileentity);
     }
 
     @Override

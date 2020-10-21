@@ -4,7 +4,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.stats.StatFileWriter;
 import net.minecraft.util.MovementInputFromOptions;
 
@@ -31,7 +31,7 @@ public class EntityRenderItemPlayer extends EntityClientPlayerMP
     }
 
     @Override
-    public boolean isInvisibleToPlayer(EntityPlayer player)
+    public boolean isInvisibleToPlayer(PlayerEntity player)
     {
         return true;
     }

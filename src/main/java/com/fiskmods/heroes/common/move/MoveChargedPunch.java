@@ -5,7 +5,7 @@ import com.fiskmods.heroes.util.SHHelper;
 import com.google.common.collect.ImmutableMap;
 
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.EntityDamageSource;
 import net.minecraft.util.MovingObjectPosition;
 
@@ -45,7 +45,7 @@ public class MoveChargedPunch extends Move
 
             if (damage > 0)
             {
-                target.attackEntityFrom(new EntityDamageSource(entity instanceof EntityPlayer ? "player" : "mob", entity), damage);
+                target.attackEntityFrom(new EntityDamageSource(entity instanceof PlayerEntity ? "player" : "mob", entity), damage);
             }
 
             if (knockback > 0)

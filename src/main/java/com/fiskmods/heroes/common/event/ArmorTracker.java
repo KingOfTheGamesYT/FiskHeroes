@@ -3,7 +3,7 @@ package com.fiskmods.heroes.common.event;
 import com.fiskmods.heroes.common.entity.IArmorTrackedEntity;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 
 public class ArmorTracker
 {
@@ -57,7 +57,7 @@ public class ArmorTracker
     // @SubscribeEvent
     // public void onPlayerTick(PlayerTickEvent event)
     // {
-    // EntityPlayer player = event.player;
+    // PlayerEntity player = event.player;
     // int curr = getSlimeNum(player);
     // int prev = prevWornArmor.getOrDefault(player.getUniqueID(), -1);
     //
@@ -101,6 +101,6 @@ public class ArmorTracker
 
     public static boolean isTracking(Entity entity)
     {
-        return entity instanceof EntityPlayer || entity instanceof IArmorTrackedEntity;
+        return entity instanceof PlayerEntity || entity instanceof IArmorTrackedEntity;
     }
 }

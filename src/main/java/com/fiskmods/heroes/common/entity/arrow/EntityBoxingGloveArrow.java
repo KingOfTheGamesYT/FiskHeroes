@@ -5,7 +5,7 @@ import com.fiskmods.heroes.util.SHHelper;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.network.play.server.S2BPacketChangeGameState;
 import net.minecraft.util.MathHelper;

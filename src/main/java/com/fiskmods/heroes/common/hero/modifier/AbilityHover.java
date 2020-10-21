@@ -2,7 +2,7 @@ package com.fiskmods.heroes.common.hero.modifier;
 
 import com.fiskmods.heroes.common.data.SHData;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 
 public class AbilityHover extends Ability
 {
@@ -14,7 +14,7 @@ public class AbilityHover extends Ability
     }
 
     @Override
-    public boolean renderIcon(EntityPlayer player)
+    public boolean renderIcon(PlayerEntity player)
     {
         return SHData.HOVERING.get(player);
     }

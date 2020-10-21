@@ -10,7 +10,7 @@ import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.settings.KeyBinding;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 
 public class KeyPressShapeShiftReset extends KeyPressBase
 {
@@ -20,20 +20,20 @@ public class KeyPressShapeShiftReset extends KeyPressBase
     }
 
     @Override
-    public boolean serverRequirements(EntityPlayer player, InteractionType type, int x, int y, int z)
+    public boolean serverRequirements(PlayerEntity player, InteractionType type, int x, int y, int z)
     {
         return SHData.DISGUISE.get(player) != null && SHData.SHAPE_SHIFT_TIMER.get(player) == 0 && super.serverRequirements(player, type, x, y, z);
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public KeyBinding getKey(EntityPlayer player, Hero hero)
+    public KeyBinding getKey(PlayerEntity player, Hero hero)
     {
         return hero.getKey(player, AbilityShapeShifting.KEY_SHAPE_SHIFT_RESET);
     }
 
     @Override
-    public void receive(EntityPlayer sender, EntityPlayer clientPlayer, InteractionType type, Side side, int x, int y, int z)
+    public void receive(PlayerEntity sender, PlayerEntity clientPlayer, InteractionType type, Side side, int x, int y, int z)
     {
         SHData.SHAPE_SHIFT_TIMER.setWithoutNotify(sender, 1.0F);
         SHData.SHAPE_SHIFTING_FROM.setWithoutNotify(sender, SHData.DISGUISE.get(sender));
@@ -47,7 +47,7 @@ public class KeyPressShapeShiftReset extends KeyPressBase
     }
 
     @Override
-    public TargetPoint getTargetPoint(EntityPlayer player, int x, int y, int z)
+    public TargetPoint getTargetPoint(PlayerEntity player, int x, int y, int z)
     {
         return TARGET_ALL;
     }

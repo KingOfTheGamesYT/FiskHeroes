@@ -18,7 +18,7 @@ import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerCapabilities;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
@@ -77,7 +77,7 @@ public class ASMHooksClient
         }
     }
 
-    public static double getScaledSneakOffset(EntityPlayer player)
+    public static double getScaledSneakOffset(PlayerEntity player)
     {
         return 0.125D;
     }
@@ -119,17 +119,17 @@ public class ASMHooksClient
         return result || intangible && !SHConfig.get().canPhase(block) && SHConfig.get().canPhase(world.getBlock(x, y, z));
     }
 
-    public static float getInventoryPlayerScale(int scale, EntityLivingBase entity)
+    public static float getplayerInventoryScale(int scale, EntityLivingBase entity)
     {
         return scale / ASMHooks.getModifiedEntityScale(entity);
     }
 
-    public static float getInventoryPlayerOffset(int offset, int originalScale, EntityLivingBase entity)
+    public static float getplayerInventoryOffset(int offset, int originalScale, EntityLivingBase entity)
     {
         return offset;
     }
 
-    public static float getInventoryPlayerOffsetPost(int offset, int originalScale, EntityLivingBase entity)
+    public static float getplayerInventoryOffsetPost(int offset, int originalScale, EntityLivingBase entity)
     {
         return entity.yOffset - 1.62F;
     }
@@ -144,7 +144,7 @@ public class ASMHooksClient
         // GL11.glTranslatef(0, 0, 1.62F - mc.thePlayer.width);
     }
 
-    public static boolean renderFirstPersonArm(RenderPlayer render, EntityPlayer player)
+    public static boolean renderFirstPersonArm(RenderPlayer render, PlayerEntity player)
     {
         Render rend = RenderManager.instance.getEntityRenderObject(player);
         RenderPlayerHand renderHand = ClientEventHandler.INSTANCE.renderHandInstance;

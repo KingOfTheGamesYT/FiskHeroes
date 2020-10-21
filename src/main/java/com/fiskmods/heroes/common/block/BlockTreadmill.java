@@ -18,7 +18,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.settings.GameSettings;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
@@ -37,7 +37,7 @@ public class BlockTreadmill extends BlockDirectional implements ITileEntityProvi
     }
 
     @Override
-    public boolean canHarvestBlock(EntityPlayer player, int meta)
+    public boolean canHarvestBlock(PlayerEntity player, int meta)
     {
         return true;
     }
@@ -106,7 +106,7 @@ public class BlockTreadmill extends BlockDirectional implements ITileEntityProvi
     }
 
     @Override
-    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ)
+    public boolean onBlockActivated(World world, int x, int y, int z, PlayerEntity player, int side, float hitX, float hitY, float hitZ)
     {
         if (world.getTileEntity(x, y, z) instanceof TileEntityTreadmill)
         {
@@ -135,7 +135,7 @@ public class BlockTreadmill extends BlockDirectional implements ITileEntityProvi
     }
 
     @SideOnly(Side.CLIENT)
-    public void sendDismountMessageTo(EntityPlayer player)
+    public void sendDismountMessageTo(PlayerEntity player)
     {
         Minecraft mc = Minecraft.getInstance();
 
@@ -172,7 +172,7 @@ public class BlockTreadmill extends BlockDirectional implements ITileEntityProvi
     }
 
     @Override
-    public void onBlockHarvested(World world, int x, int y, int z, int metadata, EntityPlayer player)
+    public void onBlockHarvested(World world, int x, int y, int z, int metadata, PlayerEntity player)
     {
         if (player.capabilities.isCreativeMode && isBlockFrontOfTreadmill(metadata))
         {

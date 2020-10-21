@@ -23,7 +23,7 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -141,7 +141,7 @@ public class FiskServerUtils
         return null;
     }
 
-    public static ItemStack getStackInSlot(EntityPlayer player, int slot)
+    public static ItemStack getStackInSlot(PlayerEntity player, int slot)
     {
         if (slot >= 0 && slot < player.inventory.getSizeInventory())
         {

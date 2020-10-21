@@ -29,7 +29,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -288,7 +288,7 @@ public class BlockDisplayStand extends BlockContainer
     }
 
     @Override
-    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ)
+    public boolean onBlockActivated(World world, int x, int y, int z, PlayerEntity player, int side, float hitX, float hitY, float hitZ)
     {
         if (SHTileHelper.getTileBase(world.getTileEntity(x, y, z)) instanceof TileEntityDisplayStand)
         {
@@ -391,7 +391,7 @@ public class BlockDisplayStand extends BlockContainer
     }
 
     @Override
-    public void onBlockClicked(World world, int x, int y, int z, EntityPlayer player)
+    public void onBlockClicked(World world, int x, int y, int z, PlayerEntity player)
     {
         super.onBlockClicked(world, x, y, z, player);
 
@@ -612,7 +612,7 @@ public class BlockDisplayStand extends BlockContainer
     }
 
     @Override
-    public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z, EntityPlayer player)
+    public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z, PlayerEntity player)
     {
         ItemStack itemstack = super.getPickBlock(target, world, x, y, z, player);
         TileEntityDisplayStand tile = getTile(world, x, y, z);
@@ -626,7 +626,7 @@ public class BlockDisplayStand extends BlockContainer
     }
 
     @Override
-    public boolean removedByPlayer(World world, EntityPlayer player, int x, int y, int z, boolean willHarvest)
+    public boolean removedByPlayer(World world, PlayerEntity player, int x, int y, int z, boolean willHarvest)
     {
         int metadata = world.getBlockMetadata(x, y, z);
 

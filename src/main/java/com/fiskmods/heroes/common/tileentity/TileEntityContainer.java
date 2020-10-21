@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.fiskmods.heroes.util.SHTileHelper;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -208,7 +208,7 @@ public abstract class TileEntityContainer extends TileEntitySH implements IInven
     }
 
     @Override
-    public boolean isUseableByPlayer(EntityPlayer player)
+    public boolean isUseableByPlayer(PlayerEntity player)
     {
         return worldObj.getBlock(xCoord, yCoord, zCoord) == getBlockType() && player.getDistanceSq(xCoord + 0.5D, yCoord + 0.5D, zCoord + 0.5D) <= 64.0D;
     }

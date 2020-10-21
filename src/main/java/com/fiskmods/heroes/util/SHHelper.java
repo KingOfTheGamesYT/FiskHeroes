@@ -54,7 +54,7 @@ import com.google.gson.Gson;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
@@ -241,7 +241,7 @@ public class SHHelper
         }
 
         ItemStack heldItem = entity.getHeldItem();
-        return entity instanceof EntityPlayer && heldItem != null && heldItem.getItem() == ModItems.captainAmericasShield && ((EntityPlayer) entity).isUsingItem() ? 2 : 0;
+        return entity instanceof PlayerEntity && heldItem != null && heldItem.getItem() == ModItems.captainAmericasShield && ((EntityPlayer) entity).isUsingItem() ? 2 : 0;
     }
 
     public static boolean canShieldBlock(EntityLivingBase entity, DamageSource source, int blockingType)
@@ -322,7 +322,7 @@ public class SHHelper
         knockbackWithoutNotify(entity, attacker, amount);
     }
 
-    public static float getDefaultScale(EntityPlayer player)
+    public static float getDefaultScale(PlayerEntity player)
     {
         Hero hero = getHero(player);
 
@@ -393,7 +393,7 @@ public class SHHelper
         }
     }
 
-    public static EnumEquipment getUtilityBelt(EntityPlayer player)
+    public static EnumEquipment getUtilityBelt(PlayerEntity player)
     {
         Hero hero = getHero(player);
 
@@ -419,7 +419,7 @@ public class SHHelper
         return EnumEquipment.FISTS;
     }
 
-    public static boolean shouldOverrideScale(EntityPlayer player, float scale)
+    public static boolean shouldOverrideScale(PlayerEntity player, float scale)
     {
         Hero hero = getHero(player);
         float widthScale = scale;
@@ -442,12 +442,12 @@ public class SHHelper
         return !player.isEntityAlive() || (hero != null || getPrevHero(player) != null || SHData.GLIDING.get(player) || SHData.PREV_GLIDING.get(player) || SHData.SHADOWFORM.get(player) || SHData.PREV_SHADOWFORM.get(player)) && (heightScale != player.height / 1.8F || widthScale != player.width / 0.6F);
     }
 
-    public static boolean shouldOverrideReachDistance(EntityPlayer player)
+    public static boolean shouldOverrideReachDistance(PlayerEntity player)
     {
         return ASMHooks.getModifiedEntityScale(player) > 1;
     }
 
-    public static float getReachDistance(EntityPlayer player, double dist)
+    public static float getReachDistance(PlayerEntity player, double dist)
     {
         if (SHData.isTracking(player))
         {
@@ -459,7 +459,7 @@ public class SHHelper
 //        return (float) (Math.max((ASMHooks.getModifiedEntityScale(player) - 1) * 0.5 + 1, 1) * dist);
     }
 
-    public static void swingOffhandItem(EntityPlayer player)
+    public static void swingOffhandItem(PlayerEntity player)
     {
         ItemStack stack = player.getHeldItem();
 
@@ -480,7 +480,7 @@ public class SHHelper
         }
     }
 
-    public static void setInQuantumRealm(EntityPlayer player)
+    public static void setInQuantumRealm(PlayerEntity player)
     {
         if (player instanceof EntityPlayerMP && !player.worldObj.isRemote)
         {
@@ -532,12 +532,12 @@ public class SHHelper
         }
     }
 
-    public static int getSideStandingOn(EntityPlayer player)
+    public static int getSideStandingOn(PlayerEntity player)
     {
         return 1;
     }
 
-    public static float getStepDownHeight(EntityPlayer player)
+    public static float getStepDownHeight(PlayerEntity player)
     {
         return SpeedsterHelper.canPlayerRun(player) ? 5 : 0;
     }
@@ -623,17 +623,17 @@ public class SHHelper
         return BlockStack.fromItemStack(FurnaceRecipes.smelting().getSmeltingResult(new ItemStack(block, 1, metadata == -1 ? OreDictionary.WILDCARD_VALUE : metadata)));
     }
 
-    public static boolean hasCollectedHero(EntityPlayer player, Hero hero)
+    public static boolean hasCollectedHero(PlayerEntity player, Hero hero)
     {
         return hero != null && hero.getArmorSignature() == SHPlayerData.getData(player).heroCollection.getOrDefault(hero, (byte) 0);
     }
 
-    public static boolean canPlayerSeeMartianInvis(EntityPlayer clientPlayer)
+    public static boolean canPlayerSeeMartianInvis(PlayerEntity clientPlayer)
     {
         return SHData.PENETRATE_MARTIAN_INVIS.get(clientPlayer);
     }
 
-    public static float getInvisibility(EntityPlayer player, EntityPlayer clientPlayer)
+    public static float getInvisibility(PlayerEntity player, PlayerEntity clientPlayer)
     {
         float f = SHData.INVISIBILITY_TIMER.interpolate(player);
         float invis = 1;

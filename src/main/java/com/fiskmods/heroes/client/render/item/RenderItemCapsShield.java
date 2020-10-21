@@ -12,7 +12,7 @@ import com.fiskmods.heroes.common.item.ItemCapsShield;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderItem;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
@@ -41,7 +41,7 @@ public enum RenderItemCapsShield implements IItemRenderer
     @Override
     public void renderItem(ItemRenderType type, ItemStack item, Object... data)
     {
-        EntityPlayer player = Minecraft.getInstance().thePlayer;
+        PlayerEntity player = Minecraft.getInstance().thePlayer;
 
         if (data.length > 1 && data[1] instanceof EntityPlayer)
         {

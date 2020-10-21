@@ -24,7 +24,7 @@ import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.client.renderer.tileentity.TileEntitySkullRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
@@ -705,7 +705,7 @@ public class RenderDisplayMannequinFull extends RenderPlayer
     }
 
     @Override
-    public void renderFirstPersonArm(EntityPlayer player)
+    public void renderFirstPersonArm(PlayerEntity player)
     {
         float f = 1;
         GL11.glColor3f(f, f, f);

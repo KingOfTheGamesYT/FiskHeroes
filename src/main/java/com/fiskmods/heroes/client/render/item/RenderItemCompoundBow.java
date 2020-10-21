@@ -17,7 +17,7 @@ import com.fiskmods.heroes.util.QuiverHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
@@ -45,7 +45,7 @@ public enum RenderItemCompoundBow implements IItemRenderer
     @Override
     public void renderItem(ItemRenderType type, ItemStack item, Object... data)
     {
-        EntityPlayer player = null;
+        PlayerEntity player = null;
         float drawback = 0;
         float horizontal = 0;
 
@@ -145,7 +145,7 @@ public enum RenderItemCompoundBow implements IItemRenderer
         }
     }
 
-    public static void renderArrow(EntityPlayer player, float drawback, float[] end1, float[] end2)
+    public static void renderArrow(PlayerEntity player, float drawback, float[] end1, float[] end2)
     {
         if (player != null && player.isUsingItem())
         {
